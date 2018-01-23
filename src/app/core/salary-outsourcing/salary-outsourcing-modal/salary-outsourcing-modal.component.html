@@ -1,0 +1,11 @@
+<app-batch-operate-result [modal_name]="modal_name" [modal_info]="modal_info"
+                          *ngIf="modal_name === 'batch_operate_result'"></app-batch-operate-result>
+<!--外包转化页弹框-->
+<app-bill-filed-m [modal_name]="modal_name" [modal_info]="modal_info"
+                  *ngIf="modal_name === 'bill_filed'"></app-bill-filed-m>
+<app-salary-support [modal_name]="modal_name" [modal_info]="modal_info"
+                    *ngIf="modal_name === 'salary_support'"></app-salary-support>
+<app-social-assurance-reduce-m [modal_name]="modal_name" [modal_info]="modal_info" [modal_callback]="modal_callback"
+                               *ngIf="modal_name === 'social_assurance_reduce'"
+></app-social-assurance-reduce-m>
+

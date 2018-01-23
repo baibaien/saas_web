@@ -1,0 +1,76 @@
+<div class="my-select" #select>
+    <div class="my-input-mask" [title]="select_status.title"
+         *ngIf="select_status.disabled"></div>
+    <div *ngIf="select_status.options_show" class="my-select-input">
+        <input *ngIf="SelectConfig.async" type="text" id="my_select_input" #input
+               placeholder="{{SelectConfig.placeholder}}"
+               [(ngModel)]="select_status.input" (keyup)="inputKeyUpAsync($event)">
+        <input *ngIf="!SelectConfig.async" type="text" id="my_select_input" #input
+               placeholder="{{SelectConfig.placeholder}}"
+               [(ngModel)]="select_status.input" (keyup)="inputKeyUp($event)">
+        <div class="my-select-icon">
+            <i [class]="SelectConfig?.icon"></i>
+        </div>
+    </div>
+    <div [class.d-hd]="select_status.options_show" class="my-select-input-div h-36"
+         (click)="focusInput()">
+        <div class="d-ib" [class.grey]="!select_status.text"
+             [title]="(select_status.title || SelectConfig.placeholder).toString().length > 10 ? (select_status.title || SelectConfig.placeholder) : ''">
+            {{(select_status.text || SelectConfig.placeholder) | longStringFilter:10}}
+        </div>
+        <div class="my-select-icon">
+            <i [class]="SelectConfig?.icon"></i>
+        </div>
+    </div>
+    <div class="my-mask" (click)="closeSelect(select_status)"
+         *ngIf="select_status.options_show"></div>
+    <div class="my-option-container" #options
+         [class.direction-up]="select_status.direction_up"
+         [class.direction-left]="select_status.direction_left"
+         [class.d-hd]="!select_status.can_show">
+        <div class="my-select-title" *ngIf="SelectConfig?.title">{{SelectConfig?.title}}</div>
+        <div *ngIf="view_data_arr?.length != 0">
+            <div class="option-area" #option_box (scroll)="asyncCheck($event)">
+                <div class="d-tb w-100per">
+                    <ng-container *ngFor="let option of view_data_arr;let i = index">
+                        <div *ngIf="option._status_ != 0"
+                             (mouseenter)="operator.enterOption(i, view_data_arr)"
+                             (mouseleave)="operator.leaveOption(i, view_data_arr)"
+                             (click)="selectOption(option, select_status)"
+                             class="my-option" [class.my-option-focus]="option.focus">
+                            <div class="d-cell padding-offset" [title]="option.name.length > 20 ? option.name : ''">
+                                {{option.name | longStringFilter: 20 || SelectConfig?.placeholder}}
+                            </div>
+                            <div class="d-cell">
+                                <div class="p-l-xl">
+                                    {{option.remark}}
+
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="padding-offset  my-select-href b-t t-c grey" *ngIf="select_status.async">加载中...</div>
+            <div *ngIf="SelectConfig.allow_clear" class="padding-offset b-t my-select-href pointer"
+                 (click)="clearChoose()">清空选中
+            </div>
+            <div class="padding-offset  b-t my-select-href pointer"
+                 *ngIf="SelectConfig.href" (click)="SelectCallBack(select_status, SelectConfig.href)">
+                {{SelectConfig.href_text}}
+            </div>
+
+        </div>
+        <div *ngIf="view_data_arr?.length == 0" class="grey t-c" style="line-height: .3rem;">
+            无数据
+        </div>
+        <div *ngIf="SelectConfig.allow_clear && view_data_arr?.length == 0"
+             class="padding-offset b-t my-select-href pointer"
+             (click)="clearChoose()">清空选中
+        </div>
+        <div class="padding-offset b-t my-select-href pointer"
+             *ngIf="SelectConfig.href && view_data_arr?.length == 0"
+             (click)="SelectCallBack(select_status, SelectConfig.href)">{{SelectConfig.href_text}}
+        </div>
+    </div>
+</div>

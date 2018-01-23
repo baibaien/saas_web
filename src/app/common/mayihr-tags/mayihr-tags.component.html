@@ -1,0 +1,63 @@
+<!--&lt;!&ndash;<div class="clear p-t p-l-xl p-r-xl" *ngIf="only_one_show || data_list.length > 1">&ndash;&gt;-->
+<!--<div class="clear p-t p-l-xl p-r-xl">-->
+    <!--<div *ngIf="length_control !== false">-->
+        <!--<div class="d-ib v-m pointer" style="width: 2%;" *ngIf="row_now !== 0"-->
+             <!--(click)="toggleRow(-1)">-->
+            <!--<i class="icon_backward t-20"></i>-->
+        <!--</div>-->
+        <!--<div class="d-ib" style="width: 93%;">-->
+            <!--<div class="d-ib v-t" *ngFor="let data of all_data[row_now];let i=index;"-->
+                 <!--(click)="chooseData(data)"-->
+                 <!--style="width: 10%;text-align: center;">-->
+        <!--<span [class.year-choose]="data.selected == 1" class="pointer d-ib p-b year-tag">-->
+            <!--{{data.name}}-->
+        <!--</span>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="d-ib v-m pointer" *ngIf="all_data && row_now !== all_data.length - 1 && all_data.length > 1"-->
+             <!--(click)="toggleRow(1)">-->
+            <!--<i class="icon_angle_right t-20"></i>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div *ngIf="length_control === false">-->
+        <!--<div class="d-ib" *ngFor="let data of all_data[row_now];let i=index;"-->
+             <!--[class.m-r]="i !== all_data[row_now].length - 1"-->
+             <!--(click)="chooseData(data)">-->
+        <!--<span [class.year-choose]="data.selected == 1" class="pointer d-ib p-b year-tag">-->
+            <!--{{data.name}}-->
+        <!--</span>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+<div class="lh-50">
+    <div *ngIf="length_control !== false">
+        <div class="d-ib v-m pointer" style="width: 2%;" *ngIf="row_now !== 0"
+             (click)="toggleRow(-1)">
+            <i class="icon_backward t-20"></i>
+        </div>
+        <div class="d-ib" style="width: 93%;">
+            <div class="d-ib" *ngFor="let data of all_data[row_now];let i=index;"
+                 (click)="chooseData(data)"
+                 style="width: 10%;text-align: center;">
+        <span [class.year-choose]="data.selected == 1" class="pointer d-ib year-tag pos-r">
+            {{data.name}}
+        </span>
+            </div>
+        </div>
+        <div class="d-ib v-m pointer" *ngIf="all_data && row_now !== all_data.length - 1 && all_data.length > 1"
+             (click)="toggleRow(1)">
+            <i class="icon_angle_right t-20"></i>
+        </div>
+    </div>
+    <div *ngIf="length_control === false">
+        <div class="d-ib" *ngFor="let data of all_data[row_now];let i=index;"
+             [class.m-r]="i !== all_data[row_now].length - 1"
+             (click)="chooseData(data)">
+        <span [class.year-choose]="data.selected == 1" class="pointer d-ib p-b year-tag">
+            {{data.name}}
+        </span>
+        </div>
+    </div>
+</div>

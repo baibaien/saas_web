@@ -1,0 +1,58 @@
+<div class="p-a-lg" *ngIf="invoice_data">
+    <div class="account-setting-fapiao m-b">
+        <div><span class="t-md">发票信息</span>
+            <span class="pull-right pointer m-r"
+                  (click)="showInvoiceSetting()"><i
+                    class="icon_edit_simple m-r-sm"></i>编辑</span>
+        </div>
+        <div class="p-a p-l-sm clearfix clear" *ngIf="show_status">
+            <div class="half">
+                <ng-container *ngIf="invoice_data.data['fp_type'] != 0">
+                    <div class="form-group clearfix">
+                        <label class="form-label grey">开票抬头</label>
+                        <div class="form-control">
+                            <p>{{ invoice_data.data['title'] || '-'}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group clearfix">
+                        <label class="form-label grey">纳税人识别号</label>
+                        <div class="form-control">
+                            <p>{{ invoice_data.data['tax_number'] }}</p>
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="form-group clearfix">
+                    <label class="form-label grey">发票类型</label>
+                    <div class="form-control">
+                        <p>{{invoice_data.data['fp_type_name'] || '-'}}</p>
+                    </div>
+                </div>
+                <div class="form-group clearfix" *ngIf="invoice_data.data['fp_type'] !== 0">
+                    <label class="form-label grey">特殊开票需求</label>
+                    <div class="form-control">
+                        <p>{{invoice_data.data['fapiao_type_name'] || '-'}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="half p-l" *ngIf="invoice_data.data['fp_type'] != 0">
+                <div class="form-group clearfix">
+                    <label class="form-label grey">收票邮箱</label>
+                    <div class="form-control">
+                        <p>{{ invoice_data.data['email'] || '-'}}</p>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="form-label grey">通知手机</label>
+                    <div class="form-control">
+                        <p>{{ invoice_data.data['mobile'] || '-'}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-a clearfix clear grey" *ngIf="!show_status">无发票信息</div>
+    </div>
+</div>
+<!--发票信息设置end-->
+
+<app-invoice-setting-m [modal_name]="modal_name" [main_setting]="modal_info" *ngIf="modal_name === 'invoice_setting_m'"
+                       [modal_callback]="modal_callback"></app-invoice-setting-m>

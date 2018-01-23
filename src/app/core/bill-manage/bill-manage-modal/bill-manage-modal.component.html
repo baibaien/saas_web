@@ -1,0 +1,7 @@
+<app-order-send-m [modal_name]="modal_name" [modal_info]="modal_info"
+                  *ngIf="modal_name === 'order_send_m'"></app-order-send-m>
+<app-bill-detail-m [modal_name]="modal_name" [modal_info]="modal_info"
+                   *ngIf="modal_name === 'bill_detail_m'"></app-bill-detail-m>
+<app-invoice-setting-m [modal_name]="modal_name" [main_setting]="modal_info"
+                       [modal_callback]="modal_callback"
+                       *ngIf="modal_name === 'invoice_setting_m'"></app-invoice-setting-m>

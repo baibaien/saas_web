@@ -1,0 +1,155 @@
+<div class="index-body">
+  <app-saas-index-header></app-saas-index-header>
+  <div class="section section1">
+    <div style="padding-top:1.8rem;padding-bottom:3.2rem;">
+      <h1 class="t-48 t-c m-b white mobile-t36">产品价格</h1>
+      <p class="t-c white pc-view t-24">透明的价格体系，按照企业人数收费</p>
+      <p class="mobile-t30 mobile-view t-c white">透明的价格体系，按照企业<br/>人数收费</p>
+    </div>
+  </div>
+  <div class="section section2">
+    <div class="index-container">
+      <div class="center-block">
+        <div class="d-ib block">
+          <img src="./assets/index/price/navbar1.png" alt="">
+          <p class="t-24">人事外包</p>
+        </div>
+        <div class="d-ib block">
+          <img src="./assets/index/price/navbar2.png" alt="">
+          <p class="t-24">人事系统</p>
+        </div>
+        <div class="d-ib block">
+          <img src="./assets/index/price/navbar3.png" alt="">
+          <p class="t-24">工资条群发</p>
+        </div>
+      </div>
+      <div [formGroup]="price">
+        <h3 class="t-30 m-b t-c">人事外包</h3>
+        <p class="text-grey m-b-lg t-c">使用人事外包业务的客户，可免费使用人事系统</p>
+        <div class="t-c m-b-xl calc" style="font-size:0;">
+          <p class="mobile-view b-green t-c white mobile-t28 p-a-sm">费用预估</p>
+          <div class="d-ib w-300 m-r-lg">
+            <div class="t-28 b-green white p-l p-r p-t-sm p-b-sm price">基础服务费</div>
+            <div class="bg-white p-a">
+              <div class="m-b-xs t-l">
+                <label class="t-md mobile-t28 ui-check">
+                  <input type="radio" formControlName="user_type"
+                         value="100">
+                  <i class="icon_ui"></i>
+                  大户代缴100元/月
+                </label>
+              </div>
+              <div class="m-b-xs t-l">
+                <label class="t-md mobile-t28 ui-check">
+                  <input type="radio" formControlName="user_type"
+                         value="200">
+                  <i class="icon_ui"></i>
+                  小户托管200元/月
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="d-ib w-300">
+            <div class="t-28 b-green white p-l p-r p-t-sm p-b-sm price">人头费</div>
+            <div class="bg-white p-a">
+              <div class="m-b-xs t-l">
+                <label class="t-md mobile-t28 ui-check">
+                  <input type="checkbox" value="20"
+                         formControlName="social">
+                  <i class="icon_ui"></i>
+                  代缴社保/公积金20元/月
+                </label>
+              </div>
+              <div class="m-b-xs t-l">
+                <label class="t-md mobile-t28 ui-check">
+                  <input type="checkbox" value="10"
+                         formControlName="salary">
+                  <i class="icon_ui"></i>
+                  代发工资/个税申报10元/月
+                </label>
+              </div>
+              <div class="mobile-view m-b-xs t-l p-b">
+                <span class="d-ib m-t-xs t-md mobile-t28">人数</span>
+                <input type="number" formControlName="num" placeholder="填写人数" class="pull-right t-r">
+              </div>
+            </div>
+          </div>
+          <div class="mobile-view">
+            <p class="t-28  p-l p-r p-t-sm p-b-sm t-c price">每月费用</p>
+            <div  class="bg-white p-a t-c">
+              <p style="font-size:36px;" class="bold m-b t-c p-t">{{total_price}}</p>
+              <button class="index-btn b-green btn white d-ib mobile-t28 m-b" (click)="calcMoney(price.get('num').value, price.get('user_type').value, price.get('social').value)" >计算</button>
+            </div>
+          </div>
+        </div>
+        <div class="pc-view">
+          <div style="width: 1000px;margin: 0 auto;">
+            <app-index-calc class="w-100per" [company_money]="price.get('user_type').value"
+                            [costumer_money]="customer_money"></app-index-calc>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="section section3 bg-white">
+    <div class="index-container">
+      <p class="t-c t-28 m-b">人事系统</p>
+      <p class="text-grey m-b-lg t-c">不需要人事外包业务的客户，也可单独购买人事系统</p>
+      <div>
+        <span class="d-ib index-btn reverse t-lg index-green mobile-t30">60元/人/年</span>
+      </div>
+    </div>
+  </div>
+  <div class="section section4">
+    <div class="index-container">
+      <p class="t-c t-28 m-b">工资条群发</p>
+      <p class="text-grey m-b-lg t-c">专注工资条群发服务，支持单独购买</p>
+      <table>
+        <thead>
+        <tr>
+          <th style="width:15%;">套餐</th>
+          <th>员工数量</th>
+          <th>价格</th>
+          <th>说明</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="index-green">A</td>
+          <td>1-100人</td>
+          <td>¥800元/年</td>
+          <td>含1800条工资条</td>
+        </tr>
+        <tr>
+          <td class="index-green">B</td>
+          <td>101-200人</td>
+          <td>¥1200元/年</td>
+          <td>含3600条工资条</td>
+        </tr>
+        <tr>
+          <td class="index-green">C</td>
+          <td>201-300人</td>
+          <td>¥1600元/年</td>
+          <td>含5400条工资条</td>
+        </tr>
+        <tr>
+          <td class="index-green">D</td>
+          <td>301-400人</td>
+          <td>¥2000元/年</td>
+          <td>含7200条工资条</td>
+        </tr>
+        <tr>
+          <td class="index-green">E</td>
+          <td>400人以上</td>
+          <td>每增加100人，增加400元/年</td>
+          <td>含员工数量上限*18条工资条</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <app-saas-index-consult></app-saas-index-consult>
+  <app-saas-index-sign></app-saas-index-sign>
+  <app-saas-index-footer></app-saas-index-footer>
+</div>

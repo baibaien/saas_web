@@ -1,0 +1,155 @@
+body {
+    overflow: auto;
+}
+.modal {
+    overflow: auto;
+}
+.label {
+    color:#fff;
+    background: #33ac37;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+.form-label {
+    float:left;
+    width: 1.2rem;
+}
+.form-control {
+    margin-left: 1.2rem;
+}
+.half {
+    width:50%;
+    float:left;
+    word-break: break-all;
+}
+.accout-pic .upload {
+    border: 1px solid #eaeaea;
+    border-radius:3px;
+    height: .7rem;
+}
+.account-pic d-ib {
+    width: .9rem;
+    margin-right: .01rem;
+}
+.tab input{
+    -webkit-appearance: none;
+    width:0;
+    height:0;
+    opacity: 0;
+    position: absolute;
+    left:0;
+    z-index: -1;
+}
+
+.tab .active {
+    position: relative;
+    color: #5b5b5b;
+}
+.tab .active:after {
+    content: "";
+    position: absolute;
+    left:0;
+    right:0;
+    bottom: -.18rem;
+    border-bottom:4px solid #64c24d;
+}
+
+.list-item {
+    padding-top: .1rem ;
+    padding-bottom: .1rem ;
+}
+.address-list .list-item:nth-child(even) {
+    background: rgba(80,80,80, 0.05);
+}
+.address-operate {
+    display: none;
+}
+.list-item:hover > .address-operate {
+    display: inline-block;
+}
+.picture-wrapper .li {
+    margin-right: .15rem;
+    display: inline-block;
+}
+
+.picture-wrapper .li p {
+    font-size: 12px;
+    top: 50%;
+    width: 100%;
+    margin-top: -6px;
+}
+.picture-wrapper .li p i {
+    color: #999999;
+    font-size: 16px;
+}
+
+.picture-wrapper .li .picture-mask {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+    z-index: 10;
+    display:none;
+}
+
+.picture-wrapper .li:hover .picture-mask.uploaded {
+    display: block;
+}
+
+.picture-wrapper .li .picture-mask .delete-btn {
+    top: 50%;
+    margin-top: -8px;
+    width: 100%;
+    text-align: center;
+    color:#fff;
+    cursor:pointer;
+}
+
+.picture-wrapper .li .id-bg, .picture-wrapper .li .id-reverse-bg, .picture-wrapper .li .white-bg {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #f2f2f2;
+}
+
+.picture-wrapper .li .id-bg, .picture-wrapper .li .id-reverse-bg {
+    width: 1.1rem;
+    height: 1.35rem;
+
+}
+
+
+.picture-tip .li{
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+.picture-wrapper input {
+    width: 100%;
+    height: 100%;
+}
+.picture-wrapper .picture {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 2;
+}
+
+
+
+
+
+
+
+.year-choose {
+    padding-bottom: .1rem;
+    border-bottom: 5px solid green;
+}
+
+.year-tag:hover {
+    padding-bottom: .1rem;
+    border-bottom: 5px solid green;
+}

@@ -1,0 +1,17 @@
+<div class="modal in modal-lg" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog" *ngIf="modal_info">
+        <div class="modal-content">
+            <div class="modal-header b-b p-a">
+                <div class="t-md">{{modal_info.title}}</div>
+                <div class="t-sm grey">{{modal_info.create_time}}</div>
+            </div>
+            <div class="modal-body p-a h-min-500" [innerHtml]="modal_info.content">
+            </div>
+        </div>
+        <div style="margin-top: .6rem;"></div>
+        <div class="modal-footer b-t t-r pointer clearfix lh-60 p-r-lg pos-a" style="bottom: 0;width: 100%;">
+            <div (click)="cancelModal()">关闭</div>
+        </div>
+    </div>
+</div>

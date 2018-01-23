@@ -1,0 +1,136 @@
+table {
+    table-layout: fixed;
+    width: 100%;
+    white-space: nowrap;
+    text-align: center;
+}
+
+thead tr th {
+    text-align: center;
+    font-weight: 100;
+    font-size: 0.12rem;
+    color: rgba(80, 80, 80, 0.8) !important;
+    background: #f3f3f3;
+}
+
+thead tr {
+    font-weight: 100;
+    font-size: 0.12rem;
+    color: rgba(80, 80, 80, 0.4);
+    background: #f3f3f3;
+    border: none;
+}
+
+tbody {
+    padding-left: .2rem;
+}
+
+tr {
+    border-bottom: 1px solid #eaeaea;
+}
+
+th {
+    box-sizing: border-box;
+    height: .3rem;
+    line-height: .3rem;
+}
+
+/*td:hover {*/
+    /*cursor: pointer;*/
+/*}*/
+
+.hover_show:after {
+    color: rgba(208, 208, 208, 0.7);
+}
+
+tr:hover .hover_show:after {
+    color: rgba(208, 208, 208, 0.7);
+}
+
+.choose-status {
+    height: .5rem;
+}
+.choose-status>span>span {
+    line-height: .5rem;
+}
+.choose-status>span>i {
+    line-height: .5rem;
+}
+.bill-detail {
+    padding: .05rem 0 .1rem 0;
+}
+.bill-detail > div{
+    color: gray;
+}
+.bill-list-table td, .bill-list-table th {
+    text-align: center !important;
+}
+.bill-list-table td {
+    cursor: pointer;
+}
+.bill-list-table tr {
+    border-bottom: 1px solid #eaeaea;
+}
+
+.bill-list-table th {
+    text-align: left;
+
+}
+
+.bill-list-table td > div{
+    padding: .2rem 0 .1rem 0;
+}
+
+.bill-list-table th:first-child {
+    width: 0.45rem;
+}
+.bill-list-table td:first-child {
+    line-height: .6rem;
+    height: .6rem;
+}
+.bill-list-table tr th:nth-child(2) {
+    text-align: left !important;
+    width: 2.5rem;
+}
+
+.bill-list-table tr td:nth-child(2) {
+    text-align: left !important;
+    width: 2.5rem;
+}
+
+.bill-list-table tr th:nth-child(6) {
+    text-align: right !important;
+    width: 2.5rem;
+}
+
+.bill-list-table tr td:nth-child(6) {
+    text-align: right !important;
+    width: 2.5rem;
+}
+
+.bill-list-table th:last-child {
+    width: .5rem;
+}
+input:checked + .hover_show:after {
+    color: #33ac37;
+}
+
+.payable th:last-child {
+    width: .7rem;
+}
+.page-footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    height: .5rem;
+    margin-top: .5rem;
+}
+.page-footer > div {
+    line-height: .5rem;
+}
+.pos-adjust {
+    margin-top: .5rem;
+}
+
+/*待支付订单*/
+

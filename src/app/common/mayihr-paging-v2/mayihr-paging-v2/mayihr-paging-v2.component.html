@@ -1,0 +1,46 @@
+<div style="width: 100%;" *ngIf="paging_config">
+    <div *ngIf="(paging_config?.small_paging && page_info?.total > 10) || (!paging_config?.small_paging)">
+        <div class="pos-adjust"></div>
+        <div class="paging-box b-t" *ngIf="page_info && page_info?.total_pages > 0">
+            <div class="paging-content clearfix" [class.t-c]="paging_config?.small_paging">
+                <div class="d-ib lh-60" *ngIf="!paging_config?.small_paging">
+                    <div class="d-ib grey">共{{page_info?.total}}条记录</div>
+                    <span class="pointer" (click)="showAll()"
+                          *ngIf="!is_all_display && page_info?.total > 10">显示全部</span>
+                    <span class="pointer" (click)="hideAll()"
+                          *ngIf="is_all_display">收起全部</span>
+                </div>
+                <div class="page-control-box d-ib pull-right"
+                     [class.w-100per]="paging_config?.small_paging"
+                     *ngIf="page_info?.total > 10">
+                    <div *ngIf="!paging_config?.small_paging">每页{{page_info?.per_page === 1000 ? '' :
+                        page_info?.per_page}}条记录
+                    </div>
+                    <div style="cursor: auto;" [class.pointer]="current_page != 1">
+                        <i class="icon_previous v-m" (click)="toPage(1)"></i>
+                    </div>
+                    <div [class.pointer]="current_page != 1">
+                        <i class="icon_left_triangle v-m" (click)="toPage(page_info?.current_page - 1)"></i>
+                    </div>
+                    <div>
+                        <div class="page-input">
+                            <span class="p-r-xs">第</span>
+                            <input type="text" [(ngModel)]="current_page"
+                                   style="text-align: center; vertical-align: middle;line-height: normal;"
+                                   (keyup.enter)="toPage(current_page)">
+                            <span class="p-l-xs">页</span>
+                        </div>
+                        <span> 共{{page_info?.total_pages}}页</span>
+                    </div>
+                    <div [class.pointer]="current_page != page_info?.total_pages"
+                         (click)="toPage(page_info?.current_page + 1)">
+                        <i class="icon_right_triangle v-m"></i></div>
+                    <div [class.pointer]="current_page != page_info?.total_pages">
+                        <i class="icon_next v-m"
+                           (click)="toPage(page_info?.total_pages)"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

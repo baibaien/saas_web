@@ -1,0 +1,191 @@
+<div class="index-body">
+  <app-saas-index-header></app-saas-index-header>
+  <div class="section section1">
+    <div style="padding-top:1.8rem;padding-bottom:3.2rem;">
+      <h1 class="t-48 t-c m-b white mobile-t36">人力资源系统</h1>
+      <p class="t-c white t-24 pc-view">提供您工作所需的一切，让日常事务性的工作更高效的运转</p>
+      <p class="t-c white mobile-t28 mobile-view">提供您工作所需的一切，<br/>让日常事务性的工作更高效的运转</p>
+    </div>
+  </div>
+  <div class="section section2 ">
+    <div class="index-container">
+      <div class="center-block">
+        <div class="d-ib block" [class.active]="type === 0" (click)="toggleType(0)">
+          <img src="/assets/index/product-system/xinzifuli.png" alt="">
+          <p class="t-24">薪资福利</p>
+        </div>
+        <div class="d-ib block" [class.active]="type === 1" (click)="toggleType(1)">
+          <img src="/assets/index/product-system/jiaqiguanli.png" alt="">
+          <p class="t-24">假勤管理</p>
+        </div>
+        <div class="d-ib block" [class.active]="type === 2" (click)="toggleType(2)">
+          <img src="/assets/index/product-system/yuangongguanli.png" alt="">
+          <p class="t-24">员工管理</p>
+        </div>
+        <div class="d-ib block" [class.active]="type === 3" (click)="toggleType(3)">
+          <img src="/assets/index/product-system/xiaolvgongju.png" alt="">
+          <p class="t-24">效率工具</p>
+        </div>
+      </div>
+      <!--薪酬福利 -->
+      <div class="clearfix" *ngIf="type === 0">
+        <div class="pull-right m-l  w-300 p-t-lg d-ib">
+          <h2 class="t-40 index-green m-b  m-t">_自动计薪</h2>
+          <p class="t-20">免去手动导入各种表单，自动抓取后台各项数据，支持月中调薪</p>
+        </div>
+        <img src="/assets/index/product-system/xinzifuli/zidongjixin.png" alt="" class="product-exp"
+             style="width:8.3rem;height:5.3rem">
+      </div>
+      <!--薪酬福利 -->
+      <!--假勤管理-->
+      <div class="clearfix" *ngIf="type === 1">
+        <div class="pull-right m-l  w-300 d-ib">
+          <h2 class="t-40 index-green m-b m-t p-t-lg">_请假缺勤</h2>
+          <p class="t-20">可以支持多种请假类别，自动折算捐款</p>
+        </div>
+        <img src="/assets/index/product-system/jiaqinguanli/qingjiaqueqin.png" alt="" class="product-exp"
+             style="width:8.3rem;height:5.3rem">
+      </div>
+      <!--假勤管理-->
+      <!--员工管理-->
+      <div class="clearfix" *ngIf="type === 2">
+        <div class="pull-right m-l  w-300 p-t-lg">
+          <h2 class="t-40 index-green m-b m-t">_员工档案</h2>
+          <p class="t-20">告别纸质档案，所有员工信息电子化管理，方便查看搜索</p>
+        </div>
+        <img src="/assets/index/product-system/yuangongguanli/yuangongdangan.png" alt="" class="product-exp"
+             style="width:8.3rem;height:5.3rem">
+      </div>
+      <!--员工管理-->
+      <!--效率工具-->
+      <div class="clearfix" *ngIf="type === 3">
+        <div class="pull-right m-l w-300 p-t-lg">
+          <h2 class="t-40 index-green m-b m-t">_常用文档</h2>
+          <p class="t-20">内置80+ 常用文档，帮助团队更高效便捷的展开工作</p>
+        </div>
+        <img src="/assets/index/product-system/xiaolvgongju/section2.png" alt="" class="product-exp " style="width:8.3rem;height:5.3rem">
+      </div>
+      <!--效率工具-->
+    </div>
+  </div>
+  <div class="section section3 bg-white">
+    <div class="index-container">
+      <!--薪酬福利 -->
+      <div class="clearfix" *ngIf="type === 0">
+        <div class="w-300 m-r d-ib p-t-lg">
+          <h2 class="t-40 index-green  m-b m-t">_社保办理</h2>
+          <p class="t-20">实时提供各地官方社保政策，在线即可一键代缴</p>
+        </div>
+        <img src="/assets/index/product-system/xinzifuli/shebaobanli.png" alt=""
+             class="product-exp pull-right m-l" style="width:8.3rem;height:5.3rem">
+
+      </div>
+      <!--薪酬福利 -->
+      <!--假勤管理 -->
+      <div class="clearfix" *ngIf="type === 1">
+        <div class="w-300 m-r d-ib p-t-lg">
+          <h2 class="t-40 index-green m-b m-t">_加班管理</h2>
+          <p class="t-20">编辑管理加班记录，根据配置可自动生成假期记录或加班工资</p>
+        </div>
+        <img src="/assets/index/product-system/jiaqinguanli/jiabanguanli.png" alt=""
+             class="product-exp pull-right m-l" style="width:8.3rem;height:5.3rem">
+
+      </div>
+      <!--假勤管理 -->
+      <!--员工管理-->
+      <div class="clearfix" *ngIf="type === 2">
+        <div class="w-300 m-r d-ib">
+          <h2 class="t-40 index-green m-b  m-b m-t">_员工动态</h2>
+          <p class="t-20">详尽记录员工人事变动轨迹，社保公积金缴纳、福利变化情况</p>
+        </div>
+        <img src="/assets/index/product-system/yuangongguanli/yuangongdongtai.png" alt=""
+             class="product-exp pull-right m-l" style="width:8.3rem;height:5.3rem">
+      </div>
+      <!--员工管理-->
+      <!--效率工具-->
+      <div class="clearfix" *ngIf="type === 3">
+        <div class="w-300 m-r p-t-lg d-ib">
+          <h2 class="t-40 index-green  m-b m-t">_计算器</h2>
+          <p class="t-20">根据最新政策及时调整，在线准确计算五险一金的缴费金额</p>
+        </div>
+        <img src="/assets/index/product-system/xiaolvgongju/section3.png" alt="" class="product-exp " style="width:8.3rem;height:5.3rem">
+      </div>
+      <!--效率工具-->
+    </div>
+  </div>
+  <div class="section section4 ">
+    <div class="index-container">
+      <!--薪酬福利 -->
+      <div class="clearfix" *ngIf="type === 0">
+        <div class="pull-right m-l w-300 p-t-lg">
+          <h2 class="t-40 index-green  m-b m-t">_商业保险</h2>
+          <p class="t-20">企业最有价值的员工福利，还能有效防范企业用工风险</p>
+        </div>
+        <img src="/assets/index/product-system/xinzifuli/shangyebaoxian.png" alt="" class="product-exp "
+             style="width:8.3rem;height:5.3rem">
+
+      </div>
+      <!--假勤管理-->
+      <div class="clearfix" *ngIf="type === 1">
+        <div class="w-300 m-l pull-right p-t-lg">
+          <h2 class="t-40 index-green  m-b m-t">_假期账户</h2>
+          <p class="t-20">记录、追踪和管理年假、调休假的到期时间，到期自动删除</p>
+        </div>
+        <img src="/assets/index/product-system/jiaqinguanli/jiaqizhanghu.png" alt="" class="product-exp m-r"
+             style="width:8.3rem;height:5.3rem">
+      </div>
+      <!--假勤管理-->
+      <!--员工管理-->
+      <div class="clearfix" *ngIf="type === 2">
+        <div class="w-300 m-l pull-right p-t-lg">
+          <h2 class="t-40 index-green  m-b m-t">_员工自助</h2>
+          <p class="t-20">员工可在移动端查看编辑自身信息，随时随地查看工资明细</p>
+        </div>
+        <img src="/assets/index/product-system/yuangongguanli/yuangongzizhu.png" alt="" class="product-exp m-r"
+             style="width:8.3rem;height:5.3rem">
+
+      </div>
+      <!--员工管理-->
+      <!--效率工具-->
+      <div class="clearfix" *ngIf="type === 3">
+        <div class="w-300 m-l pull-right p-t-lg">
+          <h2 class="t-40 index-green  m-b m-t">_工资条群发</h2>
+          <p class="t-20">提交任意格式EXCEL工资表，一键轻松群发工资条</p>
+        </div>
+        <img src="/assets/index/product-system/xiaolvgongju/section4.png" alt="" class="product-exp m-r" style="width:8.3rem;height:5.3rem">
+      </div>
+      <!--效率工具-->
+    </div>
+  </div>
+  <div class="section section5 bg-white" *ngIf="type === 2">
+    <div class="index-container">
+      <!--员工管理-->
+      <div class="clearfix">
+        <div class="w-300 m-r p-t-lg d-ib">
+          <h2 class="t-40 index-green  m-b m-t">_员工合同</h2>
+          <p class="t-20">自动生成用工合同，跟踪和管理员工合同有效期，续约自动提醒</p>
+        </div>
+        <img src="/assets/index/product-system/yuangongguanli/hetong.png" alt="" class="product-exp m-l pull-right" style="width:8.3rem;height:5.3rem">
+      </div>
+      <!--员工管理-->
+    </div>
+  </div>
+  <div class="section section6" *ngIf="type === 2">
+    <div class="index-container">
+      <!--员工管理-->
+      <div class="clearfix">
+        <div class="pull-right m-l w-300 p-t-lg">
+          <h2 class="t-40 index-green m-b m-t">_离职手续</h2>
+          <p class="t-20">辅助人事自动进行员工薪资福利结算，做好行政交接</p>
+        </div>
+        <img src="/assets/index/product-system/yuangongguanli/lizhishouxu.png" alt="" class="product-exp "
+             style="width:8.3rem;height:5.3rem">
+
+      </div>
+      <!--员工管理-->
+    </div>
+  </div>
+  <app-saas-index-consult></app-saas-index-consult>
+  <app-saas-index-sign></app-saas-index-sign>
+  <app-saas-index-footer></app-saas-index-footer>
+</div>

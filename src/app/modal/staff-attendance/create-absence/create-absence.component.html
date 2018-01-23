@@ -1,0 +1,148 @@
+<div *ngIf="modal_name" class="modal in" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="shadowCancel()"></div>
+    <div class="modal-dialog" style="max-height: 9rem;">
+        <div class="modal-content">
+            <div class="modal-header b-b p-a">
+                <div class="t-md">
+                    <ng-container
+                            *ngIf="!(modal_info && this.modal_info.hasOwnProperty('start_time') && this.modal_info?.is_edit)">
+                        记录
+                    </ng-container>
+                    <ng-container
+                            *ngIf="modal_info && this.modal_info.hasOwnProperty('start_time') && this.modal_info?.is_edit">
+                        编辑
+                    </ng-container>
+                    请假/缺勤
+                </div>
+                <p class="t-sm grey">请假缺勤记录将自动消耗年假或扣除薪水</p>
+            </div>
+            <div class="modal-body p-a" style="margin:0 .1rem;">
+                <form [formGroup]="absence" *ngIf="absence">
+                    <div class="p-b">
+                        <div class="d-ib w-200 pos-r">
+                            <label class="p-b-xs d-b grey">员工</label>
+                            <mayihr-select [SelectData]="staff_outline" formControlName="yg_id"
+                                           [SelectConfig]="staff_select_config"
+                                           (RefreshValue)="refreshValue($event, absence.get('start_time').value)"></mayihr-select>
+                        </div>
+                        <div class="d-ib error error_info"
+                             *ngIf="(absence.hasError('required', ['yg_id']) && !absence.get('yg_id').untouched)
+                                    || (absence.get('yg_id').untouched && before_submit)">
+                            请选择员工
+                        </div>
+                    </div>
+                    <div class="b-t clear">
+                        <div class="pull-right p-r p-t-sm">
+                            <span class="gray d-ib p-r-xs">多个工作日</span>
+                            <div class="d-ib v-m">
+                                <label class="slide on">
+                                    <input type="checkbox" value="1" formControlName="days" name="is_buy">
+                                    <i class="slide-switch"></i>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="p-t d-ib p-b-xs grey">
+                                <span *ngIf="!absence.get('days').value">发生</span><span
+                                    *ngIf="absence.get('days').value">开始</span>日期</label>
+                            <div class="w-200">
+                                <mayihr-datepicker formControlName="start_time" [options]="start_time_options"
+                                                   (changeValue)="changeStartTime($event)"></mayihr-datepicker>
+                            </div>
+                        </div>
+
+                        <div class="p-b" *ngIf="!(absence.get('days').value)">
+                            <label class="p-t-sm d-b p-b-xs grey">时长</label>
+                            <div>
+                                <div class="d-ib">
+                                    <div class="d-ib w-100 v-m ">
+                                        <mayihr-select formControlName="duration"
+                                                       [SelectData]="duration"
+                                                       [SelectConfig]="{type: 2, placeholder: '选择时长'}">
+                                        </mayihr-select>
+                                    </div>
+                                </div>
+                                <label (click)="durationToggle(time_type)" class="ui-check p-l-sm"
+                                       style="line-height: .36rem;">
+                                    <input name="time_type" type="radio" value="0"
+                                           formControlName="time_type" #time_type><i class="icon_ui v-m"></i>
+                                    <span class="t v-m p-l-xs">小时</span>
+                                </label>
+                                <label (click)="durationToggle()" class="ui-check p-l-sm">
+                                    <input name="time_type" type="radio" value="1"
+                                           formControlName="time_type"><i class="icon_ui v-m"></i>
+                                    <span class="t v-m p-l-xs">全天</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div *ngIf="absence.get('days').value" class="p-b">
+                            <label class="p-t-sm d-b p-b-xs grey">终止日期</label>
+                            <div>
+                                <div class="v-m d-ib w-200">
+                                    <mayihr-datepicker formControlName="end_time" [options]="end_time_options"
+                                                       (changeValue)="changeEndTime($event)"></mayihr-datepicker>
+                                </div>
+                                <div class="v-m d-ib line-height-36 grey p-l-xs">
+                                    {{total_work}}个工作日
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grey p-b" *ngIf="absence.get('days').value">
+                            若添加的记录跨月，则自动按月拆分
+                        </div>
+                    </div>
+                    <div class="p-b p-t b-t">
+                        <label class="ui-check p-l-sm" style="line-height: .36rem;">
+                            <input name="payroll_quote" type="radio" checked="checked" formControlName="payroll_quote"
+                                   value="2"><i class="icon_ui v-m"></i>
+                            <span class="t v-m p-l-xs">带薪假</span>
+                        </label>
+                        <label class="ui-check p-l-sm">
+                            <input name="payroll_quote" type="radio" formControlName="payroll_quote" value="1"><i
+                                class="icon_ui v-m"></i>
+                            <span class="t v-m p-l-xs">无薪假</span>
+                        </label>
+                        <div *ngIf="absence.get('payroll_quote').value !=='1'">
+                            <div>
+                                <div class="d-ib w-200 v-m">
+                                    <mayihr-select formControlName="type_id"
+                                                   [SelectData]="holiday_type"
+                                                   [SelectConfig]="{type: 2}"></mayihr-select>
+                                </div>
+                                <span style="line-height: .36rem;" class="p-l grey"
+                                      *ngIf="absence.get('type_id').value[0].id == '13'">当前余额: {{holiday_time | hourToDay:2}}</span>
+                            </div>
+                            <div class="p-t" *ngIf="absence.get('type_id').value[0].id == 15">
+                                <div class="d-ib w-200">
+                                    <mayihr-select formControlName="rate"
+                                                   [SelectData]="rate"
+                                                   [SelectConfig]="{type: 2}"></mayihr-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="b-t p-t">
+                        <label for="remark" class="p-b-xs d-ib grey">备注</label>
+                        <textarea name="" id="remark" cols="20" rows="1" style="height: .5rem;" maxlength="200"
+                                  formControlName="remark" placeholder="点此添加备注"></textarea>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal_footer t-r p-a b-t">
+            <div *ngIf="modal_info && this.modal_info.hasOwnProperty('duration') && this.modal_info.is_delete"
+                 class="pull-left pointer" (click)="deleteRecord()"><i class="icon_delete m-r-sm v-m"></i>
+                <span class="v-m">删除</span>
+            </div>
+            <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" data-dismiss="modal"
+                    (click)="cancelAbsence()">取消
+            </button>
+            <button type='button' class="btn btn-sm v-m" (click)="createAbsence()"
+                    *ngIf="!modal_info || (modal_info && modal_info.duration === undefined)">添加请假记录
+            </button>
+            <button type='button' class="btn btn-sm v-m" (click)="editAbsence()"
+                    *ngIf="modal_info && modal_info.duration !== undefined">确认修改
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,132 @@
+<div class="p-l-lg p-r-lg b-b" *ngIf="!!general_settings && !!changeForm">
+    <form [formGroup]="changeForm">
+        <div class="p-l-lg p-t-xl staff-change-block p-b-lg b-b" formGroupName="general_msg">
+            <div class="p-b-lg">
+                <label class="grey">岗位</label>
+                <div class="d-ib w-250 v-m">
+                    <mayihr-select [SelectData]="general_settings['yg_zhiwei'] || []"
+                                   [SelectConfig]="position_select_config"
+                                   formControlName="yg_zhiwei"></mayihr-select>
+                </div>
+                <div class="d-ib v-m grey">
+                    <span class="p-l-lg">当前：{{ batch?.yg_zhiwei_name || batch.yg_zhiwei_name || '-'}}</span>
+                </div>
+            </div>
+
+            <div class="p-b-lg">
+                <label class="grey">雇佣类型</label>
+                <div class="d-ib w-250 v-m">
+                    <mayihr-select [SelectData]="general_settings['yg_hire_type'] || []"
+                                   [SelectConfig]="{placeholder: default_text}"
+                                   formControlName="yg_hire_type"></mayihr-select>
+                </div>
+                <div class="d-ib v-m grey">
+                    <span class="p-l-lg">当前：{{ batch?.yg_hire_type_name || batch.yg_hire_type_name || '-'}}</span>
+                </div>
+            </div>
+            <div class="p-b-lg">
+                <label class="grey">合同公司</label>
+                <div class="d-ib v-m w-250">
+                    <mayihr-select [SelectData]="general_settings['yg_con_com_id'] || []"
+                                   [SelectConfig]="contract_select_config"
+                                   formControlName="yg_con_com_id">>
+                    </mayihr-select>
+                </div>
+                <div class="d-ib v-m grey">
+                    <span class="p-l-lg">当前：{{ batch?.yg_con_com_id_name || batch.yg_con_com_id_name || '-'}}</span>
+                </div>
+            </div>
+            <div class="p-b-lg">
+                <label class="grey">部门</label>
+                <div class="d-ib v-m w-250">
+                    <mayihr-select [SelectData]="general_settings['yg_org_id'] || []"
+                                   [SelectConfig]="department_select_config"
+                                   formControlName="yg_org_id">>
+                    </mayihr-select>
+                </div>
+                <div class="d-ib v-m grey">
+                    <span class="p-l-lg">当前：{{ batch?.yg_org_id_name || batch.yg_org_id_name || '-'}}</span>
+                </div>
+
+            </div>
+
+            <div class="p-b-lg">
+                <label class="grey">办公地点</label>
+                <div class="d-ib v-m w-250">
+                    <mayihr-select [SelectData]="general_settings['yg_office'] || []"
+                                   [SelectConfig]="office_select_config"
+                                   formControlName="yg_office">>
+                    </mayihr-select>
+                </div>
+                <div class="d-ib v-m grey">
+                    <span class="p-l-lg">当前：{{ batch?.yg_office_name || batch.yg_office_name || '-'}}</span>
+                </div>
+            </div>
+
+            <div class="p-b-xxl">
+                <label class="grey">汇报对象</label>
+                <div class="d-ib v-m w-250">
+                    <mayihr-select [SelectData]="general_settings['leader_id'] || []"
+                                   [SelectConfig]="{placeholder: default_text, allow_clear: true}"
+                                   formControlName="leader_id">>
+                    </mayihr-select>
+                </div>
+                <div class="d-ib v-m grey">
+                    <span class="p-l-lg">当前：{{ batch?.leader_id_name || batch.leader_id_name || '-'}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="p-l-lg m-b-lg p-t-xl staff-change-block b-b">
+            <div class="p-b-xxl">
+                <label class="grey">调整原因</label>
+                <input formControlName="remark" type="text" placeholder="在这里输入此次调整原因"
+                       [class.disabled]="changeForm.get('remark').disabled">
+            </div>
+        </div>
+
+        <div class="p-l-lg staff-change-block">
+            <div class="p-b-xxl">
+                <div>
+                    <label class="d-ib grey">生效日期<i class="text-sm v-t red">*</i></label>
+                </div>
+                <div style="width: 2.5rem;">
+                    <mayihr-datepicker formControlName="effective_at"></mayihr-datepicker>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+<div class="clearfix lh-60">
+    <div class="pull-left grey p-l-lg">共有{{changed_length}}项变更</div>
+    <div class="pull-right p-r-lg">
+        <button class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" (click)="backToDetail()">取消</button>
+        <button class="btn btn-sm v-m" [class.disabled]="!changeForm.valid" (click)="onSubmit()"
+                [disabled]="!changeForm.valid">完成
+        </button>
+    </div>
+</div>
+<app-staff-general-change-result-m [modal_name]="modal_name" [modal_info]="modal_info" [modal_callback]="modal_callback"
+                                   *ngIf="modal_name === 'staff_general_change_result_m'"></app-staff-general-change-result-m>
+
+
+<app-staff-general-formal-date-change-m [modal_name]="modal_name" [modal_info]="modal_info"
+                                        [modal_callback]="modal_callback"
+                                        *ngIf="modal_name === 'staff_general_formal_date_change_m'"></app-staff-general-formal-date-change-m>
+<app-position-setting [modal_name]="modal_name" [modal_info]="modal_info"
+                      [modal_callback]="modal_callback"
+                      *ngIf="modal_name === 'staff_upload_position_update'"></app-position-setting>
+
+
+<app-office-addr [modal_name]="modal_name" [modal_info]="modal_info"
+                 [modal_callback]="modal_callback"
+                 *ngIf="modal_name === 'staff_office_addr'"></app-office-addr>
+
+
+<app-department-add-m [modal_name]="modal_name" [modal_info]="modal_info"
+                      [modal_callback]="modal_callback"
+                      *ngIf="modal_name === 'add_modal'"></app-department-add-m>
+
+<app-contract-setting [modal_name]="modal_name" [modal_info]="modal_info"
+                      [modal_callback]="modal_callback"
+                      *ngIf="modal_name === 'contract_setting_m'"></app-contract-setting>

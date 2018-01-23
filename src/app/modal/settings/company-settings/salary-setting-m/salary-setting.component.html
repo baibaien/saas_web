@@ -1,0 +1,123 @@
+<div class="modal in p-b-lg" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content" *ngIf="modal_info['data'] == 'salary_rule'">
+            <div class="modal-header p-a b-b">
+                <p class="t-md">计薪规则</p>
+                <p class="t-sm grey">选择适合您的规则</p>
+            </div>
+            <div class="modal-body ">
+                <div class="m-b-lg p-a">
+                    <form action="" [formGroup]="salary_rule">
+                        <div class="m-b-sm">
+                            <label for="" class="grey d-ib m-b-xs">工作时间 <i class="error m-l-sm">*</i></label>
+                            <div class="">
+                                <div class="d-ib w-250">
+                                    <mayihr-select formControlName="work_day"
+                                                   [SelectConfig]="{type: 2}"
+                                                   [SelectData]="salary_rule_select?.work_day_item"></mayihr-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-b-sm">
+                            <label for="" class="grey d-ib m-b-xs">计薪规则</label>
+                            <div class="">
+                                <div class="d-ib w-250 v-m">
+                                    <mayihr-select formControlName="salary_type"
+                                                   [SelectData]="salary_rule_select?.salary_type_item"
+                                                   [SelectConfig]="{type: 2}">
+                                    </mayihr-select>
+                                </div>
+                                <div class="d-ib v-m grey p-l"
+                                     *ngIf="salary_rule.get('work_day').value?.length
+                                         && salary_rule.get('work_day').value[0].id == 1
+                                         && salary_rule.get('salary_type').value?.length
+                                         && salary_rule.get('salary_type').value[0].id == 1">共计21.75天
+                                </div>
+                                <div class="d-ib v-m grey p-l"
+                                     *ngIf="salary_rule.get('work_day').value?.length
+                                         && salary_rule.get('work_day').value[0].id == 2
+                                         && salary_rule.get('salary_type').value?.length
+                                         && salary_rule.get('salary_type').value[0].id == 1">共计26天
+                                </div>
+                                <div class="d-ib v-m grey p-l"
+                                     *ngIf="salary_rule.get('salary_type').value?.length
+                                         && salary_rule.get('salary_type').value[0].id == 2">按工作台历自动计算
+                                </div>
+                            </div>
+                            <ng-container *ngIf="salary_rule.get('work_day').value !== ''">
+                                <p class="grey m-t-sm" *ngIf="salary_rule.get('work_day')?.value[0].id == 1">
+                                    简单折算使用21.75作为每月的计薪天数，在许多情况下存在误差。
+                                    如果贵司没有历史包袱，建议使用按照工作台历执行的“自动计算”。</p>
+                                <p class="grey m-t-sm" *ngIf="salary_rule.get('work_day')?.value[0].id == 2">
+                                    做六休一暂不支持按工作日历自动计算，将按26天作为每月计薪天数
+                                </p>
+                            </ng-container>
+                        </div>
+                    </form>
+                </div>
+                <div class="b-t btn-group t-r p-a">
+                    <button class="reverse t-sm light v-m m-r-sm btn btn-sm" (click)="cancelModal()">取消</button>
+                    <button class="btn btn-sm" (click)="saveMsg()">保存</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-content" *ngIf="modal_info['data'] == 'salary_base'">
+            <div class="modal-header p-a b-b">
+                <p class="t-md">修改基本设置</p>
+                <p class="t-sm grey">系统暂不支持已有发薪记录的情况下调整计薪周期</p>
+            </div>
+            <div class="modal-body ">
+                <div class="m-b-lg p-a">
+                    <form action="" [formGroup]="salary_base">
+                        <div class="m-b-sm">
+                            <div>
+                                <label class="grey d-ib m-b-xs">发薪日</label>
+                            </div>
+                            <div class="d-ib w-250">
+                                <mayihr-select formControlName="salary_date"
+                                               [SelectData]="salary_base_select?.salary_date_item"
+                                               [SelectConfig]="{type: 2}"></mayihr-select>
+                            </div>
+                        </div>
+                        <div class="m-b-sm">
+                            <div>
+                                <label class="grey d-ib m-b-xs">计薪周期</label>
+                            </div>
+
+                            <div class="d-ib w-250">
+                                <mayihr-select formControlName="salary_cycle"
+                                               [SelectData]="salary_base_select?.salary_cycle_item"
+                                               [SelectConfig]="{type: 2}"></mayihr-select>
+                            </div>
+                        </div>
+                        <div class="m-b-sm">
+                            <div>
+                                <label class="grey d-ib m-b-xs">工资表匹配五险一金缴费明细</label>
+                            </div>
+                            <div class="d-ib w-250">
+                                <mayihr-select formControlName="social_cycle"
+                                               [SelectData]="salary_base_select?.social_cycle_item"
+                                               [SelectConfig]="{type: 2}"></mayihr-select>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="m-t p-a" *ngIf="explain">
+                    <p class="grey">说明：</p>
+                    <p class="grey m-b-sm">1、以当前{{explain?.current}}月份为例：<br/>
+                        <span class="t-sm">{{explain?.pay_month}}月{{explain?.salary_date}}日发放{{explain?.salary_month}}月薪水，《{{explain?.salary_month}}月工资表》匹配《{{explain?.social_month}}月五险一金明细》</span>
+                    </p>
+                    <p class="grey">2、《{{explain?.social_month}}月五险一金明细》中包含：<br/>
+                        <span class="d-b t-sm " *ngFor="let item of explain?.detail">{{item?.social || '--'}}月社保+{{item?.fund || '--'}}月公积金（{{item?.city}}）</span>
+                    </p>
+                </div>
+                <div class="b-t btn-group t-r p-a">
+                    <button class="reverse t-sm light v-m m-r-sm btn btn-sm" (click)="cancelModal()">取消</button>
+                    <button class="btn btn-sm" (click)="saveMsg()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+.content-body {
+    width: 12rem;
+    margin: 0 auto;
+    padding-top: 1.15rem;
+}
+
+.right-content {
+    position: relative;
+    margin: 0 auto;
+    border: 1px solid #d6d6d6;
+    border-radius: 3px;
+    background: white;
+    width: 3.21rem;
+}
+
+.input-area > form > div {
+    padding-bottom: .1rem;
+}
+
+.input-area > form > div > div > input {
+    width: 2.2rem !important;
+    padding-left: .12rem;
+}
+
+.input-area i {
+    vertical-align: middle;
+    line-height: .36rem;
+    /*font-size: .2rem;*/
+}
+
+.back-login-box {
+    background: rgba(80, 80, 80, 0.05);
+    color: rgba(80, 80, 80, 0.65);
+}
+
+.img-box {
+    cursor: pointer;
+}
+.help-box {
+    width: 100%;
+    text-align: center;
+    bottom: -.3rem;
+}

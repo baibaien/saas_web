@@ -1,0 +1,26 @@
+.table{
+  table-layout: fixed;
+  width: 100%;
+}
+.table th, .table td {
+  text-align: left;
+}
+.table thead tr {
+  background: rgba(80,80,80, 0.1);
+}
+
+.table tbody tr {
+  border-top: 1px solid #ccc;
+}
+td {
+  padding: 15px 0!important;
+}
+table {
+  table-layout: fixed;
+}
+table th:first-child {
+  width: 1rem;
+}
+table th:nth-child(n + 3) {
+  width: .8rem;
+}

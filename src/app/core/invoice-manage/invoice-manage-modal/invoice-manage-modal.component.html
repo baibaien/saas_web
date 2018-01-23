@@ -1,0 +1,17 @@
+<!--<app-invoice-manage-setting-m [modal_name]="modal_name" [main_setting]="modal_info"-->
+                              <!--*ngIf="modal_name ==='invoice_manage_setting_m'"></app-invoice-manage-setting-m>-->
+<!--<app-invoice-bill-detail-m [modal_name]="modal_name" [modal_info]="modal_info"-->
+                           <!--*ngIf="modal_name === 'invoice_bill_detail'"></app-invoice-bill-detail-m>-->
+
+
+<app-invoice-merge-m [modal_name]="modal_name" [modal_info]="modal_info"
+                     *ngIf="modal_name === 'invoice_merge_m'"></app-invoice-merge-m>
+
+
+<app-invoice-setting-m [modal_name]="modal_name" [main_setting]="modal_info" *ngIf="modal_name === 'invoice_setting_m'"
+                       [modal_callback]="modal_callback"></app-invoice-setting-m>
+
+<app-invoice-show-m [modal_name]="modal_name" [modal_info]="modal_info"
+                    *ngIf="modal_name === 'invoice_show_m'"></app-invoice-show-m>
+<app-bill-detail-m [modal_name]="modal_name" [modal_info]="modal_info"
+                   *ngIf="modal_name === 'bill_detail_m'"></app-bill-detail-m>

@@ -1,0 +1,20 @@
+<div class="assist-content">
+    <div class="assist-left-box pull-left"
+         *ngIf="question_list || show_title">
+        <div class="assist-box">
+            <div class="assist-header b-b">
+                {{show_title}}文章列表
+            </div>
+            <div class="assist-inner mh-450"  [class.no-list-bg]="question_list?.length == 0">
+                <div *ngFor="let i of question_list" class="dashboard-item" (click)="openDetail(i)">
+                    {{i.title}}
+                </div>
+            </div>
+            <mayihr-paging-v2 [page_info]="pagination" [paging_config]="{small_paging: true}"
+                              (RefreshPagingData)="refreshPaging($event)"></mayihr-paging-v2>
+        </div>
+    </div>
+    <div class="assist-right-box pull-left">
+        <router-outlet></router-outlet>
+    </div>
+</div>

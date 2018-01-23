@@ -1,0 +1,70 @@
+<div class="modal" [class.in]="modal_name === 'add_modal'" style="display: block;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header b-b p-a">
+                <div class="t-md">添加部门</div>
+                <div class="t-sm grey">同一上级部门下不能有重复名称的部门</div>
+            </div>
+            <div class="modal-body b-b p-a" style="overflow-y: visible;">
+                <form [formGroup]="formModel">
+                    <div>
+                        <label for="dept_name" class="d-b">部门名称(必填)</label>
+                        <input type="text" class="w-200" id="dept_name" placeholder="在这里输入部门名称"
+                               formControlName="name" (change)="checkName()">
+                        <div>
+                            <div class="d-ib error error_info"
+                                 *ngIf="(formModel.hasError('required', 'name') && !formModel.get('name').untouched)
+                                || (formModel.get('name').untouched && before_submit)">
+                                请输入部门名称
+                            </div>
+                            <div class="d-ib error error_info"
+                                 *ngIf="(formModel.hasError('maxlength', 'name') && !formModel.get('name').untouched)">
+                                部门名称过长
+                            </div>
+                            <div class="d-ib error error_info"
+                                 *ngIf="before_submit && error_list['name'] !== ''">
+                                {{error_list['name']}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-b b-b">
+                        <label for="pid" class="p-t-sm p-b d-b">上级部门(必填)</label>
+                        <div class="d-ib w-200">
+                            <mayihr-select [SelectConfig]="{placeholder: '请选择上级部门'}"
+                                           [SelectData]="org_strc"
+                                           formControlName="pid"
+                                           id="pid"></mayihr-select>
+                        </div>
+                        <div>
+                            <div class="d-ib error error_info"
+                                 *ngIf="(formModel.hasError('required', 'pid') && !formModel.get('pid').untouched)
+                                || (formModel.get('pid').untouched && before_submit)">
+                                请选择上级部门
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="leader_id" class="p-t-sm d-b">部门主管(选填)</label>
+                        <div class="d-ib w-200">
+                            <mayihr-select [SelectConfig]="{placeholder: '请选择部门主管', allow_clear: true}"
+                                           [SelectData]="staff_outline"
+                                           formControlName="leader_id"
+                                           id="leader_id"></mayihr-select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer t-r p-a">
+            <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" data-dismiss="modal"
+                    (click)="cancelModal()">取消
+            </button>
+            <button type='button' class="btn btn-sm v-m"
+                    (click)="addOrgSubmit()">生成
+            </button>
+        </div>
+    </div>
+</div>
+<!--<app-assist-modal [modal_name]="assist_name" [modal_info]="assist_info"-->
+<!--[modal_handler]="assist_handler"></app-assist-modal>-->

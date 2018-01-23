@@ -1,0 +1,51 @@
+<div class="modal in" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog pos-r" style="height:5rem;">
+        <div class="modal-content">
+            <div class="modal-header b-b p-a">
+                <div class="t-md">{{modal_view}}通用扣减项目</div>
+                <div class="t-sm grey">如果员工项扣减金额为零，工资条中会自动隐藏该项目</div>
+            </div>
+            <form [formGroup]="deduction">
+                <div class="modal-body p-a-lg">
+                    <div class="p-t-xl">
+                        <label for="bonus_name" class="d-b p-b">扣减项目名称</label>
+                        <input type="text" formControlName="name" id="bonus_name" placeholder="在这里输入扣减项目名称">
+                        <div class="error error_info"
+                             *ngIf="(deduction.hasError('required', 'name')
+                            && !deduction.get('name').untouched)
+                            || (deduction.get('name').untouched && before_submit)">请输入奖金名称
+                        </div>
+                        <div class="error error_info"
+                             *ngIf="deduction.hasError('maxlength', 'name')">名称长度不得大于20字
+                        </div>
+                        <!--<div class="d-ib error error_info"-->
+                             <!--*ngIf="error_list.name.existed">该名称已存在-->
+                        <!--</div>-->
+                    </div>
+                    <div class="p-t-lg">
+                        <label for="future_user">
+                            <span class="ui-check">
+                                <input type="checkbox" name="choose_staff" formControlName="status" id="future_user"
+                                       value="1">
+                                <i class="icon_ui hover_show v-m"></i>
+                            </span>
+                            <span>在未来的工资表中继续使用该扣减项目</span>
+                        </label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal_footer t-r p-a pos-a" style="bottom: 0;width:100%;">
+            <div class="pull-left pointer" *ngIf="modal_status == 2"
+                 (click)="deleteRecord()"><i class="icon_delete p-r"></i>删除
+            </div>
+            <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" data-dismiss="modal"
+                    (click)="cancelModal()">取消
+            </button>
+            <button type='button' class="btn btn-sm v-m"
+                    (click)="submitModal()">确认
+            </button>
+        </div>
+    </div>
+</div>

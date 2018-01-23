@@ -1,0 +1,41 @@
+.label {
+    color: #fff;
+    background: #33ac37;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+.half {
+    width: 40%;
+    float: left;
+}
+
+.half p {
+    word-break: break-all;
+}
+
+.half-right {
+    width: 40%;
+    float: left;
+}
+
+.half-right p {
+    word-break: break-all;
+}
+
+.list-item {
+    padding-top: .1rem;
+    padding-bottom: .1rem;
+}
+
+.address-list .list-item:nth-child(even) {
+    background: rgba(80, 80, 80, 0.05);
+}
+
+.item-operate {
+    display: none;
+}
+
+.list-item:hover .item-operate {
+    display: inline-block;
+}

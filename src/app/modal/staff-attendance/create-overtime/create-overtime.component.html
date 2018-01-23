@@ -1,0 +1,111 @@
+<div *ngIf="modal_name" class="modal in" style="display: block;">
+    <div class="modal-shadow" (click)="shadowCancel()"></div>
+    <div class="modal-dialog" style="max-height: 9rem;">
+        <div class="modal-content">
+            <div class="modal-header b-b p-a">
+                <div class="t-md">
+                    <ng-container
+                            *ngIf="!(modal_info && this.modal_info.hasOwnProperty('duration') && this.modal_info.is_edit)">
+                        记录
+                    </ng-container>
+                    <ng-container
+                            *ngIf="modal_info && this.modal_info.hasOwnProperty('duration') && this.modal_info.is_edit">
+                        编辑
+                    </ng-container>
+                    加班
+                </div>
+                <div class="t-sm grey">加班可以调休或者发放加班工资</div>
+            </div>
+            <div class="modal-body p-a" *ngIf="overtime_create" style="margin:0 .1rem;">
+                <form [formGroup]="overtime_create">
+                    <div class="p-b">
+                        <label class="p-b-xs d-b grey">员工</label>
+                        <div class="d-ib w-200">
+                            <mayihr-select [SelectData]="staff_outline" [SelectConfig]="{placeholder: '请选择员工'}"
+                                           formControlName="yg_id"></mayihr-select>
+                        </div>
+                        <div class="d-ib error error_info"
+                             *ngIf="(overtime_create.hasError('required', ['yg_id']) && !overtime_create.get('yg_id').untouched)
+                                    || (overtime_create.hasError('required', ['yg_id']) && overtime_create.get('yg_id').untouched && before_submit)">
+                            请选择员工
+                        </div>
+                    </div>
+                    <div class="b-t p-b">
+                        <div>
+                            <label class="p-t d-ib p-b-xs grey">
+                                <span>发生日期</span>
+                            </label>
+                            <div class="w-200">
+                                <mayihr-datepicker formControlName="start_time" [options]="start_time_options"
+                                                   (changeValue)="changeStartTime($event)"></mayihr-datepicker>
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <label for="duration" class="p-t-sm d-b p-b-xs grey">时长/小时</label>
+                            <div>
+                                <input class="w-200" type="text" formControlName="duration"
+                                       id="duration" placeholder="请输入0.5的倍数" (blur)="formatDuration()"
+                                       [class.disabled]="overtime_create.get('duration').disabled">
+                            </div>
+                            <div class="d-ib error error_info"
+                                 *ngIf="(overtime_create.hasError('required', ['duration']) && !overtime_create.get('duration').untouched)
+                                    || (overtime_create.get('duration').untouched && before_submit)">
+                                请输入时长
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-b p-t b-t">
+                        <label class="ui-check" [class.disabled]="overtime_create.get('type_id').disabled"
+                               style="line-height: .36rem;">
+                            <input name="type_id" type="radio" value="1" formControlName="type_id"><i
+                                class="icon_ui v-m"></i>
+                            <span class="t v-m p-l-xs">补偿调休</span>
+                        </label>
+                        <label class="ui-check p-l-sm" [class.disabled]="overtime_create.get('type_id').disabled">
+                            <input name="type_id" type="radio" value="2" formControlName="type_id"><i
+                                class="icon_ui v-m"></i>
+                            <span class="t v-m p-l-xs">补偿加班工资</span>
+                        </label>
+                        <div *ngIf="overtime_create.get('type_id').value === '1'">
+                            <label class="d-b grey p-b-xs">调休有效期至</label>
+                            <div class="w-200">
+                                <mayihr-datepicker formControlName="expire_time"
+                                                   [options]="end_time_options"></mayihr-datepicker>
+                            </div>
+                        </div>
+                        <div *ngIf="overtime_create.get('type_id').value === '2'">
+                            <label class="d-b p-b-xs grey">补偿加班工资</label>
+                            <div class="w-200">
+                                <mayihr-select formControlName="rate"
+                                               [SelectConfig]="{type: 2}"
+                                               [SelectData]="rates"></mayihr-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="b-t p-t">
+                        <label for="remark" class="d-ib p-b-xs grey">备注</label>
+                        <textarea name="" id="remark" cols="20" rows="1" style="height: .5rem;"
+                                  formControlName="remark"></textarea>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal_footer t-r p-a b-t">
+            <div *ngIf="modal_info && this.modal_info.hasOwnProperty('duration') && this.modal_info.is_delete"
+                 class="pull-left pointer" (click)="deleteRecord()">
+                <i class="icon_delete v-m"></i>删除
+            </div>
+            <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" data-dismiss="modal"
+                    (click)="cancelOvertime()">取消
+            </button>
+            <button type='button' class="btn btn-sm v-m" (click)="createOvertime()"
+                    *ngIf="!modal_info || (modal_info && modal_info.duration === undefined)">添加加班记录
+            </button>
+            <button type='button' class="btn btn-sm v-m" (click)="editOvertime()"
+                    *ngIf="modal_info && modal_info.duration !== undefined">确认修改
+            </button>
+
+        </div>
+    </div>
+</div>

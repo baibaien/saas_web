@@ -1,0 +1,59 @@
+<div class="mh-450" [class.no-list-bg]="unpaid_list?.length == 0">
+    <div class="clearfix b-t">
+        <table class="saas-table">
+            <thead>
+            <tr class="saas-table-header">
+                <th></th>
+                <th *ngFor="let header of table_header"
+                    [class.t-l]="header.adjust == -1"
+                    [class.t-c]="header.adjust == 0"
+                    [class.t-r]="header.adjust == 1">
+                    {{header.column_name}}
+                </th>
+            </tr>
+            </thead>
+            <tbody *ngFor="let bill of unpaid_list">
+            <tr (click)="openUnpaidBill(bill)" class="content">
+                <td></td>
+                <td *ngFor="let header of table_header;let i=index;"
+                    [class.t-l]="header.adjust == -1"
+                    [class.t-c]="header.adjust == 0"
+                    [class.t-r]="header.adjust == 1">
+                    <div class="d-ib" *ngIf=" i === 4">
+                        <div class="d-ib">{{bill[header.column]}}</div>
+                        <div class="d-ib"></div>
+                    </div>
+                    <div class="d-ib" *ngIf="i != 5 && i != 6 && i != 4">{{bill[header.column]}}</div>
+                    <div class="d-ib" *ngIf="i === 5">
+                        <span class="b-b pointer green" style="border-bottom-color: #33ac37"
+                              (click)="openBillDetailStatus($event, bill)">{{bill[header.column]}}</span>
+                    </div>
+                    <div class="d-ib operate-button" *ngIf="i === 6">
+                        <div class="d-ib" (click)="payBill($event, bill)">支付</div>
+                        <div class="d-ib" (click)="operateBill($event, bill)">
+                            <i class="icon_triangle_down grey" [class.grey]="bill.selected"></i>
+                            <div [class.mask-layer]="bill.selected === true" (click)="closeOperate($event, bill)"></div>
+                            <div class="operate-choose" *ngIf="bill.selected">
+                                <div>更多操作</div>
+                                <div (click)="downloadDetail($event, bill)">下载账单明细</div>
+                                <div (click)="sendDetail($event, bill)">发送账单明细</div>
+                                <div (click)="deleteOrder($event, bill)">删除帐单</div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr *ngIf="bill?.detail_selected === true">
+                <td colspan="8" style="background: #f3f3f3;">
+                    <app-bill-table [table_data]="unpaid_list_detail"></app-bill-table>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="pos-adjust"></div>
+    <div class="page-footer b-t">
+        <div class="pull-left p-l-xl">共{{total}}条未支付订单</div>
+    </div>
+</div>
+<app-bill-manage-modal [modal_name]="modal_name" [modal_info]="modal_info" [modal_callback]="modal_callback"></app-bill-manage-modal>

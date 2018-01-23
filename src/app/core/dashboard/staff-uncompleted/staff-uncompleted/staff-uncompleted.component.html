@@ -1,0 +1,67 @@
+<div class="staff-content">
+    <div class="p-t p-b b-b t-md">
+        <span class="d-ib m-l">信息补全列表</span>
+    </div>
+    <div>
+        <div class="b-b">
+            <mayihr-searching [placeholder]="'输入员工姓名进行搜索'" [request_url]="list_url"
+                              [request_type]="'get'"></mayihr-searching>
+        </div>
+        <div>
+            <mayihr-filter-status [filter_term]="filter_term" [request_type]="'get'"
+                                  [request_url]="list_url"></mayihr-filter-status>
+        </div>
+        <div class="pos-r clear">
+            <table class="saas-table">
+                <thead>
+                <tr class="saas-table-header">
+                    <th></th>
+                    <th *ngFor="let i of table_header;let foo=index;"
+                        [class.t-l]="i.adjust == -1"
+                        [class.t-r]="i.adjust == 1"
+                        [class.t-c]="i.adjust == 0"
+                        [class.last-column]="a === table_header.length - 1">
+                        <div>
+                            <div class="d-ib">{{ i.column_name }}</div>
+                            <div class="d-i pos-r">
+                                <i class="icon_triangle_down v-m" (click)="filterChooseToggle(foo)"
+                                  *ngIf="i.filter != 0"></i>
+                                <mayihr-filter [operate_data]="i" [view_type]="'table_filter'"
+                                               [filter_term]="filter_term"
+                                               [request_url]="list_url"
+                                               [request_type]="'get'"
+                                               [choose_type]="'single'"
+                                               (close_filter)="closeFilter($event)"></mayihr-filter>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let staff of list_info;let i=index;"
+                    class="pointer-no-color"
+                    (click)="toAddInfo(staff)">
+                    <td></td>
+                    <td *ngFor="let header of table_header;let a = index;"
+                        [class.last-column]="a === table_header.length - 1">
+                        <div *ngIf="a === 0"
+                             [title]="staff[header.column]?.length > 10 ? staff[header.column] : ''">
+                            {{staff[header.column] | longStringFilter: 10}}
+                        </div>
+                        <div *ngIf="a === 2" class="grey"
+                             [title]="staff[header.column]?.length > 20 ? staff[header.column] : ''">
+                            {{staff[header.column] | longStringFilter: 20}}
+                        </div>
+                        <div *ngIf="a === 1"
+                             [class.red]="staff[header.column] === '未开通'"
+                             [class.grey]="staff[header.column] === '已开通'">
+                            {{staff[header.column]}}
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <mayihr-paging [page_info]="pagination" [request_type]="'get'" [request_url]="list_url"></mayihr-paging>
+</div>

@@ -1,0 +1,35 @@
+<div class="modal in" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="shadowCancel()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content" style="height: 4rem;">
+            <div class="modal-header b-b p-a">
+                <div class="t-md">主题：蚂蚁HR{{op_month}}账单明细</div>
+            </div>
+            <div class="modal-body">
+                <div class="v-m p-l-xl p-b-sm p-t-sm clearfix b-b">
+                    <div class="pull-left" style="line-height: .36rem">收件人：</div>
+                    <div class="pull-left">
+                        <input class="w-200" [formControl]="email" type="text" placeholder="请输入邮箱地址">
+                    </div>
+                    <!--<div class="error t-sm p-t-sm" *ngIf="!email.valid">请输入合法邮箱地址</div>-->
+                </div>
+                <div class="p-l-xl p-t p-b-lg">
+                    <div class="d-ib">您好！这是贵公司{{op_month}}使用蚂蚁HR服务的账单明细。</div>
+                    <br>
+                    <div class="d-ib p-t-lg">——蚂蚁HR
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-l-xl p-b p-t b-t">附件: 蚂蚁HR{{op_month}}账单明细.xlsx</div>
+        <div class="modal-footer t-r p-a b-t">
+            <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" data-dismiss="modal"
+                    (click)="cancelModal()">取消
+            </button>
+            <button type='button' class="btn btn-sm v-m" [class.disabled]="!email.valid" [disabled]="!email.valid"
+                    (click)="submitModal()">发送
+            </button>
+        </div>
+    </div>
+</div>
+<!--<app-assist-modal [modal_name]="assist_name" [modal_info]="assist_info" [modal_handler]="assist_handler"></app-assist-modal>-->

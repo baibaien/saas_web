@@ -1,0 +1,126 @@
+<div class="staff-content">
+    <div class="p-t  p-b">
+        <span class="d-ib m-l">出勤管理</span>
+        <a [routerLink]="['/user/attendance/holiday']"
+           class="d-ib p-l-lg p-r-lg pull-right pointer icon-text-btn">
+            <i class="icon_vication"></i>
+            <span>员工假期余额</span>
+        </a>
+        <div class="d-ib p-l-lg p-r-lg pull-right pointer icon-text-btn" *ngIf="work_day_type == 1" (click)="openCalendar()">
+            <i class="icon_calendar"></i>
+            <span>工作日历</span>
+        </div>
+    </div>
+    <div class="clearfix b-t b-b">
+        <div class="clearfix lh-50">
+            <div class="d-ib m-l m-r pointer-red icon-text-btn" (click)="absenceModal()">
+                <i class="icon_quit red"></i>
+                <span>记录请假/缺勤</span>
+            </div>
+            <div class="d-ib m-l m-r icon-text-btn pointer" (click)="overtimeModal()">
+                <i class="icon_schedule green"></i>
+                <span>记录加班</span>
+            </div>
+        </div>
+    </div>
+    <div>
+        <mayihr-filter-status [filter_term]="filter_term" [request_url]="list_info_url"></mayihr-filter-status>
+    </div>
+    <div class=" b-b p-l clearfix" style="background: #f3f3f3;">
+        <div class="d-ib" style="width: 2rem;line-height: .5rem">
+            <mayihr-datepicker [options]="{min_view_mode: 1}" [formControl]="month_selected"
+                               (changeValue)="chooseMonthRequest($event)"></mayihr-datepicker>
+        </div>
+        <div *ngIf="is_archive == 1" class="d-ib pointer m-r icon-text-btn icon-right" style="width: 75%;text-align: right;"
+             (click)="toAttendanceAdjust()">
+            <span>
+                查看该月计算工资时使用的出勤数据
+            </span>
+            <i class="icon_arrow_right deep-grey"></i>
+        </div>
+    </div>
+
+    <div class="pos-r clear min-h-430" [class.no-list-bg]="attendance_list?.length == 0">
+        <div>
+            <table class="saas-table">
+                <thead class="saas-table-header">
+                <tr>
+                    <th></th>
+                    <th *ngFor="let i of table_header;let foo=index;"
+                        [class.t-l]="i.adjust == -1"
+                        [class.t-c]="i.adjust == 0"
+                        [class.t-r]="i.adjust == 1">
+                        <span>{{ i.column_name }}</span>
+                        <div class="d-i pos-r">
+                            <i class="icon_triangle_down v-m pointer-no-color" (click)="filterChooseToggle(foo)"
+                               *ngIf="i.filter != 0"></i>
+                            <mayihr-filter [operate_data]="i" [view_type]="'table_filter'"
+                                           [filter_term]="filter_term"
+                                           [request_url]="list_info_url"
+                                           [request_type]="'get'"
+                                           (close_filter)="closeFilter($event)"></mayihr-filter>
+                        </div>
+                    </th>
+                    <th style="width: .7rem;"></th>
+                </tr>
+                </thead>
+                <tbody *ngFor="let attendance of attendance_list;let i = index">
+                <tr class="v-m" (click)="attendanceDetailShow(i)" [class.no-b-b]="i == attendance_list.length - 1">
+                    <td></td>
+                    <td *ngFor="let j of table_header;let i = index;" style="width: 100px;"
+                        [class.t-l]="j.adjust == -1"
+                        [class.t-c]="j.adjust == 0"
+                        [class.t-r]="j.adjust == 1">
+                        <div *ngIf="i === 1 || i === 2"
+                             [title]="attendance[j.column].length > 5 ? attendance[j.column] : ''">
+                            {{(attendance[j.column] | longStringFilter: 5) || '-'}}
+                        </div>
+                        <div *ngIf="i === 3 && attendance.type == 1">
+                            {{attendance[j.column]}}小时
+                        </div>
+                        <div *ngIf="i === 3 && attendance.type == 2">
+                            {{attendance[j.column] | hourToDay}}
+                        </div>
+                        <div *ngIf="i !== 1 && i !== 2 && i!== 3">
+                            {{attendance[j.column]}}
+                        </div>
+                    </td>
+                    <td class="t-l" style="width: .7rem;padding: 0;">
+                        <span (click)="editModal($event, attendance, attendance.is_edit)"
+                              *ngIf="attendance.is_edit != -1"
+                              class="pointer icon-text-btn">
+                        <i class="icon_edit"></i><span>编辑</span>
+                        </span></td>
+
+                </tr>
+                <tr class="attendance-detail" [class.no-b-b]="i == attendance_list.length - 1"
+                    *ngIf="attendance_show === i">
+                    <td></td>
+                    <td colspan="7">
+                        <div class="pointer-none">
+                            <p>记录时间：{{attendance.created_time | longStringFilter: 10:false}}</p>
+                            <p [ngSwitch]="attendance.expire_time"
+                               *ngIf="attendance.absence_type === '加班' && !!attendance.expire_time">调休有效期至：
+                                <span>{{attendance.expire_time}}</span>
+                            </p>
+                            <div class="remark clearfix p-b" [ngSwitch]="attendance.remark">
+                                <div class="pull-left">备注：</div>
+                                <div class="pull-left attendance-remark" style="width: 7rem;">{{attendance.remark ||
+                                    '无'}}
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <mayihr-paging [request_type]="'get'" [request_url]="list_info_url" [page_info]="page_info"></mayihr-paging>
+</div>
+<app-staff-attendance-modal [modal_name]="modal_name" [modal_info]="modal_info"></app-staff-attendance-modal>
+<app-create-overtime [modal_name]="modal_name" [modal_info]="modal_info" [modal_callback]="modal_callback"
+                     *ngIf="modal_name === 'overtime'"></app-create-overtime>
+<app-create-absence [modal_name]="modal_name" [modal_info]="modal_info" [modal_callback]="modal_callback"
+                    *ngIf="modal_name === 'absence'"></app-create-absence>
+<mayihr-work-calendar [modal_name]="modal_name"></mayihr-work-calendar>

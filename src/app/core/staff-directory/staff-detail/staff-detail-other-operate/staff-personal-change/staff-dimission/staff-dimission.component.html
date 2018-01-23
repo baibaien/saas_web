@@ -1,0 +1,159 @@
+<div class="p-l-lg p-r-lg pos-r" *ngIf="yg_id.length == 1" style="margin-bottom: .6rem;">
+    <div class="clearfix">
+        <form [formGroup]="dimissionForm">
+            <div class="p-l p-t-xl staff-change-block p-b-lg">
+                <div class="p-b-lg">
+                    <div>
+                        <label class="d-ib">离职原因</label>
+                        <i class="red">*</i>
+                    </div>
+                    <div>
+                        <div>
+                            <div class="d-ib w-250">
+                                <mayihr-select [SelectData]="general_settings?.reason_type"
+                                               formControlName="reason_type"
+                                               [SelectConfig]="{placeholder: '请选择离职原因'}"
+                                               (RefreshValue)="refreshValue($event)"></mayihr-select>
+                            </div>
+                        </div>
+                        <div>
+                        <span class="m-l error t-sm"
+                              *ngIf="!(dimissionForm.get('reason_type').value || dimissionForm.get('reason_type').untouched)">请选择离职原因</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-b-sm" *ngIf="dimissionForm.get('reason_type').value != ''">
+                    <ng-container *ngIf="dimissionForm.get('reason_type').value[0].id == 99">
+                        <div>
+                            <label class="d-ib">离职原因(用于生成离职协议)</label>
+                            <i class="red">*</i>
+                        </div>
+                        <div>
+                            <input type="text" formControlName="reason"
+
+                                   placeholder="在此填写具体离职原因">
+                        </div>
+                        <div>
+                         <span class="error t-sm"
+                               *ngIf="!(dimissionForm.get('reason').valid || dimissionForm.get('reason').untouched)">请填写离职原因</span>
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="p-b-xl">
+                    <label>备注</label>
+                    <div>
+                        <input type="text" placeholder="在这里输入离职原因" formControlName="remark">
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!hide_detail">
+                <div class="p-l p-b-xxl staff-change-block b-b">
+                    <div class="p-t-lg">
+                        <label class="d-ib grey">离职日期</label>
+                        <i class="red">*</i>
+                        <span class="m-l error t-sm"
+                              *ngIf="!(!dimissionForm.hasError('date_valid', 'effective_at') || (dimissionForm.get('effective_at').untouched))">
+                                {{dimissionForm.getError('date_valid', 'effective_at')?.msg}}</span>
+                    </div>
+                    <div>
+                        <div class="w-250">
+                            <mayihr-datepicker [options]="dimission_time" formControlName="effective_at"
+                                               (changeValue)="chooseDimissionMonth($event)"></mayihr-datepicker>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-l p-t-xl staff-change-block b-b">
+                    <div class="p-b-lg p-t-lg">
+                        <label class="d-ib grey">离职补偿金<i class="icon_alert dark"></i></label>
+                        <div>
+                            <div class="m-b-sm clearfix p-b-sm">
+                                <input type="text" formControlName="severance_pay" placeholder="在这里输入补偿金额" class="d-b">
+                            </div>
+                            <div class="m-b-sm p-t-sm  clearfix">
+                                <label class="d-ib ui-check"
+                                       [class.disabled]="dimissionForm.get('yg_fire_social').disabled">
+                                    <input type="checkbox" formControlName="yg_fire_social">
+                                    <i class="icon_ui  m-r-sm"></i>
+                                    <span class="v-m t">缴纳离职当月社保</span>
+                                </label>
+                            </div>
+
+                            <div class="clearfix">
+                                <label class="d-ib ui-check"
+                                       [class.disabled]="dimissionForm.get('yg_fire_fund').disabled">
+                                    <input type="checkbox" formControlName="yg_fire_fund">
+                                    <i class="icon_ui  m-r-sm"></i>
+                                    <span class="v-m t">缴纳离职当月公积金</span>
+                                </label>
+                            </div>
+                            <p class="m-t grey">可以在这里单独计算该员工离职月工资，也可以在计算工资表时与其他员工一同计算</p>
+                            <div class="p-t p-b">
+                                <div *ngIf="salary_result === undefined">
+                                    <button class="btn btn-sm v-m" (click)="showSalaryModal()">
+                                        <i class="icon_payrol t m-r-sm"></i>计算离职月工资
+                                    </button>
+                                    <p class="error t-sm" *ngIf="!has_firedate">请先选择离职日期</p>
+                                </div>
+                                <div *ngIf="salary_result !== undefined" class="clear black">
+                                    <div class="d-ib">
+                                        实发{{salary_result | number: '1.2-2'}}元
+                                    </div>
+                                    <div class="pull-right pointer" (click)="showSalaryModal()">
+                                        <i class="icon_resend  m-r-sm"></i>
+                                        <span>重新计算</span>
+                                    </div>
+                                    <div class="pull-right m-r pointer" (click)="deleteSalaryResult()">
+                                        <i class="icon_delete  m-r-sm"></i>
+                                        <span>删除计算结果</span>
+                                    </div>
+                                    <div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div class="p-l p-t-xl staff-change-block ">-->
+                <!--<div class="p-b-xxl b-b">-->
+                <!--<label>将向其汇报的员工移交给</label>-->
+                <!--<div>-->
+                <!--<div class="d-ib w-250">-->
+                <!--<mayihr-select [SelectConfig]="{placeholder: '请选择移交对象', allow_clear: true}"-->
+                <!--[SelectData]="general_settings?.leader_id"-->
+                <!--formControlName="leader_id"-->
+                <!--(RefreshValue)="toggleLeaderId($event)"></mayihr-select>-->
+                <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="p-t">-->
+                <!--<label class="ui-check">-->
+                <!--<input type="checkbox" formControlName="is_leader_id">-->
+                <!--<i class="icon_ui m-r-xs"></i>-->
+                <!--<span class=" v-m t">暂不处理</span>-->
+                <!--</label>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+
+                <div class="p-l m-b-lg p-t-xl staff-change-block">
+                    <div class="p-b-xxl">
+                        <label>员工离职后邮箱</label>
+                        <div>
+                            <input type="text" placeholder="请输入邮箱地址" formControlName="yg_fire_email">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="pos-a clearfix lh-60 b-t" style="bottom: 0;width: 100%;">
+    <div class="pull-right p-r-lg">
+        <button class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" (click)="backToDetail()">取消</button>
+        <button class="btn btn-sm v-m" [class.disabled]="!dimissionForm.valid"
+                (click)="onSubmit()">完成
+        </button>
+    </div>
+</div>
+<app-demission-modal [modal_name]="modal_name" *ngIf="modal_name === 'salary_calc'"
+                     [modal_info]="modal_info" [modal_callback]="modal_callback"></app-demission-modal>

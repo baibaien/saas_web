@@ -1,0 +1,32 @@
+<div class="modal in" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="t-c p-b p-t-lg">
+                    <i class="t-36 icon_error t-48 grey"></i>
+                </div>
+                <div class="t-c t-20 p-b">
+                    暂不支持的规则设置
+                </div>
+                <div class="m-l m-r p-b" *ngIf="modal_info?.social_supported">
+                    <ng-container>暂不支持部分员工的缴纳规则。如需开启这部分员工的五险一金服务项目，请先前往员工名录进行修改，并重新计算五险一金。</ng-container>
+                    <a href="">了解更多</a>
+                </div>
+                <div class="m-l m-r p-b" *ngIf="modal_info?.salary_supported">
+                    <ng-container>如需开启代发工资服务项目，请先前往企业设置进行修改，再返回本页面继续</ng-container>
+                    <a href="">了解更多</a>
+                </div>
+                <div class="m-l m-b-lg">
+                    如需协助，请联系客服
+                </div>
+                <div class="t-c p-b-xl p-t-xl">
+                    <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" data-dismiss="modal"
+                            (click)="cancelModal()">知道了
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

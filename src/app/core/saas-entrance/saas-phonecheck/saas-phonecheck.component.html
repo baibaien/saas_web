@@ -1,0 +1,39 @@
+<div class="content-body">
+    <div class="right-box">
+        <div class="right-content pos-r">
+            <div class="b-b p-b clearfix">
+                <div class="pull-left p-t p-l">请验证尾号为{{mobile}}的手机</div>
+            </div>
+            <div class="p-l p-t-xl p-b input-area">
+                <form [formGroup]="phone_check">
+                    <div class="p-b">
+                        <div>
+                            <input type="text" placeholder="请输入验证码"
+                                   formControlName="code">
+                            <button class="m-l btn btn-sm"
+                                    *ngIf="state.count == 0"
+                                    (click)="getVcode()">获取验证码
+                            </button>
+                            <button *ngIf="state.count > 0"
+                                    class="m-l btn btn-sm disabled">
+                                重新发送({{state.count}})
+                            </button>
+                        </div>
+                        <div class="error"
+                             *ngIf="(!phone_check.valid && before_submit) || (before_submit && phone_check.pristine)">
+                            验证码必填
+                        </div>
+                        <!--<div class="error" *ngIf="(phone_check.hasError('valid', 'id_code'))">请输入4位验证码</div>-->
+                    </div>
+                </form>
+            </div>
+            <div class="t-c p-b-lg b-b">
+                <button class="btn v-m btn-sm w-100" (click)="submitCode()" [class.disabled]="!phone_check.valid">提交
+                </button>
+            </div>
+            <div class="clearfix p-b pos-a footer-box">
+                <span>收不到验证码？</span><a class="pointer" (click)="getHelp()">获取帮助</a>
+            </div>
+        </div>
+    </div>
+</div>

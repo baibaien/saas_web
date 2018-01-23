@@ -1,0 +1,171 @@
+<div class="staff-content">
+    <div class="lh-50 b-b" *ngIf="commercial_status !== undefined">
+        <div class="d-ib p-l icon-text-btn" *ngIf="commercial_status != 0">
+            <i class="icon_arrow_left pointer" (click)="backToCommercial()"></i>
+            <div>商保方案/商保介绍与理赔说明</div>
+        </div>
+        <div class="d-ib t-md p-l" *ngIf="commercial_status == 0">
+            商保方案
+        </div>
+    </div>
+    <div class="p-l-lg p-b-lg"  *ngIf="commercial_status !== undefined">
+        <div class="clearfix p-l-sm p-r-sm b-b">
+            <div class="w-050 pull-left pos-r">
+                <button class="btn" [class.disabled]="commercial_status !== 0" style="position: absolute;top: 2.8rem;left: .3rem;"
+                    (click)="buyCommercial($event)">
+                    开始购买商保
+                </button>
+                <div class="t-md p-b p-t">
+                    团体意外伤害险
+                </div>
+                <div class="p-l-xl p-r-xxl">
+                    <div class="grey">
+                        在保险期间内，被保险人因意外伤害事故，并自遭受意外事故之日起180天内身故，保险人按合同约定的保险金额给付身故保险金。<br/>
+                        在保险期间内，被保险员工因意外伤害事故，并自遭受意外事故之日起180天内同一原因残疾，按等级给付残疾保险金，赔付以保额为限。
+                    </div>
+                    <div class="team">
+                        <table>
+                            <tr>
+                                <th>每份价格(元/月)</th>
+                                <th>每份保险金额(元)</th>
+                            </tr>
+                            <tr>
+                                <td class="p-t-sm">10.00</td>
+                                <td class="p-t-sm">100,000.00</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="w-050 pull-right">
+                <div class="t-md p-b p-t">补充医疗保险</div>
+                <div class="p-l-xl p-r-xxl">
+                    <div class="grey">
+                        在保险期限内，被保险人因疾病在指定医院治疗并在当地社会医疗保险部门规定的基本医疗保险范围内应由个人自负的合理医疗费用（包括药品费、治疗费、检查费、材料费和住院床位费等，含分类自负），保险人按约定比例给付门急诊住院医疗保险金，累计给付以保额为限。
+                    </div>
+                    <div class="hospital">
+                        <table>
+                            <tr>
+                                <th>价格(元/月)</th>
+                                <th></th>
+                                <th>免赔</th>
+                                <th>赔付比例</th>
+                                <th>保险金额</th>
+                            </tr>
+                            <tr class="b-b">
+                                <td rowspan="2" class="big-money">80.00</td>
+                                <td>门诊</td>
+                                <td>0.00</td>
+                                <td>80%</td>
+                                <td>1万</td>
+                            </tr>
+                            <tr class="b-b">
+                                <td>住院</td>
+                                <td>300.00</td>
+                                <td>80%</td>
+                                <td>2万</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" class="big-money">120.00</td>
+                                <td class="b-b">门诊</td>
+                                <td class="b-b">0.00</td>
+                                <td class="b-b">100%</td>
+                                <td class="b-b">2万</td>
+                            </tr>
+                            <tr>
+                                <td>住院</td>
+                                <td>0.00</td>
+                                <td>100%</td>
+                                <td>2万</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="p-t-sm grey p-b">
+                        * 购买补充医疗保险需先购买团体意外伤害险
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-t-sm p-l-sm p-r-sm p-b-xl b-b clearfix">
+            <div class="t-md p-b p-t">理赔所需材料</div>
+            <div class="p-l-xl p-r-xl grey" style="color: rgba(80, 80, 80, 0.65);">
+                在保险期限内，被保险人因疾病在指定医院治疗并在当地社会医疗保险部门规定的基本医疗保险范围内应由个人自负的合理医疗费用（包括药品费、治疗费、检查费、材料费和住院床位费等，含分类自负），保险人按约定比例给付门急诊住院医疗保险金，累计给付以保额为限。
+            </div>
+            <div class="p-l-xl p-r-xl">
+                <div class="w-050 pull-left">
+                    <div class="t-md p-b p-t grey" style="font-size: .12rem;">
+                        门急诊医疗理赔申请
+                    </div>
+                    <div class="p-l-xl p-r-xxl">
+                        <div>
+                            1.治疗费用原始发票（如需退还请同时提供复印件并在申请单注明）<br/>
+                            2.治疗费用或药品费用结算明细复印件<br/>
+                            3.检查报告复印件<br/>
+                            4.病历复印件<br/>
+                            5.意外事故说明并加盖公章（意外类赔付需用）<br/>
+                            6.身份证复印件<br/>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-050 pull-left">
+                    <div class="t-md p-b p-t grey" style="font-size: .12rem;">
+                        住院医疗理赔申请
+                    </div>
+                    <div class="p-l-xl p-r-xxl">
+                        <div>
+                            1.治疗费用原始发票（如需退还请同时提供复印件并在申请单注明）<br/>
+                            2治疗费用结算明细复印件<br/>
+                            3.出院小结复印件<br/>
+                            4.检查报告复印件<br/>
+                            5.意外事故说明并加盖公章（意外类赔付需用）<br/>
+                            6.身份证复印件<br/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-t-sm p-l-sm p-r-sm p-b-xl b-b clearfix">
+            <div class="t-md p-b p-t">报销流程</div>
+            <div>
+                <div class="p-l-xl p-r-xl" style="color: rgba(80, 80, 80, 0.65);">
+                    每月20日前， 将以上齐全的理赔材料，统一寄到:
+                </div>
+                <div class="p-l-xl p-r-xl" style="color: #505050;">
+                    上海市中山西路2025号永升大厦1511室 蚂蚁HR 邮编：200233 电话：021-32302298
+                </div>
+            </div>
+        </div>
+        <div class="p-t-sm p-l-sm p-r-sm p-b-xxl clearfix">
+            <div class="t-md p-b p-t">名词定义</div>
+            <div>
+                <div class="w-050 pull-left">
+                    <div class="t-md p-l-xl p-r-xxl p-b-sm">
+                        指定医院
+                    </div>
+                    <div class="p-l-xl p-r-xxl grey">
+                        <div>
+                            1.国家卫生部医院等级分类中的二级合格或二级合格以上的公立医院，但外宾病区、特诊病区和特诊病房除外，也不包括主要作为康复、护理、疗养、戒酒、戒毒或类似的医疗机构；上海市的部队医院中仅开放第二军医大学附属长征医院（上海长征医院）、第二军医大学附属长海医院（上海长海医院）、第二军医大学附属东方肝胆外科医院。<br/>
+                            2.被保险人在急诊时可就近在任一社保定点公立医院就医（须满足急诊范畴）。<br/>
+                            3.被保险人出差或休假外出期间，急诊可在医保指定的区县级以上公立医院就诊， 经医保结算后凭结算单理赔，申请时需同时提供单位人力资源部门确认“出差休假” 的书面证明。<br/>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-050 pull-left">
+                    <div class="t-md p-l-xl p-r-xxl p-b-sm">
+                        急诊范围
+                    </div>
+                    <div class="p-l-xl p-r-xxl grey">
+                        <div>
+                            1.高热（成人38.5度，小儿39度以上）<br/>
+                            2.急性腹痛、剧烈呕吐、严重腹泻<br/>
+                            3.各种原因的休克<br/>
+                            4.昏迷<br/>
+                            5.癫痫发作<br/>
+                            6.严重喘息、呼吸困难<br/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

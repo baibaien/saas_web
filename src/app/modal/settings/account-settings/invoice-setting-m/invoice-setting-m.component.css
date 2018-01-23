@@ -1,0 +1,15 @@
+.modal {
+    overflow: auto;
+}
+
+.bg-grey {
+    background: #cccccc;
+    padding: 5px 10px;
+    display: inline-block;
+}
+
+input {
+    width: 2.5rem;
+}
+
+

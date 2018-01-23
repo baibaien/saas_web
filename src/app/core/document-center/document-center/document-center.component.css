@@ -1,0 +1,29 @@
+.document-center {
+    background-color: #efefef;
+    border: none;
+    width: 10.5rem!important;
+}
+
+.document-left-box {
+    background-color: #fff;
+    box-sizing: content-box;
+    width: 60%;
+    margin-right: .2rem;
+    min-height: 7.3rem;
+
+}
+
+.document-right-box {
+    background-color: #FFFFFF;
+    box-sizing: border-box;
+    width: 35%;
+    min-height: 7.3rem;
+}
+
+.ques-list {
+    padding-left: .15rem;
+    line-height:.6rem;
+}
+.ques-list:nth-child(even) {
+    background: rgba(80, 80, 80, 0.05);
+}

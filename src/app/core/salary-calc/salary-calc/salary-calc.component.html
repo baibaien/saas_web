@@ -1,0 +1,213 @@
+<div class="staff-content">
+    <div class="lh-50 b-b clearfix">
+        <span class="d-ib m-l pull-left" *ngIf="no_list == 0">{{salary_calc_result?.pay_month}}月工资表<span
+                class="p-l-sm grey">发薪日{{salary_calc_result?.op_month}}月{{salary_calc_result?.salary_date}}日</span></span>
+        <span class="d-ib m-l pull-left" *ngIf="no_list == 1">当月工资表</span>
+        <a [routerLink]="['/user/settings/company-setting/salary']"
+           class="d-ib p-l-lg p-r-lg pull-right pointer icon-text-btn">
+            <i class="icon_list"></i>
+            <span>计薪规则</span>
+        </a>
+        <a *ngIf="no_list == 0" [routerLink]="['/user/salary-calc/salary-calc-item/' + inc_id]"
+           class="d-ib p-l-lg pull-right pointer icon-text-btn">
+            <i class="icon_config"></i>
+            <span>编辑工资项目</span>
+        </a>
+    </div>
+    <div *ngIf="no_list == 1" class="no-list-image">
+        <img src="../../../../assets/info-png/invalid-name.png" alt="">
+    </div>
+    <div class="clearfix" *ngIf="no_list == 0">
+        <div class="clearfix m-t b-b">
+            <div class="clearfix">
+                <div class="d-ib black" *ngIf="(is_outsourcing_use == 0 && is_archive && recalculate)">
+                    <span class="icon-text-btn p-l-lg pointer-no-color" (click)="releaseSalary()">
+                        <i class="icon_unlock black"></i>
+                        <span>解除归档</span>
+                    </span>
+                </div>
+                <div class="p-l-lg pull-right m-r d-ib pos-r">
+                    <div (click)="openExcel()" class="icon-text-btn pointer-blue d-ib">
+                        <i class="icon_detail m-r-sm"></i>
+                        <div class="d-ib">更多表格</div>
+                    </div>
+                    <div *ngIf="excel_choose" class="mask-layer" (click)="closeExcelList()"></div>
+                    <div class="excel-box" *ngIf="excel_choose">
+                        <div class="hover-bg-light-grey pointer-no-color t-c grey" *ngFor="let i of excel_list"
+                             (click)="refreshValue(i.id)">
+                            {{i.text}}
+                        </div>
+                    </div>
+                </div>
+                <div class="pull-right">
+                    <div class="p-l-lg pointer-blue icon-text-btn" (click)="downSalary()">
+                        <i class="icon_download"></i>
+                        <span>导出工资表</span>
+                    </div>
+                </div>
+            </div>
+            <div class="p-a-lg p-l-xl p-t pos-r">
+                <div>
+                    <div class="t-36 t-RB">{{salary_calc_result?.pay_salary}}</div>
+                    <div class="total-grey">实发合计/元</div>
+                </div>
+                <div class="p-t-xl p-b-xl">
+                    <ul>
+                        <li class="d-ib">
+                            <div class="t-24 t-RB">{{salary_calc_result?.should_salary}}</div>
+                            <div class="total-grey">应发合计/元</div>
+                        </li>
+                        <li class="d-ib p-r-sm p-l-sm" style="vertical-align: top;">
+                            <span class="t-24 bolder grey">+</span>
+                        </li>
+                        <li class="d-ib">
+                            <div class="t-24 t-RB">{{salary_calc_result?.social}}</div>
+                            <div class="total-grey">公司交金/元</div>
+                        </li>
+                        <li class="d-ib p-r-sm p-l-sm" style="vertical-align: top;">
+                            <span class="t-24 bolder grey">=</span>
+                        </li>
+                        <li class="d-ib">
+                            <div class="t-24 t-RB">{{salary_calc_result?.all}}</div>
+                            <div class="total-grey">员工成本/元</div>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <div *ngIf="is_outsourcing_use == 1">
+                        <div class="pos-a" style="right: .3rem;top: 0.75rem;"
+                             (click)="toSalaryOutSourcing()">
+                            <button class="btn btn-xl">去外包</button>
+                        </div>
+                    </div>
+                    <div *ngIf="is_outsourcing_use == 0">
+                        <div class="pos-a" *ngIf="is_archive == 0" style="right: .3rem;top: 0.75rem;"
+                             (click)="archiveSalary()">
+                            <button class="btn btn-xl">归档</button>
+                        </div>
+                        <div class="pos-a" *ngIf="is_archive == 1" style="right: .3rem;top: 0.75rem;">
+                            <button class="btn btn-xl disabled">已归档</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <mayihr-searching [request_type]="'get'" [request_url]="list_info_url"
+                          [placeholder]="'输入员工姓名进行搜索'"></mayihr-searching>
+        <div class="clearfix"></div>
+        <div class="pos-r b-t clear">
+            <div class="min-h-430" [class.no-list-bg]="staff_salary_list?.length == 0">
+                <table class="saas-table">
+                    <thead>
+                    <tr class="saas-table-header">
+                        <th></th>
+                        <th *ngFor="let i of table_header;let foo=index;" class="t-c header-range"
+                            [class.t-l]="i.adjust == -1"
+                            [class.t-c]="i.adjust == 0"
+                            [class.t-r]="i.adjust == 1">
+                            <span>{{ i.column_name }}</span>
+                        </th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody *ngFor="let staff of staff_salary_list;let i = index"
+                           [class.no-b-b]="i == staff_salary_list.length - 1">
+                    <tr class="v-m pointer-no-color hover-bg-light-grey" [class.bg-light-grey]="detail_show === i"
+                        (click)="showDetailSalary(i, staff)">
+                        <td></td>
+                        <td *ngFor="let j of table_header;let foo = index" class="t-c pos-r w-100"
+                            [class.t-l]="j.adjust == -1"
+                            [class.t-c]="j.adjust == 0"
+                            [class.t-r]="j.adjust == 1">
+                            <div *ngIf="foo==0 && staff.show_point" class="pos-a red-point"
+                                 style="top: .25rem;left: -.15rem;"></div>
+                            <div>
+                                <div class="d-ib" *ngIf="foo == 0" [title]="staff[j.column]">
+                                    {{staff[j.column] | longStringFilter:5}}
+                                    <div class="d-ib" *ngIf="foo == 0 && staff.is_archive == 1 && is_archive == 0">
+                                        <i class="icon_lock"></i>
+                                    </div>
+                                </div>
+                                <div class="d-ib" *ngIf="foo != 0">
+                                    {{staff[j.column]}}
+                                </div>
+                            </div>
+                        </td>
+                        <td class="t-c">
+                            <div class="d-ib pos-r pointer"
+                                 (click)="openSalaryOperate($event, staff)">
+                                <i class="icon_detail pointer v-m" [class.grey]="detail_show === i"></i>
+                                <div *ngIf="staff.open_operate">
+                                    <div *ngIf="staff.open_operate" class="mask-layer"
+                                         (click)="closeSalaryOperate($event, staff)"></div>
+                                    <div class="operate-box" style="top: .4rem;" *ngIf="staff.open_operate">
+                                        <div *ngFor="let i of operate_list;let j = index;"
+                                             class="hover-bg-light-grey grey"
+                                             [class.pointer]="!(j !== 0 && staff.is_archive == 1)"
+                                             [class.pointer-not-allowed]="j !== 0 && staff.is_archive == 1"
+                                             (click)="clickSalaryOperate($event, i, staff, j)">
+                                            <!--[class.grey]="j !== 0 && staff.is_archive == 1"-->
+                                            {{i.text}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="detail_show == i">
+                        <td colspan="8" class="bg-grey">
+                            <div class="salary_detail d-tb">
+                                <div class="d-ib b-r d-cell">
+                                    <div *ngFor="let detail of detail_info?.add_salary">
+                                        <div class="t-l grey" [title]="detail.name">{{detail.name | longStringFilter:6}}
+                                        </div>
+                                        <div class="t-r">
+                                            <ng-container *ngIf="detail.money != 0">{{detail.money}}</ng-container>
+                                            <ng-container *ngIf="detail.money == 0">-</ng-container>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-ib b-r d-cell">
+                                    <div *ngFor="let detail of detail_info?.salary_deduct">
+                                        <div class="t-l grey" [title]="detail.name">{{detail.name | longStringFilter:6}}
+                                        </div>
+                                        <div class="t-r" [class.red]="detail.name == '缺勤扣减' && show_red">
+                                            <ng-container *ngIf="detail.money != 0">{{detail.money}}</ng-container>
+                                            <ng-container *ngIf="detail.money == 0">-</ng-container>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-ib d-cell">
+                                    <div *ngFor="let detail of detail_info?.personal_deduct">
+                                        <div class="t-l grey" [title]="detail.name">{{detail.name | longStringFilter:6}}
+                                        </div>
+                                        <div class="t-r">
+                                            <ng-container *ngIf="detail.money != 0">{{detail.money}}</ng-container>
+                                            <ng-container *ngIf="detail.money == 0">-</ng-container>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="red t-l" *ngIf="show_red">
+                                因员工有月中调薪，请点击操作中的“修改出勤”确认时长正确。
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <mayihr-paging [request_type]="'get'" [request_url]="list_info_url" [page_info]="page_info"></mayihr-paging>
+    </div>
+</div>
+<app-salary-edit-remark [modal_name]="modal_name" [salary_edit_remark]="modal_info" [modal_callback]="modal_callback"
+                        *ngIf="modal_name == 'salary_remark_m'"></app-salary-edit-remark>
+
+<app-attendance-adjust-m *ngIf="modal_name === 'attendance_adjust_m'" [modal_info]="modal_info"
+                         [modal_callback]="modal_callback"></app-attendance-adjust-m>
+
+<app-bonus-adjust-m [modal_name]="modal_name" [modal_info]="modal_info" [modal_callback]="modal_callback"
+                    *ngIf="modal_name === 'bonus_adjust_m'"></app-bonus-adjust-m>
+
+<app-reduce-adjust-m [modal_name]="modal_name" [modal_info]="modal_info" [modal_callback]="modal_callback"
+                     *ngIf="modal_name === 'reduce_adjust_m'"></app-reduce-adjust-m>

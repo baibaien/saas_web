@@ -1,0 +1,50 @@
+<div class="index-navbar ">
+  <div class="index-container clearfix">
+    <a [routerLink]="['/index/main']" class="brand pull-left"><img src="./assets/index/main/logo.png" alt="" class="logo"></a>
+    <ul class="nav pull-right">
+      <li [routerLinkActive]="['index-active']" class="d-ib menu pc-view "><a [routerLink]="['/index/main']">首页</a>
+      </li>
+      <li [routerLinkActive]="['index-active']" class="d-ib pos-r menu pc-view" >
+        <span>产品功能</span>
+        <ul class="index-dropdown pos-a" style="top: 30px;">
+          <li [routerLinkActive]="['index-active']" class="m-b">
+            <a [routerLink]="['/index/product-function/saas']">人事外包</a>
+          </li>
+          <li [routerLinkActive]="['index-active']">
+            <a [routerLink]="['/index/product-function/system']">人事系统</a>
+          </li>
+        </ul>
+      </li>
+      <li [routerLinkActive]="['index-active']" class="d-ib menu pc-view"><a
+        [routerLink]="['/index/product-price']">产品价格</a>
+      </li>
+      <li [routerLinkActive]="['index-active']" class="d-ib menu pc-view"><a [routerLink]="['/index/product-aboutus/0']">关于我们</a>
+      </li>
+      <li class="d-ib m-l">
+        <img src="./assets/index/main/phone.png" alt="" class="m-r-sm v-m " style="width:.15rem;"><span class="v-m">400-686-9915</span>
+      </li>
+      <li class="d-ib mobile-view pos-r" style="cursor: pointer">
+        <i class="icon_list white"></i>
+        <ul class="index-dropdown pos-a" style="top: 30px;left:auto;right:0;">
+          <li [routerLinkActive]="['index-active']" class="p-b">
+            <a [routerLink]="['/index/main']">首页</a>
+          </li>
+          <li [routerLinkActive]="['index-active']" class="p-b">
+            <a [routerLink]="['/index/product-function/saas']">人事外包</a>
+          </li>
+          <li [routerLinkActive]="['index-active']" class="p-b">
+            <a [routerLink]="['/index/product-function/system']">人事系统</a>
+          </li>
+          <li [routerLinkActive]="['index-active']" class="p-b">
+            <a [routerLink]="['/index/product-price']">产品价格</a>
+          </li>
+          <li [routerLinkActive]="['index-active']" class="p-b">
+            <a [routerLink]="['/index/product-aboutus/0']">关于我们</a>
+          </li>
+        </ul>
+      </li>
+      <li class="login d-ib pc-view"><a [routerLink]="['/entry/login']">登录</a></li>
+      <li class="sign d-ib pc-view"><a [routerLink]="['/entry/register']">注册</a></li>
+    </ul>
+  </div>
+</div>

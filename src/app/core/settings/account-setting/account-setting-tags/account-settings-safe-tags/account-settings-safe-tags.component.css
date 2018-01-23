@@ -1,0 +1,9 @@
+.binded-wechat {
+    width: .72rem;
+    height: .3rem;
+    border-radius: .02rem;
+    background-color: #eaeaea;
+    color: #969696;
+    text-align: center;
+    line-height: .3rem;
+}

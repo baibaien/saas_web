@@ -1,0 +1,35 @@
+
+.staff-org-title-bg {
+    background: #ffffff;
+}
+.staff-org-bg {
+    background:#efefef!important;
+}
+.staff-org-co {
+    background: #ffffff;
+    padding-left:.4rem;
+    line-height:.6rem;
+}
+.staff-org-strc {
+    width: 100%;
+}
+.staff-org-strc div {
+    padding-left:.2rem;
+}
+.staff-org-strc ul:nth-child(n+2) {
+    border-top:1px solid #efefef;
+    padding-left: .45rem;
+    background: #efefef!important;
+}
+.staff-org-strc li {
+    background: #ffffff;
+    border-bottom:1px solid #efefef;
+    line-height:.6rem;
+    vertical-align: middle;
+}
+.staff-org-strc li div{
+    padding-left: 0.4rem;
+}
+.staff-org-strc span{
+    padding-left: 0.4rem;
+}

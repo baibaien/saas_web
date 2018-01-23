@@ -1,0 +1,7 @@
+.modal-dialog {
+    min-height: 3rem;
+}
+
+.answer-item:last-child {
+    border: none !important;
+}

@@ -1,0 +1,121 @@
+.detail-box {
+    margin-left: 1.6rem;
+    float: left;
+    min-width: 6rem;
+    width: 10rem !important;
+    height: 100%;
+    min-height: 6rem;
+    position: relative;
+}
+
+.detail-info {
+    width: 6rem;
+    border: 1px solid #d6d6d6;
+    background: #ffffff;
+    display: inline-block;
+}
+
+.detail-area {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: .3rem;
+    border-bottom: solid 1px #d6d6d6;
+}
+
+.detail-title {
+    font-size: .16rem;
+    color: #505050;
+    padding-top: .25rem;
+    padding-bottom: .2rem;
+}
+
+.detail-content {
+    padding-left: .3rem;
+    padding-bottom: .25rem;
+    padding-right: .2rem;
+}
+
+.detail-base-info > div:first-child {
+    display: inline-block;
+    color: rgba(80, 80, 80, 0.65);
+    padding-right: .15rem;
+    padding-bottom: .15rem;
+    /*padding-left: .3rem;*/
+}
+
+.detail-base-info > div:nth-child(2) {
+    display: inline-block;
+    color: #505050;
+    /*padding-left: .3rem;*/
+}
+
+.choose-address {
+    background: rgba(80, 80, 80, 0.1);
+    width: 2.5rem;
+}
+
+.choose-address span {
+    padding-left: .05rem;
+    color: #505050;
+    line-height: .3rem;
+    height: .3rem;
+}
+
+.detail-source {
+    padding-left: .1rem;
+    padding-right: .1rem;
+}
+
+.detail-source > div {
+    line-height: .34rem;
+    display: inline-block;
+    padding-bottom: .1rem;
+}
+
+.detail-content-source .detail-source:nth-child (even) {
+    background-color: rgba(80, 80, 80, 0.05)
+
+}
+
+.detail-content-source .detail-source:nth-child (odd) {
+    background-color: white;
+}
+
+.detail-requisite {
+    float: right;
+    width: 3.8rem;
+    background-color: #fffacf;
+    border: solid 1px #d6d6d6;
+    display: inline-block;
+}
+
+.submit-button {
+    top: 0;
+    right: .2rem;
+}
+
+input {
+    width: 2rem;
+}
+
+.download-list > div:nth-child(odd) {
+    line-height: .5rem;
+}
+
+.download-list > div:nth-child(even) {
+    line-height: .5rem;
+    background: rgba(80, 80, 80, 0.05);
+}
+
+div {
+    -ms-word-break: break-all;
+    word-break: break-all;
+}
+
+.separator-line {
+    display: inline-block;
+    width: .3rem;
+    margin-bottom: .15rem;
+    border-bottom: rgba(80, 80, 80, 0.4) 1px solid;
+}

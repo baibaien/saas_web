@@ -1,0 +1,43 @@
+<!--安全设置-->
+<div class="p-a-lg" *ngIf="safe_data">
+    <div class="account-safe b-b m-b p-b">
+        <h5 class="t-md">绑定手机</h5>
+        <p class="grey">可以用手机号和密码组合登录</p>
+        <div class="m-t p-l-sm">
+            <div class="m-b-sm">
+                <label class="grey pull-left m-r ">绑定手机</label>
+                <div>{{ safe_data }}</div>
+            </div>
+            <div class="m-b-sm"><span class="pointer" (click)="showSafeSetting('account_mobile')"><i
+                    class="icon_phone dark v-m m-r-sm t-md"></i><span class="v-m grey">变更号码</span></span></div>
+            <div class="m-b-sm"><span class="pointer" (click)="showSafeSetting('account_safe')"><i
+                    class="icon_lock dark v-m m-r-sm t-md"></i><span class="v-m grey">修改密码</span></span></div>
+        </div>
+    </div>
+    <div class="account-weixin">
+        <h5 class="t-md">绑定微信</h5>
+        <p class="grey">可以通过微信使用人事外包服务</p>
+        <div class="p-l-sm m-t" *ngIf="is_bind_wechat == 0">
+            <button class="btn btn-sm" (click)="showWxScan()">立即绑定</button>
+        </div>
+        <ng-container *ngIf="is_bind_wechat">
+            <div class="p-l-sm m-t">
+                <div class="d-ib binded-wechat">已绑定</div>
+            </div>
+            <div class="p-l-sm m-t">
+                <div class="d-ib pointer icon-text-btn" (click)="unBindWechat()">
+                    <i class="icon_error m-r-sm total-grey-full"></i>
+                    <span class="total-grey-full">解除绑定</span>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
+<!--安全设置end-->
+<!--弹窗-->
+
+
+<app-safe-setting *ngIf="modal_name === 'safe_setting'" [modal_name]="modal_name" [modal_info]="modal_info"
+                  [modal_callback]="modal_callback"></app-safe-setting>
+<app-wx-scan *ngIf="modal_name === 'wx_scan'" [modal_name]="modal_name" [modal_info]="modal_info"
+             [modal_callback]="modal_callback"></app-wx-scan>

@@ -1,0 +1,238 @@
+@import url(veriable.less);
+
+@input-h8: 36px;
+@input-h: .36rem;
+
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+  background: #fff;
+  border: 1px solid #d7d7d7;
+  border-radius: 3px;
+  height: @input-h8;
+  padding: 0 8px;
+  line-height: @input-h8;
+  margin: 0;
+  vertical-align: top;
+  color: inherit;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  &:focus {
+  }
+  &.error {
+    border: 1px solid #c31414 !important;
+  }
+  .warning {
+    border: 1px solid #9b8a1f !important;
+  }
+}
+
+select {
+  padding-right: 20px !important;
+  background: #fff url(../assets/a-down.svg) right center no-repeat !important;
+  background-size: 10px 7px !important;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+  &.half {
+    width: 50%;
+  }
+  &.disabled {
+    background: rgba(80, 80, 80, 0.2);
+    border: 1px solid #d7d7d7;
+    border-radius: 3px;
+    cursor: not-allowed;
+  }
+}
+
+.form-control input {
+  width: 100%;
+}
+
+.control-label {
+  float: left;
+  line-height: @input-h8;
+}
+
+.form-control {
+  input, select {
+    width: 100%
+  }
+  .error, .warning {
+    line-height: 20px;
+    font-size: 12px;
+  }
+}
+
+.form-control.add-on {
+  font-size: 0;
+  input {
+    padding-left: 32px;
+  }
+  .add-on {
+    display: inline-block;
+    margin-right: -32px;
+    text-align: center;
+    line-height: @input-h8;
+  }
+}
+
+.form-control.sm {
+  select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    padding: 4px 8px;
+    height: 28px;
+    line-height: 28px;
+  }
+}
+
+.form-control.vali {
+  input {
+    width: 50%;
+  }
+  img {
+    width: 48%;
+    float: right;
+    height: @input-h8;
+  }
+}
+
+.ui-check input, .ui-check-all input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  top: 50%;
+  width: 0;
+  height: 0;
+  margin-top: -7.5px;
+  vertical-align: top;
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  filter: (alpha(opacity=0))
+}
+
+.ui-check.disabled {
+  i {
+    color: rgba(80, 80, 80, 0.4) !important;
+    cursor: not-allowed !important;
+
+  }
+  i:after {
+    color: rgba(80, 80, 80, 0.4) !important;
+    cursor: not-allowed !important;
+  }
+}
+
+.ui-check.disabled input[type='checkbox'] + i:after {
+  background: rgba(80, 80, 80, 0.1);
+}
+
+.ui-check, .ui-check-all {
+  font-size: 0;
+  position: relative;
+  vertical-align: middle;
+  height: 100%;
+  display: inline-block;
+  i {
+    vertical-align: middle;
+    font-size: .16rem;
+    &:after {
+      content: '\e966';
+      //margin-right: 3px
+    }
+  }
+
+  input:checked + i:after, span.checkbox.active + i:after {
+    content: '\e964';
+    color: #33ac37
+  }
+  input[type=radio] + i:after, span.radio + i:after {
+    content: '\e958'
+  }
+  input[type=radio]:checked + i:after, .ui-check span.radio.active + i:after {
+    content: '\e957';
+    color: #33ac37
+  }
+}
+
+//结构：.form-group>(.control-label+.form-control)>:input
+@media screen and (min-width: 0) {
+  .form-group {
+    margin-bottom: .1rem;
+  }
+
+  .control-label {
+    font-size: .16rem;
+    line-height: @input-h;
+    width: .2rem;
+  }
+
+  .form-control {
+    margin-left: .3rem;
+    .error {
+      line-height: .2rem;
+      font-size: .12rem;
+    }
+  }
+
+  .form-control.vali img {
+    height: @input-h;
+  }
+
+  select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    height: @input-h;
+    padding: 0 .1rem;
+  }
+
+  select {
+    padding-right: .2rem;
+    &:after {
+      content: '\aaaa';
+      font-family: 'gzticon';
+      margin-left: -.2rem;
+      font-size: .14rem;
+    }
+  }
+
+  .form-control.add-on {
+    input {
+      padding-left: .32rem;
+    }
+    .add-on {
+      line-height: @input-h;
+    }
+  }
+
+  .form-control.sm {
+    select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+      padding: .04rem .08rem;
+      height: .28rem;
+      line-height: .28rem;
+    }
+  }
+}
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  color: #aaa;
+}
+
+input:-moz-placeholder, textarea:-moz-placeholder {
+  color: #aaa;
+}
+
+input::-moz-placeholder, textarea::-moz-placeholder {
+  color: #aaa;
+}
+
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+  color: #aaa;
+}
+
+::-ms-clear, ::-ms-reveal {
+  display: none;
+}

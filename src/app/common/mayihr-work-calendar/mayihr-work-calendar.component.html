@@ -1,0 +1,78 @@
+<div class="modal in" style="display: block; z-index:700;" *ngIf="modal_name == 'calendar'">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header b-b p-a">
+                <div class="t-md">工作日历</div>
+                <div class="t-sm grey">用于查看法定休息日和调休</div>
+            </div>
+            <div class="modal-body p-b b-b">
+                <div class="clear t-c b-b">
+                    <!--<div class="d-ib m-r-xs  v-m" (click)="changeMonth(-1)">-->
+                    <!--<i class="icon_backward t-20"></i>-->
+                    <!--</div>-->
+                    <div class="d-ib pointer year-tag grey m-r-xs m-l-xs" (click)="chooseMonth(i)"
+                         *ngFor="let tag of tags;let i=index;" [class.year-choose]="tag.is_choosed == true">
+                        <span [class.b-r]="tag.status == 'previous_year'"
+                              [class.b-l]="tag.status == 'next_year'"
+                              class="d-ib" style="width:  .2rem;">{{tag.view}}</span>
+                    </div>
+                    <!--<div class="d-ib m-l-xs  v-m" (click)="changeMonth(1)">-->
+                    <!--<i class="icon_angle_right t-20"></i>-->
+                    <!--</div>-->
+                </div>
+                <div class="mayihr-word-calendar-box">
+                    <table class="mayihr-word-calendar-table">
+                        <thead>
+                        <tr class="grey">
+                            <th>日</th>
+                            <th>一</th>
+                            <th>二</th>
+                            <th>三</th>
+                            <th>四</th>
+                            <th>五</th>
+                            <th>六</th>
+                        </tr>
+                        </thead>
+                        <tr *ngFor="let week of view_data">
+                            <td *ngFor="let day of week;let i=index;">
+                                <div class="mayihr-word-calendar-day"
+                                     [class.grey]="i == 0 || i == 6"
+                                     [class.black]="i !=0 && i != 6"
+                                     [class.no-work]="day.is_holiday || (day.is_holiday && day.is_work)"
+                                     [class.work-day]="day.is_work">
+                                    <span>{{day.text}}</span>
+                                    <div class="t-c pos-a" style="width: 100%;">
+                                        <div class="t-c" *ngIf="day.is_work">
+                                            <div class="calendar_icon_header bd-green"></div>
+                                            <div class="calendar_icon_body pos-r bg-green">
+                                                <span class="pos-a calendar_icon_text">班</span>
+                                            </div>
+                                        </div>
+                                        <div class="t-c" *ngIf="day.is_holiday">
+                                            <div class="calendar_icon_header bd-yellow"></div>
+                                            <div class="calendar_icon_body pos-r bg-yellow">
+                                                <span class="pos-a calendar_icon_text">假</span>
+                                            </div>
+                                        </div>
+                                        <div class="t-c" *ngIf="day.is_holiday == 0 && day.is_work == 0">
+                                            <div class="calendar_icon_header bd-blue"></div>
+                                            <div class="calendar_icon_body pos-r bg-blue">
+                                                <span class="pos-a calendar_icon_text">休</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer t-r clear">
+            <div class="pull-left grey p-a">本月实际工作日：{{work_days}}天</div>
+            <div class="pull-right pointer p-a" (click)="cancelModal()">收起</div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

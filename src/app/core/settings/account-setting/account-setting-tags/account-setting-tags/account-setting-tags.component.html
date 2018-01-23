@@ -1,0 +1,153 @@
+<div class="p-a-lg" *ngIf="sign_info">
+    <div class="account-setting-body m-b">
+        <div><span class="t-md">账户主体</span>
+            <span class="pull-right pointer m-r icon-text-btn"
+                  (click)="openAdjust()">
+                <i class="icon_edit_simple"></i>
+                <span>编辑</span>
+            </span>
+        </div>
+        <div class="p-a p-l-sm clearfix clear">
+            <div class="half">
+                <div class="form-group clearfix">
+                    <label class="form-label grey">公司名称</label>
+                    <div class="form-control">
+                        <p>{{sign_info['sign_info']['company']}}</p>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="form-label grey">注册地址</label>
+                    <div class="form-control">
+                        <div>
+                            <p>
+                                {{sign_info.sign_info.hr_office_addr['address_line_name']}}
+                                {{sign_info.sign_info.hr_office_addr['addr'] }}
+                            </p>
+                            <p>
+                                {{sign_info.sign_info.hr_office_addr['postcode']}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group clearfix">
+                    <label class="form-label grey">营业执照号</label>
+                    <div class="form-control">
+                        <p>{{sign_info.sign_info['com_sn']}}</p>
+                    </div>
+                </div>
+                <div class="form-group clearfix picture-wrapper">
+                    <div class="li m-t">
+                        <div class="pos-r m-b-sm ">
+                            <div class="id-bg">
+                                <mayihr-img-upload [img_url]="sign_info.pic_url['license_url']"
+                                                   (uploadImage)="uploadImg($event, 'LicensePic', 'license_url')"
+                                                   [img_config]="{title: '', allow_reload: true, allow_clear: false}"></mayihr-img-upload>
+                                <!--<p class="t-c pos-a" *ngIf="!sign_info.pic_url.license_url">-->
+                                <!--<i class="icon_upload d-b"></i>-->
+                                <!--<span class="v-m">营业执照</span>-->
+                                <!--</p>-->
+                                <!--<img [src]="sign_info.pic_url.license_url" alt="" class="picture"-->
+                                <!--*ngIf="sign_info?.pic_url.com_sn_url != ''">-->
+                                <!--</div>-->
+                                <!--<input type="file" accept="image/png, image/jpeg, image/gif"-->
+                                <!--(change)="uploadImg($event, 'LicensePic', 'license_url')"-->
+                                <!--[formControl]="contract">-->
+                            </div>
+                        </div>
+                        <p class="grey t-sm">营业执照</p>
+                    </div>
+                </div>
+                <!--</form>-->
+            </div>
+        </div>
+    </div>
+    <div class="accout-pic b-t m-b clearfix p-t" *ngIf="sign_info?.outsource_contract['is_display'] != 0">
+        <h5 class="t-md">协议与签约凭证</h5>
+        <div class="left half picture-wrapper m-t p-l-xl">
+            <p class="m-b-sm"><span class="grey m-r">签约类型</span>{{sign_info?.outsource_contract['sign_type_name'] ||
+                '尚未完成签约'}}</p>
+            <p><span class="grey m-r">签约时间</span>{{sign_info?.outsource_contract.start_date || '尚未完成签约'}}</p>
+            <div class="li m-t">
+                <div class="pos-r m-b-sm ">
+                    <div class="id-bg m-b-sm">
+                        <mayihr-img-upload [img_url]="sign_info.pic_url['contract_front_url']"
+                                           (uploadImage)="uploadImg($event, 'ContractFront', 'contract_front_url')"
+                                           [img_config]="{title: '',
+                               allow_reload: sign_info.outsource_contract?.is_upload == 2,
+                               allow_clear: false,
+                               allow_upload: sign_info.outsource_contract?.is_upload == 3 || sign_info.outsource_contract?.is_upload == 1}"></mayihr-img-upload>
+                    </div>
+                    <p class="grey t-sm">协议签字盖章页</p>
+                    <div class="t-sm pointer" (click)="downloadContract('front')"
+                       *ngIf="sign_info.outsource_contract?.is_upload == 1 || sign_info.outsource_contract?.is_upload == 3"><i
+                            class="icon_download m-r-sm dark v-m"></i>下载</div>
+                </div>
+            </div>
+            <div class="li v-t m-t">
+                <div class="pos-r m-b-sm ">
+                    <div class="id-bg m-b-sm">
+                        <mayihr-img-upload [img_url]="sign_info.pic_url['contract_back_url']"
+                                           (uploadImage)="uploadImg($event, 'ContractBack', 'contract_back_url')"
+                                           [img_config]="{title: '',
+                               allow_reload: sign_info.outsource_contract?.is_upload == 1,
+                               allow_clear: false,
+                               allow_upload: sign_info.outsource_contract?.is_upload == 3 || sign_info.outsource_contract?.is_upload == 2}"></mayihr-img-upload>
+                    </div>
+                    <p class="grey t-sm">协议细则页</p>
+                    <div class="t-sm pointer"
+                       (click)="downloadContract('back')"
+                       *ngIf="sign_info.outsource_contract?.is_upload == 3 || sign_info.outsource_contract?.is_upload == 2"
+                    ><i
+                            class="icon_download m-r-sm dark v-m"></i>下载</div>
+                </div>
+            </div>
+            <!--暂时不需要saas签约-->
+
+            <!--<div class="right half picture-wrapper m-t p-l-xl">-->
+            <!--<p class="m-b-sm"><span class="grey m-r ">签约类型</span>人力资源管理系统使用授权协议</p>-->
+            <!--<p><span class="grey m-r">签约时间</span>{{saas_contract.sign_time == '' ? '尚未完成签约' : saas_contract.sign_time}}</p>-->
+            <!--<div class="li m-t" *ngIf="saas_contract.sign_time == ''">-->
+            <!--<div class="pos-r m-b-sm ">-->
+            <!--<div class="id-bg">-->
+            <!--<p class="t-c pos-a" *ngIf="!pic_url['saas_front_url']"><i class="icon_upload d-b"></i><span class="v-m">签约合约页</span>-->
+            <!--</p>-->
+            <!--<img [src]="pic_url['saas_front_url']" alt="" class="picture" *ngIf="pic_url['saas_front_url']">-->
+            <!--</div>-->
+            <!--<input type="file" accept="image/png, image/jpeg, image/gif"-->
+            <!--(change)="uploadImg($event, 'SaasFront', 'saas_front_url')"-->
+            <!--[formControl]="contract">-->
+            <!--&lt;!&ndash;<div class="picture-mask" [class.uploaded]="id_dentity">&ndash;&gt;-->
+            <!--&lt;!&ndash;<p class="pos-a delete-btn" (click)="deleteImg('id_dentity', 1)">&ndash;&gt;-->
+            <!--&lt;!&ndash;<i class="icon_delete m-r-xs"></i>删除</p>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--</div>-->
+            <!--<p class="grey t-sm">协议签字盖章页</p>-->
+            <!--<a href="#" class="t-sm"><i class="icon_download m-r-sm v-m dark"></i>下载</a>-->
+            <!--</div>-->
+            <!--<div class="li">-->
+            <!--<div class="pos-r m-b-sm ">-->
+            <!--<div class="id-bg">-->
+            <!--<p class="t-c pos-a" *ngIf="!pic_url['saas_back_url']"><i class="icon_upload d-b"></i><span class="v-m">签约细则页</span>-->
+            <!--</p>-->
+            <!--<img [src]="pic_url['saas_back_url']" alt="" class="picture" *ngIf="pic_url['saas_back_url']">-->
+            <!--</div>-->
+            <!--<input type="file" accept="image/png, image/jpeg, image/gif"-->
+            <!--(change)="uploadImg($event, 'SaasBack', 'saas_back_url')"-->
+            <!--[formControl]="contract">-->
+            <!--&lt;!&ndash;<div class="picture-mask" [class.uploaded]="id_dentity">&ndash;&gt;-->
+            <!--&lt;!&ndash;<p class="pos-a delete-btn" (click)="deleteImg('id_dentity', 1)">&ndash;&gt;-->
+            <!--&lt;!&ndash;<i class="icon_delete m-r-xs"></i>删除</p>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--</div>-->
+            <!--<p class="grey t-sm">协议签字盖章页</p>-->
+            <!--<a href="#" class="t-sm"><i class="icon_download m-r-sm v-m dark"></i>下载</a>-->
+            <!--</div>-->
+            <!--</div>-->
+        </div>
+    </div>
+    <!--签约设置end-->
+
+
+    <app-main-setting [modal_name]="modal_name" [modal_info]="modal_info" *ngIf="modal_name === 'main_setting'"
+                      [modal_callback]="modal_callback"></app-main-setting>

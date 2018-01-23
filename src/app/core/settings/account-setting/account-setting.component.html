@@ -1,0 +1,30 @@
+<div class="staff-content">
+    <div class="p-t p-b b-b t-md">
+        <span class="d-ib m-l">账户设置</span>
+    </div>
+    <div class="p-t p-l-xl grey b-b">
+        <a class="pointer d-ib p-b year-tag m-r"
+           [routerLink]="['/user/settings/account-setting/sign']" [routerLinkActive]="['year-choose']">
+            签约设置
+        </a>
+        <a class="pointer d-ib p-b year-tag m-r"
+           [routerLink]="['/user/settings/account-setting/invoice']" [routerLinkActive]="['year-choose']">
+            发票信息
+        </a>
+        <a class="pointer d-ib p-b year-tag m-r"
+           [routerLink]="['/user/settings/account-setting/contact']" [routerLinkActive]="['year-choose']">
+            联系人
+        </a>
+        <a class="pointer d-ib p-b year-tag m-r"
+           [routerLink]="['/user/settings/account-setting/send']" [routerLinkActive]="['year-choose']">
+            邮寄地址
+        </a>
+        <a class="pointer d-ib p-b year-tag m-r"
+           [routerLink]="['/user/settings/account-setting/safe']" [routerLinkActive]="['year-choose']">
+            安全设置
+        </a>
+    </div>
+    <div>
+        <router-outlet></router-outlet>
+    </div>
+</div>

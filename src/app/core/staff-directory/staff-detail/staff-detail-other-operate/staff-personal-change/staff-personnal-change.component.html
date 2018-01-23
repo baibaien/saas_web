@@ -1,0 +1,52 @@
+<div class="staff-content">
+    <div class="p-t p-b clearfix b-b">
+        <div class="pull-left">
+            <div *ngIf="yg_id.length === 1">
+                <a [routerLink]="['/user/staff/staff-detail',user_id]" class="m-l m-r-sm"><i
+                        class="icon_arrow_left pointer"></i></a>
+                <span class="d-ib">员工名录/{{yg_name}}/人事变动</span>
+            </div>
+            <div *ngIf="yg_id.length !== 1">
+                <a [routerLink]="['/user/staff']" class="m-l m-r-sm"><i class="icon_arrow_left pointer"></i></a>
+                <span class="d-ib">员工名录/批量人事变动</span>
+            </div>
+        </div>
+        <div class="pull-right m-r pointer" *ngIf="!change_status?.status && change_status?.date"
+             (click)="changeFormalDate()">
+            <i class="icon_calendar  m-r-sm v-m grey"></i>
+            <span class="grey">修改入职/转正日期</span>
+        </div>
+    </div>
+    <div class="clearfix m-l m-r p-t-lg b-b m-b-xl">
+        <div class="p-l-lg">
+            <div class="p-b">人事变动类型</div>
+            <div class="p-b ">
+                <span class="m-r">
+                  <label class="ui-check" [class.disabled]="change_status?.status" (click)="showGeneralChange($event)">
+                    <input [formControl]="personal_change"
+                           type="radio" value="1">
+                    <i class="icon_ui m-r-sm"></i>
+                    <span class="t v-m">常规变动</span></label>
+                </span>
+                <span class="m-r" *ngIf="yg_id.length == 1">
+                  <label class="ui-check" [class.disabled]="change_status?.status" (click)="showDimission($event)">
+                    <input [formControl]="personal_change"
+                           type="radio" value="2">
+                    <i class="icon_ui m-r-sm"></i>
+                    <span class="t v-m">离职</span></label>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="hideDimission">
+        <app-staff-general-change [yg_id]="yg_id" [yg_name]="yg_name"
+                                  (isChangeHireDate)="getHireDateStatus($event)"></app-staff-general-change>
+    </div>
+    <div>
+        <app-staff-dimission *ngIf="!hideDimission" [yg_id]="yg_id"></app-staff-dimission>
+    </div>
+</div>
+<!--<app-staff-detail-modal [modal_info]="modal_info" [modal_name]="modal_name" [modal_callback]="modal_callback"></app-staff-detail-modal>-->
+<app-staff-general-formal-date-change-m [modal_name]="modal_name" [modal_info]="modal_info"
+                                        [modal_callback]="modal_callback"
+                                        *ngIf="modal_name === 'staff_general_formal_date_change_m'"></app-staff-general-formal-date-change-m>

@@ -1,0 +1,242 @@
+<div class="calc-content clearfix">
+    <div class="w-60per t pull-left pos-a" style="height: 10rem;">
+        <div class="p-t p-b b-b clearfix">
+        <span class="d-ib m-l pull-left">
+            <span class="d-ib">五险一金</span>
+        </span>
+        </div>
+        <div class="p-l-lg p-r-lg">
+            <div class="clearfix p-t-lg" [formGroup]="social" style="font-size: 0">
+                <div class="t staff-upload-form-left-block" style="height: 100%;">
+                    <div class="form-group clearfix">
+                        <label class="grey d-ib">缴纳项目<i class="text-sm v-t red">*</i></label>
+                        <div>
+                            <label class="d-ib ui-check icon-text-btn">
+                                <input type="checkbox" formControlName="yg_is_social">
+                                <i class="icon_ui"></i>
+                                <span>社保</span>
+                            </label>
+
+                            <label class="d-ib m-l ui-check icon-text-btn">
+                                <input type="checkbox" formControlName="yg_is_fund">
+                                <i class="icon_ui"></i>
+                                <span>公积金</span>
+                            </label>
+
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="social.get('yg_is_social').value || social.get('yg_is_fund').value">
+                        <label class="grey d-ib">缴纳城市<i class="text-sm v-t red">*</i></label>
+                        <div>
+                            <div class="d-ib v-t" style="width: .8rem;padding-right: .05rem;">
+                                <mayihr-select [SelectConfig]="{placeholder: '省', max_length: 2}"
+                                               [SelectData]="province_list || []"
+                                               (RefreshValue)="selectProvince($event)"
+                                               formControlName="province"></mayihr-select>
+                            </div>
+                            <div class="d-ib v-t" style="width: .8rem;padding-right: .05rem;">
+                                <mayihr-select [SelectConfig]="{placeholder: '市', max_length: 2, single_default: 0}"
+                                               [SelectData]="city_list || []"
+                                               (RefreshValue)="selectCity($event)"
+                                               formControlName="city"></mayihr-select>
+                            </div>
+                            <div class="d-ib v-t" style="width: .8rem;">
+                                <mayihr-select [SelectConfig]="{placeholder: '区', max_length: 2, single_default: 0}"
+                                               [SelectData]="direction_list || []"
+                                               (RefreshValue)="setSocialSettings()"
+                                               formControlName="yg_city"></mayihr-select>
+                            </div>
+
+                        </div>
+                        <div>
+                              <span *ngIf="!(social.get('yg_city').value != ''  || (social.get('yg_city').untouched && before_submit))"
+                                    class="error t-sm">请选择缴纳城市</span>
+                        </div>
+                    </div>
+                    <div *ngIf="!(social.get('yg_is_social').value != '1' && social.get('yg_is_fund').value != 1)">
+                        <div class="form-group">
+                            <label class="grey d-ib">户籍类型<i class="text-sm v-t red">*</i></label>
+                            <div>
+                                <div class="d-ib w-250">
+                                    <mayihr-select [SelectConfig]="{placeholder: '请选择户籍类型', single_default: 0}"
+                                                   (RefreshValue)="setSocialSettings()"
+                                                   formControlName="yg_hk_type"
+                                                   [SelectData]="yg_hk_type || []"></mayihr-select>
+                                </div>
+                            </div>
+                            <div>
+                                <span *ngIf="!(social.get('yg_hk_type').value  || (social.get('yg_hk_type').untouched && before_submit))"
+                                      class="error t-sm">请选择户籍类型</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="t staff-upload-form-right-block ">
+                    <div *ngIf="social.get('yg_is_social').value">
+                        <div class="form-group">
+                            <!--社保类型没有-->
+                            <label class="grey d-b">社保类型<i class="text-sm v-t red">*</i></label>
+                            <div class="d-ib w-250">
+                                <mayihr-select [SelectConfig]="{placeholder: '请选择社保类型', single_default: 0}"
+                                               [SelectData]="social_rule?.social_rule || []"
+                                               formControlName="social_rule"
+                                               (RefreshValue)="getCitySocial()"></mayihr-select>
+                            </div>
+                            <div>
+                                <span *ngIf="!(social.get('social_rule').value  || (social.get('social_rule').untouched && before_submit) || (social.get('yg_city').untouched && social.get('social_rule').touched))"
+                                      class="error t-sm">请选择社保类型</span>
+                                <span *ngIf="!(social.get('social_rule').untouched || (social.get('yg_hk_type').value != '' && social.get('yg_city').value != ''))"
+                                      class="t-sm error">请先选择缴纳城市及户籍类型</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="grey d-ib" style="width:2.5rem">社保基数
+                                <i class="text-sm v-t red">*</i>
+                            </label>
+                            <div>
+                                <input [class.disabled]="social.get('yg_social_self').disabled" style="width:2.5rem"
+                                       type="text" [placeholder]="social_placeholder" formControlName="yg_social_self">
+                            </div>
+                            <div>
+                                <span *ngIf="!(social.get('yg_social_self').value || (social.get('yg_social_self').untouched && before_submit))"
+                                      class="error t-sm">请填写社保基数</span>
+                                <span *ngIf="!(!social.hasError('social_error', ['yg_social_self']) || (social.get('yg_social_self').untouched && before_submit))"
+                                      class="error t-sm">{{social.getError('social_error', ['yg_social_self'])?.msg}}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="grey" *ngIf="social.get('yg_is_fund').value && social.get('yg_is_social').value">-</div>
+                    <div *ngIf="social.get('yg_is_fund').value">
+                        <div class="form-group">
+                            <!--公积金类型没有-->
+                            <label class="grey d-b">公积金类型<i class="text-sm v-t red">*</i></label>
+                            <div class="d-ib w-250">
+                                <mayihr-select formControlName="fund_rule"
+                                               [SelectConfig]="{placeholder: '请选择公积金类型', single_default: 0}"
+                                               [SelectData]="social_rule?.fund_rule || []"
+                                               (RefreshValue)="getCityFund()"></mayihr-select>
+                            </div>
+                            <div>
+                                <span *ngIf="!(social.get('fund_rule').value  || (social.get('fund_rule').untouched && before_submit) || (social.get('yg_city').untouched && social.get('fund_rule').touched))"
+                                      class="error t-sm">请选择公积金类型</span>
+                                <span class="error t-sm"
+                                      *ngIf="!(social.get('fund_rule').untouched || (social.get('yg_hk_type').value != '' && social.get('yg_hk_type').value != ''))">
+                                    请先选择缴纳城市及户籍类型</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="grey d-ib">公积金基数<i class="text-sm v-t red">*</i></label>
+                            <div>
+                                <input type="text" [placeholder]="fund_placeholder" style="width:2.5rem"
+                                       [class.disabled]="social.get('yg_fund_self').disabled"
+                                       formControlName="yg_fund_self">
+                            </div>
+                            <div>
+                                <span *ngIf="!(social.get('yg_fund_self').value  || (social.get('yg_fund_self').untouched && before_submit))"
+                                      class="error t-sm">公积金基数不能为空</span>
+                                <span *ngIf="!(!social.hasError('fund_error', ['yg_fund_self']) || (social.get('yg_fund_self').untouched && before_submit))"
+                                      class="error t-sm">{{social.getError('fund_error', ['yg_fund_self'])?.msg}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-l-xl p-r-sm p-t pos-a" style="    top: 5rem;width: 100%;">
+            <div class="pos-a" style="right: .6rem;bottom: 1rem;"
+                 *ngIf="social.get('yg_is_social').value || social.get('yg_is_fund').value">
+                <button class="btn btn-sm" (click)="onSubmit()">计算</button>
+            </div>
+            <div class="grey p-b-lg" style="width: 6rem;">
+                根据国家和地方的社会保险法津法规，城镇职工类社会保险的缴费基数以职工本人上一年月平均工资做为缴纳社会保险费的参考依据，但社会保险费的缴费基数不得低于社保局每年公布的最低值，不得高于最高值。
+            </div>
+        </div>
+    </div>
+    <div class="w-40per t pull-right b-l" [class.no-list-bg]="calc_result?.length == 0">
+        <div class="p-t p-b b-b clearfix">
+        <span class="d-ib m-l pull-left">
+            <span class="d-ib">计算结果</span>
+        </span>
+        </div>
+        <ng-container *ngIf="calc_result?.length > 0">
+            <div class="p-t-xl p-b-xl pos-r" style="height: 1.9rem;">
+                <ul class="pos-a calc-result">
+                    <li class="d-ib">
+                        <div class="d-ib">
+                            <div class="t-24 bold lh-28">{{total_calc?.social_money | number: '1.2-2'}}</div>
+                            <div class="lh-20">社保合计/元</div>
+                        </div>
+                    </li>
+                    <li class="d-ib p-r-sm p-l-sm" style="vertical-align: top;">
+                        <span class="t-24 bolder grey">+</span>
+                    </li>
+                    <li class="d-ib">
+                        <div class="d-ib">
+                            <div class="t-24 bold lh-28">{{total_calc?.fund_money | number: '1.2-2'}}</div>
+                            <div class="lh-20">公积金合计/元</div>
+                        </div>
+                    </li>
+                    <li class="d-ib p-r-sm p-l-sm" style="vertical-align: top;">
+                        <span class="t-24 bolder grey">=</span>
+                    </li>
+                    <li class="d-ib">
+                        <div class="d-ib">
+                            <div class="t-24 bold lh-28">{{total_calc?.all_money | number: '1.2-2'}}</div>
+                            <div class="lh-20">五险一金合计/元</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <table class="saas-table b-b">
+                    <thead>
+                    <tr class="saas-table-header b-b b-t">
+                        <th style="width: .05rem;"></th>
+                        <th *ngFor="let header of table_header"
+                            [class.t-l]="header.adjust == -1"
+                            [class.t-c]="header.adjust == 0"
+                            [class.t-r]="header.adjust == 1">
+                            {{header.column_name}}
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let i of calc_result">
+                        <td style="width: .05rem;"></td>
+                        <td *ngFor="let header of table_header"
+                            [class.t-l]="header.adjust == -1"
+                            [class.t-c]="header.adjust == 0"
+                            [class.t-r]="header.adjust == 1">
+                            <div class="d-ib" *ngIf="header.column === 'title'"
+                                 [title]="i[header.column].toString().length > 4 ? i[header.column] : ''">
+                                {{i[header.column] | longStringFilter:4}}
+                            </div>
+                            <div class="d-ib" *ngIf="header.column !== 'title'">
+                                {{i[header.column]}}
+                            </div>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="clearfix" style="line-height: .5rem;">
+                    <div class="pull-right m-r-lg">
+                        <div class="d-ib m-r-lg">
+                            <span class="grey">个人缴纳合计</span>
+                            <span>
+                                {{total_calc?.yg_money | number: '1.2-2'}}
+                            </span>
+                        </div>
+                        <div class="d-ib">
+                            <span class="grey">公司缴纳合计</span>
+                            <span>
+                                {{total_calc?.gs_money | number: '1.2-2'}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

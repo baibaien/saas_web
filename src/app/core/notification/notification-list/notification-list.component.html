@@ -1,0 +1,27 @@
+<div class="staff-content">
+    <div class="p-t p-b b-b clearfix">
+        <div class="d-ib m-l pull-left">
+            <span class="d-ib">通知</span>
+        </div>
+        <div class="pull-right m-r pointer icon-text-btn" *ngIf="!all_read" (click)="markAsRead()">
+            <i class="icon_done_batch"></i>
+            <span class="grey">全部标记为已读</span>
+        </div>
+    </div>
+    <div class="p-t-lg p-l-lg mh-450"  [class.no-list-bg]="notification_list?.length == 0">
+        <div class="ques-list p-t p-b p-l-xl clearfix pointer-no-color" *ngFor="let i of notification_list"
+             (click)="toNotificationDetail(i)">
+            <div class="pull-left">
+                <div class="lh-normal pos-r">
+                    <div class="red-point pos-a" *ngIf="i.status == 1"
+                         style="top: 30%;left: -.15rem;"></div>
+                    <span>{{i.title}}</span>
+                </div>
+                <div class="lh-normal grey">{{i.create_time}}</div>
+            </div>
+            <div class="pull-right" style="padding-top: .1rem;padding-right: .3rem;">
+                <i class="icon_angle_right pointer"></i></div>
+        </div>
+    </div>
+    <mayihr-paging-v2 [page_info]="pagination" (RefreshPagingData)="refreshPaging($event)"></mayihr-paging-v2>
+</div>

@@ -1,0 +1,23 @@
+<div class="modal in alert-modal" style="display: block; z-index:500;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body p-t-xxl p-l-lg p-r-lg">
+                <div *ngIf="type === 'string'">
+                    {{modal_info}}
+                </div>
+
+                <div *ngIf="type === 'array'">
+                    <div>{{modal_info.title}}</div>
+                    <div *ngFor="let msg of modal_info.message">
+                        {{msg}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer t-r p-a">
+            <button type='button' class="btn btn-sm v-m"
+                    (click)="closeAlert()">确定
+            </button>
+        </div>
+    </div>
+</div>

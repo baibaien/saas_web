@@ -1,0 +1,278 @@
+@import url(veriable.less);
+
+@font-face {
+  font-family: 'RobotoBold';
+  src: url('../assets/font-family/Roboto-Bold.ttf');
+  src: local('RobotoBold Regular'),
+  local('RobotoBold'),
+  url('../assets/font-family/Roboto-Bold.ttf') format('truetype');
+}
+
+//颜色
+.text {
+  color: @font-color !important;
+}
+
+.green {
+  color: @m-color !important;
+}
+
+.d-green {
+  color: #307511 !important;
+}
+
+.deep-deep-grey {
+  color: rgba(80, 80, 80, 1) !important;
+}
+
+.deep-grey {
+  color: rgba(80, 80, 80, 0.8);
+}
+
+.light-grey {
+  color: rgba(80, 80, 80, 0.1) !important;
+}
+
+.yellow {
+  color: #ffb200 !important;
+}
+
+.grey {
+  color: @font-color + 70 !important;
+  color: @gfont-color !important;
+}
+
+.total-grey {
+  color: rgba(50, 50, 50, 0.65) !important;
+}
+.total-grey-light {
+  color: rgba(50, 50, 50, 0.4) !important
+}
+.total-grey-20 {
+  color: rgba(50, 50, 50, 0.2);
+}
+.total-grey-full {
+  color: rgba(50, 50, 50, 1)!important;
+}
+
+.error {
+  color: red !important;
+}
+
+.warning {
+  color: #9b8a1f !important;
+}
+
+.white {
+  color: rgb(255, 255, 255) !important;
+}
+
+.d-white {
+  color: #fff - 70 !important;
+  color: rgba(255, 255, 255, 0.65) !important
+}
+
+.bg-white {
+  background-color: #fff;
+}
+
+.bg-green {
+  background-color: #dcf3da;
+  color: #307511;
+}
+
+.bg-warning {
+  background: #f3f1da;
+  color: #9b8a1f;
+}
+
+.bg-error {
+  background-color: #f3dbd9;
+  color: #b4302a;
+}
+
+.bg-grey {
+  background: rgba(80, 80, 80, 0.15);
+}
+
+.bg-grey-deep {
+  background: rgba(80, 80, 80, 0.65);
+}
+
+.bg-light-grey {
+  background: rgba(80, 80, 80, 0.05);
+}
+
+.hover-bg-light-grey:hover {
+  background: rgba(80, 80, 80, 0.05)!important;
+}
+
+.bg-deep-deep-grey {
+  background: rgba(80, 80, 80, 0.8);
+}
+
+.tip {
+  broder-radius: 3px;
+  padding: 16px 8px;
+}
+
+.t-d-l-t {
+  text-decoration: line-through;
+}
+
+//大小
+.t-sm {
+  font-size: 12px;
+}
+
+.t {
+  font-size: 14px;
+}
+
+.t-md {
+  font-size: 16px!important;
+}
+
+.t-lg {
+  font-size: 18px;
+}
+
+.t-20 {
+  font-size: 20px;
+}
+
+.t-36 {
+  font-size: 36px;
+}
+
+.t-24 {
+  font-size: 24px!important;
+}
+
+.t-48 {
+  font-size: 48px !important;
+}
+
+.t-80 {
+  font-size: 80px !important;
+}
+
+.bold {
+  font-weight: 600
+}
+
+.bolder {
+  font-weight: 700
+}
+
+.light {
+  font-weight: 500
+}
+
+.lighter {
+  font-weight: 200
+}
+
+@media screen and (min-width: 0) {
+  .t-sm {
+    font-size: .12rem;
+  }
+
+  .t {
+    font-size: .14rem;
+  }
+
+  .t-md {
+    font-size: .16rem!important;
+  }
+
+  .t-lg {
+    font-size: .18rem !important;
+  }
+
+  .t-36 {
+    font-size: .36rem !important;
+  }
+
+  .t-24 {
+    font-size: .24rem!important;
+  }
+
+  .t-20 {
+    font-size: .20rem;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .t-sm {
+    font-size: 12px;
+  }
+
+  .t {
+    font-size: 14px;
+  }
+
+  .t-md {
+    font-size: 16px!important;
+  }
+
+  .t-lg {
+    font-size: 18px;
+  }
+}
+
+//位置
+.t-l {
+  text-align: left !important;
+}
+
+.t-r {
+  text-align: right !important;
+}
+
+.t-c {
+  text-align: center !important;
+}
+
+.v-m {
+  vertical-align: middle !important;
+}
+
+.v-t {
+  vertical-align: top!important;
+}
+
+.v-b {
+  vertical-align: bottom;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+  color: rgba(80, 80, 80, 0.65);
+}
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: rgba(80, 80, 80, 0.65);
+
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: rgba(80, 80, 80, 0.65);
+
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color: rgba(80, 80, 80, 0.65);
+}
+
+.t-0 {
+  font-size: 0;
+}
+
+.t-RB {
+  font-family: RobotoBold;
+  font-size: 24px;
+}
+
+.t-of-e {
+  text-overflow: ellipsis;
+}

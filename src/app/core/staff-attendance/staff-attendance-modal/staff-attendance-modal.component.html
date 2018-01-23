@@ -1,0 +1,12 @@
+
+<!--假期列表modal-->
+<app-holiday-extend-m [modal_name]="modal_name" [modal_info]="modal_info"
+                      *ngIf="modal_name == 'holiday_extend_m'"></app-holiday-extend-m>
+
+
+
+<app-salary-status [isLock]="isLock" [modal_name]="modal_name"
+                   *ngIf="modal_name === 'alert' && isLock != -1"></app-salary-status>
+<!--<app-unable-edit [modal_name]="modal_name" *ngIf="modal_name === 'unable_edit'"></app-unable-edit>-->
+
+<!--·-->

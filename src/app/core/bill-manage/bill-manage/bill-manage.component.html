@@ -1,0 +1,118 @@
+<div>
+    <div class="clearfix  p-t-lg">
+        <div class="pull-left m-l">
+            <label class=" ui-check grey icon-text-btn" [class.disabled]="this.b_money <= 0"
+                   (click)="checkBalance($event)">
+                <input type="checkbox" [(ngModel)]="use_balance" (change)="useBalance($event)">
+                <i class="icon_ui hover_show"></i>
+                <span>使用账户余额抵扣</span>
+            </label>
+        </div>
+        <div class="pull-right m-r pointer icon-text-btn"
+             (click)="checkReceipt()">
+            <i class="icon_receipt"></i>
+            <span>发票信息</span>
+        </div>
+    </div>
+    <div class="clearfix">
+        <div class="pos-r p-l-xl" style="height: 1.4rem;">
+            <div class="p-t-lg p-b-xl">
+                <ul>
+                    <ng-container *ngIf="use_balance">
+                        <li class="d-ib">
+                            <div class="t-24 t-RB">{{all_money | number: '1.2-2'}}</div>
+                            <div class="total-grey">帐单合计</div>
+                        </li>
+                        <li class="d-ib p-r-sm p-l-sm" style="vertical-align: top;">
+                            <span *ngIf="b_money > 0" class="t-24 grey">-</span>
+                            <span *ngIf="b_money <= 0" class="t-24 grey">+</span>
+                        </li>
+                        <li class="d-ib">
+                            <div class="t-24 t-RB">{{b_money_show | number: '1.2-2'}}</div>
+                            <div *ngIf="b_money >= 0" class="total-grey">账户余额</div>
+                            <div *ngIf="b_money < 0" class="total-grey">账户欠款</div>
+                        </li>
+                        <li class="d-ib p-r-sm p-l-sm" style="vertical-align: top;">
+                            <span class="t-24 grey">=</span>
+                        </li>
+                    </ng-container>
+                    <li class="d-ib">
+                        <div class="t-24 t-RB">{{payable_money | number: '1.2-2'}}</div>
+                        <div class="total-grey">应付合计</div>
+                    </li>
+                </ul>
+            </div>
+            <div class="pos-a" style="right: 1.0rem;top: 0.3rem;">
+                <button class="btn btn-xl" [class.disabled]="choose_bill_num == 0"
+                        [class.pointer-not-allowed]="choose_bill_num == 0"
+                        (click)="createBill($event)">下单支付
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="pos-r b-t clear">
+        <div class="choose-status m-l">
+                <span (click)="clickChooseBill($event, 'all')" class="ui-check icon-text-btn">
+                    <input type="checkbox" id="choose_list" [(ngModel)]="all_selected">
+                    <i class="icon_ui pointer-no-color"></i>
+                    <span>全选</span>
+                </span>
+        </div>
+        <div class="pos-r clear mh-350" [class.no-list-bg]="bill_list?.length == 0">
+            <table class="bill-list-table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th *ngFor="let header of table_header">
+                        {{header.column_name}}
+                    </th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <ng-container *ngFor="let bill of bill_list;let i=index;">
+                    <tr (click)="openBillDetail(bill)">
+                        <td>
+                            <!--<span (click)="clickChooseBill($event, i)" class="ui-check" [class.disabled]="bill.bill_status == 2">-->
+                            <span (click)="clickChooseBill($event, i)" class="ui-check m-l m-r-sm">
+                                <input type="checkbox" name="choose_staff" [(ngModel)]="bill.selected">
+                                <i class="icon_ui hover_show v-m"></i>
+                            </span>
+                        </td>
+                        <td *ngFor="let header of table_header;let j=index;" class="v-t">
+                            <div>
+                                <span [title]="bill[header.column]?.toString().length > 15 ? bill[header.column] : ''">{{bill[header.column] | longStringFilter:15}}</span>
+                                <div class="bill-detail" *ngIf="j === 0">
+                                    <div *ngFor="let detail of bill.child">
+                                        {{detail.type_name}}
+                                    </div>
+                                </div>
+                                <div class="bill-detail" *ngIf="j === 4">
+                                    <div *ngFor="let detail of bill.child">
+                                        {{detail.money}}
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <i class="icon_delete hover_show pointer"
+                               (click)="deleteBill($event, bill)"></i>
+                        </td>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="pos-adjust"></div>
+    <div class="page-footer">
+        <div class="pull-left p-l-xl">共{{total}}条账单</div>
+        <div *ngIf="bill_list?.length > 0" class="pull-right p-r-xl pointer icon-text-btn" (click)="getBillExcel()">
+            <i class="icon_download"></i>
+            <span>导出excel账单</span>
+        </div>
+    </div>
+</div>
+
+<app-bill-manage-modal [modal_name]="modal_name" [modal_info]="modal_info"></app-bill-manage-modal>

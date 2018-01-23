@@ -1,0 +1,44 @@
+<div class="staff-content">
+    <div class="p-t p-b b-b">
+        <span class="d-ib m-l">缴纳进度</span>
+    </div>
+    <div class="p-t p-l-xl grey b-b">
+        <div class="pointer d-ib p-b year-tag m-r" [class.year-choose]="tag_choosed == 1"
+             (click)="chooseTag(1)">
+            在职
+        </div>
+        <div class="pointer d-ib p-b year-tag m-r" [class.year-choose]="tag_choosed == 2"
+             (click)="chooseTag(2)">
+            离职
+        </div>
+    </div>
+    <div class="d-ib pos-r">
+        <div class="table-th-bg">
+        </div>
+        <div class="schedule-box" [class.no-list-bg]="staff_list?.length == 0">
+            <table class="bill_list_table">
+                <thead>
+                <tr>
+                    <th *ngFor="let header of table_header;let i = index;" [class.t-l]="header.adjust == 0">
+                        {{header.column_name}}
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let staff of staff_list" class="th-pointer" (click)="test(staff)">
+                    <td *ngFor="let header of table_header;let i = index;">
+                        <div class="d-ib" *ngIf="i == 1 || i === 6 || i === 8">
+                            {{staff[header.column] || '-'}}
+                        </div>
+                        <div class="d-ib" *ngIf="i != 1 && i !==6 && i !== 8"
+                             [title]="staff[header.column].toString().length> 6 ? staff[header.column] : ''">
+                            {{(staff[header.column] || '-') | longStringFilter:6}}
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <mayihr-paging [page_info]="pagination" [request_url]="global_url" [request_type]="'get'"></mayihr-paging>
+</div>

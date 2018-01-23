@@ -1,0 +1,33 @@
+<div class="staff-content">
+    <div class="p-t  p-b">
+        <a [routerLink]="['/user/staff/staff-detail',user_id]" class="m-l m-r-sm"><i
+                class="icon_arrow_left pointer"></i></a>
+        <span class="d-ib">员工名录/{{user_name}}/薪酬人事变动记录</span>
+    </div>
+    <div class="clearfix b-t p-l-xl" style="min-height: 6rem;" [class.no-list-bg]="log_data?.length == 0">
+        <div *ngFor="let i of log_data" class="clearfix  p-t-lg p-b-lg b-b">
+            <div class="pull-left p-r-xl grey">{{i.effective_at | date: 'yyyy/MM/dd'}}</div>
+            <div class="pull-left" [class.t-d-l-t]="i.status === 2">
+                <div class="pull-left" style="width: 6rem;"
+                     [class.t-d-l-t]="i.status === 2"
+                     [class.grey]="i.status == 2">{{i.change_content}}
+                </div>
+                <div class="clearfix grey"
+                     *ngIf="(i.effective_at | date: 'yyyy/MM/dd') !== (i.created_at | date: 'yyyy/MM/dd')">
+                    <ng-container *ngIf="i.created_at">操作日期</ng-container>
+                    {{i.created_at | date: 'yyyy/MM/dd'}}
+                </div>
+            </div>
+            <div class="pull-right p-r-lg p-l-lg pointer" *ngIf="i.revoke == 1"
+                 (click)="revokeChange(i.id, i.yg_id)">
+                <i class="icon_withdraw v-m  m-r-sm"></i>
+                <span class="v-m">撤销变动</span>
+            </div>
+            <div class="pull-right p-r-lg p-l-lg pointer" [class.grey]="i.status == 2" *ngIf="i.revoked_at !== ''">撤销时间: {{i.revoked_at}}</div>
+        </div>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,284 @@
+
+tr th:nth-child(5) {
+    width: 2rem;
+}
+
+tr th:nth-child(7) {
+    width: 2rem;
+}
+.prevent-bill > div{
+    color: rgba(50, 50, 50, 0.4) !important;
+    cursor: not-allowed !important;
+    background: rgba(50, 50, 50, 0.05) !important;
+}
+.prevent-bill {
+    color: rgba(50, 50, 50, 0.4) !important;
+    cursor: not-allowed !important;
+    background: rgba(50, 50, 50, 0.05) !important;
+}
+/*.operate-choose {*/
+/*position: absolute;*/
+/*right: 0;*/
+/*width: 2.5rem;*/
+/*background: white;*/
+/*z-index: 1001;*/
+/*border-radius: 0.05rem;*/
+/*box-shadow: 0 0 .03rem .03rem rgba(80, 80, 80, 0.2);*/
+/*}*/
+
+/*.direction-reverse {*/
+/*bottom: .5rem;*/
+/*}*/
+
+/*.operate-choose > div:nth-child(n + 2):hover {*/
+/*color: #33ac37;*/
+/*cursor: pointer;*/
+/*}*/
+
+/*.operate-choose > div {*/
+/*background: rgba(80, 80, 80, 0.05);*/
+/*height: .3rem;*/
+/*line-height: .3rem;*/
+/*color: rgba(80, 80, 80, 0.6);*/
+/*text-align: center;*/
+/*margin-bottom: .03rem;*/
+/*cursor: pointer;*/
+/*}*/
+
+/*.operate-choose > div:first-child {*/
+/*text-align: left;*/
+/*background: white;*/
+/*padding-left: .1rem;*/
+/*cursor: auto;*/
+/*}*/
+
+/*.operate-choose > div > div:first-child:hover {*/
+/*!*color: rgba(80, 80, 80, 0.6);*!*/
+/*!*background: white;*!*/
+/*}*/
+
+/*.operate-choose > div > div:nth-child(n+2):hover {*/
+/*background: #33ac37;*/
+/*color: white*/
+/*}*/
+
+.change-disabled div {
+    color: rgba(50, 50, 50, 0.4) !important;
+    cursor: not-allowed !important;
+}
+
+.change-disabled div:hover {
+    color: rgba(50, 50, 50, 0.4) !important;
+}
+
+/*.change-able div {*/
+    /*color: rgba(50, 50, 50, 0.7);*/
+    /*cursor: pointer;*/
+/*}*/
+
+/*.change-able div:hover {*/
+    /*color: #33ac37;*/
+/*}*/
+
+.back-month-choose {
+    z-index: 1001;
+    width: 2.10rem;
+    border-radius: .03rem;
+    background-color: #ffffff;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1), 0 2px 3px 0 rgba(0, 0, 0, 0.1);
+    border: solid 1px #e9e9e9;
+    padding: .1rem;
+    line-height: normal;
+}
+
+.back-month-up {
+    bottom: .35rem;
+}
+
+.back-year {
+    display: block;
+    text-align: left;
+    color: rgba(80, 80, 80, 0.7);
+}
+
+.back-month {
+    display: inline-block;
+    width: 1.8rem;
+    white-space: normal;
+    text-align: left;
+}
+
+.choose-year {
+    text-align: left;
+    color: rgba(80, 80, 80, 0.7);
+}
+
+.back-month div {
+    display: inline-block;
+    width: .3rem;
+    padding: .05rem 0 .05rem 0;
+    cursor: pointer;
+    text-align: center;
+    margin: .08rem 0 .08rem 0;
+    color: rgba(50, 50, 50, 1);
+}
+
+.back-month div:hover {
+    color: #33ac37;
+}
+
+.back-month > .back-month-selected {
+    background: #33ac37;
+    color: white !important;
+}
+
+.back-month div.back-month-selected:first-child {
+    border-top-left-radius: .3rem;
+    border-bottom-left-radius: .3rem;
+}
+
+.back-month div.back-month-selected:last-child {
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+}
+
+.back-month-start-selected {
+    border-top-left-radius: .3rem;
+    border-bottom-left-radius: .3rem;
+}
+
+.back-month-end-selected {
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+}
+
+.back-operate-box {
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+    text-align: right;
+    padding: .1rem .1rem .1rem 0;
+}
+
+.choose-month {
+    margin-bottom: .5rem;
+}
+
+.operate-over {
+    position: absolute;
+    background: white;
+    height: .55rem;
+    line-height: .55rem;
+    width: 1.5rem;
+    right: .3rem;
+    bottom: .5rem;
+    text-align: center;
+}
+
+.operate-button {
+    position: absolute;
+    background: white;
+    height: .55rem;
+    line-height: .55rem;
+    width: 1.5rem;
+    right: .3rem;
+    bottom: .5rem;
+    text-align: center;
+}
+
+.operate-button > div:first-child {
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    width: 1.15rem;
+    background: #33ac37;
+    border-radius: .04rem 0 0 .04rem;
+    color: white;
+    height: 100%;
+}
+
+.operate-button > div:last-child {
+    position: absolute;
+    right: 0;
+    background: #33ac37;
+    border-radius: 0 .04rem .04rem 0;
+    width: .34rem;
+    height: 100%;
+}
+
+.month_box {
+    color: #33ac37;
+    border: 1px solid #33ac37;
+    border-radius: 3px;
+    line-height: .3rem;
+}
+
+.hover_show:after {
+    color: #ffffff;
+}
+
+tr:hover .hover_show:after {
+    color: rgba(208, 208, 208, 0.7);
+}
+
+input:checked + .hover_show:after {
+    color: #33ac37;
+}
+
+.no-list {
+    text-align: center;
+    line-height: 4.3rem;
+    width: 100%;
+    height: 100%;
+}
+
+.no-list-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+
+.month-redirect {
+    line-height: .5rem;
+    height: .5rem;
+    padding-left: .2rem;
+    padding-right: .2rem;
+    background: white;
+    margin-left: 1.6rem;
+    float: left;
+    width: 10rem !important;
+    border: 1px solid #d6d6d6;
+    border-radius: 3px;
+    position: relative;
+    margin-bottom: .15rem;
+    /*overflow: hidden;*/
+}
+
+.month-tag {
+    display: inline-block;
+    margin-right: .1rem;
+    box-sizing: border-box;
+    color: rgba(80, 80, 80, 0.65);
+}
+
+.month-tag-selected {
+    height: .49rem;
+    border-bottom: 3px solid #64c24d;
+    color: #505050 !important;
+}
+
+.month-tag:hover {
+    cursor: pointer;
+    height: .49rem;
+    border-bottom: 3px solid #64c24d;
+}
+
+.ever_show:after {
+    color: rgba(208, 208, 208, 0.7);
+}
+
+.no-list-image {
+    text-align: center;
+    line-height: 4.3rem;
+}

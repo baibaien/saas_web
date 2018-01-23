@@ -1,0 +1,30 @@
+<div class="modal in" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header b-b p-a">
+                <div class="t-md">购买专项服务</div>
+            </div>
+            <div class="modal-body p-a-lg" style="overflow-y: initial;">
+                <div>
+                    <div class="d-ib w-200">
+                        <mayihr-select [SelectConfig]="{placeholder: '请选择员工', allow_clear: true}"
+                                       [formControl]="staff"
+                                       [SelectData]="staff_outline"></mayihr-select>
+                    </div>
+                </div>
+                <div class="">
+                    若不选择员工，则认为此项服务是针对企业的
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer t-r p-a">
+            <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" data-dismiss="modal"
+                    (click)="cancelModal()">取消
+            </button>
+            <button type='button' class="btn btn-sm v-m"
+                    (click)="submitModal()">确认
+            </button>
+        </div>
+    </div>
+</div>

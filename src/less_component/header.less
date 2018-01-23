@@ -1,0 +1,88 @@
+@import url(veriable.less);
+
+
+
+.header.fixed-top{
+  position: fixed;
+  left:0;
+  right:0;
+  top:0;
+  z-index:99999;
+  overflow: visible;
+}
+
+.header{
+  width:100%;
+  min-width: 960px;
+  box-shadow:0 2px 4px rgba(0,0,0,0.25);
+  text-align: left;
+  background: #fff;
+  overflow:hidden;
+  .brand{
+    float:left;
+    // display:block;
+    border:none;
+    img{
+      border:none;
+      height:50px;
+    }
+  }
+  //.navbar{
+  //  li{
+  //    float:left;
+  //    line-height: inherit;
+  //    width:auto;
+  //    height:60px;
+  //  }
+  //
+  //  a:link{
+  //    padding:0 15px;
+  //    i {
+  //      margin-right:0;
+  //    }
+  //    span {
+  //      vertical-align: middle;
+  //    }
+  //  }
+  //  a:link,a:visited,a:hover{
+  //    text-decoration:none;
+  //  }
+  //  .sub-menu{
+  //    li{
+  //      float:none;
+  //    }
+  //  }
+  //}
+}
+
+@media screen and (max-width:640px) {
+  .header.fixed-top {
+    width:9.6rem ;
+    position: static ;
+    margin-top:-.9rem ;
+    margin-bottom:.30rem ;
+    .container {
+      width:9.6rem ;
+      height:100% ;
+    }
+  }
+}
+@media screen and (min-width: 0) {
+
+  .header{
+    min-width: 9.60rem;
+    img{
+      height:.5rem;
+    }
+  }
+  .navbar{
+    li{
+      height:.6rem;
+    }
+
+    a:link{
+      padding:0 .15rem;
+    }
+  }
+}
+

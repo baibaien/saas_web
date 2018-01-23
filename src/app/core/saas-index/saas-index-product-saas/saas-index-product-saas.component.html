@@ -1,0 +1,246 @@
+<div class="index-body">
+    <app-saas-index-header></app-saas-index-header>
+    <div class="section section1">
+        <div style="padding-top:1.8rem;padding-bottom:3.2rem;">
+            <h1 class="t-48 t-c m-b white mobile-t36">人力资源外包</h1>
+            <p class="t-c white pc-view t-24">将您从繁琐的工作中解放出来，把时间留给更有意义的事</p>
+          <p class=" white mobile-t28 mobile-view t-c">将您从繁琐的工作中解放<br/>出来，把时间留给更有意义的事</p>
+        </div>
+    </div>
+    <div class="section section2">
+        <div class="index-container">
+            <div class="center-block">
+                <div class="d-ib block" [class.active]="type === 0" (click)="toggleType(0)">
+                    <img src="/assets/index/product/chuchuanggongsi.png" alt="">
+                    <p class="t-24">初创公司</p>
+                </div>
+                <div class="d-ib block" [class.active]="type === 1" (click)="toggleType(1)">
+                    <img src="/assets/index/product/yidibangong.png" alt="">
+                    <p class="t-24">异地办公</p>
+                </div>
+                <div class="d-ib block" [class.active]="type === 2" (click)="toggleType(2)">
+                    <img src="/assets/index/product/chengzhangqiye.png" alt="">
+                    <p class="t-24">成长企业</p>
+                </div>
+            </div>
+            <div class="huge-block" style="overflow: hidden">
+                <p class="sub-page-title  mobile-t36">企业痛点和困扰</p>
+                <div class="content-block " *ngIf="type === 0">
+                    <div class="d-ib bg-white content">
+                        <img src="/assets/index/product/zhengceyaoqiu.png" alt="">
+                        <p class="t-24 t-c m-b-xs mobile-t28">政策要求</p>
+                        <p class="text-grey t-c">劳动法规定，企业必须为员工缴纳社保，否则存在很大的法律风险</p>
+                    </div>
+                    <div class="d-ib bg-white content">
+                        <img src="/assets/index/product/quefazhuanren.png" alt="">
+                        <p class="t-24 t-c m-b-xs mobile-t28 ">缺乏专人</p>
+                        <p class="text-grey t-c">公司新成立，没有专门的HR，老板对人力资源这块一般也不太熟</p>
+                    </div>
+                    <div class="d-ib bg-white content">
+                        <img src="/assets/index/product/geshuiwenti.png" alt="">
+                        <p class="t-24 t-c m-b-xs mobile-t28" >个税问题</p>
+                        <p class="text-grey t-c">没有专人处理员工工资发放，以及个税申报事宜</p>
+                    </div>
+                    <div class="d-ib bg-white content">
+                        <img src="/assets/index/product/kaihuxuqiu.png" alt="">
+                        <p class="t-24 t-c m-b-xs mobile-t28">开户需求</p>
+                        <p class="text-grey t-c">由于企业自身需求，需要开设社保公积金账户，但无人操作办理</p>
+                    </div>
+                </div>
+                <div class="content-block" *ngIf="type === 1">
+                    <div class="d-ib bg-white content v-t">
+                        <img src="/assets/index/product/wufabanli.png" alt="">
+                        <p class="t-24 t-c m-b-xs mobile-t28">无法办理</p>
+                        <p class="text-grey t-c">没有分公司，不能开设自己的账户，需要第三方公司代缴社保公积金</p>
+                    </div>
+                    <div class="d-ib bg-white content v-t">
+                        <img src="/assets/index/product/ziliaotigong.png" alt="">
+                        <p class="t-24 t-c m-b-xs mobile-t28">资料提供</p>
+                        <p class="text-grey t-c">异地员工需要当地工资流水及个税记录，办理很多事情，总部无法提供</p>
+                    </div>
+                    <div class="d-ib bg-white content v-t">
+                        <img src="/assets/index/product/zhengcechayi.png" alt="">
+                        <p class="t-24 t-c m-b-xs mobile-t28">政策差异</p>
+                        <p class="text-grey t-c">全国五险一金政策差异大总部HR很难搞定全国分支机构业务</p>
+                    </div>
+                    <div class="d-ib bg-white content v-t">
+                        <img src="/assets/index/product/chengxufuza.png" alt="">
+                        <p class="t-24 t-c m-b-xs mobile-t28">程序复杂</p>
+                        <p class="text-grey t-c">每个地方开设账户，招HR不现实，企业处理全国社保成本高涨</p>
+                    </div>
+                </div>
+                <div class="content-block" *ngIf="type === 2">
+                    <div class="d-ib bg-white content v-t">
+                        <img src="/assets/index/product/chengbengaozhang.png" alt="">
+                        <p class="t-24 t-c m-b-xs mobile-t28">成本高涨</p>
+                        <p class="text-grey t-c">请专业的HR处理成本高，老板自行处理也很麻烦，时间精力都是成本</p>
+                    </div>
+                    <div class="d-ib bg-white content v-t">
+                        <img src="/assets/index/product/wurendali.png" alt="">
+                        <p class="t-24 t-c m-b-xs mobile-t28">无人打理</p>
+                        <p class="text-grey t-c">由于人事离职，无人管理已有的社保公积金账户，需要代管理代操作</p>
+                    </div>
+                    <div class="d-ib bg-white content v-t">
+                        <img src="/assets/index/product/caozuomafan.png" alt="">
+                        <p class="t-24 t-c m-b-xs mobile-t28">操作麻烦</p>
+                        <p class="text-grey t-c">自己处理麻烦，需要第三方机构代缴社保公积金</p>
+                    </div>
+                    <div class="d-ib bg-white content v-t">
+                        <img src="/assets/index/product/zhengceguiding.png" alt="">
+                        <p class="t-24 t-c m-b-xs mobile-t28">政策规定</p>
+                        <p class="text-grey t-c">被社保部门稽查，必须给员工缴纳社保公积金</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section section3 bg-white">
+        <div class="index-container">
+            <p class="sub-page-title  mobile-t36">我们提供的服务</p>
+            <ng-container *ngIf="type === 0">
+                <div class="content-block m-b-sm">
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">缴纳社保</p>
+                    </div>
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">缴纳公积金</p>
+                    </div>
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">代发工资</p>
+                    </div>
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">个税申报</p>
+                    </div>
+                </div>
+                <div class="content-block m-b-lg">
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">新开社保户及办理社保Ukey</p>
+                    </div>
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">新开公积金户及办理公积金Ukey</p>
+                    </div>
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">员工居住证积分新办</p>
+                    </div>
+                </div>
+            </ng-container>
+            <!--异地公司-->
+            <ng-container *ngIf="type === 1">
+                <div class="content-block m-b-lg">
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">缴纳社保</p>
+                    </div>
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">缴纳公积金</p>
+                    </div>
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">代发工资</p>
+                    </div>
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">个税申报</p>
+                    </div>
+                </div>
+                <div class="content-block m-b-lg">
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">员工居住证积分新办</p>
+                    </div>
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">退休手续办理</p>
+                    </div>
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">相关人事证明开具</p>
+                    </div>
+                </div>
+                <!--异地公司-->
+            </ng-container>
+            <!--成长公司-->
+            <ng-container *ngIf="type === 2">
+
+                <div class="content-block m-b-lg">
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">新开社保户及办理社保Ukey</p>
+                    </div>
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">新开公积金户及办理公积金Ukey</p>
+                    </div>
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">遗失社保ukey补办理</p>
+                    </div>
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">遗失公积金ukey补办理</p>
+                    </div>
+                </div>
+                <div class="content-block m-b-lg">
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">已存在社保账户仅办理ukey</p>
+                    </div>
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">已存在公积金账户仅办理ukey</p>
+                    </div>
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">社保ukey密码找回</p>
+                    </div>
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">公积金ukey密码找回</p>
+                    </div>
+                </div>
+                <div class="content-block m-b-lg">
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">社保公积金欠费</p>
+                    </div>
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">已有公积金账户委托代管</p>
+                    </div>
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">社保基数超时年申报/社保基数调整</p>
+                    </div>
+                    <div class="d-ib bg-grey content">
+                        <p class="t-24 t-c ">公积金银行托收业务办理</p>
+                    </div>
+                </div>
+            </ng-container>
+            <!--成长公司-->
+
+            <p class="t-c t-md">了解更多业务，<span class="index-green"><a
+              href="http://p.qiao.baidu.com/cps2/chatIndex?reqParam=%7B%22from%22%3A0%2C%22sid%22%3A%22-100%22%2C%22tid%22%3A%22-1%22%2C%22ttype%22%3A1%2C%22siteId%22%3A%2210634469%22%2C%22userId%22%3A%2223166757%22%2C%22pageId%22%3A0%7D"
+              class="mbtn">咨询在线客服</a></span></p>
+        </div>
+    </div>
+    <div class="section section4"
+         [class.anli0-bg]="type === 0"
+         [class.anli1-bg]="type === 1"
+         [class.anli2-bg]="type === 2">
+        <div class="index-container">
+            <p class="sub-page-title">客户案例</p>
+            <div *ngIf="type === 0">
+                <img src="/assets/index/product/chuchuanggongsianli.png" alt="">
+                <p class="t-c t-20 mobile-t28">叶阳 CEO</p>
+                <p class="t-md t-c m-b">深圳市增财易投资管理有限公司</p>
+                <p class="text-grey t-c mobile-t22">
+                    我是一家深圳初创期金融公司的CEO，公司成立初期就在考虑怎么解决公司人事问题。传统人事代理机构的收费相对较高，雇一个全职HR来管每月开销也要6000块，自己处理的话流程比较复杂，还需要经常跑社保公积金中心，比较费时。和蚂蚁HR合作后，很好的解决了我公司的痛点，在线即可轻松搞定社保，每月月底还有正规发票寄送，收费明细也很清楚，推荐！</p>
+            </div>
+            <!--异地办公-->
+            <div *ngIf="type === 1">
+                <img src="/assets/index/product/yidibangonganli.png" alt="">
+                <p class="t-c t-20 mobile-t28">张群 HR</p>
+                <p class="t-md t-c m-b">广东快客电子商务有限公司</p>
+                <p class="text-grey t-c mobile-t22">
+                    我们公司总部在东莞，在深圳设立了办事处，考虑到自己开户成本很高，每个城市缴纳社保实操差异很大，办理也比较麻烦。经过朋友推荐选择了蚂蚁HR社保代理服务，直接在线操作，为员工缴纳社保业务非常方便。非常贴心的售前和售后服务，不管我们多紧急多复杂的需求都可以很快梳理清楚，也会解释的很到位。非常感谢蚂蚁HR，帮企业及时准确地完成业务需求。</p>
+            </div>
+            <!--异地办公
+            <!--成长公司-->
+            <div *ngIf="type === 2">
+                <img src="/assets/index/product/chengzhangqiyeanli.png" alt="">
+                <p class="t-c t-20 mobile-t28">曹佳宁 上海公司的总经理</p>
+                <p class="t-md t-c m-b">优家教育</p>
+                <p class="text-grey t-c mobile-t22">两年前在朋友的推荐下使用了蚂蚁HR的服务，客服人员的耐心细致，整个系统的稳定性和人性化服务都让用户感受非常不错，我也会把蚂蚁HR推荐给更多的朋友们。</p>
+            </div>
+            <!--成长公司-->
+
+        </div>
+
+    </div>
+    <app-saas-index-consult></app-saas-index-consult>
+    <app-saas-index-sign></app-saas-index-sign>
+    <app-saas-index-footer></app-saas-index-footer>
+</div>

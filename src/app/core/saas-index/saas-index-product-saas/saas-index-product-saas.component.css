@@ -1,0 +1,94 @@
+.block {
+    width: 33.333%;
+}
+
+.section1 {
+    background: url("/assets/index/product/product-bg.png") top left no-repeat;
+    background-size: auto;
+}
+
+.content-block {
+    text-align: left;
+    font-size:0;
+}
+
+.content-block + .content-block {
+    margin-top: .2rem;
+}
+
+.content-block .content {
+    width: 2.85rem;
+    padding: .5rem .2rem;
+    font-size: 14px;
+}
+
+.section2 .content {
+    height: 2.75rem;
+}
+
+.section3 .content {
+    height: 1.5rem;
+}
+
+.content-block .content + .content {
+    margin-left: .2rem;
+}
+
+.content-block img {
+    height: .6rem;
+}
+
+
+.content {
+    vertical-align: top;
+}
+
+
+.anli0-bg {
+    background: url("/assets/index/product/chuchuanggongsi-bg.png") left top no-repeat;
+    background-size: auto 100%;
+}
+.anli1-bg {
+    background: url("/assets/index/product/chuchuanggongsi-bg.png") left top no-repeat;
+    background-size: auto 100%;
+}
+.anli2-bg {
+    background: url("/assets/index/product/yidibangong-bg.png") left top no-repeat;
+    background-size: auto 100%;
+}
+@media screen and (max-width: 640px){
+  .section1>div {
+    padding-top:.8rem !important;
+    padding-bottom:1.5rem !important;
+  }
+  .section2 .content {
+    height: 3.5rem;
+    margin-bottom: .2rem;
+  }
+  .section2 .content-block .content:nth-child(odd) {
+    float:right;
+  }
+  .section2 .content-block .content:nth-child(even) {
+    margin-left:0;
+  }
+  .section3 .content-block {
+    display: flex;
+    /*justify-content: space-around;*/
+    align-content: flex-start;
+    align-items: flex-start;
+  }
+  .section3 .content + .content {
+    margin-left:4%;
+  }
+  .section3 .content-block .content {
+    flex: 0 0 22%;
+    height:2.7rem;
+  }
+  .section4 img {
+    width: 1.2rem;
+  }
+  .content .mobile-t28 {
+    margin-top: .2rem;
+    font-weight: bold;
+  }
+}

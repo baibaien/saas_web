@@ -1,0 +1,27 @@
+<div class="modal in" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body p-l-lg p-t-xl">
+                <div>
+                    以下员工服务变更失败：
+                </div>
+                <div class="p-l p-t">
+                    <ul>
+                        <li *ngFor="let staff of modal_info;let i=index;">
+                            {{i + 1}}. {{staff.yg_name}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="p-t-xl t-c">了解详情</div>
+        <div class="modal-footer t-r p-a">
+            <div class="t-c">
+                <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" data-dismiss="modal"
+                        (click)="cancelModal()">知道了
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

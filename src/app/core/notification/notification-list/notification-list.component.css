@@ -1,0 +1,3 @@
+.ques-list:nth-child(even) {
+    background: rgba(80, 80, 80, 0.05);
+}

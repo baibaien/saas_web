@@ -1,0 +1,29 @@
+
+
+.page-footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    height: .5rem;
+    margin-top: .5rem;
+}
+
+.page-footer > div {
+    line-height: .5rem;
+}
+
+.pos-adjust {
+    margin-top: .5rem;
+}
+
+/*.unpaid td {*/
+    /*text-align: center;*/
+    /*height: .6rem;*/
+    /*line-height: .6rem;*/
+    /*cursor: pointer;*/
+/*}*/
+
+
+.content td:last-child {
+    line-height: normal;
+}

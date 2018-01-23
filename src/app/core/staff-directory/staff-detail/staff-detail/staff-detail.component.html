@@ -1,0 +1,1601 @@
+<div class="staff-content" #body>
+    <div class="p-t  p-b">
+        <a [routerLink]="['/user/staff']" class="m-l m-r-xs"><i class="icon_arrow_left"></i></a>
+        <span class="d-ib">员工名录/{{ staff_info_base?.yg_name }}</span>
+        <a class="d-ib  p-l-lg p-r-lg pull-right pointer"
+           (click)="toStaffChangeLog()">
+            <i class="icon_list p-r-xs v-m"></i><span class="v-m grey">薪酬/人事变动记录</span></a>
+    </div>
+    <div *ngIf="staff_info_base?.button_status !== ''">
+        <div class="clearfix b-t" *ngIf="staff_info_base?.button_status && staff_info_base.button_status?.type == '4'">
+            <div class="d-ib pull-left m-l p-l-lg m-t-sm m-b-sm dimissionDate">
+                该员工已于{{staff_info_base.button_status?.date}}离职
+            </div>
+            <div class="d-ib pull-right p-l-lg p-r-lg pull-right">
+                <a class=" p-r d-ib pointer" style="line-height: .55rem" (click)="downloadStopContract()">下载《劳动合同终止或解除协议》.pdf</a>
+                <button *ngIf="!future_fire" class=" btn v-m btn-sm"
+                        (click)="toStaffRehire()">重新雇佣
+                </button>
+            </div>
+        </div>
+        <div class="clearfix b-t" *ngIf="staff_info_base?.button_status && staff_info_base.button_status?.type == '2'">
+            <div class="d-ib pull-left m-l p-l-lg m-t-sm m-b-sm dimissionDate">
+                该员工将于{{staff_info_base.button_status?.date}}离职
+            </div>
+            <div class="d-ib pull-right p-l-lg p-r-lg pull-right">
+                <a class=" p-r d-ib" style="line-height: .55rem">下载《劳动合同终止或解除协议》.pdf</a>
+                <button class=" btn v-m btn-sm"
+                        (click)="cancelRegular(staff_info_base.button_status?.id, staff_info_base?.id, 'dimission')">
+                    撤销离职
+                </button>
+            </div>
+        </div>
+        <div class="clearfix b-t"
+             *ngIf="staff_info_base?.button_status && staff_info_base.button_status?.type == '3'">
+            <div class="d-ib pull-left m-l p-l-lg m-t-sm m-b-sm" style="line-height: .35rem">该员工正处在试用期中</div>
+            <div class="d-ib pull-right p-l-lg p-r-lg pull-right m-t-sm">
+                <button class="btn btn-sm v-m"
+                        (click)="showModal('qualified', user_id, staff_info_base?.yg_formal_date, staff_info_base?.yg_sallay)">
+                    转正
+                </button>
+            </div>
+        </div>
+        <div class="clearfix b-t"
+             *ngIf="staff_info_base?.button_status && staff_info_base.button_status?.type == '1'">
+            <div class="d-ib pull-left m-l p-l-lg m-t-sm m-b-sm" style="line-height: .35rem">
+                该员工将于{{staff_info_base.button_status?.date}}转正
+            </div>
+            <div class="d-ib pull-right p-l-lg p-r-lg pull-right m-t-sm">
+                <button class="btn btn-sm v-m"
+                        (click)="cancelRegular(staff_info_base.button_status?.id, staff_info_base?.id, 'regular')">取消转正
+                </button>
+            </div>
+        </div>
+        <div class="clearfix b-t"
+             *ngIf="staff_info_base?.button_status && staff_info_base.button_status?.type == '5'">
+            <div class="d-ib pull-left m-l p-l-lg m-t-sm m-b-sm" style="line-height: .35rem">
+                该员工合同{{staff_info_base.button_status?.is_future}}{{staff_info_base.button_status?.date}}到期
+            </div>
+            <div class="d-ib pull-right p-l-lg p-r-lg pull-right m-t-sm">
+                <button class="btn btn-sm v-m"
+                        (click)="showModal('contract', user_id, staff_info_base.button_status?.date)">续签
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="clear-fix b-t p-t-lg">
+        <div class="p-l-lg clearfix">
+            <ul class="staff-detail-operate"
+                *ngIf="!(staff_info_base?.button_status && staff_info_base.button_status?.type == '4')">
+                <li *ngIf="!(staff_info_base?.button_status && staff_info_base.button_status?.type == '2')"><a
+                        (click)="toStaffChange()" class="pointer-blue"><i
+                        class="icon_different  m-r-sm  blue"></i>人事变动</a>
+                </li>
+                <li (click)="absenceModal()"
+                ><a class="pointer-red"
+                ><i class="icon_quit  m-r-sm red"></i>记录请假/缺勤</a></li>
+                <li (click)="overtimeModal()"
+                ><a class="pointer"><i class="icon_schedule  m-r-sm green"></i>记录加班</a></li>
+                <li class="pull-right t-r p-r-lg">
+                    <div class="grey d-ib lh-30">员工自助</div>
+                    <div class="d-ib v-m" [formGroup]="toggleSelfBox">
+                        <label class="slide on">
+                            <input type="checkbox" formControlName="toggleSelfStaff" value="1" name="toggleSelfStaff">
+                            <i class="slide-switch" (click)="openToggleModal($event)"></i>
+                        </label>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+        <div class="staff-detail-general clearfix">
+            <div class="p-l-xxl"><span class="t-24 bolder">{{staff_info_base?.yg_name}}</span><span
+                    class="p-l grey">{{staff_info_base?.yg_hire_type.name}}员工/司龄{{staff_info_base?.employee_time}}</span>
+            </div>
+            <div class="m-t">
+                <div class="p-l-xxl d-ib p-r-xxl left-part">
+                    <p class="grey">{{staff_info_base?.yg_zhiwei?.name || '暂无岗位'}}</p>
+                    <p class="p-t-xs grey">{{staff_info_base?.yg_org_id?.name || '暂无部门'}}</p>
+                    <p class="p-t-xs grey">
+                        <span *ngIf="!(!staff_info_base?.leader_id?.name)">向{{staff_info_base?.leader_id?.name}}汇报</span>
+                        <span *ngIf="!(staff_info_base?.leader_id?.name)">暂无汇报对象</span>
+                    </p>
+                </div>
+                <div class="d-ib half p-l-xxl">
+                    <p class="grey">
+                        <span *ngIf="!(!staff_info_base?.yg_office?.name)">工作地点：{{staff_info_base?.yg_office?.name}}</span>
+                        <span *ngIf="!(staff_info_base?.yg_office?.name)">暂未添加工作地点</span>
+                    </p>
+                    <p class="p-t-xs grey">
+                        <span *ngIf="!(!staff_info_base?.yg_con_com_id?.name)">合同公司：{{staff_info_base?.yg_con_com_id?.name}}</span>
+                        <span *ngIf="!(staff_info_base?.yg_con_com_id?.name)">暂未添加合同公司</span>
+                    </p>
+                    <p class="p-t-xs grey">{{staff_info_base?.yg_hire_date | date: 'yyyy/MM/dd'}}入职
+                        {{staff_info_base?.yg_formal_date | date: 'yyyy/MM/dd'}}转正</p>
+                </div>
+            </div>
+        </div>
+        <div style="height:.4rem;">
+            <ul class="staff-detail-index grey b-b d-b nav" #rollingNav>
+                <li *ngFor="let tabContent of tabData;let i = index;" [appScroll]="tabContent.target"
+                    [class.green_bb]="i == 0 && first_light">
+                    <label class="tab_bar">{{tabContent.title}}<input type="radio" name="tab"
+                                                                      class="mark"><b></b></label>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="clearfix p-l-lg p-r-lg">
+        <!--基本信息-->
+        <div class="p-t-lg" #base>
+            <div class="pull-left t-lg p-b-xl">基本信息</div>
+            <div class="pull-right" *ngIf="staff_info_base?.status.id != 2">
+                <span (click)="editForm('baseEdit', base_msg, staff_info_base, 'base', 'id_valid')" class="pointer"
+                      *ngIf="!baseEdit">
+                    <i class="m-r-sm grey {{edit_state.baseEditClass}}"></i>编辑
+                </span>
+                <div *ngIf="baseEdit">
+                    <button class="btn btn-sm reverse" (click)="editCancel('baseEdit')">取消</button>
+                    <button class="btn btn-sm m-l"
+                            (click)="saveForm('baseEdit', base_msg, staff_info_base, 'base', 'id_valid')">
+                        保存
+                    </button>
+                </div>
+
+            </div>
+            <div class="staff-detail-block clearfix p-b-xxl b-b">
+                <div class="clearfix m-b-sm" [class.edit]="baseEdit">
+                    <form action="" [formGroup]="base_msg">
+                        <div class="pull-left half p-l-xl b-r">
+                            <table class="staff-detail-table">
+                                <tr>
+                                    <td class="grey">姓名
+                                        <i class="text-sm v-t red">*</i>
+                                    </td>
+                                    <td>
+                                        <input type="text" formControlName="yg_name" placeholder="输入姓名"
+                                               *ngIf="baseEdit">
+                                        <div *ngIf="baseEdit"> <span
+                                                *ngIf="!(base_msg.get('yg_name').valid || (base_msg.get('yg_name').untouched && beforesubmit.base_msg))"
+                                                class="red t-sm">姓名长度为2-30个字符</span></div>
+                                        <div *ngIf="!baseEdit" class="">{{staff_info_base?.yg_name}}</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="grey">工号</td>
+                                    <td>
+                                        <input *ngIf="baseEdit"
+                                               type="text"
+                                               formControlName="yg_no"
+                                               placeholder="输入工号">
+                                        <div *ngIf="!baseEdit" class="">{{staff_info_base?.yg_no || '暂无'}}</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="grey b-t m-t-sm m-b-sm" style="line-height: 0;width: .3rem;"></div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="grey">性别</td>
+                                    <td>
+                                        <div *ngIf="baseEdit">
+                                            <label class="d-ib ui-check t m-r-sm"
+                                                   *ngFor="let item of staff_setting_data?.yg_gender;">
+                                                <input type="radio" formControlName="yg_gender" *ngIf="baseEdit"
+                                                       value="{{item.id}}">
+                                                <i class="icon_ui"></i>
+                                                <span class="t v-m">{{item.name}}</span>
+                                            </label>
+                                        </div>
+                                        <div *ngIf="!baseEdit" class="">{{staff_info_base?.yg_gender.name || '暂无'}}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="grey birthday">出生日期</td>
+                                    <td>
+                                        <div *ngIf="baseEdit">
+                                            <div style="width:2.2rem;">
+                                                <mayihr-datepicker formControlName="yg_birth"
+                                                                   [options]="{min_view_mode: 2}"></mayihr-datepicker>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="!baseEdit" class="">{{staff_info_base?.yg_birth || '暂无'}}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="grey">最高学历</td>
+                                    <td>
+                                        <div *ngIf="baseEdit">
+                                            <div class="d-ib w-220">
+                                                <mayihr-select [SelectData]="staff_setting_data?.yg_xueli"
+                                                               [SelectConfig]="{placeholder: '请选择最高学历', allow_clear: true}"
+                                                               formControlName="yg_xueli"></mayihr-select>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="!baseEdit" class="">{{staff_info_base?.yg_xueli.name ?
+                                            (staff_info_base?.yg_xueli.name == '请选择' ?
+                                            '暂无':staff_info_base?.yg_xueli.name):
+                                            '暂无'}}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="grey">婚育</td>
+                                    <td>
+                                        <div *ngIf="baseEdit" class="v-m">
+                                            <div class="d-ib half w-100 v-m">
+                                                <mayihr-select [SelectData]="staff_setting_data?.yg_marry"
+                                                               [SelectConfig]="{placeholder: '婚姻状况'}"
+                                                               formControlName="yg_marry"></mayihr-select>
+                                            </div>
+                                            <div class="d-ib half w-100 v-m">
+                                                <mayihr-select [SelectData]="staff_setting_data?.yg_children"
+                                                               [SelectConfig]="{placeholder: '生育状况'}"
+                                                               formControlName="yg_children"></mayihr-select>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="!baseEdit" class="">{{staff_info_base?.yg_marry.name ||
+                                            '暂无'}}/{{staff_info_base?.yg_children.name || '暂无'}}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="pull-right half p-l-xxl">
+                            <table class="staff-detail-table">
+                                <tr>
+                                    <td class="grey v-t">证件
+                                        <i class="text-sm v-t red">*</i>
+                                    </td>
+                                    <td formGroupName="id_valid">
+                                        <div *ngIf="baseEdit" class="p-b">
+                                            <div class="d-ib w-220">
+                                                <mayihr-select [SelectData]="staff_setting_data?.id_type"
+                                                               formControlName="id_type"
+                                                               [SelectConfig]="{placeholder: '请选择证件类型'}"></mayihr-select>
+                                            </div>
+                                        </div>
+                                        <input *ngIf="baseEdit" type="text" formControlName="yg_identity"
+                                               placeholder="输入证件号码">
+                                        <div *ngIf="baseEdit">
+                                            <span
+                                                    *ngIf="!(base_msg.get('id_valid').get('yg_identity').valid || (base_msg.get('id_valid').get('yg_identity').untouched && beforesubmit.base_msg))"
+                                                    class="red t-sm">请填写证件号码</span>
+                                            <span
+                                                    *ngIf="!(!base_msg.hasError('id_valid', ['id_valid']) || (base_msg.get('id_valid').get('yg_identity').untouched && beforesubmit.base_msg))"
+                                                    class="red t-sm">{{base_msg.getError('id_valid', ['id_valid'])?.msg}}</span>
+                                        </div>
+                                        <div *ngIf="!baseEdit" class="">
+                                            <p>{{staff_info_base?.id_type.name}}</p>
+                                            <p>{{staff_info_base?.yg_identity || '暂无'}}</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="grey">民族</td>
+                                    <td>
+                                        <div *ngIf="baseEdit">
+                                            <div class="d-ib w-220">
+                                                <mayihr-select [SelectData]="staff_setting_data?.yg_nation"
+                                                               formControlName="yg_nation"
+                                                               [SelectConfig]="{placeholder: '请选择民族', allow_clear: true}"></mayihr-select>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="!baseEdit">{{staff_info_base?.yg_nation.name || '暂无'}}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="grey v-t">户籍地址</td>
+                                    <td>
+                                        <input style="margin-bottom: .1rem;" type="text" formControlName="yg_hk_addr"
+                                               value=""
+                                               placeholder="在此输入户籍地址"
+                                               *ngIf="baseEdit">
+                                        <div class="red t-sm m-b"
+                                             *ngIf="base_msg.get('yg_hk_addr').hasError('maxlength')">
+                                            长度不得大于30个字符
+                                        </div>
+                                        <input type="text" formControlName="yg_hk_post" value="" placeholder="在此输入邮编"
+                                               *ngIf="baseEdit">
+                                        <div *ngIf="baseEdit">
+                      <span
+                              *ngIf="!(base_msg.get('yg_hk_post').valid || (base_msg.get('yg_hk_post').untouched && beforesubmit.base_msg))"
+                              class="red t-sm m-l">邮编格式不正确</span>
+                                        </div>
+                                        <div *ngIf="!baseEdit" class="">
+                                            {{staff_info_base?.yg_hk_addr || '暂无'}}/{{staff_info_base?.yg_hk_post ||
+                                            '暂无'}}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <div class="p-t-lg" #connection>
+            <div>
+                <div class="pull-left t-lg p-b-xl ">联络信息</div>
+                <div class="pull-right" *ngIf="staff_info_base?.status.id != 2">
+                    <span *ngIf="connectionEdit">
+                        <button class="btn btn-sm reverse" (click)="editCancel('connectionEdit')">取消</button>
+                        <button class="btn btn-sm m-l"
+                                (click)="saveForm('connectionEdit', connection_msg, staff_info_base, 'contact')">保存
+                        </button>
+                    </span>
+                    <span (click)="editForm('connectionEdit', connection_msg, staff_info_base, 'contact')"
+                          class="pointer"
+                          *ngIf="!connectionEdit">
+                            <i class="m-r-sm grey {{edit_state.connectionEditClass}}  m-r-sm"></i>编辑
+                            </span>
+                </div>
+            </div>
+            <div class="staff-detail-block clearfix p-b-xxl b-b">
+                <div class="clearfix" [class.edit]="connectionEdit">
+                    <form [formGroup]="connection_msg">
+                        <div class="pull-left half p-l-xl b-r">
+                            <table class="staff-detail-table">
+                                <tr>
+                                    <td class="grey">手机
+                                    </td>
+                                    <td>
+                                        <input type="text" formControlName="yg_phone" placeholder="请输入手机"
+                                               *ngIf="connectionEdit">
+                                        <div *ngIf="connectionEdit"><span
+                                                *ngIf="!(connection_msg.get('yg_phone').valid || (connection_msg.get('yg_phone').untouched && beforesubmit.connection_msg))"
+                                                class="red t-sm ">手机格式不正确</span></div>
+                                        <div *ngIf="!connectionEdit" class="">{{staff_info_base?.yg_phone || '暂无'}}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="grey">备用电话</td>
+                                    <td>
+                                        <input type="text" formControlName="yg_bak_phone"
+                                               placeholder="区号-电话-1-2位分机号"
+                                               *ngIf="connectionEdit">
+                                        <div *ngIf="connectionEdit"><span
+                                                *ngIf="!(connection_msg.get('yg_bak_phone').valid || (connection_msg.get('yg_bak_phone').untouched && beforesubmit.connection_msg))"
+                                                class="red t-sm ">固定电话格式不正确</span></div>
+                                        <div *ngIf="!connectionEdit" class="">{{staff_info_base?.yg_bak_phone ||
+                                            '暂无'}}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="grey">工作邮箱</td>
+                                    <td>
+                                        <input type="text" formControlName="yg_email" placeholder="请输入工作邮箱"
+                                               *ngIf="connectionEdit">
+                                        <div *ngIf="connectionEdit"><span
+                                                *ngIf="!(connection_msg.get('yg_email').valid || (connection_msg.get('yg_email').untouched && beforesubmit.connection_msg))"
+                                                class="red t-sm">邮箱格式不正确</span></div>
+                                        <div *ngIf="!connectionEdit" class="">{{staff_info_base?.yg_email || '暂无'}}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="grey b-t m-t-sm m-b-sm" style="line-height: 0;width: .3rem;"></div>
+                                    </td>
+                                    <td></td>
+                                <tr>
+                                    <td class="grey v-t">住址</td>
+                                    <td class="staff-detail-address">
+                                        <div class="m-b-sm" *ngIf="connectionEdit">
+                                            <input type="text" formControlName="yg_addr" value="" placeholder="请输入地址">
+                                        </div>
+                                        <div *ngIf="connectionEdit">
+                                             <span *ngIf="connection_msg.get('yg_addr').hasError('maxlength')"
+                                                   class="red t-sm ">地址长度不得大于30个字符</span>
+                                        </div>
+                                        <div *ngIf="connectionEdit">
+                                            <input type="text" formControlName="yg_post" value="" placeholder="请输入邮编">
+                                        </div>
+
+
+                                        <div *ngIf="connectionEdit">
+                                            <span
+                                                    *ngIf="!(connection_msg.get('yg_post').valid || (connection_msg.get('yg_post').untouched && beforesubmit.connection_msg))"
+                                                    class="red t-sm ">邮编格式不正确</span>
+                                        </div>
+                                        <div *ngIf="!connectionEdit" class="">
+                                            {{staff_info_base?.yg_addr || '暂无'}}/{{staff_info_base?.yg_post || '暂无'}}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="pull-right half p-l-xxl">
+                            <table class="staff-detail-table">
+                                <tr>
+                                    <td class="grey v-t">紧急联络</td>
+                                    <td>
+                                        <div class="m-b-sm clearfix" *ngIf="connectionEdit">
+                                            <input type="text" class="half" formControlName="yg_em_name" value=""
+                                                   *ngIf="connectionEdit"
+                                                   placeholder="请输入联系人">
+                                            <div class="d-ib half p-l-sm" *ngIf="connectionEdit"
+                                                 style="width: 1.15rem">
+                                                <mayihr-select
+                                                        [SelectConfig]="{placeholder: '请选择关系', allow_clear: true}"
+                                                        [SelectData]="staff_setting_data?.yg_em_rel"
+                                                        formControlName="yg_em_rel"></mayihr-select>
+                                            </div>
+                                        </div>
+                                        <input type="text"
+                                               formControlName="yg_em_phone" placeholder="请输入联系人手机"
+                                               *ngIf="connectionEdit">
+                                        <div *ngIf="connectionEdit">
+                      <span
+                              *ngIf="!(connection_msg.get('yg_em_phone').valid || (connection_msg.get('yg_em_phone').untouched && beforesubmit.connection_msg))"
+                              class="red t-sm ">手机格式不正确</span></div>
+                                        <div *ngIf="!connectionEdit" class="">
+                                            {{staff_info_base?.yg_em_name || '暂无'}}/{{staff_info_base?.yg_em_rel.name ||
+                                            '暂无'}}/{{staff_info_base?.yg_em_phone || '暂无'}}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <div class="p-t-lg" #salary>
+            <div>
+                <div class="pull-left t-lg p-b-xl">薪酬</div>
+                <div class="pull-right" *ngIf="staff_info_base?.status.id != 2">
+                    <span class="d-ib" *ngIf="!payEdit">
+                        <span class="p-l-xl m-l-xl pointer"
+                              (click)="editForm('payEdit', pay_msg, staff_info_base, 'pay')">
+                            <i class="icon_different grey m-r-sm"></i>薪酬调整
+                        </span>
+                    </span>
+                    <span *ngIf="payEdit">
+                        <button class="btn btn-sm reverse" (click)="editCancel('payEdit')">取消</button>
+                        <button *ngIf="!pay_msg.get('yg_sallay').disabled" class="btn btn-sm m-r-sm m-l"
+                                (click)="editPay('payEdit', pay_msg, staff_info_base, 'pay')">
+                            保存
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="staff-detail-block clearfix p-b-xxl b-b">
+                <div class="pull-left half p-l-xl">
+                    <form action="" [formGroup]="pay_msg">
+                        <table class="staff-detail-table">
+                            <tr>
+                                <td class="grey v-t">基本工资<i class="text-sm v-t red">*</i></td>
+                                <td>
+                                    <input type="text" formControlName="yg_sallay" *ngIf="payEdit"
+                                           [class.disabled]="pay_msg.get('yg_sallay').disabled">
+                                    <div *ngIf="payEdit">
+                                        <span class="red t-sm"
+                                              *ngIf="!(pay_msg.get('yg_sallay').value || pay_msg.get('yg_sallay').untouched && beforesubmit.pay_msg)">请填写基本工资</span>
+                                        <span class="red t-sm"
+                                              *ngIf="pay_msg.get('yg_sallay').value && (pay_msg.get('yg_sallay').hasError('LegalRange') && !pay_msg.get('yg_sallay').untouched)">
+                                            {{pay_msg.getError('LegalRange', ['yg_sallay'])?.msg}}
+                                        </span>
+                                    </div>
+                                    <div *ngIf="!payEdit">
+                                        {{staff_info_base?.yg_sallay || '暂无'}}
+                                    </div>
+                                    <ng-container *ngIf="staff_info_base?.status.id == 3">
+                                        <div class="m-t-sm" *ngIf="payEdit">
+                                            <label class="ui-check"
+                                                   [class.disabled]="pay_msg.get('same_with_baspay').disabled">
+                                                <input type="checkbox" formControlName="same_with_baspay"
+                                                       *ngIf="payEdit" class="d-ib">
+                                                <i class="icon_ui v-m  m-r-sm"></i>
+                                                <span class="m-l-xs t-sm v-m">试用期工资与基本工资一致</span>
+                                            </label>
+                                        </div>
+                                    </ng-container>
+                                </td>
+                            </tr>
+                            <ng-container *ngIf="staff_info_base?.status.id == 3">
+                                <tr *ngIf="!((!payEdit ? staff_info_base['same_with_baspay'] : pay_msg.get('same_with_baspay').value))">
+                                    <td class="grey v-t">试用工资</td>
+                                    <td>
+                                        <input type="text" formControlName="yg_try_sallay" *ngIf="payEdit"
+                                               [class.disabled]="pay_msg.get('yg_try_sallay').disabled">
+                                        <div *ngIf="!payEdit">
+                                            {{staff_info_base?.yg_try_sallay || '暂无'}}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                            <tr *ngIf="payEdit">
+                                <td class="grey" style="word-break: keep-all">生效日期<i class="text-sm v-t red">*</i></td>
+                                <td>
+                                    <div style="width:2.2rem">
+                                        <mayihr-datepicker *ngIf="payEdit" formControlName="effective_at"
+                                                           [options]="{min_view_mode: 2}"></mayihr-datepicker>
+                                    </div>
+                                    <div *ngIf="payEdit">
+                                        <span class="red t-sm"
+                                              *ngIf="!((pay_msg.get('effective_at').valid || pay_msg.get('effective_at').disabled) || pay_msg.get('effective_at').untouched && beforesubmit.pay_msg)">
+                                            请填写生效日期
+                                        </span>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        </table>
+                        <div *ngIf="pay_info" class="grey">{{pay_info}}</div>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <div class="p-t-lg clearfix b-b p-b-xxl" #benefit>
+            <div>
+                <div class="pull-left t-lg p-b-xl">福利</div>
+                <div class="pull-right" *ngIf="staff_info_base?.status.id != 2">
+                    <span *ngIf="!benifitEdit">
+                        <span class="p-l-xl m-l-xl pointer"
+                              (click)="setBenifitValue(benifit_msg, staff_info_benifit)">
+                        <i class="icon_different grey m-r-sm"></i>福利调整</span></span>
+                    <span *ngIf="benifitEdit">
+                        <button class="btn btn-sm reverse" (click)="cancelSaveBenifit()">取消</button>
+                        <button class="btn btn-sm m-r-sm m-l" (click)="saveBenifit()">保存</button>
+                    </span>
+
+                </div>
+            </div>
+            <div class="clearfix">
+                <div class="pull-left half" style="padding-left: .3rem;">
+                    <form action="" [formGroup]="benifit_msg">
+                        <div class="form-group benifit">
+                            <div class="" *ngIf="!benifitEdit">
+                                <div *ngIf="staff_info_benifit?.length > 0">
+                                    <ul>
+                                        <li *ngFor="let item of staff_info_benifit">
+                                            <span>{{item.be_name}}</span>
+                                            <span>{{item.money}}{{item.unit == 1 ? '元/月' : '元/日'}}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="grey" *ngIf="staff_info_benifit?.length == 0">
+                                    无福利
+                                </div>
+                            </div>
+                            <div *ngIf="benifitEdit">
+                                <ul class="well" formArrayName="benifit">
+                                    <li class="bg-grey pos-r"
+                                        *ngFor="let benifit_item of benifit_msg['controls']['benifit']['controls']; let i = index;">
+                                        <div [formGroupName]="i" class="clearfix">
+                                            <input formControlName="be_id" class="name" type="hidden">
+                                            <span class="benifit-name t">{{benifits_name[i]}}</span>
+                                            <input type="text" formControlName="money" placeholder="金额"
+                                                   class="money" autofocus>
+                                            <span class="pos-a t" (click)="deleteBenifit(i, 'benifit')"><i
+                                                    class="icon_close dark pointer-no-color"></i></span>
+                                        </div>
+                                        <p class="t-sm red" *ngIf="!(benifit_item.valid || benifit_item.untouched)">
+                                            福利必须为正数且保留两位小数</p>
+                                    </li>
+                                </ul>
+                                <div class="select-mask" *ngIf="!is_add_benifit" (click)="cancelBenifit()"
+                                     style=""></div>
+                                <div class="add-benifit pos-r">
+                                    <!--<select *ngIf="!is_add_benifit" (change)="addBenifit($event)">-->
+                                    <!--<option value="0" selected>请选择</option>-->
+                                    <!--<ng-container-->
+                                    <!--*ngFor="let item of staff_setting_data?.hr_gs_benifit; let i = index">-->
+                                    <!--<option *ngIf="benifit_chosen.indexOf(item.id)<0 " value="{{i}}">-->
+                                    <!--&lt;!&ndash;<option value="{{i}}">&ndash;&gt;-->
+                                    <!--{{item.name}}-->
+                                    <!--</option>-->
+                                    <!--</ng-container>-->
+                                    <!--</select>-->
+                                    <div *ngIf="!is_add_benifit">
+                                        <div class="d-ib w-220">
+                                            <mayihr-select [SelectConfig]="{placeholder: '请选择福利'}"
+                                                           [SelectData]="staff_setting_data?.hr_gs_benifit || []"
+                                                           (RefreshValue)="addBenifit($event)"
+                                            ></mayihr-select>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="!is_add_benifit" class="p-t-sm m-b">
+                                        <p class="grey t-sm">福利的调整在保存后生效 ，<br>此后进行薪资计算将采用生效后的福利方案</p>
+                                    </div>
+                                    <div class="t pointer m-b" (click)="showBenifits()" *ngIf="is_add_benifit">
+                                        <i class="icno_plus dark m-r-sm"></i>
+                                        <span>添加福利</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <div class="p-t-lg" #social_security>
+            <div>
+                <div class="pull-left t-lg p-b-xl">社保/公积金</div>
+                <div class="pull-right" *ngIf="staff_info_base?.status.id != 2">
+                    <span *ngIf="!socialEdit">
+                        <span class="p-l-xl m-l-xl pointer"
+                              (click)="editForm('socialEdit', social_msg, staff_info_base, 'social')">
+                            <i class="icon_edit_simple grey m-r-sm"></i>编辑</span></span>
+                    <span *ngIf="socialEdit">
+                        <button class="btn btn-sm reverse" (click)="editCancel('socialEdit')">
+                            取消
+                        </button>
+                        <button class="btn btn-sm m-l"
+                                (click)="saveForm('socialEdit', social_msg, staff_info_base, 'social')">
+                            保存
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="staff-detail-block clearfix p-b-xxl b-b clearfix" [class.edit]="socialEdit">
+                <div class="clearfix">
+                    <form action="" [formGroup]="social_msg">
+                        <div class="staff-upload-form-left-block half pull-left p-l-xl">
+                            <div class="form-group">
+                                <label class="grey d-ib">缴纳项目</label>
+                                <div *ngIf="!socialEdit" [class.save-state]="!socialEdit">
+                                    {{staff_info_base?.yg_is_social ? "社保" : "-"}}/
+                                    {{staff_info_base?.yg_is_fund ? "公积金" : "-"}}
+                                </div>
+                                <div *ngIf="socialEdit" [class.save-state]="socialEdit">
+                                    <label class="ui-check m-r-xs"
+                                           [class.disabled]="social_msg.get('yg_is_social').disabled"><input
+                                            type="checkbox" formControlName="yg_is_social"><i
+                                            class="icon_ui"></i>
+                                    </label>
+                                    <span class="v-m t ">社保</span>
+                                    <label class="d-ib m-l ui-check m-r-xs"
+                                           [class.disabled]="social_msg.get('yg_is_fund').disabled"><input
+                                            type="checkbox" formControlName="yg_is_fund"><i
+                                            class="icon_ui v-m"></i>
+                                    </label>
+                                    <span class="v-m t">公积金</span>
+                                </div>
+                            </div>
+                            <div class="clear clearfix form-group">
+                                <label for="" class="grey d-ib">缴纳城市<i class="text-sm v-t red">*</i></label>
+                                <div *ngIf="!socialEdit" [class.save-state]="!socialEdit">
+                                    {{staff_info_base?.yg_city.name ? staff_info_base?.yg_city.name : "-"}}
+                                </div>
+                                <div *ngIf="socialEdit" [class.save-state]="socialEdit">
+                                    <div class="d-ib v-t" style="width: .7rem;">
+                                        <mayihr-select
+                                                [SelectConfig]="{placeholder: '省', max_length: 2, single_default: 0}"
+                                                [SelectData]="area_list.province_list || []"
+                                                (RefreshValue)="selectProvince($event)"
+                                                [formControl]="yg_province"></mayihr-select>
+                                    </div>
+                                    <div class="d-ib v-t" style="width: .7rem;">
+                                        <mayihr-select
+                                                [SelectConfig]="{placeholder: '市', max_length: 2, single_default: 0}"
+                                                [SelectData]="area_list.direction_list || []"
+                                                (RefreshValue)="selectCity($event)"
+                                                [formControl]="yg_direction"></mayihr-select>
+                                    </div>
+                                    <div class="d-ib v-t" style="width: .7rem;">
+                                        <mayihr-select
+                                                [SelectConfig]="{placeholder: '区', max_length: 2, single_default: 0}"
+                                                [SelectData]="area_list.city_list || []"
+                                                (RefreshValue)="refreshCity($event)"
+                                                formControlName="yg_city"></mayihr-select>
+                                    </div>
+                                </div>
+                                <div class="red-block" *ngIf="socialEdit"><span
+                                        *ngIf="!(social_msg.get('yg_city').value  || (social_msg.get('yg_city').untouched && beforesubmit.social_msg))"
+                                        class="red t-sm ">请选择缴纳城市</span></div>
+                            </div>
+                            <div
+                                    *ngIf="!((!socialEdit && staff_info_base?.yg_is_social == 0 && staff_info_base?.yg_is_fund == 0) || (socialEdit && (social_msg.get('yg_is_social').value == '' ||  social_msg.get('yg_is_social').value == false) && (social_msg.get('yg_is_fund').value == '' || social_msg.get('yg_is_fund').value == false)))">
+                                <div class="form-group">
+                                    <label for="" class="grey d-ib">户籍类型
+                                        <i class="text-sm v-t red">*</i></label>
+                                    <div *ngIf="!socialEdit" [class.save-state]="!socialEdit">
+                                        {{staff_info_base?.yg_hk_type?.name ||
+                                        '暂无'}}
+                                    </div>
+                                    <div *ngIf="socialEdit" [class.save-state]="socialEdit" class="w-220">
+                                        <mayihr-select [SelectConfig]="{placeholder: '请选择户籍类型', single_default: 0}"
+                                                       [SelectData]="staff_setting_data?.yg_hk_type"
+                                                       formControlName="yg_hk_type"
+                                                       (RefreshValue)="setSocialSettings()"></mayihr-select>
+                                    </div>
+                                    <div class="red-block" *ngIf="socialEdit">
+                                        <span
+                                                *ngIf="!(social_msg.get('yg_hk_type').value  || (social_msg.get('yg_hk_type').untouched && beforesubmit.social_msg))"
+                                                class="red t-sm ">请选择户籍类型</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="" class="grey d-ib">缴纳方式<i class="text-sm v-t red">*</i></label>
+                                    <div *ngIf="!socialEdit" [class.save-state]="!socialEdit">
+                                        {{staff_info_base?.yg_pay_type?.name ||
+                                        '暂无'}}
+                                    </div>
+                                    <div *ngIf="socialEdit" [class.save-state]="socialEdit" class="w-220">
+                                        <mayihr-select [SelectConfig]="{placeholder: '请选择缴纳方式', single_default: 0}"
+                                                       [SelectData]="staff_setting_data?.yg_pay_type"
+                                                       formControlName="yg_pay_type"></mayihr-select>
+                                    </div>
+                                    <div class="red-block" *ngIf="socialEdit"> <span
+                                            *ngIf="!(social_msg.get('yg_pay_type').value  || (social_msg.get('yg_pay_type').untouched && beforesubmit.social_msg))"
+                                            class="red t-sm ">请选择缴纳方式</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="staff-upload-form-right-block half b-l p-l-xxl pull-left">
+                            <div
+                                    *ngIf="!(!((socialEdit && social_msg.get('yg_is_social').value == 1) || (!socialEdit && staff_info_base?.yg_is_social == 1)))">
+                                <div class="form-group">
+                                    <!--社保类型没有-->
+                                    <label class="grey d-ib">社保类型<i
+                                            class="text-sm v-t red">*</i></label>
+                                    <div *ngIf="!socialEdit" [class.save-state]="!socialEdit">
+                                        {{staff_info_base?.social_rule?.name ||
+                                        '暂无'}}
+                                    </div>
+                                    <div *ngIf="socialEdit" [class.save-state]="socialEdit" class="w-220">
+                                        <mayihr-select [SelectConfig]="{placeholder: '请选择社保类型', single_default: 0}"
+                                                       [SelectData]="social_rule?.social_rule"
+                                                       formControlName="social_rule"
+                                                       (RefreshValue)="getCitySocial($event)"></mayihr-select>
+                                    </div>
+                                    <div class="red-block" *ngIf="socialEdit">
+                                        <span
+                                                *ngIf="!(social_msg.get('social_rule').value != ''  || (social_msg.get('social_rule').untouched && beforesubmit.social_msg))"
+                                                class="red t-sm">请选择社保类型</span>
+                                        <span
+                                                *ngIf="!(social_msg.get('social_rule').untouched || (social_msg.get('yg_city').value != '' && social_msg.get('yg_hk_type').value != ''))"
+                                                class="t-sm red">请先选择缴纳城市及户籍类型</span></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="grey d-ib">社保起缴月份<i class="text-sm v-t red">*</i></label>
+
+                                    <!--社保起缴月精度-->
+                                    <div *ngIf="!socialEdit" [class.save-state]="!socialEdit">
+                                        {{staff_info_base?.social_start || '暂无'}}
+                                    </div>
+                                    <div *ngIf="socialEdit" [class.save-state]="socialEdit" class="clearfix"
+                                         style="width:2.2rem;">
+                                        <mayihr-datepicker [options]="{min_view_mode:1}"
+                                                           formControlName="social_start"></mayihr-datepicker>
+                                    </div>
+                                    <div class="red-block" *ngIf="socialEdit"><span
+                                            *ngIf="!(social_msg.get('social_start').value !== ''  || (social_msg.get('social_start').untouched && beforesubmit.social_msg) || (social_msg.get('yg_city').untouched && social_msg.get('social_start').touched))"
+                                            class="red t-sm">请输入起缴月份</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="grey d-ib">社保基数<i class="text-sm v-t red">*</i></label>
+
+                                    <div *ngIf="!socialEdit" [class.save-state]="!socialEdit">
+                                        {{staff_info_base?.yg_social_self ||
+                                        '暂无'}}
+                                    </div>
+                                    <div *ngIf="socialEdit" [class.save-state]="socialEdit">
+                                        <input type="text" [placeholder]="social_placeholder"
+                                               formControlName="yg_social_self"
+                                               [class.disabled]="social_msg.get('yg_social_self').disabled">
+                                        <p class="grey t-sm">{{social_placeholder}}</p>
+                                        <div *ngIf="this.base_money['social_low'] > 0 && socialEdit">
+                                            <label class="d-ib ui-check m-r-sm"
+                                                   [class.disabled]="social_msg.get('social_low_base').disabled">
+                                                <input type="checkbox" formControlName="social_low_base">
+                                                <i class="icon_ui " (click)="lowBasePay('social')"></i>
+                                            </label>
+                                            <span class="t v-m">按最低基数缴纳</span>
+                                        </div>
+                                    </div>
+                                    <div class="red-block" *ngIf="socialEdit"><span
+                                            *ngIf="!(social_msg.get('yg_social_self').value || (social_msg.get('yg_social_self').untouched && beforesubmit.social_msg))"
+                                            class="red t-sm">请填写社保基数</span>
+                                        <span
+                                                *ngIf="!(!social_msg.hasError('social_error', [ 'yg_social_self']) || (social_msg.get('yg_social_self').untouched && beforesubmit.social_msg))"
+                                                class="red t-sm">{{social_msg.getError('social_error', ['yg_social_self'])?.msg}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grey"
+                                 *ngIf="!((!((socialEdit && social_msg.get('yg_is_social').value == 1) || (!socialEdit && staff_info_base?.yg_is_social == 1))) || (!((socialEdit && social_msg.get('yg_is_fund').value == 1) || (!socialEdit && staff_info_base?.yg_is_fund == 1))))">
+                                <div class="grey b-t m-t-sm m-b" style="line-height: 0;width: .3rem;"></div>
+                            </div>
+                            <div
+                                    *ngIf="!(!((socialEdit && social_msg.get('yg_is_fund').value == 1) || (!socialEdit && staff_info_base?.yg_is_fund == 1)))">
+                                <div class="form-group">
+                                    <label class="grey d-ib">公积金类型<i class="text-sm v-t red">*</i></label>
+                                    <div *ngIf="!socialEdit" [class.save-state]="!socialEdit">
+                                        {{staff_info_base?.fund_rule?.name ||
+                                        '暂无'}}
+                                    </div>
+                                    <div *ngIf="socialEdit" [class.save-state]="socialEdit" class="w-220">
+                                        <mayihr-select [SelectConfig]="{placeholder: '请选择公积金类型', single_default: 0}"
+                                                       [SelectData]="social_rule?.fund_rule"
+                                                       formControlName="fund_rule"
+                                                       (RefreshValue)="getCityFund($event)"></mayihr-select>
+                                    </div>
+                                    <div class="red-block" *ngIf="socialEdit">
+                    <span
+                            *ngIf="!(social_msg.get('fund_rule').value != ''  || (social_msg.get('fund_rule').untouched && beforesubmit.social_msg))"
+                            class="red t-sm">请选择公积金类型</span>
+                                        <span class="red t-sm"
+                                              *ngIf="!(social_msg.get('fund_rule').untouched || (social_msg.get('yg_city').value != '' && social_msg.get('yg_pay_type').value != ''))">请先选择缴纳城市及户籍类型</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="grey d-ib">公积金起缴月份<i class="text-sm v-t red">*</i></label>
+
+                                    <div *ngIf="!socialEdit" [class.save-state]="!socialEdit">
+                                        {{staff_info_base?.fund_start || '暂无'}}
+                                    </div>
+                                    <div *ngIf="socialEdit" [class.save-state]="socialEdit" style="width:2.2rem;">
+                                        <mayihr-datepicker formControlName="fund_start" [options]="{min_view_mode: 1}"
+                                                           [class.disabled]="social_msg.get('fund_start').disabled"></mayihr-datepicker>
+                                    </div>
+                                    <div class="red-block" *ngIf="socialEdit"><span
+                                            *ngIf="!(social_msg.get('fund_start').value  || (social_msg.get('fund_start').untouched && beforesubmit.social_msg) || (social_msg.get('yg_city').untouched && social_msg.get('fund_start').touched))"
+                                            class="red t-sm">请输入公积金起缴月份</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="grey d-ib">公积金基数<i class="text-sm v-t red">*</i></label>
+
+                                    <div *ngIf="!socialEdit" [class.save-state]="!socialEdit">
+                                        {{staff_info_base?.yg_fund_self ||
+                                        '暂无'}}
+                                    </div>
+                                    <div *ngIf="socialEdit" [class.save-state]="socialEdit">
+                                        <input type="text" [placeholder]="fund_placeholder"
+                                               formControlName="yg_fund_self"
+                                               [class.disabled]="social_msg.get('yg_fund_self').disabled">
+                                        <p class="grey t-sm">{{fund_placeholder}}</p>
+                                        <div *ngIf="this.base_money['fund_low'] > 0 && socialEdit">
+                                            <label class="d-ib ui-check m-r-sm"
+                                                   [class.disabled]="social_msg.get('fund_low_base').disabled">
+                                                <input type="checkbox" formControlName="fund_low_base">
+                                                <i class="icon_ui  "
+                                                   (click)="lowBasePay('fund')"></i>
+                                            </label>
+                                            <span class="t v-m">按最低基数缴纳</span>
+                                        </div>
+                                    </div>
+                                    <div class="red-block" *ngIf="socialEdit">
+                                        <span
+                                                *ngIf="!(social_msg.get('yg_fund_self').value  || (social_msg.get('yg_fund_self').untouched && beforesubmit.social_msg))"
+                                                class="red t-sm">公积金基数不能为空</span>
+                                        <span
+                                                *ngIf="!(!social_msg.hasError('fund_error', [ 'yg_fund_self']) || (social_msg.get('yg_fund_self').untouched && beforesubmit.social_msg))"
+                                                class="red t-sm">{{social_msg.getError('fund_error', ['yg_fund_self'])?.msg}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+
+        <div class="p-t-lg" #vacation>
+            <div>
+                <div class="pull-left t-lg p-b-xl">出勤和假期</div>
+                <div class="pull-right pointer" *ngIf="staff_info_base?.status.id != 2" (click)="toAttendanceLog()">
+                    <span class="p-l-xl m-l-xl icon-text-btn pointer">
+                        <i class="icon_list grey pointer"></i>
+                        <span>缺勤请假和加班记录</span>
+                    </span>
+                </div>
+            </div>
+            <div class="staff-detail-block clearfix p-b-xxl b-b">
+                <!--此处添加弹窗-->
+                <div class="pull-left half p-l-xl">
+                    <table class="staff-detail-table">
+                        <tr>
+                            <td class="grey">带薪年假</td>
+                            <td>{{staff_info_holidays?.annual_leavel_length | hourToDay}}</td>
+                        </tr>
+                        <tr>
+                            <td class="grey">调休</td>
+                            <td>
+                                {{staff_info_holidays?.tune_off_leave_length | hourToDay}}
+                                <span *ngIf="!(staff_info_holidays?.first_tune_off_leave_str === '')">
+                                    （{{staff_info_holidays?.first_tune_off_leave_str}}）
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+
+        <div class="p-t-lg" #account>
+            <div>
+                <div class="pull-left t-lg p-b-xl">账户信息</div>
+                <div class="pull-right" *ngIf="staff_info_base?.status.id != 2">
+
+                    <span *ngIf="!accountEdit">
+                        <span (click)="editAccount()" class="pointer">
+                        <i class="m-r-sm grey {{edit_state.accountEditClass}}"></i>
+                            {{edit_state.accountEditStateText}}
+                        </span>
+                    </span>
+                    <span *ngIf="accountEdit">
+                        <button class="btn btn-sm reverse" (click)="editCancel('accountEdit')">取消</button>
+                        <button class="btn btn-sm m-l" (click)="saveAccount()">保存</button>
+                    </span>
+                </div>
+            </div>
+            <div class="staff-detail-block clearfix p-b-xxl b-b">
+                <div class="clearfix">
+                    <form [formGroup]="account_msg">
+                        <div class="pull-left half p-l-xl b-r">
+                            <table class="staff-detail-table">
+                                <tr *ngIf="accountEdit">
+                                    <td colspan="" style="white-space: nowrap">
+                                        <span class="ui-check" (click)="watchAccountStatus($event, 'fund')">
+                                            <input type="checkbox" formControlName="fund_status">
+                                            <i class="icon_ui v-m  m-r-sm pointer-no-color"></i>
+                                            <span class="v-m t">该员工在当地缴纳过公积金</span>
+                                        </span>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="grey v-t">公积金账号</td>
+                                    <td>
+                                        <div>
+                                            <div class="clearfix">
+                                                <input type="text" formControlName="yg_fund_acc" *ngIf="accountEdit"
+                                                       [placeholder]="account_msg.get('fund_status').value ? '请输入公积金账号': '未在当地缴纳过'"
+                                                       [class.disabled]="account_msg.get('yg_fund_acc').disabled">
+                                            </div>
+                                            <div *ngIf="accountEdit">
+                                                <span
+                                                        *ngIf="!(!account_msg.get('fund_status').value || account_msg.get('yg_fund_acc').valid  || (account_msg.get('yg_fund_acc').untouched && beforesubmit.account_msg))"
+                                                        class="red t-sm">请输入6-20位公积金账号</span>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="!accountEdit">{{staff_info_base?.yg_fund_acc || '暂无'}}</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="grey b-t m-t-sm m-b-sm" style="line-height: 0;width: .3rem;"></div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr *ngIf="accountEdit">
+                                    <td colspan="2">
+                                        <span class="ui-check" (click)="watchAccountStatus($event, 'social')">
+                                            <input type="checkbox" formControlName="social_status">
+                                            <i class="icon_ui v-m  m-r-sm pointer-no-color"></i>
+                                            <span class="v-m t">该员工在当地缴纳过社保</span>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="grey v-t">社保账号</td>
+                                    <td>
+                                        <!--此处没有该表单-->
+                                        <div>
+                                            <div>
+                                                <input type="text" formControlName="yg_social_acc"
+                                                       [placeholder]="account_msg.get('social_status').value ? '请输入社保账号': '未在当地缴纳过'"
+                                                       [class.disabled]="account_msg.get('yg_social_acc').disabled"
+                                                       *ngIf="accountEdit">
+                                            </div>
+                                            <div *ngIf="accountEdit">
+                                                <span
+                                                        *ngIf="!(!account_msg.get('social_status').value || account_msg.get('yg_social_acc').valid  || (account_msg.get('yg_social_acc').untouched && beforesubmit.account_msg))"
+                                                        class="red t-sm">请输入6-20位社保账号</span>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="!accountEdit">{{staff_info_base?.yg_social_acc || '暂无'}}</div>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="!(!(staff_info_base?.yg_city.id == 1 || staff_info_base?.yg_city.id == 17))">
+                                    <!--<tr>-->
+                                    <td class="grey v-t">定点医院</td>
+                                    <td>
+                                        <ul class="hospitals">
+                                            <li *ngFor="let item of staff_info_base?.hospital"
+                                                class="m-b-xs p-r ellipsis">{{item.name}}
+                                            </li>
+                                        </ul>
+                                        <div *ngIf="accountEdit">
+                                            <button class="btn btn-sm reverse"
+                                                    (click)="showModal('hospital', user_id, staff_info_base?.hospital)"
+                                            >{{staff_info_base?.hospital?.length > 0 ? '修改医院' : '添加医院'}}
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="pull-right half p-l-xxl">
+                            <table class="staff-detail-table">
+                                <tr>
+                                    <td class="grey">银行卡号</td>
+                                    <td>
+                                        <input type="text" formControlName="yg_bank_acc" *ngIf="accountEdit">
+                                        <div *ngIf="accountEdit">
+                                            <span
+                                                    *ngIf="!(account_msg.get('yg_bank_acc').valid  || (account_msg.get('yg_bank_acc').untouched && beforesubmit.account_msg))"
+                                                    class="red t-sm">请输入6-26位银行账号</span>
+                                        </div>
+                                        <div *ngIf="!accountEdit">{{staff_info_base?.yg_bank_acc || '暂无'}}</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="grey v-t">开户行</td>
+                                    <td>
+                                        <div *ngIf="accountEdit">
+                                            <div class="m-b-sm d-ib w-220">
+                                                <mayihr-select formControlName="bank_code"
+                                                               [SelectConfig]="bank_parent_config"
+                                                               [SelectData]="banks || []"
+                                                               (RefreshValue)="refreshParentBank($event)"></mayihr-select>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="!(account_msg.get('bank_code').value === '') && accountEdit">
+                                            <div class="d-ib w-220">
+                                                <mayihr-select formControlName="bank_sub_code"
+                                                               [SelectConfig]="bank_child_config"
+                                                               [SelectData]="sub_banks || []"
+                                                               [AsyncData]="sub_banks_async"
+                                                               (RefreshValue)="refreshSubValue($event)"
+                                                               (ActivedAsync)="asyncChildBank($event)"></mayihr-select>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="!accountEdit">{{staff_info_base?.bank_name ||
+                                            '暂无'}}/{{staff_info_base?.bank_sub_name || '暂无'}}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+
+        <div class="p-t-lg" #contract>
+            <div>
+                <div class="pull-left t-lg p-b-xl">劳动合同</div>
+                <div class="pull-right" *ngIf="staff_info_base?.status.id != 2">
+                        <span *ngIf="staff_info_contract?.code" class="p-l-xl grey pointer"
+                              (click)="showModal('contractlist', user_id)">
+                            <i class="icon_list grey m-r-sm"></i>历史合同信息
+                        </span>
+                    <span class="p-l-xl  pointer" (click)="showModal('contract', user_id)">
+                            <i class="icon_resend grey m-r-sm"></i>生成新劳动合同
+                        </span>
+                    <span *ngIf="staff_info_contract?.code" class="p-l-xl m-l-xl pointer"
+                          (click)="downloadContract()"><i
+                            class="icon_download grey m-r-sm"></i>下载合同文本PDF</span>
+                </div>
+            </div>
+            <div class="staff-detail-block clearfix p-b-xxl b-b">
+                <div class="pull-left half p-l-xl" *ngIf="staff_info_contract?.code">
+                    <table class="staff-detail-table">
+                        <tr>
+                            <td class="grey">合同编号</td>
+                            <td>{{staff_info_contract?.code || '暂无' }}</td>
+                        </tr>
+                        <tr>
+                            <td class="grey">有效期</td>
+                            <td>
+                                {{staff_info_contract?.in_at || '暂无' }}~{{staff_info_contract?.out_at || '暂无' }}
+                                <span *ngIf="staff_info_contract?.length && staff_info_contract.length != 0">({{staff_info_contract?.length}}年)</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="pull-left half p-l-xl grey" *ngIf="!staff_info_contract?.code">
+                    尚无劳动合同信息
+                </div>
+            </div>
+        </div>
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <div class="p-t-lg" #family>
+            <div>
+                <div class="pull-left t-lg p-b-xl">家庭成员</div>
+                <div class="pull-right"
+                     *ngIf="!(!(current.family < 0 && current.family !== -2) ||  staff_info_base?.status.id == 2)">
+                    <span class="p-l-xl m-l-xl pointer" (click)="addFamily()"><i
+                            class="icon_add grey m-r-sm"></i>添加</span>
+                </div>
+            </div>
+            <div class="staff-detail-block clearfix p-b-xxl b-b staff-detail-family">
+                <div class="p-l-lg p-r-lg">
+                    <ul class="staff-detail-table family-table m-b-sm">
+                        <ng-container *ngFor="let family of staff_info_familys; let i = index">
+                            <li *ngIf="i != current.family" class="clearfix">
+                                <div class="clearfix">
+                                    <div style="width: 50%; float:left;">
+                                        <div class=" m-b-sm">{{family.name}}</div>
+                                        <div class=" grey m-b-sm">{{family?.rel_name || '亲属关系为空'}}
+                                        </div>
+                                    </div>
+                                    <div style="width:50%;float:left;">
+                                        <div class="d-ib">
+                                            <div class=" m-b-sm">{{(family.company_name || '亲属所属公司为空') |
+                                                longStringFilter: 20}}
+                                            </div>
+                                            <div class="clearfix">
+                                                <div class="grey">
+                                                    {{(family.title || '亲属岗位为空') | longStringFilter: 20}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pull-right edit-panel" *ngIf="staff_info_base?.status.id != 2">
+                                        <span (click)="delet(i, family.id, staff_info_familys, 'family')"
+                                              class="pointer m-r-sm">
+                                            <i class="m-r-sm grey icno_close"></i>删除
+                                        </span>
+                                            <span (click)="edit(i, family.id, 'family')" class="pointer ">
+                                            <i class="m-r-sm grey {{i == current.family ? famliyEditClass : ''}}"></i>{{familyEditStateText}}编辑
+                                        </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ng-container>
+                    </ul>
+                    <div *ngIf="!(current.family < 0 && current.family !== -2)" style="margin:0 -.4rem;">
+                        <form action="" [formGroup]="family_msg">
+                            <div class="add-part clearfix p-l-xxl p-r-xxl">
+                                <div class="clearfix m-b-sm p-l-xs">
+                                    <label for="" class="pull-left grey">姓名<i class="text-sm v-t red">*</i></label>
+                                    <input type="text" formControlName="name" placeholder="家庭成员姓名">
+                                    <span
+                                            *ngIf="!((family_msg.get('name').untouched && beforesubmit.family_msg)|| family_msg.get('name').valid)"
+                                            class="red t-sm">成员姓名不能为空</span>
+                                </div>
+                                <div class="clearfix m-b-sm p-l-xs">
+                                    <label for="" class="pull-left grey">关系<i class="text-sm v-t red">*</i></label>
+                                    <div>
+                                        <div class="d-ib w-220">
+                                            <mayihr-select [SelectConfig]="{placeholder: '请选择关系'}"
+                                                           [SelectData]="staff_setting_data?.rel_id"
+                                                           formControlName="rel_id"></mayihr-select>
+                                        </div>
+                                        <span
+                                                *ngIf="!((family_msg.get('rel_id').untouched && beforesubmit.family_msg)|| family_msg.get('rel_id').valid)"
+                                                class="red t-sm">请选择成员关系</span>
+                                    </div>
+
+                                </div>
+                                <div class="clearfix m-b-sm p-l-xs">
+                                    <label for="" class="pull-left grey">工作单位</label>
+                                    <input type="text" class="" formControlName="company_name" placeholder="工作单位">
+                                </div>
+                                <div class="clearfix m-b-sm p-l-xs">
+                                    <label for="" class="pull-left grey">职务</label>
+                                    <input type="text" formControlName="title" placeholder="职务">
+                                </div>
+                                <div class="clearfix m-b-sm p-l-xs">
+                                    <label for="" class="grey pull-left">手机</label>
+                                    <input type="text" formControlName="phone" placeholder="手机">
+                                    <span
+                                            *ngIf="!(family_msg.get('phone').valid || (family_msg.get('phone').untouched && beforesubmit.family_msg))"
+                                            class="red t-sm">手机号不合法</span>
+                                </div>
+                                <div class="p-l pull-right m-t">
+                                    <button type="button" class="btn reverse btn-sm"
+                                            (click)="cancelEditlForm('family')">取消
+                                    </button>
+                                    <button type="submit" class="btn btn-sm m-l"
+                                            (click)="sendRequest('family', staff_info_familys)">
+                                        保存
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-t-lg" #resume>
+            <div>
+                <div class="pull-left t-lg p-b-xl">教育经历</div>
+                <div class="pull-right"
+                     *ngIf="!(!(current.education < 0 && current.education !== -2) ||  staff_info_base?.status.id == 2)">
+                    <!--<span class="p-l-xl">编辑</span>-->
+                    <span class="p-l-xl m-l-xl pointer" (click)="addEducation()"><i
+                            class="icon_add grey m-r-sm"></i>添加</span>
+                </div>
+            </div>
+            <div class="staff-detail-block clearfix p-b-xxl b-b">
+                <div class="p-l-lg p-r-lg">
+                    <ul class="staff-detail-table family-table m-b-sm">
+                        <ng-container *ngFor="let education of staff_info_educations; let i = index">
+                            <li *ngIf="i != current.education" class="clearfix">
+                                <div class="clearfix">
+                                    <div style="width: 50%; float:left;">
+                                        <div class="m-b-sm">{{education.school_name}}</div>
+                                        <div class="t-sm grey m-b-sm">{{education.in_at || '入学日期为空'}} ~
+                                            {{education.out_at || '毕业日期为空'}}
+                                        </div>
+                                    </div>
+                                    <div style="width:50%;float:left;">
+                                        <div class="d-ib">
+                                            <div class="save-state m-b-sm">{{education.major || '专业为空'}}</div>
+                                            <div class="clearfix">
+                                                <div class="save-state grey">
+                                                    {{education.record_name || '学历为空'}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pull-right edit-panel">
+                                        <span (click)="delet(i, education.id, staff_info_educations, 'education')"
+                                              class="pointer m-r-sm">
+                                            <i class="m-r-sm grey icno_close"></i>删除
+                                        </span>
+                                            <span (click)="edit(i, education.id, 'education')" class="pointer ">
+                                            <i
+                                                    class="m-r-sm grey {{i == current.education ? educationEditClass : ''}}"></i>编辑{{educationEditStateText}}
+                                        </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ng-container>
+                    </ul>
+                    <div *ngIf="!(current.education < 0 && current.education !== -2)" style="margin: 0 -.4rem">
+                        <form action="" [formGroup]="education_msg">
+                            <div class="add-part clearfix p-l-xxl p-r-xxl">
+                                <div class="clearfix m-b-sm p-l-xs">
+                                    <label for="" class="pull-left grey">学校</label>
+                                    <input type="text" formControlName="school_name" placeholder="学校名称">
+                                    <span
+                                            *ngIf="!((education_msg.get('school_name').untouched && beforesubmit.education_msg)|| education_msg.valid)"
+                                            class="red t-sm">学校名称不能为空</span>
+                                </div>
+                                <div class="clearfix m-b-sm p-l-xs">
+                                    <label for="" class="pull-left grey">入学年月</label>
+                                    <div style="width:2.2rem;" class="d-ib">
+                                        <mayihr-datepicker formControlName="in_at" [options]="edu_in_at"
+                                                           (changeValue)="setStartDate('edu_out_at', $event)"></mayihr-datepicker>
+                                    </div>
+                                </div>
+                                <div class="clearfix m-b-sm p-l-xs">
+                                    <label for="" class="pull-left grey">毕业年月</label>
+                                    <div style="width:2.2rem;" class="d-ib">
+                                        <mayihr-datepicker formControlName="out_at"
+                                                           [options]="edu_out_at"></mayihr-datepicker>
+                                    </div>
+                                </div>
+                                <div class="clearfix m-b-sm p-l-xs">
+                                    <label for="" class="pull-left grey">专业</label>
+                                    <input type="text" formControlName="major" placeholder="专业">
+                                </div>
+                                <div class="clearfix m-b-sm p-l-xs">
+                                    <label for="" class="grey pull-left">学历</label>
+                                    <div>
+                                        <div class="d-ib w-220">
+                                            <mayihr-select [SelectConfig]="{placeholder: '请选择学历', allow_clear: true}"
+                                                           [SelectData]="staff_setting_data?.yg_xueli"
+                                                           formControlName="record"></mayihr-select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-l pull-right m-t-lg" *ngIf="staff_info_base?.status.id != 2">
+                                    <button type="button" class="btn reverse btn-sm"
+                                            (click)="cancelEditlForm('education')">取消
+                                    </button>
+                                    <button type="submit" class="btn btn-sm m-l"
+                                            (click)="sendRequest('education', staff_info_educations)">保存
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-t-lg" #work>
+            <div>
+                <div class="pull-left t-lg p-b-xl">工作经历</div>
+                <div class="pull-right"
+                     *ngIf="!(!(current.work < 0 && current.work !== -2) ||  staff_info_base?.status.id == 2)">
+                    <span class="p-l-xl m-l-xl pointer" (click)="addWork()"><i
+                            class="icon_add grey m-r-sm"></i>添加</span>
+                </div>
+            </div>
+            <div class="staff-detail-block clearfix p-b-xxl b-b">
+                <div class="p-l-lg p-r-lg m-b">
+                    <ul class="staff-detail-table family-table m-b-sm">
+                        <ng-container *ngFor="let work of staff_info_works; let i = index">
+                            <li *ngIf="i != current.work" class="clearfix">
+                                <div class="clearfix">
+                                    <div style="width: 50%; float:left;">
+                                        <div class=" m-b-sm" *ngIf="i != current.work">{{work.company_name}}</div>
+                                        <div *ngIf="i != current.work" class="t-sm grey m-b-sm">
+                                            {{work.in_at || '入职日期为空'}}~{{work.out_at || '离职日期为空'}}
+                                        </div>
+                                    </div>
+                                    <div style="width:50%;float:left;">
+                                        <div class="d-ib">
+                                            <div *ngIf="i != current.work" class=" m-b-sm">{{work.title || '岗位为空' }}
+                                            </div>
+                                            <div class="clearfix">
+                                                <div class="grey">
+                                                    <span>证明人：</span>
+                                                    <span *ngIf="work.prove_name">
+                                                    {{work.prove_name}}
+                                                    <span *ngIf="work.prove_phone || work.prove_email">/</span>
+                                                </span>
+                                                    <span *ngIf="work.prove_phone">
+                                                    {{work.prove_phone}}
+                                                    <span *ngIf="work.prove_email">/</span>
+                                                </span>
+                                                    <span *ngIf="work.prove_email">
+                                                    {{work.prove_email}}
+                                                </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pull-right edit-panel" *ngIf="staff_info_base?.status.id != 2">
+                                        <span (click)="delet(i, work.id, staff_info_works, 'work')"
+                                              class="pointer m-r-sm">
+                                            <i class="m-r-sm grey icno_close"></i>删除
+                                        </span>
+                                            <span (click)="edit(i, work.id, 'work')" class="pointer ">
+                                            <i class="m-r-sm grey {{i == current.work ? workEditClass : ''}}"></i>编辑{{workEditStateText}}
+                                        </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ng-container>
+                    </ul>
+                    <div *ngIf="!(current.work < 0 && current.work != -2)" style="margin:0 -.4rem">
+                        <form action="" [formGroup]="work_msg">
+                            <div class="add-part clearfix p-l-xxl p-r-xxl">
+                                <div class="clearfix m-b-sm p-l-xs">
+                                    <label for="" class="pull-left grey">公司</label>
+                                    <input type="text" formControlName="company_name" placeholder="公司名称">
+                                    <span
+                                            *ngIf="!((work_msg.get('company_name').untouched && beforesubmit.work_msg)|| work_msg.get('company_name').valid)"
+                                            class="red t-sm">请填写公司名称</span>
+                                </div>
+                                <div class="clearfix m-b-sm p-l-xs">
+                                    <label for="" class="pull-left grey">在职年月</label>
+                                    <div style="width: 2.2rem;" class="d-ib">
+                                        <mayihr-datepicker formControlName="in_at" [options]="work_in_at"
+                                                           (changeValue)="setStartDate('work_out_at', $event)"></mayihr-datepicker>
+                                    </div>
+                                </div>
+                                <div class="clearfix m-b-sm p-l-xs">
+                                    <label for="" class="pull-left grey">离职年月</label>
+                                    <div style="width:2.2rem;" class="d-ib">
+                                        <mayihr-datepicker formControlName="out_at"
+                                                           [options]="work_out_at"></mayihr-datepicker>
+                                    </div>
+                                </div>
+                                <div class="clearfix m-b-sm p-l-xs">
+                                    <label for="" class="pull-left grey">岗位</label>
+                                    <input type="text" formControlName="title" placeholder="岗位">
+                                </div>
+                                <div class="clearfix m-b-sm p-l-xs">
+                                    <label for="" class="grey pull-left">证明人</label>
+                                    <div class="m-b-xs" style="margin-left:.85rem">
+                                        <input type="text" formControlName="prove_name" placeholder="证明人姓名">
+                                    </div>
+                                    <div class="m-b-xs" style="margin-left:.85rem">
+                                        <input type="text" formControlName="prove_phone" placeholder="证明人电话">
+                                    </div>
+                                    <div class="m-b-xs" style="margin-left:.85rem">
+                                        <input type="text" formControlName="prove_email" placeholder="证明人邮箱">
+                                    </div>
+                                    <div>
+                      <span
+                              *ngIf="!((work_msg.get('prove_phone').untouched && beforesubmit.work_msg)|| work_msg.get('prove_phone').valid)"
+                              class="red t-sm">证明人电话格式有误</span>
+                                        <span
+                                                *ngIf="!((work_msg.get('prove_email').untouched && beforesubmit.work_msg)|| work_msg.get('prove_email').valid)"
+                                                class="red t-sm">证明人邮箱格式有误</span>
+                                    </div>
+                                </div>
+                                <div class="p-l pull-right m-t-lg" *ngIf="staff_info_base?.status.id != 2">
+                                    <button type="button" class="btn reverse btn-sm" (click)="cancelEditlForm('work')">
+                                        取消
+                                    </button>
+                                    <button type="submit" class="btn btn-sm m-l"
+                                            (click)="sendRequest('work', staff_info_works)">保存
+                                    </button>
+                                </div>
+                                <span *ngIf="!(work_msg.hasError('mail_valid', ['prove_email']))"
+                                      class="red t-sm">{{work_msg.getError('mail_valid', ["prove_email"])?.msg}}</span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-t-lg">
+            <div>
+                <div class="pull-left t-lg p-b-xl">证件照片/扫描件</div>
+            </div>
+            <div class="staff-detail-block clearfix p-b-xxl b-b">
+                <div class="p-l-lg p-r-lg m-b">
+                    <form action="" [formGroup]="picture" id="form">
+                        <ul class="staff-detail-table picture-wrapper m-b">
+                            <li class="d-ib v-m">
+                                <div class="d-ib" style="width: 225px;height: 135px;"
+                                     *ngIf="pic_url['id_dentity']['url'] || staff_info_base?.status.id != 2">
+                                    <mayihr-img-upload [img_url]="pic_url['id_dentity']['url']"
+                                                       [img_config]="{
+                                                       title: '身份证正面照片',
+                                                       allow_reload: (staff_info_base?.status.id != 2),
+                                                       allow_clear: (staff_info_base?.status.id != 2)
+                                                       }"
+                                                       (deleteImage)="deleteImg(pic_url['id_dentity'])"
+                                                       (uploadImage)="uploadImg($event, 'id_dentity', 1)"></mayihr-img-upload>
+                                </div>
+                            </li>
+                            <li class="d-ib v-m">
+                                <div class="d-ib" style="width: 225px;height: 135px;"
+                                     *ngIf="pic_url['id_dentity_reverse']['url'] || staff_info_base?.status.id != 2">
+                                    <mayihr-img-upload [img_url]="pic_url['id_dentity_reverse']['url']"
+                                                       [img_config]="{
+                                                       title: '身份证反面照片',
+                                                       allow_reload: (staff_info_base?.status.id != 2),
+                                                       allow_clear: (staff_info_base?.status.id != 2)
+                                                       }"
+                                                       (deleteImage)="deleteImg(pic_url['id_dentity_reverse'])"
+                                                       (uploadImage)="uploadImg($event, 'id_dentity_reverse', 2)"></mayihr-img-upload>
+                                </div>
+                            </li>
+                            <li class="d-ib v-m">
+                                <div class="d-ib" style=" width: 108px;height: 135px;"
+                                     *ngIf="pic_url['white_pic']['url'] || staff_info_base?.status.id != 2">
+                                    <mayihr-img-upload [img_url]="pic_url['white_pic']['url']"
+                                                       [img_config]="{
+                                                       title: '二寸白底免冠照',
+                                                       allow_reload: (staff_info_base?.status.id != 2),
+                                                       allow_clear: (staff_info_base?.status.id != 2)
+                                                       }"
+                                                       (deleteImage)="deleteImg(pic_url['white_pic'])"
+                                                       (uploadImage)="uploadImg($event, 'white_pic', 6)"></mayihr-img-upload>
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                    <div>
+                        <p class="grey m-b-sm">说明</p>
+                        <ul class="picture-tip">
+                            <li class="grey">1.照片中证件不可以被遮挡，需清晰看到文字信息</li>
+                            <li class="grey">2.照片中证件需为原件，请勿上传复印件照片</li>
+                            <li class="grey">3.仅支持jpg, jpeg, gif, png格式的图片</li>
+                            <li class="grey">4.白底半身照尺寸为355*441</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-modal [fade]="modal_fade" [iin]="modal_in" [modal_target]="current_target" [args]="modal_args"
+           (hide)="hideModal()"
+           (confirm)="confirmModal($event)"></app-modal>
+<app-staff-self-m [modal_name]="modal_name" [modal_info]="modal_info" (modal_result)="getStaffSelfResult($event)"
+                  *ngIf="modal_name === 'staff_self'"></app-staff-self-m>
+
+
+<app-create-overtime [modal_name]="modal_name" [modal_info]="modal_info" [modal_callback]="modal_callback"
+                     *ngIf="modal_name === 'overtime'"></app-create-overtime>
+
+
+<app-create-absence (lock_emit)="getLock($event)" [modal_name]="modal_name" [modal_info]="modal_info"
+                    [modal_callback]="modal_callback"
+                    *ngIf="modal_name === 'absence'"></app-create-absence>

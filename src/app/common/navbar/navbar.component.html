@@ -1,0 +1,89 @@
+<div *ngIf="!hide_navbar">
+  <div class="header navbar_box bg-white clearfix">
+    <div class="navbar-work-area">
+      <div class="navbar_logo">
+        <img src="assets/mayihr-logo/mayihr.logo.svg" [class.pointer-no-color]="is_token"
+             (click)="toHome()"
+             style="height: .4rem;    bottom: .08rem;
+    position: relative;">
+      </div>
+      <div *ngIf="!hide_setting">
+        <ng-container *ngIf="!is_assist && !is_calc && !is_error && !is_phonecheck && !is_third_login">
+          <ul class="navbar_option">
+            <li class="p-t-sm grey">
+              <a target="_blank" [routerLink]="['/assist']" class="pointer">
+                <div class="p-t-xs m-b-xs"><i class="icon_customer_service t-20"></i></div>
+                <div class="t-sm">
+                  帮助
+                </div>
+              </a>
+            </li>
+            <li class="p-t-sm grey ">
+              <div (click)="toNotification()" class="pointer">
+                <div class="m-b-xs p-t-xs"><i class="icon_notification t-20"></i></div>
+                <div class="t-sm">
+                  通知
+                </div>
+              </div>
+            </li>
+            <li class="p-t-sm grey  pos-r">
+              <div (click)="showMenu = !showMenu" class="d-ib pointer">
+                <div class="m-b-xs p-t-xs"><i class="icon_setting t-20"></i></div>
+                <div class="t-sm">
+                  设置
+                </div>
+              </div>
+              <a></a>
+              <div class="dropdown-menu"
+                   [class.open]='showMenu'>
+                <div>
+                  <div class="d-b p-a-sm dropdown-item" (click)="toSetting('account')">账户设置</div>
+                  <div class="d-b p-a-sm dropdown-item" (click)="toSetting('company')">公司设置</div>
+                  <div class="d-b p-a-sm dropdown-item" (click)="showMenu = false;logOut()">注销</div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </ng-container>
+        <ng-container *ngIf="is_phonecheck">
+          <ul class="navbar_option">
+            <li class="p-t-sm grey  pos-r">
+              <div (click)="showMenu = !showMenu" class="d-ib pointer">
+                <div class="m-b-xs p-t-xs"><i class="icon_setting t-20"></i></div>
+                <div class="t-sm">
+                  设置
+                </div>
+              </div>
+              <a></a>
+              <div class="dropdown-menu"
+                   [class.open]='showMenu'>
+                <ul>
+                  <li class="d-b p-a-sm dropdown-item" (click)="showMenu = false;logOut()">注销</li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </ng-container>
+        <ng-container *ngIf="is_assist">
+          <div class="p-l grey b-b pull-left">
+            <div class="  d-ib">| 帮助中心</div>
+            <div class="d-ib" style="padding-left: .6rem;">
+              <a class="pointer d-ib year-tag m-r"
+                 [routerLink]="['/assist/home']" [routerLinkActive]="['year-choose']">
+                首页
+              </a>
+              <a class="pointer d-ib year-tag m-r" *ngFor="let i of assist_list"
+                 [routerLink]="[i.url]" [routerLinkActive]="['year-choose']">
+                {{i.name}}
+              </a>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="dropdown-mask"
+         *ngIf="showMenu"
+         (click)="showMenu = false;"
+    ></div>
+  </div>
+</div>

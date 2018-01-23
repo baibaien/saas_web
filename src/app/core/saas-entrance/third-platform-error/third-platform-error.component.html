@@ -1,0 +1,17 @@
+<div class="box">
+    <div class="t-24">您的手机号已注册</div>
+    <div class="t-l">
+        <div class="p-t-lg" *ngIf="code == 250019">
+            <div>原所属公司为：<span class="green">{{registered}}</span></div>
+            <div class="p-t-xs">当前所在公司为：<span class="green">{{current}}</span></div>
+            <div class="p-t-xs">请直接使用该账号进行登陆</div>
+        </div>
+        <div class="p-t-xl">
+            <div>请联系800-686-9915更改原公司信息</div>
+            <div class="p-t-xs">或更换手机号后重新登陆</div>
+        </div>
+    </div>
+    <div class="p-t-lg">
+        <button class="btn btn-sm" (click)="backToIndex()">返回主页</button>
+    </div>
+</div>

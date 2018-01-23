@@ -1,0 +1,26 @@
+<div class="modal in" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header b-b p-a">
+                <div class="t-md">使用员工自助</div>
+                <div class="t-sm grey">请用微信扫一扫二维码开始使用员工自助</div>
+            </div>
+            <div class="modal-body">
+                <div class="t-c p-t-xxl">
+                    <div class="d-ib vcode">
+                        <img src="assets/yg-self/yg-self-vcode.png" alt="">
+                    </div>
+                </div>
+                <div class="t-c p-t-sm p-b grey">
+                    微信扫一扫使用员工自助
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer b-t t-r p-a">
+            <div class="v-m m-r-sm grey pointer" data-dismiss="modal"
+                    (click)="cancelModal()">关闭
+            </div>
+        </div>
+    </div>
+</div>

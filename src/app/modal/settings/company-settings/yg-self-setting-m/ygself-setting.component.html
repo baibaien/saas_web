@@ -1,0 +1,75 @@
+<div class="modal in p-b-lg" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header p-a b-b">
+                <p class="t-md">更改员工自助设置</p>
+                <p class="t-sm grey">自定义员工的访问权限和安全等级</p>
+            </div>
+            <div class="modal-body ">
+                <div class="m-b-lg p-a">
+                    <form action="" [formGroup]="company_ygself">
+                        <!--<div class="m-b-sm">-->
+                        <!--<div>-->
+                        <!--<label  class="grey d-ib m-b-xs">是否要求员工设置密码</label>-->
+                        <!--</div>-->
+                        <!--<label  class="ui-check m-r">-->
+                        <!--<input type="radio" formControlName="is_yg_set_password" value="1" checked>-->
+                        <!--<i class="icon_ui v-m"></i>-->
+                        <!--<span class="v-m t">要求</span>-->
+                        <!--</label>-->
+                        <!--<label  class="ui-check">-->
+                        <!--<input type="radio" formControlName="is_yg_set_password" value="0" >-->
+                        <!--<i class="icon_ui v-m"></i>-->
+                        <!--<span class="v-m t">不要求</span>-->
+                        <!--</label>-->
+                        <!--</div>-->
+                        <div class="m-b-sm">
+                            <label class="grey d-ib m-b-xs">是否允许员工查看公司通讯录</label>
+                            <div>
+                                <label class="ui-check m-r">
+                                    <input name="is_yg_view_contact_book" type="radio"
+                                           formControlName="is_yg_view_contact_book" value="1" checked>
+                                    <i class="icon_ui v-m "></i>
+                                    <span class="v-m t">允许</span>
+                                </label>
+                                <label class="ui-check m-r">
+                                    <input name="is_yg_view_contact_book" type="radio"
+                                           formControlName="is_yg_view_contact_book" value="2">
+                                    <i class="icon_ui v-m"></i>
+                                    <span class="v-m t">不允许</span>
+                                </label>
+                                <label class="ui-check">
+                                    <input name="is_yg_view_contact_book" type="radio"
+                                           formControlName="is_yg_view_contact_book" value="3">
+                                    <i class="icon_ui v-m"></i>
+                                    <span class="v-m t">允许，但隐藏特定岗位的联络信息</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="m-b-sm" *ngIf="company_ygself.get('is_yg_view_contact_book').value == 3">
+                            <label class="grey d-ib m-b-xs">在通讯录中隐藏联络信息的岗位</label>
+                            <div>
+                                <div class="d-ib w-200">
+                                    <mayihr-select [SelectData]="position_list"
+
+                                                   [SelectConfig]="{placeholder: '请选择隐藏信息的岗位'}"
+                                                   (RefreshValue)="addHiddenPosition($event)"></mayihr-select>
+                                </div>
+                            </div>
+                            <div class="m-t-sm">
+                                <p *ngFor="let item of contact_list_name; let i = index"
+                                   class="m-b-sm bg-grey d-ib m-r">{{ item }}
+                                    <i class="p-l-xs icon_close black" (click)="removeItem(i)"></i></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="b-t btn-group t-r p-a">
+                    <button class="reverse t-sm light v-m m-r-sm btn btn-sm" (click)="cancelModal()">取消</button>
+                    <button class="btn btn-sm" (click)="saveMsg()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

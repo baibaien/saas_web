@@ -1,0 +1,69 @@
+
+.salary_detail {
+    box-sizing: content-box;
+    width: 100%;
+    background: #f3f3f3;
+    padding: 0 .5rem;
+}
+.salary_detail>div {
+    width: 33.33%;height: 100%;
+}
+.salary_detail>div>div {
+    padding: 0 .2rem;
+}
+.salary_detail>div>div>div {
+    display: inline-block;
+    width: 50%;
+}
+.excel-box {
+    width: 2rem;
+    border-radius: 3px;
+    background-color: #ffffff;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1), 0 2px 3px 0 rgba(0, 0, 0, 0.1);
+    border: solid 1px #e9e9e9;
+    position: absolute;
+    right: 0;
+    z-index: 1001;
+}
+.excel-box > div {
+    height: .35rem;
+    line-height: .35rem;
+}
+/*.excel-box > div:first-child {*/
+    /*font-size: 12px;*/
+    /*text-align: left;*/
+    /*color: rgba(80, 80, 80, 0.4);*/
+/*}*/
+/*.excel-box > div:nth-child(n+2) {*/
+    /*background-color: rgba(80, 80, 80, 0.05);*/
+    /*font-size: 14px;*/
+    /*text-align: center;*/
+    /*color: rgba(80, 80, 80, 0.65);*/
+    /*cursor: pointer;*/
+/*}*/
+
+.operate-box {
+    width: 2rem;
+    border-radius: 3px;
+    background-color: #ffffff;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1), 0 2px 3px 0 rgba(0, 0, 0, 0.1);
+    border: solid 1px #e9e9e9;
+    position: absolute;
+    right: 0;
+    z-index: 1001;
+}
+
+.operate-box > div {
+    background-color: #fff;
+    font-size: 14px;
+    text-align: center;
+    /*color: rgba(80, 80, 80, 0.65);*/
+    color: #505050;
+    cursor: pointer;
+    height: .35rem;
+    line-height: .35rem;
+}
+.no-list-image {
+    text-align: center;
+    line-height: 4.3rem;
+}

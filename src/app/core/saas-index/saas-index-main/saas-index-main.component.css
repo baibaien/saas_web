@@ -1,0 +1,210 @@
+.section1 {
+  background: url("/assets/index/main/bg.png") -3px -3px no-repeat;
+  background-size: auto;
+}
+
+.section3 {
+  background: url("/assets/index/main/section3-bg.png") left top no-repeat;
+  background-size: auto 100%;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-around;
+}
+
+.flex-item p {
+  color: #666;
+  line-height: 25px;
+}
+
+.flex-item {
+  flex: 0 0 30%;
+}
+
+.sign-box {
+  width: 6.5rem;
+  font-size: 0;
+  height: .6rem;
+  margin: 1rem auto 0;
+}
+
+.section.section1 {
+  padding-top: 1.8rem;
+  padding-bottom: 3.2rem;
+}
+
+.intro-list {
+  margin-top: .8rem;
+  margin-bottom: .8rem;
+}
+
+.intro-list .intro {
+  display: inline-block;
+  text-align: center;
+}
+
+.section2 .intro-list .intro {
+  width: 25%;
+}
+
+.section2 .intro img {
+  height: .6rem;
+}
+
+.section3 .intro {
+  width: 33.3333%;
+}
+
+.section3 .intro img {
+  width: 1.0rem;
+}
+
+.sign-box input {
+  margin-right: -2rem;
+  padding-right: 2rem;
+  height: .6rem;
+}
+
+.sign-btn {
+  width: 2rem;
+  height: .6rem;
+  line-height: .4rem;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+.cursoul {
+  position: relative;
+  height: 4.4rem
+}
+
+.cursoul .out-wrapper {
+  width: 4rem;
+  left: 50%;
+  display: none;
+  bottom: 0;
+  margin-left: -2rem;
+  height: 100%;
+  transition: transform .5s ease-in;
+}
+
+.cursoul .out-wrapper.active, .cursoul .out-wrapper.prev, .cursoul .out-wrapper.next {
+  display: block;
+}
+
+.cursoul .out-wrapper.active {
+  z-index: 3;
+}
+
+.cursoul .out-wrapper.prev, .cursoul .out-wrapper.next {
+  z-index: 1;
+}
+
+.cursoul .out-wrapper.handle {
+  transition: transform .15s ease-in;
+}
+
+.cursoul .out-wrapper.next, .cursoul .out-wrapper.active, .cursoul .out-wrapper.prev {
+  display: block;
+  position: absolute;
+}
+
+.cursoul .out-wrapper.next {
+  transform: translateX(3rem) scale(0.7, 0.7)
+}
+
+.cursoul .out-wrapper.prev {
+  transform: translateX(-3rem) scale(0.7, 0.7)
+}
+
+.cursoul.reverse .out-wrapper.next {
+  transform: translateX(-3rem) scale(0.7, 0.7)
+}
+
+.cursoul.reverse .out-wrapper.prev {
+  transform: translateX(3rem) scale(0.7, 0.7)
+}
+
+.cursoul .wrapper {
+  margin: 0;
+  height: 100%;
+  background: #fff;
+  padding: .3rem;
+  box-shadow: 2px 3px 10px #d8d8d8;
+}
+
+.cursoul .left, .cursoul .right {
+  top: 50%;
+  margin-top: -37px;
+  z-index: 3;
+}
+
+.cursoul .left {
+  left: 0
+}
+
+.cursoul .right {
+  right: 0;
+}
+
+@media screen and (max-width: 640px) {
+  .sign-box {
+    width: 100%;
+    padding: .4rem 0 0;
+  }
+
+  .sign-box input {
+    margin: 0 auto .4rem;
+    padding: .1rem;
+    width: 4.5rem !important;
+  }
+
+  .sign-btn {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .flex {
+    display: block;
+  }
+
+  .section4 {
+    background: #fff;
+  }
+
+  .flex-item {
+    box-shadow: 3px 5px 15px #adadad;
+    padding: .4rem !important
+  }
+
+  .flex-item img {
+    width: .8rem;
+  }
+  .flex-item div:first-child {
+    height:auto !important;
+  }
+  .flex-item p {
+    overflow: hidden;
+    height: 30px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .cursoul p {
+    text-align: center;
+  }
+  /*.cursoul .out-wrapper.next,  .cursoul .out-wrapper.prev {*/
+    /*position: absolute;*/
+  /*}*/
+  .cursoul .out-wrapper.next:after,  .cursoul .out-wrapper.prev:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    top:0;
+    z-index: 2;
+    background: rgba(0,0,0,0.4);
+  }
+}

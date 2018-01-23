@@ -1,0 +1,30 @@
+<div class="main-content">
+  <div class="section t-c" style="padding-top:.9rem;">
+    <img src="../../../../assets/entry/qrcode.png" alt="" class=" m-b" style="height:60%; ">
+    <p class="t-24 bold t-c">微信扫码使用服务</p>
+    <p class="t-c grey">为了让您获得更加极致的体验，我们邀请您移步微信端</p>
+    <p class="t-c grey">仅需4步，就可自助完成社保公积金缴纳</p>
+  </div>
+  <div class="bg-grey bottom-content">
+    <div class="cursoul">
+      <div *ngFor="let item of cursoul_item;let i = index" class={{cursoul_item_style[i]}}>
+        <div class="wrapper">
+          <img [src]="cursoul_item_url[i]" alt="" class="w " style="width:2.2rem;margin-right: 2rem;height: 100%;">
+          <div class="d-ib">
+            <p class="t-24 bold">{{cursoul_content[i]['top']}}</p>
+            <p>{{cursoul_content[i]['bottom']}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="pos-a indicator-wrapper">
+        <ul class="indicator" style="padding-left: 4rem">
+          <li *ngFor="let item of cursoul_item; let i = index"
+              class="indicator-item"
+              [class.active]="cursoul_item_state.indexOf('active') === i"
+              (click)="showCurrent(i)"></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>

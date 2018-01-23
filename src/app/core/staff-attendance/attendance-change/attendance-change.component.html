@@ -1,0 +1,330 @@
+<div class="staff-content">
+    <div class="lh-50 b-b">
+        <div class="icon-text-btn m-l">
+            <i [routerLink]="['/user/attendance']" class="icon_arrow_left "></i>
+            <span>出勤管理/出勤异常({{show_month}}月)</span>
+        </div>
+    </div>
+    <div class="clearfix b-b">
+        <mayihr-filter [view_type]="'quick_filter'"
+                       [filter_term]="operate_data"
+                       [choose_type]="'single'" [request_url]="list_info_url" [request_type]="'get'"></mayihr-filter>
+    </div>
+    <mayihr-searching [request_url]="list_info_url" [request_type]="'get'"
+                      [placeholder]="'输入员工姓名进行搜索'"></mayihr-searching>
+    <div class="pos-r b-t clear">
+        <div class="staff-table-box" [class.no-list-bg]="staff_info_list?.length == 0">
+            <form [formGroup]="attendance_adjust">
+                <table class="staff-list-table">
+                    <thead>
+                    <tr>
+                        <th *ngFor="let i of table_header;let foo=index;" class="t-c header-range">
+                            <span>{{ i.column_name }}</span>
+                        </th>
+                        <!--<th style="width: .6rem;">操作</th>-->
+                    </tr>
+                    </thead>
+                    <tbody *ngFor="let staff of staff_info_list;let i = index">
+                    <tr [title]="is_all_archive == 1 || staff.is_archive == 1? '已归档，不可编辑': ''"
+                        *ngIf="detail_show != i" class="v-m short_info"
+                        [class.no-hover]="is_all_archive == 1 || staff.is_archive == 1">
+                        <!--(click)="showDetail(i, staff)">-->
+                        <td [title]="staff.yg_name.toString().length > 6 ? staff.yg_name : ''">{{staff.yg_name |
+                            longStringFilter:6}}
+                        </td>
+                        <td>
+                            <div class="t-c">
+                                <div class="d-ib" *ngFor="let salary of staff.attendance_adjust['1'];let i=index;">
+                                    <div class="d-ib m-l-xs" [class.red]="salary.source_type == 1" *ngIf="i != 0">+
+                                    </div>
+                                    <div class="d-ib" [class.red]="salary.source_type == 1">
+                                        {{salary.duration || '-'}}
+                                        <span *ngIf="salary.show_unit == '1'" class="d-ib">小时</span>
+                                        <span *ngIf="salary.show_unit == '2'" class="d-ib">天</span>
+                                    </div>
+                                </div>
+                                <div *ngIf="staff.attendance_adjust['1'] === undefined" class="grey">-</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="t-c">
+                                <div class="d-ib" *ngFor="let salary of staff.attendance_adjust['2'];let i=index;">
+                                    <div class="d-ib m-l-xs v-t" [class.red]="salary.source_type == 1" *ngIf="i != 0">
+                                        +
+                                    </div>
+                                    <div class="d-ib" [class.red]="salary.source_type == 1">
+                                        {{salary.duration || '-'}}
+                                        <span *ngIf="salary.show_unit == '1'" class="d-ib">小时</span>
+                                        <span *ngIf="salary.show_unit == '2'" class="d-ib">天</span>
+                                        <div *ngIf="salary_rate!=0" class="t-sm">
+                                            {{salary.rate | percent }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="staff.attendance_adjust['2'] === undefined" class="grey">-</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="t-c">
+                                <div class="d-ib" *ngFor="let salary of staff.attendance_adjust['3'];let i=index;">
+                                    <div class="d-ib m-l-xs v-t" [class.green]="salary.source_type == 1" *ngIf="i != 0">
+                                        +
+                                    </div>
+                                    <div class="d-ib" [class.green]="salary.source_type == 1">
+                                        {{salary.duration || '-'}}
+                                        <span *ngIf="salary.show_unit == '1'" class="d-ib">小时</span>
+                                        <span *ngIf="salary.show_unit == '2'" class="d-ib">天</span>
+                                        <div *ngIf="salary_rate!=0" class="t-sm">
+                                            {{salary.rate}}倍
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="staff.attendance_adjust['3'] === undefined" class="grey">-</div>
+                            </div>
+                        </td>
+                        <!--<td style="width: .6rem;padding: 0;" class="t-c">-->
+                        <!--<i class="icon_edit_simple"-->
+                        <!--[class.black]="is_all_archive != 1 &&  staff.is_archive != 1"-->
+                        <!--[class.light-grey]="is_all_archive == 1 || staff.is_archive == 1">-->
+
+                        <!--</i>-->
+                        <!--</td>-->
+                    </tr>
+                    <ng-container *ngIf="detail_show == i" formArrayName="all_item">
+                        <tr class="v-t pointer-none td-t-l"
+                            style="border: 0; background: rgba(80, 80, 80, 0.1);">
+                            <td style="text-align: center;" class="p-t-lg"
+                                [title]="staff.yg_name.toString().length > 6 ? staff.yg_name : ''">{{staff.yg_name |
+                                longStringFilter:6}}
+                            </td>
+                            <td class="detail-adjust-cell">
+                                <div style="padding-right: .2rem;">
+                                    <div class="type-title-4 p-t-lg p-b">无薪假</div>
+                                    <div class="existed">
+                                        <div class="type-title-65">出勤管理中已存在</div>
+                                        <div class="d-ib" *ngFor="let item of system_data['1']">
+                                            {{item?.duration}}
+                                            <span *ngIf="item?.show_unit == '1'" class="d-ib">小时</span>
+                                            <span *ngIf="item?.show_unit == '2'" class="d-ib">天</span>
+                                        </div>
+                                    </div>
+                                    <div class="type-title-4 icon-text-btn p-t-sm p-b-sm">
+                                        <i class="icon_add"></i>
+                                        <span>快捷调整</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="detail-adjust-cell">
+                                <div style="padding-right: .2rem;">
+                                    <div class="type-title-4 p-t-lg p-b">病假</div>
+                                    <div class="existed">
+                                        <div class="type-title-65">出勤管理中已存在</div>
+                                        <div class="" *ngFor="let item of system_data['2']">
+                                            {{item?.duration}}
+                                            <span *ngIf="item?.show_unit == '1'" class="d-ib">小时 </span>
+                                            <span *ngIf="item?.show_unit == '2'" class="d-ib">天 </span>
+                                            @ {{item?.rate}}倍
+                                        </div>
+                                    </div>
+                                    <div class="type-title-4 icon-text-btn p-t-sm p-b-sm">
+                                        <i class="icon_add"></i>
+                                        <span>快捷调整</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="detail-adjust-cell">
+                                <div style="padding-right: .2rem;">
+                                    <div class="type-title-4 p-t-lg p-b">加班</div>
+                                    <div class="existed">
+                                        <div class="type-title-65">出勤管理中已存在</div>
+                                        <div class="" *ngFor="let item of system_data['3']">
+                                            {{item?.duration}}
+                                            <span *ngIf="item?.show_unit == '1'" class="d-ib">小时 </span>
+                                            <span *ngIf="item?.show_unit == '2'" class="d-ib">天 </span>
+                                            @ {{item?.rate}}倍
+                                        </div>
+                                    </div>
+                                    <div class="type-title-4 icon-text-btn p-t-sm p-b-sm">
+                                        <i class="icon_add"></i>
+                                        <span>快捷调整</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr *ngFor="let adjust of attendance_adjust.get('all_item').controls;let i=index;"
+                            class="v-t detail-adjust pointer-none td-t-l bg-light-grey">
+                            <td>
+                                <ng-container *ngIf="attendance_adjust.get('all_item').controls.length > 1">
+                                    {{time_info[i].time}}
+                                </ng-container>
+                            </td>
+                            <td class="detail-adjust-cell">
+                                <div [formArrayName]=i style="padding-right: .2rem;">
+                                    <div>
+                                        <div formGroupName="0">
+                                            <div class="d-ib add-box">
+                                                <div class="d-ib v-m t add-icon b-r grey">
+                                                    +
+                                                </div>
+                                                <div class="d-ib v-m t">
+                                                    <input type="text" class="add-input" formControlName="duration">
+                                                </div>
+                                            </div>
+
+                                            <div class="d-ib v-m" style="width: .6rem;">
+                                                <mayihr-select formControlName="show_unit"
+                                                               [SelectConfig]="{type: 2}"
+                                                               [SelectData]="show_unit"></mayihr-select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="detail-adjust-cell">
+                                <div style="padding-right: .2rem;" [formArrayName]=i>
+                                    <div *ngFor="let item of attendance_adjust.get('all_item').controls[i].controls[1].controls;let j=index;">
+                                        <div formArrayName="1">
+                                            <div class="p-b-xs" [formGroupName]=j>
+                                                <div class="d-ib add-box">
+                                                    <div class="d-ib v-m t add-icon b-r grey">
+                                                        +
+                                                    </div>
+                                                    <div class="d-ib v-m t">
+                                                        <input type="text" class="add-input" formControlName="duration">
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-ib v-m" style="width: .8rem;">
+                                                    <mayihr-select formControlName="show_unit"
+                                                                   [SelectConfig]="{type: 2}"
+                                                                   [SelectData]="show_unit"></mayihr-select>
+                                                </div>
+                                                <div class="d-ib v-m" style="width: .8rem;">
+                                                    <mayihr-select formControlName="rate"
+                                                                   [SelectConfig]="{type: 2}"
+                                                                   [SelectData]="rate_absence"></mayihr-select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div formGroupName="3">
+                                        <div formArrayName="rate_input">
+                                            <div *ngFor="let item of attendance_adjust.get('all_item').controls[i].controls[3].controls['rate_input'].controls;let j=index;"
+                                                 class="p-b-xs" [formGroupName]=j>
+                                                <div class="d-ib add-box">
+                                                    <div class="d-ib v-m t add-icon b-r grey">
+                                                        +
+                                                    </div>
+                                                    <div class="d-ib v-m t">
+                                                        <input type="text" class="add-input" formControlName="duration">
+                                                    </div>
+                                                </div>
+                                                <div class="d-ib v-m" style="width: .8rem;">
+                                                    <mayihr-select formControlName="show_unit"
+                                                                   [SelectConfig]="{type: 2}"
+                                                                   [SelectData]="show_unit"></mayihr-select>
+                                                </div>
+                                                <div class="d-ib v-m" style="width: .8rem;">
+                                                    <mayihr-select formControlName="rate"
+                                                                   [SelectConfig]="{type: 2}"
+                                                                   [SelectData]="rate_absence"></mayihr-select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="p-t pointer d-ib icon-text-btn"
+                                         (click)="createRecord(attendance_adjust.get('all_item').controls[i].controls[3].controls['rate_input'], 1)">
+                                        <i class="icon_add"></i>
+                                        <span>添加其他比例的记录</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="detail-adjust-cell">
+                                <div [formArrayName]="i" style="padding-right: .2rem;">
+                                    <div *ngFor="let item of attendance_adjust.get('all_item').controls[i].controls[2].controls;let j=index;">
+                                        <div formArrayName="2">
+                                            <div class="p-b-xs" [formGroupName]="j">
+                                                <div class="d-ib add-box">
+                                                    <div class="d-ib v-m t add-icon b-r grey">
+                                                        +
+                                                    </div>
+                                                    <div class="d-ib v-m t">
+                                                        <input type="text" class="add-input" formControlName="duration">
+                                                    </div>
+                                                </div>
+                                                <div class="d-ib v-m" style="width: .8rem;">
+                                                    <mayihr-select formControlName="show_unit"
+                                                                   [SelectConfig]="{type: 2}"
+                                                                   [SelectData]="show_unit"></mayihr-select>
+                                                </div>
+                                                <div class="d-ib v-m" style="width: .8rem;">
+                                                    <mayihr-select formControlName="rate"
+                                                                   [SelectConfig]="{type: 2}"
+                                                                   [SelectData]="rate_overtime"></mayihr-select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div formGroupName="3">
+                                        <div formArrayName="overtime_input">
+                                            <div *ngFor="let item of attendance_adjust.get('all_item').controls[i].controls[3].controls['overtime_input'].controls;let j=index;"
+                                                 [formGroupName]=j class="p-b-xs">
+                                                <div class="d-ib add-box">
+                                                    <div class="d-ib v-m t add-icon b-r grey">
+                                                        +
+                                                    </div>
+                                                    <div class="d-ib v-m t">
+                                                        <input type="text" class="add-input" formControlName="duration">
+                                                    </div>
+                                                </div>
+                                                <div class="d-ib v-m" style="width: .8rem;">
+                                                    <mayihr-select formControlName="show_unit"
+                                                                   [SelectConfig]="{type: 2}"
+                                                                   [SelectData]="show_unit"></mayihr-select>
+                                                </div>
+                                                <div class="d-ib v-m" style="width: .8rem;">
+                                                    <mayihr-select formControlName="rate"
+                                                                   [SelectConfig]="{type: 2}"
+                                                                   [SelectData]="rate_overtime"></mayihr-select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="p-t pointer d-ib icon-text-btn"
+                                         (click)="createRecord(attendance_adjust.get('all_item').controls[i].controls[3].controls['overtime_input'], 2)">
+                                        <i class="icon_add"></i>
+                                        <span>添加其他比例的记录</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr *ngIf="detail_show == i" class="bg-light-grey">
+                            <td colspan="5">
+                                <div class="pull-right p-r-lg clearfix">
+                                    <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold"
+                                            data-dismiss="modal"
+                                            (click)="cancelChange()">取消
+                                    </button>
+                                    <button type='button' class="btn btn-sm v-m"
+                                            (click)="submitChange()">确认
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="bg-light-grey" *ngIf="attendance_adjust.get('all_item').controls.length > 1">
+                            <td colspan="5" class="t-l" style="height: inherit;">
+                                <i class="icon_alert yellow v-m"></i>
+                                <span class="type-title-4">为什么该员工该月分段了？受月中调薪影响，需要采用对应的基本工资</span>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    </tbody>
+                </table>
+
+            </form>
+        </div>
+    </div>
+    <mayihr-paging [page_info]="page_info" [request_url]="list_info_url" [request_type]="'get'"></mayihr-paging>
+</div>

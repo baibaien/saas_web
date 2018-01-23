@@ -1,0 +1,27 @@
+/*.year-choose {*/
+/*padding-bottom: .1rem;*/
+/*border-bottom: 3px solid #64c24d;*/
+/*}*/
+
+/*.year-tag:hover {*/
+/*padding-bottom: .1rem;*/
+/*border-bottom: 3px solid #64c24d;*/
+/*}*/
+
+.year-choose:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    border-bottom: 3px solid #64c24d;
+    bottom: 0;
+    left: 0;
+}
+
+.year-tag:hover:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    border-bottom: 3px solid #64c24d;
+    bottom: 0;
+    left: 0;
+}

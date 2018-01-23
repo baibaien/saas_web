@@ -1,0 +1,39 @@
+.child-table {
+    width: 100%;
+}
+
+.child-table-container table > tbody tr:hover {
+    background: #e3e3e3;
+}
+
+.child-table-container {
+    background: #f3f3f3;
+    padding: 0;
+}
+.bill-detail {
+    padding: .05rem 0 .1rem 0;
+}
+
+.bill-detail > div {
+    color: gray;
+}
+
+.bill-list-child-table td, .bill-list-child-table th {
+    line-height: normal !important;
+}
+
+.bill-list-child-table tr th:nth-child(2) {
+    width: 2.5rem;
+}
+
+.bill-list-child-table tr th:nth-child(4) {
+    width: 1.5rem;
+}
+
+.bill-list-child-table tr th:nth-child(6) {
+    width: 2.5rem;
+}
+
+.bill-list-child-table th:last-child {
+    width: .5rem;
+}

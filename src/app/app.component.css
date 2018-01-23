@@ -1,0 +1,18 @@
+.scroll-wrapper {
+  height: 100%;
+  overflow-y: auto;
+  /*overflow-x: hidden;*/
+  position: relative;
+  padding-bottom: .4rem;
+}
+.scroll-wrapper.disabled {
+  overflow:hidden;
+}
+.side-margin {
+    margin-left: 2rem;
+}
+@media screen and (max-width: 640px){
+  .scroll-wrapper {
+    overflow-x:hidden;
+  }
+}

@@ -1,0 +1,21 @@
+<div class="staff-content staff-org-bg">
+    <div class="p-t p-b staff-org-title-bg">
+        <a [routerLink]="['/user/staff']" class="m-l m-r-sm"><i class="v-m icon_arrow_left pointer t-lg"></i></a>
+        <span class="d-ib">员工名录/组织架构</span>
+        <span class="d-ib  p-l-lg p-r-lg pull-right pointer" (click)="orgAddModal()"><i class="icon_add v-m  m-r-sm"></i><span>添加组织单元</span></span>
+    </div>
+    <div class="clearfix b-t">
+        <div class="staff-org-strc">
+            <ul>
+                <li>
+                    <app-org-strc-show [dept_now]="org_strc"></app-org-strc-show>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+<app-department-add-m [modal_name]="modal_name" *ngIf="modal_name === 'add_modal'"
+                      [modal_info]="modal_info"></app-department-add-m>
+<app-department-edit-m [modal_name]="modal_name" *ngIf="modal_name ==='edit_modal'"
+                       [modal_info]="modal_info"></app-department-edit-m>

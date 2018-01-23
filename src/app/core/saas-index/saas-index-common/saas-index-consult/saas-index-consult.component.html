@@ -1,0 +1,25 @@
+<div class="bg-white section pc-view">
+  <form action="" [formGroup]="sign_msg">
+  <div class="index-container">
+    <div class="left d-ib v-t">
+      <p class="t-20 m-b-sm">请客服来电为您介绍</p>
+      <p class="text-grey m-b">留下您的联系方式，客服将在1个工作日内与您联系</p>
+      <div class="m-b">
+        <input type="text" class=" w-300" placeholder="请填写您的姓名" formControlName="contact">
+        <p class="error" *ngIf="sumit_error">请填写正确手机号码！</p>
+        <input type="text" class=" w-300 m-t-sm" placeholder="请填写您的手机" formControlName="mobile">
+        <textarea  class="w-300 b-a m-t-sm d-b" placeholder="请填写您的咨询事项" formControlName="comment"></textarea>
+      </div>
+      <div class="t-l"><span class="b-green white index-btn t-lg d-ib" style="cursor:pointer"
+      (click)="preSign()">免费注册</span></div>
+    </div>
+    <div class="right d-ib v-t">
+      <p class="t-20 m-b-sm">新客户免费咨询专线</p>
+      <p class="text-grey m-b-lg">通过以下方式联系我们，了解更多产品及服务信息</p>
+      <p class="t-36 bold m-b index-green">400-686-9915</p>
+      <p>我们的工作时间是周一至周五<br/>
+        9:00-18:00</p>
+    </div>
+  </div>
+  </form>
+</div>

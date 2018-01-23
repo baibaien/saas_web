@@ -1,0 +1,20 @@
+.jump-box {
+    position: fixed ;
+    bottom: .6rem;
+    right: .35rem;
+    height: .7rem;
+    width: .35rem;
+    background: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(80,80,80,.65);
+}
+.jump-box i {
+    display: inline-block;
+    height: .35rem;
+    width: .35rem;
+    text-align: center;
+    line-height:.35rem;
+}
+.jump-box i:first-child {
+    border-bottom: 1px solid rgba(80,80,80,.2);
+}

@@ -1,0 +1,78 @@
+<div class="mayihr-datepicker">
+    <div class="mayihr-input-mask" *ngIf="disabled"></div>
+    <div class="mayihr-datepicker-input" (click)="clickToggleDatePicker($event)">
+        <div class="virtual-input">
+        <!--<input type="text" [value]="default_value">-->
+            <span *ngIf="!!default_value">{{default_value}}</span>
+            <span  class="grey" *ngIf="!(!!default_value)">请选择日期</span>
+        <div class="mayihr-datepicker-icon">
+            <i class="icon_calendar"></i>
+        </div>
+        </div>
+    </div>
+    <div class="datepicker-mask" *ngIf="show_datepicker" (click)="clickToggleDatePicker($event)"></div>
+    <div class="mayihr-datepicker-box clear" *ngIf="show_datepicker">
+        <div class="mayihr-datepicker-day">
+            <div class="">
+                <div class="pre-unit" (click)="chooseData(0, -1)">
+                    <i class="icon_backward pointer"></i>
+                </div>
+                <div class="this-unit mayihr-datepicker-title" (click)="changeViewMode()">
+                    <ng-container *ngIf="view_mode === 0">{{_decade}}0-{{_decade}}9</ng-container>
+                    <ng-container *ngIf="view_mode > 0">{{_year}}年</ng-container>
+                    <ng-container *ngIf="view_mode > 1">{{_month + 1}}月</ng-container>
+                </div>
+                <div class="next-unit" (click)="chooseData(0, 1)">
+                    <i class="icon_angle_right pointer"></i>
+                </div>
+            </div>
+            <table class="mayihr-datepicker-table" *ngIf="view_mode === 2">
+                <thead>
+                <tr class="grey">
+                    <th>日</th>
+                    <th>一</th>
+                    <th>二</th>
+                    <th>三</th>
+                    <th>四</th>
+                    <th>五</th>
+                    <th>六</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let week of view_data">
+                    <td *ngFor="let day of week;let i=index;">
+                        <div class="mayihr-datepicker-day-hover"
+                             [class.current-select]="day.current_day"
+                             [class.other-month]="day.month_type !== 1"
+                             [class.inoperable]="!day.operable"
+                             (click)="selectDay($event, day)">
+                            <span>{{day.text}}</span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="mayihr-datepicker-table" *ngIf="view_mode === 1">
+                <tbody class="month-box">
+                <tr *ngFor="let i of view_month">
+                    <td *ngFor="let j of i" (click)="selectMonth($event, j)"
+                        [class.current-select]="j.value === (_m_selected + 1) && _y_selected === _year"
+                        [class.inoperable]="!j.operable">
+                        {{j.value}}月
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="mayihr-datepicker-table" *ngIf="view_mode === 0">
+                <tbody class="month-box">
+                <tr *ngFor="let i of view_year">
+                    <td *ngFor="let j of i" (click)="selectYear($event, j)"
+                        [class.current-select]="_y_selected === j">
+                        {{j}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

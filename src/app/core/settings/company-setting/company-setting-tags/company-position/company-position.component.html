@@ -1,0 +1,47 @@
+<!--岗位设置-->
+<div class="" *ngIf="position_data">
+    <div class="">
+        <div>
+            <mayihr-searching [request_type]="'get'" [request_url]="list_url"
+                              [placeholder]="'输入岗位名称进行搜索'" [other_operate]="position_operate"></mayihr-searching>
+        </div>
+        <div class="company-position b-t mh-350" [class.no-list-bg]="position_data?.length == 0">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th style="width: .8rem;">编号</th>
+                    <th style="width: 1.5rem;">岗位名称</th>
+                    <th style="width: .8rem;">任职人数</th>
+                    <th style="width: 3.7rem;">岗位描述</th>
+                    <th style="width: .6rem;" class="t-c">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of position_data; let i = index">
+                    <td [title]="item?.no.toString().length > 5 ? item.no : ''">{{ item?.no | longStringFilter:5}}</td>
+                    <td [title]="item?.name.toString().length > 10 ? item?.name : ''">
+                        {{ item?.name | longStringFilter:10}}
+                    </td>
+                    <td>{{item?.count}}</td>
+                    <td class="grey" [title]="item?.desc.toString().length > 30 ? item?.desc : ''">
+                        {{ (item?.desc | longStringFilter: 30) || "暂无"}}
+                    </td>
+                    <td class="t-r t-c">
+                        <div class="d-ib pointer">
+                            <i class="icon_edit"
+                               (click)="showPositionSetting({data: position_data[i], type: 'edit'})"></i>
+                        </div>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <mayihr-paging [request_type]="'get'" [request_url]="list_url"
+                   [page_info]="pagination"></mayihr-paging>
+</div>
+<!--岗位设置end-->
+
+<app-position-setting [modal_name]="modal_name" [modal_info]="modal_info" [modal_callback]="modal_callback"
+                      *ngIf="modal_name === 'position_setting'"></app-position-setting>

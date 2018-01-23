@@ -1,0 +1,141 @@
+<div class="staff-content pos-r">
+    <div class="lh-50 b-b ">
+        <div class="icon-text-btn">
+            <i class="icon_arrow_left p-l-lg pointer" (click)="toCompanySetting()"></i>
+            <span>公司设置/{{staff_benefit_info?.be_name}}覆盖人员管理</span>
+        </div>
+    </div>
+    <div class="clearfix b-b">
+        <div class="clearfix m-t m-b p-t p-l-lg p-b p-r">
+            <ul>
+                <li class="d-ib m-r-lg">
+                    <p class="t-24 bold">{{staff_benefit_info?.cover_count}}</p>
+                    <p class="grey">享受人数</p>
+                </li>
+                <li class="d-ib m-r-lg">
+                    <p class="t-24 bold">{{staff_benefit_info?.be_money}}</p>
+                    <p class="grey">默认金额</p>
+                </li>
+                <li class="d-ib">
+                    <p class="grey">{{staff_benefit_info?.is_fax_name}}</p>
+                    <p class="grey">{{staff_benefit_info?.condition_name}}</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="">
+        <div class="b-b" *ngIf="chosen_array.length === 0">
+            <mayihr-searching [request_type]="'post'" [request_url]="list_info_url"
+                              [placeholder]="'输入员工姓名进行搜索'"></mayihr-searching>
+        </div>
+        <div class="b-b p-l" *ngIf="chosen_array.length !== 0"
+             style="line-height: .5rem;height: .5rem;box-sizing: content-box;">
+            <span class="grey m-r-lg ">已选择{{chosen_array.length}}人</span>
+            <span class="m-r-lg pointer" (click)="choseYg(true)">全选 </span>
+            <span class="m-r-lg pointer" (click)="choseYg()">取消选择</span>
+            <div class="pull-right">
+                <span class="m-r-lg pointer icon-text-btn" (click)="isBenifitCover(false)">
+                    <i class="icon_close"></i>
+                    <span>批量关闭福利</span>
+                </span>
+                <span class="m-r-lg pointer icon-text-btn" (click)="isBenifitCover(true)">
+                    <i class="icon_done"></i>
+                    <span>批量开启福利</span>
+                </span>
+                <span class="m-r-lg pointer icon-text-btn" (click)="showBenefitMoney(
+                        {staff: chosen_array.join(','), id: staff_benefit_info?.id, money: staff_benefit_info?.be_money})">
+                    <i class="icon_edit"></i>
+                    <span>批量修改金额</span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix">
+        <mayihr-filter-status [filter_term]="filter_term" [request_type]="'post'"
+                              [request_url]="list_info_url"></mayihr-filter-status>
+    </div>
+    <div class="pos-r clear">
+        <div>
+            <table class="saas-table">
+                <thead class="saas-table-header">
+                <tr>
+                    <th></th>
+                    <th *ngFor="let i of table_header;let foo=index;" class="header-range"
+                        [class.t-l]="i.adjust == -1"
+                        [class.t-c]="i.adjust == 0"
+                        [class.t-r]="i.adjust == 1">
+                        <span>{{ i.column_name }}</span>
+                        <div class="d-i pos-r">
+                            <i class="icon_triangle_down v-m" (click)="filterChooseToggle(foo)"
+                               *ngIf="i.filter !== 0"></i>
+                            <mayihr-filter [operate_data]="i" [view_type]="'table_filter'"
+                                           [filter_term]="filter_term"
+                                           [request_url]="list_info_url" [request_type]="'post'"
+                                           (close_filter)="closeFilter($event)"></mayihr-filter>
+                        </div>
+                    </th>
+                    <th>
+                        操作
+                    </th>
+                </tr>
+                </thead>
+                <tbody *ngFor="let item of staff_benefit_list;let i = index">
+                <tr class="v-m pos-r">
+                    <td>
+                        <a>
+                            <label class="ui-check" (click)="choseYg(false, item.id)">
+                                <span class="checkbox" [class.active]="chosen_array.indexOf(item.id) >= 0">选择</span>
+                                <i class="icon_ui hover_show" [class.ever_show]="chosen_array.length > 0"></i>
+                            </label>
+                        </a>
+                        <!--<div class="d-ib">-->
+                        <!--<div class="d-ib" *ngIf="staff.status == 2" style="width: .25rem"></div>-->
+                        <!--<div class="d-ib" *ngIf="staff.status != 2">-->
+                        <!--<span (click)="chooseStaff(i)" class="ui-check" style="line-height:.6rem;">-->
+                        <!--<input type="checkbox" name="choose_staff" [(ngModel)]="staff.choosed">-->
+                        <!--<i class="icon_ui hover_show v-m" style="font-size: .22rem;line-height:.6rem;"-->
+                        <!--[class.ever_show]="choose_staff_num > 0"></i>-->
+                        <!--</span>-->
+                        <!--</div>-->
+                    </td>
+                    <td *ngFor="let sub_item of table_header;let foo = index" class="pos-r"
+                        [class.t-l]="sub_item.adjust == -1"
+                        [class.t-c]="sub_item.adjust == 0"
+                        [class.t-r]="sub_item.adjust == 1">
+                        <span *ngIf="sub_item?.column_key !== 'has_benefit'"
+                              [title]="item[sub_item.column]?.toString().length > 8 ? item[sub_item.column] : ''">
+                            {{ item[sub_item.column] == '' ? '-' : item[sub_item.column] | longStringFilter:8}}
+                        </span>
+                        <span *ngIf="sub_item['column_key'] === 'has_benifit'">
+                            <i [class.icon_done]="!(!item.be_id || item.be_id === '' || item.be_id <= 0)"
+                               [class.icon_close]="(!item.be_id || item.be_id === '' || item.be_id <= 0)"
+                               class="no-hover"></i></span>
+                    </td>
+                    <td class="t-c">
+                        <span class="dropdown">
+                            <i class="icon_edit pointer" (click)="show_menu = i"></i>
+                            <ul class="menu" *ngIf="show_menu === i">
+                                <li class="grey">编辑该员工该项福利</li>
+                                <li class="bg-grey m-b-xs pointer"
+                                    *ngIf="!(!item.be_id || item.be_id === '' || item.be_id <= 0) "
+                                    (click)="isBenifitCover(false, [item?.id])">取消福利</li>
+                                <li class="bg-grey m-b-xs pointer"
+                                    *ngIf="!item.be_id || item.be_id === '' || item.be_id <= 0 "
+                                    (click)="isBenifitCover(true, [item?.id])">开启福利</li>
+                                <li class="bg-grey pointer"
+                                    *ngIf="!(!item.be_id || item.be_id === '' || item.be_id <= 0)"
+                                    (click)="showBenefitMoney({staff: item.id, id: staff_benefit_info.id})">编辑福利金额</li>
+                            </ul>
+                       </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="mask pos-f" *ngIf="show_menu >= 0" (click)="show_menu = -1;"
+         style="left:0;right:0;top:0;bottom:0;z-index:999;"></div>
+    <mayihr-paging [request_type]="'post'" [request_url]="list_info_url" [page_info]="page_info"></mayihr-paging>
+</div>
+<app-benefit-money [modal_name]="modal_name" [modal_info]="modal_info" [modal_callback]="modal_callback"
+                   *ngIf="modal_name === 'benefit_money'"></app-benefit-money>

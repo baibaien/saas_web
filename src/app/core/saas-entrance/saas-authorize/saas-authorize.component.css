@@ -1,0 +1,28 @@
+.authorize-wrapper {
+  position: absolute;
+  left:0;
+  top:0;
+  right:0;
+  bottom:0;
+  background: #eee;
+}
+.authorize-content {
+  width: 100%;
+  max-width: 640px;
+  margin:0 auto;
+  position: relative;
+  /*box-shadow: 0 0 8px rgba(0,0, 0,0.2);*/
+  border:1px solid #eee;
+  height:100%;
+}
+.pos-a.bg-white {
+  bottom:0;
+  width:100%;
+  left:0;
+}
+@media screen and (max-width: 640px) {
+  .t-lg {
+    font-size: 20px !important;
+  }
+
+}

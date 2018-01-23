@@ -1,0 +1,52 @@
+<div class="d-ib img-box ">
+    <div class="pos-r m-b-sm clearfix" style="width: 100%;height: 100%;" (click)="resetForm(form)">
+        <form style="height: 0;width: 0;" #form>
+            <input #input_box class="pointer-no-color" type="file" accept="image/png, image/jpeg, image/gif"
+                   style="font-size: 3rem;text-indent: -5rem;overflow: hidden"
+                   (change)="emitImg($event)">
+        </form>
+        <div class="img-bg" *ngIf="!img_url">
+            <p class="t-c pos-a icon-text-btn">
+                <i class="icon_upload v-m black"></i>
+                <span class="v-m black">上传{{img_config?.title}}</span>
+            </p>
+
+        </div>
+        <div class="img-bg" *ngIf="img_url">
+            <div class="img-mask"
+                 [class.uploaded]="!!img_url">
+                <div class="operation-area">
+                    <p class="operate-btn pointer icon-text-btn" (click)="previewImg()">
+                        <i class="icon_eye"></i>
+                        <span>预览</span>
+                    </p>
+                    <p class="operate-btn pointer icon-text-btn" *ngIf="img_config?.allow_clear" (click)="deleteImg()">
+                        <i class="icon_delete"></i>
+                        <span>删除</span>
+                    </p>
+                    <p class="operate-btn pointer icon-text-btn" *ngIf="img_config?.allow_reload"
+                       (click)="reUploadImg(input_box)">
+                        <i class="icon_captcha"></i>
+                        <span>重传</span>
+                    </p>
+                    <p class="operate-btn pointer icon-text-btn" *ngIf="img_config?.allow_upload"
+                       (click)="reUploadImg(input_box)">
+                        <i class="icon_upload"></i>
+                        <span>上传</span>
+                    </p>
+                </div>
+            </div>
+            <img *ngIf="img_url" [src]="img_url" [alt]="img_config?.title" class="image">
+
+        </div>
+    </div>
+    <p class="grey t-sm">{{img_config?.title}}</p>
+</div>
+
+
+<div class="modal in" style="display: block; z-index:500;" *ngIf="show_preview"
+     (click)="cancelPreview()">
+    <div class="modal-dialog">
+        <img [src]="img_url" style="width: 5rem;">
+    </div>
+</div>

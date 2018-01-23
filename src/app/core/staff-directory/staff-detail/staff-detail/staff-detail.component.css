@@ -1,0 +1,370 @@
+body {
+    overflow: auto;
+}
+
+.modal {
+    overflow: auto;
+}
+
+.staff-detail-operate {
+
+}
+
+.staff-detail-operate li {
+    float: left;
+    padding-left: .1rem;
+    padding-right: 0.3rem;
+}
+
+.staff-detail-operate li:last-child {
+    padding-right: 0;
+    margin-right: .2rem;
+}
+
+.staff-detail-general {
+    margin-top: 0.3rem;
+    width: 100%;
+    margin-bottom: .5rem;
+}
+
+.staff-detail-general .left-part {
+    width: 35%;
+}
+
+.staff-detail-photo {
+    padding-left: 1.05rem;
+}
+
+.half {
+    width: 50%;
+}
+
+.staff-detail-index {
+    padding-top: .1rem;
+    overflow: hidden;
+    background: #fff;
+}
+
+.staff-detail-index li {
+    position: relative;
+    padding-bottom: .1rem;
+    float: left;
+    margin-left: .2rem;
+    border-bottom: 4px solid transparent;
+}
+
+.staff-detail-index li:hover {
+    border-bottom: 4px solid #35ad37;
+    cursor: pointer;
+}
+
+.indexHover {
+    border-bottom: 2px solid #35ad37 !important;
+}
+
+.staff-detail-block {
+    margin-top: 0.45rem;
+    width: 100%;
+}
+
+.staff-detail-table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.staff-detail-table td {
+    padding-bottom: .15rem;
+
+}
+
+.edit .grey {
+    line-height: .37rem;
+    vertical-align: top;
+}
+
+.staff-detail-table tr td:first-child {
+    padding-right: .2rem;
+}
+
+.staff-detail-address {
+    width: 2.3rem;
+    padding-right: .3rem;
+}
+
+.cut-off-short {
+    margin-top: .2rem;
+    margin-bottom: .2rem;
+    width: .3rem;
+    border-bottom: 1px solid #d7d7d7;
+}
+
+.dimissionDate {
+    line-height: .35rem;
+}
+
+/*.staff-detail-table input, .staff-detail-table select {*/
+/*border: 1px solid #f2f2f2;*/
+/*}*/
+
+.staff-detail-table input:focus, .staff-detail-table select:focus {
+    box-shadow: 0 0 0 transparent;
+}
+
+/*.staff-detail-table .edit {*/
+/*border: 1px solid #f2f2f2;*/
+/*}*/
+
+input, select {
+    box-sizing: border-box;
+    width: 2.2rem;
+}
+
+input.half, select.half {
+    width: 1.05rem;
+    float: left;
+}
+
+.half + input.half, .half + select.half {
+    margin-left: .1rem;
+}
+
+.fixed-top {
+    position: fixed;
+    left: auto;
+    right: auto;
+    margin-left: 0;
+    top: 0;
+    width: 9.98rem;
+    z-index: 470;
+}
+
+.select-square {
+    border: 1px solid #eaeaea;
+}
+
+.ui-select-container {
+    width: 2.2rem !important;
+}
+
+.hospitals {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.save-state {
+    padding-bottom: .15rem;
+}
+
+.red-block {
+    margin-left: 1.4rem;
+    margin-top: -.12rem;
+}
+
+table td:first-child {
+    width: 1rem;
+}
+
+.add-on-group {
+    display: table;
+    width: 2.2rem;
+    table-layout: fixed;
+}
+
+.add-on-group input, .add-on-group .add-on {
+    display: table-cell;
+}
+
+.add-on {
+    display: block;
+    width: .6rem;
+    height: 100%;
+    color: #33ac37;
+}
+
+.family-table .save-state {
+    padding: 0;
+}
+
+.family-table li {
+    padding: .15rem .2rem;
+    vertical-align: top;
+    position: relative;
+}
+
+/*.family-table li:hover > div {*/
+/*background: rgba(80, 80, 80, 0.15) !important;*/
+/*}*/
+
+.family-table li:nth-child(even) {
+    background: rgba(80, 80, 80, 0.1);
+}
+
+.edit-panel {
+    display: none;
+    position: absolute;
+    top: .15rem;
+    right: .2rem;
+}
+
+ul li:hover .edit-panel {
+    display: inline-block;
+}
+
+.family-table .add-part {
+    margin: -.15rem -.6rem;
+    padding: .15rem .25rem;
+}
+
+.add-part {
+    background: rgba(80, 80, 80, 0.1) !important;
+    margin: 0;
+    padding-top: .15rem;
+    padding-bottom: .15rem;
+}
+
+.add-part label {
+    width: .85rem;
+    float: left;
+}
+
+.add-part input, .add-part select, .family-table input, .family-table select {
+    height: .28rem;
+    line-height: .28rem;
+}
+
+.picture-wrapper li {
+    margin-right: 10px;
+}
+
+.picture-wrapper li p {
+    font-size: 12px;
+    top: 50%;
+    width: 100%;
+    margin-top: -6px;
+}
+
+.picture-wrapper li p i {
+    color: #999999;
+    font-size: 16px;
+}
+
+.picture-wrapper li .picture-mask {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+    z-index: 10;
+    display: none;
+}
+
+.picture-wrapper li input {
+    width: 100%;
+    height: 100%;
+}
+
+.picture-wrapper li:hover .picture-mask.uploaded {
+    display: block;
+}
+
+.picture-wrapper li .picture-mask .delete-btn {
+    top: 50%;
+    margin-top: -8px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+}
+
+.picture-wrapper li .id-bg, .picture-wrapper li .id-reverse-bg, .picture-wrapper li .white-bg {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #f2f2f2;
+}
+
+.picture-wrapper li .id-bg, .picture-wrapper li .id-reverse-bg {
+    width: 225px;
+    height: 135px;
+}
+
+.picture-wrapper li .white-bg {
+    width: 108px;
+    height: 135px;
+}
+
+.picture-tip li {
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+
+.picture-wrapper .picture {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 2;
+}
+
+.save-state {
+    display: inline-block;
+}
+
+.form-group label.grey {
+    width: 1rem;
+    padding-right: .2rem;
+    white-space: nowrap;
+}
+
+.benifit .well li {
+    background: #efefef;
+    margin-bottom: .1rem;
+    position: relative;
+    overflow: hidden;
+    padding: .05rem .4rem .05rem .1rem;
+    width: 2.5rem;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.benifit li .name {
+    width: .4rem;
+}
+
+.benifit li .money {
+    width: .8rem;
+    float: right;
+}
+
+.benifit li input {
+    height: .25rem;
+    line-height: .25rem;
+}
+
+.benifit .pos-a {
+    right: .1rem;
+}
+
+.select-mask {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: transparent;
+    opacity: 0.5;
+    z-index: 2;
+}
+
+.add-benifit {
+    z-index: 3;
+}
+
+.disabled {
+    background: rgba(80, 80, 80, 0.2);
+}
+

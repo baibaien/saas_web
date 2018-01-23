@@ -1,0 +1,26 @@
+<div class="modal in" style="display: block; z-index:500;">
+    <!--<div class="modal-shadow" (click)="cancelModal()"></div>-->
+    <div class="modal-dialog" style="width: 6.6rem;border-radius: 0; padding: 0;overflow: hidden;">
+        <div style="width:26.4rem;height: 4.8rem;" class="pos-a t-0" id="carousel">
+            <img style="width: 6.6rem;height: 4.8rem;" src="/assets/version-tips/1.png" alt="">
+            <img style="width: 6.6rem;height: 4.8rem;" src="/assets/version-tips/2.png" alt="">
+            <img style="width: 6.6rem;height: 4.8rem;" src="/assets/version-tips/3.png" alt="">
+            <img style="width: 6.6rem;height: 4.8rem;" src="/assets/version-tips/4.png" alt="">
+        </div>
+        <div class="clearfix m-r m-l" style="padding: 4.8rem 0 0 0;height:5.5rem;line-height: .7rem;">
+            <div class="pull-left">
+                <div class="tip-item d-ib pointer-no-color" *ngFor="let po of tmp_arr;" (click)="chooseTip(po)"
+                     [class.choosed-item]="po == choose_index"></div>
+            </div>
+            <div class="pull-right">
+                <ng-container *ngIf="choose_index != 4">
+                    <div class="d-ib grey m-r-sm pointer" (click)="closeTips()">跳过</div>
+                    <button class="btn btn-sm" style="margin-top: .18rem;" (click)="chooseTip(choose_index + 1)">下一页</button>
+                </ng-container>
+                <ng-container *ngIf="choose_index == 4">
+                    <button class="btn btn-sm" style="margin-top: .18rem;" (click)="closeTips()">开始使用</button>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="staff-content">
+    <div class="p-t  p-b">
+        <a [routerLink]="['/user/staff/staff-detail',user_id]" class="m-l m-r-sm"><i class="icon_arrow_left"></i></a>
+        <span class="d-ib">员工名录/{{yg_name}}/缺勤请假和加班记录</span>
+    </div>
+    <div class="p-t-sm p-b-sm b-t p-l">
+        <div style="width: 1.6rem;">
+            <mayihr-datepicker (changeValue)="chooseMonthRequest($event)" [options]="{min_view_mode: 1}"
+                               [(ngModel)]="search_month"></mayihr-datepicker>
+        </div>
+    </div>
+    <div class="pos-r b-t clear" [class.no-list-bg]="log_items.length == 0">
+        <div class="staff-table-box">
+            <table class="staff-list-table">
+                <thead>
+                <tr>
+                    <th>类型</th>
+                    <th>时长</th>
+                    <th>发生时间</th>
+                    <th>处理方式</th>
+                    <th class="w-200">备注</th>
+                    <th style="width: .9rem;"></th>
+                </tr>
+                </thead>
+                <tbody *ngFor="let item of log_items;let i = index">
+                <tr class="v-m" (click)="attendanceDetailShow(i)">
+                    <td>{{item.absence_type}}</td>
+                    <td>{{item.duration}}</td>
+                    <td>{{item.start_time | date:['yyyy-MM-dd']}}</td>
+                    <td>{{item.process_way}}</td>
+                    <td>
+                        <div [title]="item.remark?.length > 15 ? item.remark : ''">
+                            {{item.remark | longStringFilter:15}}
+                        </div>
+                    </td>
+                    <td class="edit-hidden" (click)="editModal($event, i)">
+                        <span>
+                            <i class="icon_edit edit-hidden"></i>
+                            <span>编辑</span>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="attendance-detail" *ngIf="attendance_show === i">
+                    <td></td>
+                    <td colspan="5">
+                        <div class="pointer-none">
+                            <p>记录时间：{{item.created_time | longStringFilter: 10:false}}</p>
+                            <p [ngSwitch]="item.expire_time"
+                               *ngIf="item.absence_type === '加班' && !!item.expire_time">调休有效期至：
+                                <span>{{item.expire_time}}</span>
+                            </p>
+                            <div class="remark clearfix p-b" [ngSwitch]="item.remark">
+                                <div class="pull-left">备注：</div>
+                                <div class="pull-left attendance-remark" style="width: 7rem;">{{item.remark || '无'}}</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<app-create-overtime [modal_name]="modal_name" [modal_info]="modal_info" [modal_callback]="modal_callback"
+                     *ngIf="modal_name === 'overtime'"></app-create-overtime>
+<app-create-absence [modal_name]="modal_name" [modal_info]="modal_info"  [modal_callback]="modal_callback"
+                    *ngIf="modal_name === 'absence'"></app-create-absence>

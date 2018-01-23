@@ -1,0 +1,191 @@
+<div class="staff-content">
+    <div class="lh-50 b-b">
+        <div class="icon-text-btn">
+            <i [routerLink]="['/user/social-assurance/history']" class="m-l icon_arrow_left pointer"></i>
+            <span>五险一金/历史明细表/{{year}}年{{month}}月五险一金缴费明细</span>
+        </div>
+    </div>
+    <div *ngIf="city_list.length > 0">
+        <mayihr-tags [data_list]="city_list" [default_selected]="city_current"
+                     (data_choosed)="chooseCity($event)"></mayihr-tags>
+    </div>
+    <div class="clearfix b-b b-t">
+        <div class="clearfix m-t m-b-sm m-l">
+            <div class="d-ib m-r-lg"><span class="p-r">社保</span><span class="grey">{{assurance_calc_result?.social_cycle}}</span>
+            </div>
+            <div class="d-ib"><span class="p-r">公积金</span><span
+                    class="grey">{{assurance_calc_result?.fund_cycle}}</span></div>
+        </div>
+        <div class="p-a-lg p-l-xl p-t pos-r" style="height: 1.5rem;">
+            <div class="p-t-xl p-b-xl">
+                <ul>
+                    <li class="d-ib">
+                        <div class="t-24 bold t-RB">{{assurance_calc_result?.collect_data.social_people}}</div>
+                        <div class="total-grey">社保缴纳人数</div>
+                    </li>
+                    <li class="d-ib p-l-xl">
+                        <div class="t-24 bold t-RB">
+                            <ng-container *ngIf="assurance_calc_result?.collect_data.social_unit == '元'">
+                                <span>{{assurance_calc_result?.collect_data.social_gs | number: '1.2'}}</span>
+                            </ng-container>
+                            <ng-container *ngIf="assurance_calc_result?.collect_data.social_unit !== '元'">
+                                <span>{{assurance_calc_result?.collect_data.social_gs | number: '1.0'}}</span>
+                                <span>+</span>
+                            </ng-container>
+                        </div>
+                        <div class="total-grey">社保公司/{{assurance_calc_result?.collect_data.social_unit}}</div>
+                    </li>
+                    <li class="d-ib p-l-xl">
+                        <div class="t-24 bold t-RB">{{assurance_calc_result?.collect_data.fund_people}}</div>
+                        <div class="total-grey">公积金缴纳人数</div>
+                    </li>
+                    <li class="d-ib p-l-xl">
+                        <div class="t-24 bold t-RB">
+                            <ng-container *ngIf="assurance_calc_result?.collect_data.fund_unit == '元'">
+                                <span>{{assurance_calc_result?.collect_data.fund_gs | number: '1.2'}}</span>
+                            </ng-container>
+                            <ng-container *ngIf="assurance_calc_result?.collect_data.fund_unit !== '元'">
+                                <span>{{assurance_calc_result?.collect_data.fund_gs | number: '1.0'}}</span>
+                                <span>+</span>
+                            </ng-container>
+                        </div>
+                        <div class="total-grey">公积金公司/{{assurance_calc_result?.collect_data.fund_unit}}</div>
+                    </li>
+                </ul>
+            </div>
+            <div class="pos-a" style="right: 1.0rem;top: 0.35rem;">
+                <div class="m-t pointer icon-text-btn" (click)="socialExcel()">
+                    <i class="icon_download"></i>
+                    <span>导出社保公积金明细</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <mayihr-searching [request_url]="list_info_url" [request_type]="'post'"
+                      [placeholder]="'输入员工姓名进行搜索'"></mayihr-searching>
+    <div class="clearfix"></div>
+    <div class="pos-r b-t clear">
+        <div class="staff-table-box" [class.no-list-bg]="staff_assurance_list?.length == 0">
+            <table class="saas-table">
+                <thead class="saas-table-header">
+                <tr>
+                    <th></th>
+                    <th *ngFor="let i of table_header;let foo=index;"
+                        [class.w-30]="foo == 0"
+                        [class.t-r]="foo !== 0">
+                        <span>{{ i.column_name }}</span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody *ngFor="let staff of staff_assurance_list;let i = index"
+                       [class.no-b-b]="i == staff_assurance_list.length - 1">
+                <tr class="v-m pos-r pointer-no-color hover-bg-light-grey" (click)="showDetailSalary(i, staff)">
+                    <td></td>
+                    <td *ngFor="let j of table_header;let foo = index"
+                        [class.t-r]="foo !== 0">
+                        <div [title]="staff[j.column].toString().length > 10 ? staff[j.column] : ''">
+                            {{staff[j.column] | longStringFilter: 10}}
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="detail_show == i">
+                    <td colspan="8" style="padding: 0;">
+                        <div class="salary_detail clearfix">
+                            <div class="d-ib b-r pull-left">
+                                <div *ngFor="let detail of detail_info?.yg">
+                                    <div [title]="detail.title?.length > 5 ? detail.title : ''"
+                                         class="t-l grey">{{detail.title |
+                                        longStringFilter:5}}
+                                    </div>
+                                    <div>
+                                        <ng-container *ngIf="detail_info.is_show_per != 0">
+                                            <!--<div class="d-ib">-->
+                                            <!--&lt;!&ndash;{{detail.per == 0 ? '0%' : detail.per == '-' ? '-' : detail.per + '%'}}&ndash;&gt;-->
+                                            <!--{{detail.per == '-'? '-' : (detail.money !== '-' && detail.money != 0 &&-->
+                                            <!--detail.per == 0) ? '' : detail.per + '%'}}-->
+                                            <!--</div>-->
+                                            <div class="d-ib">
+                                                <ng-container *ngIf="detail.per === '-'">-</ng-container>
+                                                <ng-container *ngIf="detail.per !== '-'">
+                                                    <ng-container *ngIf="detail.per  != 0">{{detail.per}}%
+                                                    </ng-container>
+                                                    <ng-container *ngIf="detail.per == 0">
+                                                        <ng-container>
+                                                            {{(detail.money !== '-' && detail.money !=0) ? '0%':''}}
+                                                        </ng-container>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </div>
+                                            <div class="d-ib"
+                                                 *ngIf="detail.per != '-' && (!!detail.other && detail.other != 0 && detail.other != '-')">
+                                                +
+                                            </div>
+                                            <div class="d-ib" *ngIf="detail.other > 0">{{detail.other}}%</div>
+                                            <div class="d-ib"
+                                                 *ngIf="detail.per != '-' && (!!detail.fixed && detail.fixed != 0 && detail.fixed != '-')">
+                                                +
+                                            </div>
+                                            <div class="d-ib" *ngIf="detail.fixed > 0">{{detail.fixed}}</div>
+                                        </ng-container>
+                                    </div>
+                                    <div>{{detail.money}}</div>
+                                </div>
+                            </div>
+                            <div class="d-ib b-r pull-left">
+                                <div *ngFor="let detail of detail_info?.gs">
+                                    <div [title]="detail.title?.length > 5 ? detail.title : ''"
+                                         class="t-l grey">{{detail.title |
+                                        longStringFilter:5}}
+                                    </div>
+                                    <div>
+                                        <ng-container *ngIf="detail_info.is_show_per != 0">
+                                            <div class="d-ib">
+                                                <!--{{detail.per == 0 ? '0%' : detail.per == '-' ? '-' : detail.per + '%'}}-->
+                                                {{detail.per == '-'? '-' : (detail.money !== '-' && detail.money != 0 &&
+                                                detail.per == 0) ? '' : detail.per + '%'}}
+                                            </div>
+                                            <div class="d-ib"
+                                                 *ngIf="detail.per != '-' && (!!detail.other && detail.other != 0 && detail.other != '-')">
+                                                +
+                                            </div>
+                                            <div class="d-ib" *ngIf="detail.other > 0">{{detail.other}}%</div>
+                                            <div class="d-ib"
+                                                 *ngIf="detail.per != '-' && (!!detail.fixed && detail.fixed != 0 && detail.fixed != '-')">
+                                                +
+                                            </div>
+                                            <div class="d-ib" *ngIf="detail.fixed > 0">{{detail.fixed}}</div>
+                                        </ng-container>
+                                    </div>
+                                    <div>{{detail.money}}</div>
+                                </div>
+                            </div>
+                            <div class="d-ib pull-left">
+                                <div *ngFor="let detail of detail_info?.fund">
+                                    <div [title]="detail.title?.length > 5 ? detail.title : ''"
+                                         class="t-l grey">{{detail.title |
+                                        longStringFilter:5}}
+                                    </div>
+                                    <div>
+                                        <ng-container *ngIf="detail_info.is_show_per != 0">
+                                            <div class="d-ib" *ngIf="detail.money > 0">
+                                                {{detail.per == '-' || detail.per == 0 ? '' : detail.per + '%'}}
+                                            </div>
+                                            <div class="d-ib" *ngIf="!(detail.money > 0)">
+                                                {{detail.per == '-' ? '-' : detail.per + '%'}}
+                                            </div>
+                                            <div class="d-ib" *ngIf="detail.other > 0">{{'+' + detail.other}}%</div>
+                                            <div class="d-ib" *ngIf="detail.fixed > 0">{{'+' + detail.fixed}}</div>
+                                        </ng-container>
+                                    </div>
+                                    <div>{{detail.money}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <mayihr-paging [request_type]="'post'" [request_url]="list_info_url" [page_info]="page_info"></mayihr-paging>
+</div>

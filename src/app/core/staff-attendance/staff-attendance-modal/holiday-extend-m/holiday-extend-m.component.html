@@ -1,0 +1,51 @@
+<div class="modal in" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog" style="min-height: 6rem;max-height: 9rem;">
+        <div class="modal-content pos-r">
+            <div class="modal-header b-b p-a">
+                <div class="t-md">添加年休假</div>
+                <div class="t-sm grey">按照年度发放，且一般需要在年度内消费</div>
+            </div>
+            <div class="modal-body p-a" style="margin:0 .1rem;">
+                <form [formGroup]="holiday_extend">
+                    <div class="">
+                        <label for="days_extend" class="p-b-xs d-b grey">添加年假</label>
+                        <input type="text" id="days_extend" formControlName="duration" class="duration-choose"
+                            placeholder="请输入年假天数">
+                        <div class="error d-ib error_info"
+                            *ngIf="(holiday_extend.hasError('required', 'duration')
+                            && !holiday_extend.get('duration').untouched)
+                            || (holiday_extend.get('duration').untouched && before_submit)">
+                            请输入年假天数
+                        </div>
+                        <div class="error d-ib error_info"
+                            *ngIf="holiday_extend.hasError('mixhour_valid', 'duration') && !holiday_extend.hasError('required', 'duration')">
+                            请输入0.0625(即0.5小时)的整数倍作为天数
+                        </div>
+                    </div>
+                    <div>
+                        <label class="p-t d-ib p-b-xs grey">年假有效期至</label>
+                        <div class="w-200">
+                            <!--<input type='text' class="plugin form-control expire-choose" id="expire_time"-->
+                                   <!--formControlName="expire_time" #expire_time value="2017-06-09"-->
+                                   <!--(blur)="getMyDate(expire_time, holiday_extend.get('expire_time'))"/>-->
+                            <!--<span class="icon_calendar pos-r"-->
+                                  <!--style="font-size: .2rem;line-height: .36rem;right: .3rem;"></span>-->
+                            <mayihr-datepicker formControlName="expire_time" [options]="{start_time: date_now}"></mayihr-datepicker>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal_footer pos-a t-r p-a b-t" style="bottom:0;right:0;width: 100%;">
+            <!--<div *ngIf="modal_info" class="pull-left pointer" (click)="deleteRecord()"><i class="icon_delete p-r"></i>删除</div>-->
+            <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" data-dismiss="modal"
+                    (click)="cancelModal()">取消
+            </button>
+            <button type='button' class="btn btn-sm v-m" (click)="createExtend()">
+                添加年休假
+            </button>
+        </div>
+    </div>
+</div>
+<!--<app-assist-modal></app-assist-modal>-->

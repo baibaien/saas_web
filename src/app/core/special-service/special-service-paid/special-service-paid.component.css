@@ -1,0 +1,64 @@
+/*table {*/
+/*table-layout: fixed;*/
+/*width: 100%;*/
+/*white-space: nowrap;*/
+/*text-align: center;*/
+/*}*/
+
+/*thead tr th {*/
+/*text-align: center;*/
+/*font-weight: 100;*/
+/*font-size: 0.12rem;*/
+/*color: rgba(80, 80, 80, 0.8) !important;*/
+/*background: #f3f3f3;*/
+/*}*/
+
+/*thead tr {*/
+/*background: #f3f3f3;*/
+/*border: none;*/
+/*}*/
+
+/*tbody {*/
+/*padding-left: .2rem;*/
+/*}*/
+
+/*tr {*/
+/*border-bottom: 1px solid #eaeaea;*/
+/*}*/
+
+/*th {*/
+/*box-sizing: border-box;*/
+/*height: .3rem;*/
+/*line-height: .3rem;*/
+/*}*/
+/*!*待支付订单*!*/
+/*.unpaid {*/
+
+/*}*/
+/*.unpaid td{*/
+/*text-align: center;*/
+/*height: .6rem;*/
+/*line-height: .6rem;*/
+/*}*/
+th {
+    padding: 0 0.25rem!important;
+}
+td {
+    padding: 0 0.25rem;
+}
+th:nth-child(2) {
+    width: .5rem;
+}
+
+th:nth-child(3) {
+    width: 3rem;
+}
+
+img {
+    width: .33rem;
+    height: .33rem;
+}
+
+/*.unpaid td:first-child {*/
+/*line-height: normal;*/
+/*}*/

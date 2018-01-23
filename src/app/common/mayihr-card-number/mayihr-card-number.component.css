@@ -1,0 +1,27 @@
+.external {
+    position: relative;
+    width: .33rem;
+    height: .4rem;
+    line-height: .4rem;
+    background: white;
+    border: 1px solid rgba(80, 80, 80, 0.2);
+    border-radius: 3px;
+}
+.internal-number {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    text-align: center;
+    font-weight: 700;
+    font-size: .2rem;
+}
+.cut-off {
+    position: absolute;
+    width: .31rem;
+    height: .2rem;
+    top: 0;
+    border-bottom: 1px solid rgba(80, 80, 80, 0.2);
+    border-radius: 3px 3px 0 0;
+    z-index: 5;
+}

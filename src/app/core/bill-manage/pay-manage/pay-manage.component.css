@@ -1,0 +1,83 @@
+.pay-img img {
+    width: 144px;
+    height: 144px;
+    /*background: blue;*/
+}
+
+.pay-img {
+    width: 144px;
+    height: 144px;
+}
+
+.picture-wrapper .li {
+    margin-right: .15rem;
+    display: inline-block;
+}
+
+.picture-wrapper .li p {
+    font-size: 12px;
+    top: 50%;
+    width: 100%;
+    margin-top: -6px;
+}
+
+.picture-wrapper .li p i {
+    color: #999999;
+    font-size: 16px;
+}
+
+.picture-wrapper .li .picture-mask {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+    z-index: 10;
+    display: none;
+}
+
+.picture-wrapper .li:hover .picture-mask.uploaded {
+    display: block;
+}
+
+.picture-wrapper .li .picture-mask .delete-btn {
+    top: 50%;
+    margin-top: -8px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+}
+
+.picture-wrapper .li .id-bg, .picture-wrapper .li .id-reverse-bg, .picture-wrapper .li .white-bg {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #f2f2f2;
+}
+
+.picture-wrapper .li .id-bg, .picture-wrapper .li .id-reverse-bg {
+    width: 1.1rem;
+    height: 1.35rem;
+
+}
+
+.picture-tip .li {
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+
+.picture-wrapper input {
+    width: 100%;
+    height: 100%;
+}
+
+.picture-wrapper .picture {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 2;
+}

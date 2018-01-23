@@ -1,0 +1,93 @@
+.modal .modal-dialog {
+    height: 6.35rem;
+    width: 4.5rem;
+    max-height: 10rem;
+    margin: .5rem auto;
+}
+.year-choose {
+    padding-bottom: .15rem;
+    border-bottom: 5px solid #64c24d;
+    color: black;
+}
+
+.year-tag {
+    min-width: .2rem;
+    text-align: center;
+    padding:.2rem 0 .15rem 0;
+}
+
+.year-tag:hover {
+    padding-bottom: .15rem;
+    border-bottom: 5px solid #64c24d;
+}
+
+.mayihr-word-calendar-box {
+    box-sizing: border-box;
+    padding: 0 .1rem 0 .1rem;
+    width: 100%;
+}
+
+.mayihr-word-calendar-table {
+    width: 100%;
+    table-layout: fixed;
+}
+.mayihr-word-calendar-table th{
+    height: .8rem;
+    line-height: .8rem;
+}
+.mayihr-word-calendar-table td {
+    text-align: center;
+}
+.calendar_icon_header {
+    margin: 0 auto;
+    height: 0;
+    width: 0;
+    border-right: .1rem solid transparent;
+    border-left: .1rem solid transparent;
+}
+.calendar_icon_body {
+    margin: 0 auto;
+    height: .13rem;
+    width: .2rem;
+    color: white;
+}
+.calendar_icon_text {
+    right: 0;
+    width: 100%;
+    top: -.05rem;
+}
+.mayihr-word-calendar-day {
+    position: relative;
+    margin-bottom: .35rem;
+}
+.no-work {
+    color: rgba(80,80,80,0.4) !important;
+}
+.word-day {
+    color: black!important;
+}
+.grey {
+    color: rgba(80,80,80,0.4);
+}
+.black {
+    color: black;
+}
+.bd-green {
+    border-bottom: .05rem solid #64c24d;
+
+}
+.bd-yellow {
+    border-bottom: .05rem solid #f1d719;
+}
+.bd-blue {
+    border-bottom: .05rem solid #1ab3cd;
+}
+.bg-green {
+    background: #64c24d;
+}
+.bg-yellow {
+    background: #f1d719
+}
+.bg-blue {
+    background: #1ab3cd
+}

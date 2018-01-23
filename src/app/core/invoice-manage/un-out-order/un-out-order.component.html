@@ -1,0 +1,122 @@
+<div>
+    <div class="clearfix p-b-lg">
+        <div class="p-a-lg p-t pos-r clearfix" style="height: 1.5rem;">
+            <div class="p-t-xl p-b-xl clearfix">
+                <div class="pull-left p-r-xxl">
+                    <div class="p-t t-24 bold t-RB">{{(all_money | number: '1.2-2') || '0.00'}}</div>
+                    <div class="total-grey p-t-sm">已选订单实开金额</div>
+                </div>
+                <div class="pull-left p-l-xxl b-l">
+                    <ng-container *ngIf="is_invoice">
+                        <div>
+                            <div class="d-ib p-r-xs grey">开票抬头</div>
+                            <div class="d-ib">{{invoice_info?.title}}</div>
+                        </div>
+                        <div>
+                            <div class="d-ib p-r-xs grey">收票邮箱</div>
+                            <div class="d-ib">{{invoice_info?.email || '-'}}</div>
+                        </div>
+                        <div>
+                            <div class="d-ib p-r-xs grey">开票需求</div>
+                            <div class="d-ib">{{invoice_info?.fapiao_type_name || '-'}}</div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="!is_invoice">
+                        <div class="grey">
+                            不需要发票(未开票订单，可在付款60天内补开发票)
+                        </div>
+                    </ng-container>
+                    <div class="d-ib p-t-sm icon-text-btn pointer" (click)="openInvoiceModal()">
+                        <i class="icon_edit_simple"></i>
+                        <div>修改发票信息</div>
+                    </div>
+                </div>
+            </div>
+            <div class="pos-a" style="right: .3rem;top: .55rem;">
+                <button class="btn btn-xl" (click)="applyInvoice()">申请开票</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="pos-r b-t clear">
+        <div class="choose-status clearfix">
+            <div class="d-ib ui-check pointer-no-color icon-text-btn" style="margin-left: .07rem;"
+                 (click)="clickChooseBill($event, 'all')">
+                <input type="checkbox" id="choose_list" [(ngModel)]="all_selected">
+                <i class="icon_ui pointer-no-color"></i>
+                <span class="t v-m">全选</span>
+            </div>
+            <div class="pull-right">
+                <div class="d-ib p-t-xs m-r-sm pull-left">
+                    <div class="t-r">隐藏过期订单</div>
+                    <div class="grey t-sm">只能对付款在60天内的订单进行补开票申请</div>
+                </div>
+                <div class="d-ib v-m m-r-sm pull-left" style="padding-top: .15rem;">
+                    <label class="slide on">
+                        <input type="checkbox" value="1" [formControl]="is_hide">
+                        <i class="slide-switch"></i>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="pos-r clear mh-350" [class.no-list-bg]="bill_list?.length == 0">
+            <table class="saas-table">
+                <thead>
+                <tr class="saas-table-header">
+                    <th></th>
+                    <th *ngFor="let header of table_header"
+                        [class.t-l]="header.adjust == -1"
+                        [class.t-c]="header.adjust == 0"
+                        [class.t-r]="header.adjust == 1">
+                        {{header.column_name}}
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <ng-container *ngFor="let bill of bill_list;let i=index;">
+                    <tr (click)="openOrderDetail(bill)" class="content pointer-no-color">
+                        <td>
+                            <span (click)="clickChooseBill($event, i)" class="ui-check">
+                                <input type="checkbox" name="choose_staff" [(ngModel)]="bill.selected">
+                                <i class="icon_ui hover_show v-m" [class.ever_show]="choose_bill_num > 0"></i>
+                            </span>
+                        </td>
+                        <td *ngFor="let header of table_header;let j=index;" class="v-t"
+                            [class.t-l]="header.adjust == -1"
+                            [class.t-c]="header.adjust == 0"
+                            [class.t-r]="header.adjust == 1">
+                            <div>
+                                <span class="v-m">{{bill[header.column]}}</span>
+                                <i *ngIf="j === 3 && bill.tips"
+                                   class="yellow icon_alert v-m" [title]="bill.tips"></i>
+
+                                <!--<div class="bill-detail" *ngIf="j === 0">-->
+                                <!--<div *ngFor="let detail of bill.child">-->
+                                <!--{{detail.type_name}}-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="bill-detail" *ngIf="j === 4">-->
+                                <!--<div *ngFor="let detail of bill.child">-->
+                                <!--{{detail.money}}-->
+                                <!--</div>-->
+                                <!--</div>-->
+                            </div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="bill?.detail_selected === true">
+                        <td colspan="5" style="background: #f3f3f3;">
+                            <app-bill-table [table_data]="bill_list_detail"></app-bill-table>
+                        </td>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="pos-adjust"></div>
+    <div class="page-footer clearfix b-t" *ngIf="bill_list?.length != 0">
+        <div class="pull-left p-l-xl">共{{page_footer}}条订单</div>
+    </div>
+</div>
+<app-invoice-manage-modal [modal_name]="modal_name" [modal_info]="modal_info"
+                          [modal_callback]="modal_callback"></app-invoice-manage-modal>

@@ -1,0 +1,41 @@
+<div class="modal in" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header b-b p-a">
+                <div class="t-md">修改入职/转正日期</div>
+            </div>
+            <div class="modal-body m-l-lg m-t m-r-lg" [formGroup]="changeDate">
+                <div class="p-t- p-b">
+                    <label class="grey p-b-sm">入职日期</label>
+                    <div>
+                        <div class="d-ib w-200">
+                            <mayihr-datepicker [options]="start_time_options"
+                                               (changeValue)="changeStartTime($event)"
+                                               formControlName="yg_hire_date"></mayihr-datepicker>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-t-lg p-b">
+                    <label class="grey p-b-sm">转正日期</label>
+                    <div>
+                        <div class="d-ib w-200">
+                            <mayihr-datepicker [options]="end_time_options"
+                                               formControlName="yg_formal_date"></mayihr-datepicker>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                </div>
+            </div>
+            <div class="modal-footer t-r p-a">
+                <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" data-dismiss="modal"
+                        (click)="cancelModal()">取消
+                </button>
+                <button type='button' class="btn btn-sm v-m"
+                        (click)="submitModal()">确认
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

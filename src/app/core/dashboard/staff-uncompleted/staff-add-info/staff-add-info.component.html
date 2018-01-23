@@ -1,0 +1,250 @@
+<div class="staff-content">
+    <div class="lh-50 b-b">
+        <a [routerLink]="['/user/dashboard/staff-uncompleted']"
+           class="m-l d-ib icon-text-btn">
+            <i class="icon_arrow_left pointer"></i>
+            <span>信息补全列表/{{yg_name}}</span>
+        </a>
+    </div>
+    <ng-container *ngIf="info_data">
+        <div class="p-l-xl p-r-xl b-b">
+            <div class="b-b" *ngIf="out_status">
+                <div class="p-t-xl p-b-xl t-md">五险一金缴纳状态</div>
+                <div class="p-l">
+                    <div class="p-b-lg">
+                        <div class="d-ib">
+                            <label class="ui-check icon-text-btn">
+                                <input type="checkbox" [formControl]="social_status" value="1">
+                                <i class="icon_ui" (click)="saveSocialStatus()"></i>
+                                <span>该员工在当地缴纳过社保</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="p-b-xl">
+                        <div class="d-ib">
+                            <label class="ui-check icon-text-btn">
+                                <input type="checkbox" [formControl]="fund_status" value="1">
+                                <i class="icon_ui" (click)="saveSocialStatus()"></i>
+                                <span>该员工在当地缴纳过公积金</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="b-b" [formGroup]="add_form">
+                <div class="p-t-xl p-b-xl t-md">需填写信息</div>
+                <div class="p-l clearfix" style="font-size:0;">
+                    <div class="d-ib half t pull-left p-b-lg" *ngIf="show_info">
+                        <!--民族-->
+                        <div *ngIf="add_form['controls']['yg_nation']"
+                             class="p-b-sm">
+                            <div class="input-title grey">
+                                民族
+                            </div>
+                            <div class="input-content v-m">
+                                <mayihr-select [SelectData]="info_data?.setting['yg_nation']"
+                                               formControlName="yg_nation"
+                                               [SelectConfig]="{placeholder: '请选择民族', allow_clear: true}"></mayihr-select>
+                            </div>
+                        </div>
+                        <!--学历-->
+                        <div *ngIf="add_form['controls']['yg_xueli']"
+                             class="p-b-sm">
+                            <div class="input-title grey">
+                                文化程度
+                            </div>
+                            <div class="input-content v-m">
+                                <mayihr-select [SelectData]="info_data?.setting['yg_xueli']" formControlName="yg_xueli"
+                                               [SelectConfig]="{placeholder: '请选择学历', allow_clear: true}"></mayihr-select>
+                            </div>
+                        </div>
+                        <!--户口-->
+                        <div *ngIf="add_form['controls']['yg_hk_addr']"
+                             class="p-b-sm">
+                            <div class="input-title grey">
+                                户籍地址
+                            </div>
+                            <div class="input-content v-m">
+                                <input type="text" formControlName="yg_hk_addr" placeholder="请输入户籍地址">
+                            </div>
+                        </div>
+                        <div *ngIf="add_form['controls']['yg_hk_post']"
+                             class="p-b-sm">
+                            <div class="input-title grey">
+                            </div>
+                            <div class="input-content v-m">
+                                <input type="text" formControlName="yg_hk_post" placeholder="请输入邮政编码">
+                            </div>
+                        </div>
+                        <!--住址-->
+                        <div *ngIf="add_form['controls']['yg_addr']"
+                             class="p-b-sm">
+                            <div class="input-title grey">
+                                住址
+                            </div>
+                            <div class="input-content v-m">
+                                <input type="text" formControlName="yg_addr" placeholder="请输入住址">
+                            </div>
+                        </div>
+                        <div *ngIf="add_form['controls']['yg_post']"
+                             class="p-b-sm">
+                            <div class="input-title grey">
+                            </div>
+                            <div class="input-content v-m">
+                                <input type="text" formControlName="yg_post" placeholder="请输入邮政编码">
+                            </div>
+                        </div>
+
+                        <!--社保账号-->
+
+
+                        <div *ngIf="add_form['controls']['yg_social_acc']"
+                             class="p-b-sm">
+                            <div class="input-title grey">
+                                社保账号
+                            </div>
+                            <div class="input-content v-m">
+                                <input type="text" formControlName="yg_social_acc" placeholder="请输入社保账号">
+                            </div>
+                        </div>
+
+                        <!--公积金账号-->
+                        <div *ngIf="add_form['controls']['yg_fund_acc']"
+                             class="p-b-sm">
+                            <div class="input-title grey">
+                                公积金账号
+                            </div>
+                            <div class="input-content v-m">
+                                <input type="text" formControlName="yg_fund_acc" placeholder="请输入公积金账号">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-ib half t pull-left">
+                        <div class="p-b-sm">
+                            <div class="input-title grey">
+                                银行卡号
+                            </div>
+                            <div class="input-content v-m">
+                                <input type="text" formControlName="yg_bank_acc" placeholder="请输入银行账号">
+                            </div>
+                        </div>
+                        <div class="p-b-sm">
+                            <div class="input-title grey">
+                                开户行
+                            </div>
+                            <div class="input-content v-m">
+                                <mayihr-select formControlName="bank_code"
+                                               [SelectConfig]="bank_parent_config"
+                                               [SelectData]="bank_list || []"
+                                               (RefreshValue)="refreshParentBank($event)"></mayihr-select>
+                            </div>
+                        </div>
+                        <div class="p-b">
+                            <div class="input-title grey"></div>
+                            <div class="input-content v-m">
+                                <mayihr-select formControlName="bank_sub_code"
+                                               [SelectConfig]="bank_child_config"
+                                               [SelectData]="sub_bank_list || []"
+                                               [AsyncData]="sub_banks_async"
+                                               (ActivedAsync)="refreshAsyncParent($event)"></mayihr-select>
+                            </div>
+                        </div>
+
+                        <div *ngIf="add_form['controls']['hr_yg_hospital']"
+                             class="p-b-sm">
+                            <div class="input-title grey t v-t">
+                                定点医院
+                            </div>
+                            <div class="input-content v-m">
+                                <ul class="hospitals t">
+                                    <li *ngFor="let item of info_data?.hr_yg_hospital"
+                                        class="m-b-xs p-r ellipsis">{{item.name}}
+                                    </li>
+                                </ul>
+                                <div>
+                                    <button class="btn btn-sm reverse" (click)="openHospital()">
+                                        {{info_data?.hr_yg_hospital?.length > 0 ? '修改医院' : '添加医院'}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="b-b p-b-lg" *ngIf="post_list && post_list.length > 0">
+                <div class="p-t-xl p-b-xl t-md">
+                    <div>需邮寄材料</div>
+                    <div class="grey t-sm">收件地址：上海市徐汇区中山西路2025号永升大厦 蚂蚁HR收</div>
+                </div>
+                <div class="list-content">
+                    <div class="p-l-xl p-r-xl" *ngFor="let item of post_list;let i = index;">
+                        {{i + 1}}. {{item}}
+                    </div>
+                </div>
+            </div>
+            <div class="b-b" *ngIf="info_data?.default_upload && info_data?.default_upload.length > 0">
+                <div class="p-t-xl p-b-xl t-md">
+                    <div>需上传材料</div>
+                </div>
+                <div class="p-b-lg">
+                    <div>
+                        <div class="d-ib img-box"
+                             *ngFor="let item of info_data?.default_upload">
+                            <mayihr-img-upload [img_url]="item.url"
+                                               [img_config]="imgService.createImgConfig(item.detect_item)"
+                                               (uploadImage)="uploadImage($event, item)"
+                                               (deleteImage)="deleteImage($event, item)">
+                            </mayihr-img-upload>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="d-ib img-box-sm"
+                             *ngFor="let item of info_data?.upload">
+                            <mayihr-img-upload [img_url]="item.url"
+                                               [img_config]="imgService.createImgConfig(item.detect_item)"
+                                               (uploadImage)="uploadImage($event, item)"
+                                               (deleteImage)="deleteImage($event, item)">
+                            </mayihr-img-upload>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="b-b p-b-lg" *ngIf="info_data?.download && info_data?.download.length > 0">
+                <div class="p-t-xl p-b-xl t-md">
+                    <div>需下载材料</div>
+                </div>
+                <div class="list-content">
+                    <div class="clearfix p-l-xl p-r-xl" *ngFor="let item of info_data?.download;let i = index;">
+                        <div class="pull-left">
+                            {{i + 1}}. {{item.detect_name}}
+                        </div>
+                        <div class="pull-right icon-text-btn pointer" (click)="downloadMaterial(item)">
+                            <i class="icon_download"></i><span>下载</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-b-lg">
+                <div class="p-t-xl p-b-xl t-md">
+                    <div>说明</div>
+                </div>
+                <div class="p-l-xl p-r-xl">
+                    填写完表格后，在业务办理完成之前，尽量不要到员工详情页去编辑员工的这些信息。以免造成员工的信息不准确，导致业务办理失败。
+                </div>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class="pull-right m-r-lg m-t-sm m-b-sm">
+                <button class="btn btn-sm" (click)="saveUpadate()">保存</button>
+            </div>
+            <div class="pull-right m-r-sm m-t-sm m-b-sm">
+                <button class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" (click)="cancelUpadate()">取消</button>
+            </div>
+        </div>
+    </ng-container>
+</div>
+<div class="modal in" style="display: block; z-index:500;" *ngIf="modal_name === 'hospital'">
+    <app-staff-hospital [modal_args]="modal_info"
+                        (hide)="hideModal($event)" (confirm)="confirmModal($event)"></app-staff-hospital>
+</div>
+

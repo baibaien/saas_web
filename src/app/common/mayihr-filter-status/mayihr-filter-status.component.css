@@ -1,0 +1,17 @@
+.filter-condition > li > span {
+    float: left;
+    background: rgba(80, 80, 80, 0.1);
+    height: 0.3rem;
+    line-height: 0.3rem;
+    padding-left: 0.05rem;
+    margin-right: 0.1rem;
+}
+
+.filter-condition > li > span i {
+    display: inline;
+    padding-left: 0.2rem;
+    margin-right: 0.1rem;
+}
+.filter-box {
+    overflow: hidden;
+}

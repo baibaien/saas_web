@@ -1,0 +1,197 @@
+<div class="assist-content clearfix">
+
+  <div class="pull-left assist-left-box">
+    <ng-container>
+
+      <div class="assist-box fast-assist">
+        <div class="assist-header b-b">
+          快速上手
+        </div>
+        <div class="assist-inner">
+          <div class="dashboard-item pointer-no-color"  [routerLink]="['/assist/assist-list/2/21']">
+            <div class="pull-left">
+              <div class="dashboard-item-header ">
+                <i class="icon_setting item-header-icon total-grey-light v-m"></i>
+                <span class="black">公司设置</span>
+              </div>
+              <div class="dashboard-item-content grey p-t-sm">
+                设置贵司适用的计薪规则，决定了计算工资的公式
+              </div>
+            </div>
+            <div class="pull-right">
+              <div class="d-ib item-icon-box">
+                <i class="icon_right_triangle pointer"></i>
+              </div>
+            </div>
+          </div>
+          <div class="dashboard-item pointer-no-color" [routerLink]="['/assist/assist-list/4/22']">
+            <div class="pull-left">
+              <div class="dashboard-item-header">
+                <i class="icon_user_add item-header-icon total-grey-light"></i>
+                <span class="black">添加员工</span>
+              </div>
+              <div class="dashboard-item-content grey p-t-sm">
+                单个或批量添加员工，管理员工没烦恼
+              </div>
+            </div>
+            <div class="pull-right">
+              <div class="d-ib item-icon-box">
+                <i class="icon_right_triangle pointer"></i>
+              </div>
+            </div>
+          </div>
+          <div class="dashboard-item pointer-no-color" [routerLink]="['/assist/assist-list/6/23']">
+            <div class="pull-left">
+              <div class="dashboard-item-header">
+                <i class="icon_payroll item-header-icon total-grey-light"></i>
+                <span class="black">计算工资</span>
+              </div>
+              <div class="dashboard-item-content grey p-t-sm">
+                抓取员工基本工资、出勤数据自动核算，支持月中调薪
+              </div>
+            </div>
+            <div class="pull-right">
+              <div class="d-ib item-icon-box">
+                <i class="icon_right_triangle pointer"></i>
+              </div>
+            </div>
+          </div>
+          <div class="dashboard-item pointer-no-color" [routerLink]="['/assist/assist-list/7/24']">
+            <div class="pull-left">
+              <div class="dashboard-item-header">
+                <i class="icon_out_source item-header-icon total-grey-light"></i>
+                <span class="black">生成外包账单(外包用户)</span>
+              </div>
+              <div class="dashboard-item-content grey p-t-sm">
+                根据缴纳城市设置需要外包的人员、项目，由系统自动抓取数据为您生成各个项目的外包账单
+              </div>
+            </div>
+            <div class="pull-right">
+              <div class="d-ib item-icon-box">
+                <i class="icon_right_triangle pointer"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <!--常见问题-->
+    <ng-container>
+      <div class="assist-box m-t p-b">
+        <div class="assist-header b-b">
+          常见问题
+        </div>
+        <div class="assist-inner p-l m-t p-r">
+          <div class="ques-list pointer" *ngFor="let i of question_list" (click)="toAssistDetail(i)">
+            {{i.title}}
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+  </div>
+  <div class="pull-left assist-right-box">
+    <ng-container>
+      <div class="assist-box">
+        <div class="assist-header b-b">
+          电话支持
+        </div>
+        <div class="assist-inner p-t-lg p-b-lg p-l-lg" *ngIf="contract_info">
+          <div class="p-b-lg">
+            <div class="p-b-sm">{{contract_info?.sale_phone}}{{contract_info.sales[0]?.crm_id}}
+              {{contract_info.sales[0]?.true_name}}
+            </div>
+            <div class="grey">专属销售</div>
+          </div>
+          <div>
+            <div class="p-b-sm">{{contract_info?.custom_phone}}
+              {{contract_info?.custom_services[0]?.crm_id}}
+              {{contract_info?.custom_services[0]?.true_name}}
+            </div>
+            <div class="grey">专属客服</div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container>
+      <div class="assist-box m-t">
+        <div class="assist-header clearfix b-b">
+          <div class="pull-left">留言</div>
+          <div class="pull-right">
+            <div class="d-ib year-tag m-r pointer" [class.year-choose]="box_choose == 1"
+                 style="height: .5rem;"
+                 (click)="toggleBox(1)">新留言
+            </div>
+            <div class="d-ib year-tag pointer" [class.year-choose]="box_choose == 2" style="height: .5rem;"
+                 (click)="toggleBox(2)">历史留言
+            </div>
+          </div>
+        </div>
+        <div class="assist-inner">
+          <div class="p-l-lg p-r" [formGroup]="message" *ngIf="box_choose == 1">
+            <div class="p-t-sm p-b-sm">
+              <label class="ui-check lh-36 icon-text-btn">
+                <input name="type" type="radio" checked="checked"
+                       formControlName="type"
+                       value="3">
+                <i class="icon_ui v-m"></i>
+                <span class="t v-m">提问</span>
+              </label>
+              <label class="ui-check p-l-sm lh-36 icon-text-btn">
+                <input name="type" type="radio" checked="checked"
+                       formControlName="type"
+                       value="2"><i class="icon_ui v-m"></i>
+                <span class="t v-m">建议</span>
+              </label>
+              <label class="ui-check p-l-sm lh-36 icon-text-btn">
+                <input name="type" type="radio" checked="checked"
+                       formControlName="type"
+                       value="1"><i class="icon_ui v-m"></i>
+                <span class="t v-m">投诉</span>
+              </label>
+            </div>
+            <div>
+              <div>
+                <textarea formControlName="message" cols="30" rows="10" maxlength="100"></textarea>
+              </div>
+              <div class="grey">
+                还能输入{{100 - message.get('message').value.toString().length}}字
+              </div>
+            </div>
+            <div class="m-t clearfix">
+              <button type="button" class="pull-left btn btn-sm" (click)="addMessage()"
+                      [class.disabled]="message.get('message').value.trim().length <= 0">提交
+              </button>
+            </div>
+            <div class="grey m-t m-b">
+              提交后蚂蚁HR客服代表将尽快回复您的留言，如有紧急事项请联系电话支持
+            </div>
+          </div>
+          <div class="p-l p-r pos-r" *ngIf="box_choose == 2" style="min-height: 3rem;"
+               [class.no-list-bg]="message_list?.length == 0">
+            <ng-container *ngIf="message_list?.length > 0">
+              <div *ngFor="let i of message_list"
+                   [title]="i.message.toString().length > 18 ? i.message : ''"
+                   class="msg-list pointer clearfix"
+                   (click)="toMsgDetail(i)">
+                <div class="pull-left">
+                  {{i.message | longStringFilter:18}}
+                </div>
+                <div class="pull-right grey m-r-sm">
+                  {{i.status == 0 ? '待解决' : '已解决'}}
+                </div>
+              </div>
+              <div class="h-60"></div>
+              <div class="d-ib pos-a w-100per" style="bottom: 0;">
+                <mayihr-paging-v2 [page_info]="pagination" [paging_config]="{small_paging: true}"
+                                  (RefreshPagingData)="refreshPaging($event)"></mayihr-paging-v2>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+<app-assist-msg-detail-m [modal_name]="modal_name" [modal_info]="modal_info"
+                         *ngIf="modal_name === 'assist_msg_detail_m'"></app-assist-msg-detail-m>

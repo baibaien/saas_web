@@ -1,0 +1,153 @@
+
+.staff-table-box {
+    width: 100%;
+    min-height: 4.3rem;
+    /*overflow: auto;*/
+}
+
+.staff-table-box i {
+    /*font-size: .2rem;*/
+    line-height: .2rem;
+}
+
+.staff-list-table {
+    padding-left: .2rem;
+    width: 100%;
+    /*white-space: nowrap;*/
+    table-layout: fixed;
+}
+
+thead tr th {
+    font-weight: 100;
+    font-size: 0.12rem;
+    color: rgba(80, 80, 80, 0.8) !important;
+    background: #f3f3f3;
+}
+
+.staff-list-table th {
+    text-align: left;
+    padding-left: .2rem;
+    height: .3rem;
+    line-height: .3rem;
+}
+
+.staff-list-table td {
+    height: .6rem;
+    text-align: center;
+    padding-left: 0.2rem;
+}
+
+.header-range {
+    min-width: .25rem !important;
+    /*max-width: .4rem !important;*/
+}
+
+/*.short_info {*/
+/*line-height: .5rem;*/
+/*}*/
+
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+tbody {
+    padding-left: .2rem;
+}
+
+tr {
+    border-bottom: 1px solid #eaeaea;
+}
+
+/*.short_info > td > div {*/
+    /*cursor: pointer;*/
+/*}*/
+
+.no-hover > td > div {
+    cursor: default !important;
+}
+
+tbody:last-child > .short_info {
+    border-bottom: none;
+}
+
+th {
+    box-sizing: border-box;
+}
+
+th:first-child {
+    width: 1rem;
+}
+
+.type-title-4 {
+    color: rgba(80, 80, 80, 0.4);
+    font-size: .12rem;
+}
+
+.type-title-65 {
+    color: rgba(80, 80, 80, 0.65);
+    font-size: .12rem;
+}
+
+.add-box {
+    vertical-align: middle;
+    font-size: 0;
+    border: 1px solid #d7d7d7;
+    line-height: .34rem;
+    border-radius: 3px;
+}
+
+.add-icon {
+    width: .2rem;
+    text-align: center;
+    background: #fff;
+    border-radius: 3px 0 0 3px;
+}
+
+.add-input {
+    border-radius: 0 3px 3px 0;
+    line-height: .34rem;
+    height: .34rem;
+    border: none;
+}
+
+.lh-34 {
+    line-height: .34rem;
+}
+
+.h-34 {
+    height: .34rem;
+}
+
+.detail-adjust-cell {
+
+}
+
+.detail-adjust > td {
+    padding-top: .2rem;
+    padding-bottom: .2rem;
+
+}
+
+.existed {
+    background: #f6f6f6;
+    padding: .1rem;
+    min-height: .55rem;
+}
+
+.pointer-none {
+    cursor: default !important;
+}
+
+.td-t-l td {
+    text-align: left;
+}
+
+input {
+    width: .6rem;
+}
+
+thead > tr > th:nth-child(2) {
+    width: 2rem !important;
+}
+

@@ -1,0 +1,15 @@
+.staff-work-area {
+
+  /*z-index:11!important;*/
+}
+.work-area-wrapper {
+  margin: 0 auto 0 auto;
+  padding: 0.8rem 0 0.4rem 0;
+  width: 12.00rem;
+}
+.side-margin {
+    margin-left: 2rem;
+}
+.over-hidden {
+    overflow: hidden;
+}

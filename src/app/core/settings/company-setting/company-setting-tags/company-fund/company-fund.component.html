@@ -1,0 +1,38 @@
+<!--公积金规则-->
+<div class="p-b" *ngIf="fund_rule !== undefined">
+    <div class="company-social" [class.no-list-bg]="!is_show_data">
+        <table class="table">
+            <thead>
+            <tr>
+                <th style="width: .8rem;">公积金方案</th>
+                <th style="width: 1.2rem;">适用城市（区域）</th>
+                <th style="width: 2rem;">适用户口类型</th>
+                <th style="width: 1.2rem;">基数范围</th>
+                <th style="width: .6rem;">适用人数</th>
+                <th style="width: .6rem;"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of fund_rule">
+                <ng-container *ngIf="item?.count != 0">
+                    <td [title]="item?.rule_name.toString().length > 6 ? item?.rule_name : ''">{{ item?.rule_name |
+                        longStringFilter: 6 }}
+                    </td>
+                    <td>{{ item?.city_name }}</td>
+                    <td><span *ngFor="let sub_item of item?.hk_type" class="m-r-sm">{{ sub_item?.name }}</span></td>
+                    <td>{{ item?.min }}元~{{ item?.max }}元</td>
+                    <td>{{ item?.count }}</td>
+                    <td><i class="icon_eye pointer-no-color" (click)="showFundRule(item)"></i></td>
+                </ng-container>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--公积金规则end-->
+
+
+<app-fund-setting [modal_name]="modal_name"
+                  [modal_info]="modal_info"
+                  [modal_callback]="modal_callback"
+                  *ngIf="modal_name === 'fund_rule'"></app-fund-setting>

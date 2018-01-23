@@ -1,0 +1,44 @@
+<!--福利设置-->
+<div class="p-a-lg" *ngIf="benefit_data">
+    <div class="company-benefit">
+        <div><span class="t-md">福利管理</span>
+            <span class="pull-right pointer m-r icon-text-btn"
+                  (click)="showBenefitSetting({data: benefit_data, type: 'add'})">
+                <i class="icon_add m-r-sm"></i>
+                <span>添加</span></span>
+        </div>
+        <p class="grey">贵司当前有如下福利项目</p>
+        <div class="m-t clearfix mh-350" [class.no-list-bg]="benefit_data?.data?.length == 0">
+            <div class="address-list p-l-sm">
+                <div class="pos-r clearfix list-item p-l-sm p-r"
+                     *ngFor="let item of benefit_data.data;let i = index;">
+                    <div class="half">
+                        <p [title]="item?.be_name.toString().length > 15? item?.be_name : ''">
+                            <span>{{ item?.be_name | longStringFilter: 15}}</span>
+                            <label class="m-l-sm label v-m" *ngIf="item?.is_auto ==1">默认</label>
+                        </p>
+                        <p class="grey">{{item.cover_count}}人适用</p>
+                    </div>
+                    <div class="half">
+                        <p>{{ item?.be_money }}{{ item?.uinit == 1 ? '元/日' : '元/月'}}</p>
+                        <!--<p>{{ item?.condition_name }}{{ item?.is_fax_name }}</p>-->
+                        <p>{{ item?.condition_name }}</p>
+
+                    </div>
+                    <div class="pos-a m-r-lg item-operate" style="right:0;">
+                        <a (click)="toBenifitDetail(item?.id)" class="pointer m-r"><i
+                                class="icon_user dark m-r-sm"></i>适用人员</a>
+                        <a href="javascript:;" class="pointer"
+                           (click)="showBenefitSetting({data: {meta: benefit_data.meta, data: benefit_data.data[i]}, type: 'edit'})"><i
+                                class="icon_edit dark m-r-sm"></i>编辑</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--福利设置end-->
+
+
+<app-benefit-setting [modal_name]="modal_name" [modal_info]="modal_info" [modal_callback]="modal_callback"
+            *ngIf="modal_name === 'benefit_setting'"></app-benefit-setting>

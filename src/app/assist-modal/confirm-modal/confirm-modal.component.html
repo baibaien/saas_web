@@ -1,0 +1,17 @@
+<div class="modal in alert-modal" style="display: block; z-index:500;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body p-t-xxl p-l-lg p-r-lg">
+        {{assist_info}}
+      </div>
+    </div>
+    <div class="modal-footer t-r p-a">
+      <button type='button' class="reverse t-sm light v-m m-r-sm btn btn-sm"
+              (click)="closeModal()">取消
+      </button>
+      <button type='button' class="btn btn-sm v-m"
+              (click)="runCallBack()">确定
+      </button>
+    </div>
+  </div>
+</div>

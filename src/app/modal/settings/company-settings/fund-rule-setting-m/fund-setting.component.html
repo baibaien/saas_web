@@ -1,0 +1,56 @@
+<div class="modal in p-b-lg" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header p-a b-b">
+                <p class="t-md">{{shown_data?.rule_name}}详情</p>
+                <p class="t-sm grey">适用：{{shown_data?.city_name}} <span class="m-l-sm"
+                                                                        *ngFor="let item of shown_data?.yg_hk_type">,{{item?.name}}</span>
+                </p>
+            </div>
+            <div class="modal-body ">
+                <div class="m-b-lg p-a">
+                    <table class="table">
+                        <thead>
+                        <th>项目</th>
+                        <th>基数范围</th>
+                        <th>个人比例</th>
+                        <th>公司比例</th>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let item of shown_data?.base">
+                            <td>
+                                <div class="d-ib">{{item?.name | longStringFilter:5}}</div>
+                            </td>
+                            <td>{{item?.base_low || '-'}}~{{item?.base_high}}</td>
+                            <td>
+                                <div class="d-ib">
+                                    {{item.yg_per == '-'? '-' : item.yg_per + '%'}}
+                                </div>
+                                <div class="d-ib"
+                                     *ngIf="item.yg_per != '-' && (!!item.yg_fixed && item.yg_fixed != 0 && item.yg_fixed != '-')">
+                                    +
+                                </div>
+                                <div class="d-ib" *ngIf="item.yg_fixed > 0">{{item.yg_fixed}}</div>
+                            </td>
+                            <td>
+                                <div class="d-ib">
+                                    {{item.gs_per == '-'? '-' : item.gs_per + '%'}}
+                                </div>
+                                <div class="d-ib"
+                                     *ngIf="item.gs_per != '-' && (!!item.gs_fixed && item.gs_fixed != 0 && item.gs_fixed != '-')">
+                                    +
+                                </div>
+                                <div class="d-ib" *ngIf="item.gs_fixed > 0">{{item.gs_fixed}}</div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="b-t btn-group t-r p-a">
+                    <button class="reverse t-sm light v-m m-r-sm btn btn-sm" (click)="cancelModal()">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

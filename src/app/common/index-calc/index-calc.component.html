@@ -1,0 +1,28 @@
+<div class="outer">
+    <div class="box pos-r pointer-no-color" (click)="clickAxis($event, slide_button, slide_track, slide_tootip)">
+        <div class="axis pos-r">
+        </div>
+        <div class="pos-a slide-button" #slide_button
+             (click)="endMove($event)"
+             (mousedown)="startMove($event)"
+             (mousemove)="Moving($event, slide_track, slide_tootip)"
+             (mouseout)="endMove($event)">
+            <div class="pos-a slide-tooltip pointer-none" style="top: -120px;cursor: default!important;" #slide_tootip
+                 (click)="noResult($event)"
+                 (mousedown)="noResult($event)"
+                 (mousemove)="noResult($event)"
+                 (mouseout)="noResult($event)">
+                <ng-container *ngIf="num_choose != 100">
+                    <div class="white">{{num_choose}}位员工</div>
+                    <div class="white">{{result_money}}元/月</div>
+                </ng-container>
+                <ng-container *ngIf="num_choose == 100">
+                    <div class="white t-32">超过100人</div>
+                    <div class="white m-b">请联系销售</div>
+                </ng-container>
+            </div>
+
+        </div>
+        <div class="pos-a bg-grey slide-track" style="z-index: 2;width: 0%;" #slide_track></div>
+    </div>
+</div>

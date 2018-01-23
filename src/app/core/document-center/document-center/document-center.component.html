@@ -1,0 +1,68 @@
+<div class="staff-content document-center">
+    <div class="pull-left pos-r document-left-box" [class.no-list-bg]="public_document?.length == 0">
+        <div class="clearfix">
+            <div class="lh-50 b-b t-md">
+                <span class="d-ib m-l">系统提供的文档</span>
+            </div>
+            <div class="p-l-lg p-r-lg">
+                <div class="ques-list" *ngFor="let doc of public_document">
+                    <div class="clearfix">
+                        <div class="pull-left"
+                             [title]="doc.source.toString().length > 30 ? doc.source : ''">{{doc.source |
+                            longStringFilter:30}}
+                        </div>
+                        <div class="pull-right">
+                            <div class="pointer d-ib pointer m-r icon-text-btn" (click)="downloadFile(doc)">
+                                <i class="icon_download"></i>
+                                <span class="grey">下载</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <mayihr-paging-v2 [page_info]="public_document_pagination" [paging_config]="paging_config"
+                          (RefreshPagingData)="publicPagingRefresh($event)"></mayihr-paging-v2>
+    </div>
+    <div class="pull-left pos-r document-right-box" [class.no-list-bg]="self_upload_document?.length == 0">
+        <div class="clearfix">
+            <div class="lh-50 b-b t-md">
+                <span class="d-ib m-l">自行上传的文档</span>
+                <div class="pull-right pointer m-r icon-text-btn" (click)="uploadDoc()">
+                    <i class="icon_upload t-md"></i>
+                    <span class="grey t-md">上传</span>
+                    <form #form>
+                        <input type="file" id="doc_upload"
+                               accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-excel, application/msword"
+                               (click)="resetForm(form)" (change)="fileInputClick($event)">
+                    </form>
+                </div>
+            </div>
+            <div class="p-l-lg p-r-lg">
+                <div class="ques-list" *ngFor="let doc of self_upload_document">
+                    <div class="clearfix">
+                        <div class="pull-left"
+                             [title]="doc.source.toString().length > 10 ? doc.source : ''">{{doc.source |
+                            longStringFilter:10}}
+                        </div>
+                        <div class="pull-right">
+                            <div class="d-ib pointer m-r icon-text-btn" (click)="deleteSelfFile(doc)">
+                                <i class="icon_delete"></i>
+                                <span class="grey">删除</span>
+                            </div>
+                        </div>
+                        <div class="pull-right">
+                            <div class="pointer d-ib m-r icon-text-btn" (click)="downloadFile(doc)">
+                                <i class="icon_download"></i>
+                                <span class="grey">下载</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <mayihr-paging-v2 [page_info]="self_upload_document_pagination" [paging_config]="paging_config"
+                          (RefreshPagingData)="selfPagingRefresh($event)"></mayihr-paging-v2>
+
+    </div>
+</div>

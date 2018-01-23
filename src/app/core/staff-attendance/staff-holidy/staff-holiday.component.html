@@ -1,0 +1,117 @@
+<div class="staff-content pos-r">
+    <div class="lh-50 b-b">
+        <div class="icon-text-btn">
+            <i class="icon_arrow_left m-l pointer" [routerLink]="['/user/attendance']"></i>
+            <span>出勤管理/员工假期余额</span>
+        </div>
+    </div>
+    <div>
+        <div *ngIf="!choose_staff_num">
+            <mayihr-searching [placeholder]="'输入员工姓名进行搜索'" [request_url]="list_info_url"
+                              [request_type]="'post'"></mayihr-searching>
+        </div>
+        <div *ngIf="choose_staff_num" class="clearfix p-l-lg" style="height: .5rem;line-height: .5rem;">
+            <div class="d-ib">
+                已选择{{choose_staff_num}}人
+            </div>
+            <div class="d-ib p-l-lg p-r-lg" (click)="chooseStaff('all', $event)">
+                <span class="pointer-no-color">全选</span>
+            </div>
+            <div class="d-ib p-l-lg p-r-lg" (click)="chooseStaff('none', $event)">
+                <span class="pointer">取消选择</span>
+            </div>
+            <div class="d-ib p-l-lg p-r-lg icon-text-btn pointer-blue pull-right" (click)="daysExtend($event)">
+                <i class="icon_add"></i>
+                <span>为{{choose_staff_num}}位员工批量添加年假</span>
+            </div>
+        </div>
+        <mayihr-filter-status [filter_term]="filter_term" [request_type]="'post'"
+                              [request_url]="list_info_url"></mayihr-filter-status>
+        <div class="pos-r clear b-t" [class.no-list-bg]="staffs_holiday.length == 0" style="min-height: 4.3rem;">
+            <table class="saas-table">
+                <thead class="saas-table-header">
+                <tr>
+                    <th></th>
+                    <th *ngFor="let i of table_header;let foo=index;"
+                        [class.t-l]="i.adjust == -1"
+                        [class.t-c]="i.adjust == 0"
+                        [class.t-r]="i.adjust == 1">
+                        <span>{{ i.column_name }}</span>
+                        <div class="d-i pos-r">
+                            <i class="icon_triangle_down v-m" (click)="filterChooseToggle(foo)"
+                               *ngIf="i.filter != 0"></i>
+                            <mayihr-filter [operate_data]="i" [view_type]="'table_filter'"
+                                           [filter_term]="filter_term"
+                                           [request_url]="list_info_url"
+                                           [request_type]="'post'"
+                                           (close_filter)="closeFilter($event)"></mayihr-filter>
+                        </div>
+                    </th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody *ngFor="let staff of staffs_holiday;let i=index;">
+                <tr (click)="holidayDetailShow(i)" *ngIf="staff.on_work">
+                    <td>
+                        <div (click)="chooseStaff(i, $event)" class="d-ib ui-check">
+                            <input type="checkbox" name="choose_staff" [(ngModel)]="staff.selected">
+                            <i class="icon_ui hover_show v-m"
+                               [class.ever_show]="choose_staff_num > 0"></i>
+                        </div>
+                    </td>
+                    <td *ngFor="let header of table_header;let a = index;"
+                        [class.t-l]="header.adjust == -1"
+                        [class.t-c]="header.adjust == 0"
+                        [class.t-r]="header.adjust == 1">
+                        <div *ngIf="a === 0 || a === 1 || a === 2"
+                             [title]="staff[header.column]?.length > 5 ? staff[header.column] : ''">
+                            {{(staff[header.column] | longStringFilter: 5) || '-'}}
+                        </div>
+                        <div *ngIf="a === 4 || a == 5">
+                            {{staff[header.column] | hourToDay}}
+                        </div>
+                        <div *ngIf="a === 3">
+                            {{staff[header.column]}}
+                        </div>
+                    </td>
+                    <td class="t-c">
+                        <i class="icon_add hover_show pointer"
+                           (click)="daysExtend($event, staff.yg_id)"></i>
+                    </td>
+                </tr>
+                <tr class="attendance-detail" *ngIf="!staff.detail.length && holiday_show == i">
+                    <td></td>
+                    <td></td>
+                    <td class="grey">假期无余额</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <ng-container *ngFor="let detail of staff.detail">
+                    <tr class="attendance-detail" *ngIf="holiday_show === i">
+                        <td></td>
+                        <td class="t-c grey">
+                            {{detail.holiday_name}}
+                        </td>
+                        <td>
+                            <div class="d-ib b">{{detail.overage | hourToDay}}</div>
+                            <div class="d-ib grey">
+                                (共{{detail.duration | hourToDay}},已消费{{detail.cost | hourToDay: 1}})
+                            </div>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td class="grey">{{detail.expire_time}}过期</td>
+                        <td></td>
+                        <td class="t-c"><i class="pointer icon_delete" (click)="deleteHoliday(detail)"></i></td>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <mayihr-paging [request_type]="'post'" [request_url]="list_info_url" [page_info]="page_info"></mayihr-paging>
+</div>
+<app-staff-attendance-modal [modal_name]="modal_name" [modal_info]="modal_info"></app-staff-attendance-modal>

@@ -1,0 +1,92 @@
+<div class="modal in p-b-lg" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header p-a b-b">
+                <p class="t-md">变更联系人</p>
+                <p class="t-sm grey">用于蚂蚁HR在需要时与您指定的人员联络</p>
+            </div>
+            <div class="modal-body ">
+                <div class="m-b-lg p-a">
+                    <form action="" [formGroup]="account_contact">
+                        <div class="m-b-sm">
+                            <div>
+                                <label class="grey d-ib m-b-xs">姓名 <i class="error ">*</i></label>
+                            </div>
+                            <div class="t-0">
+                                <input type="text" formControlName="contact" placeholder="联系人姓名" class="contact_name">
+
+                                <div class="d-ib w-100">
+                                    <mayihr-select [SelectConfig]="{placeholder: '请选择性别', allow_clear: true, type: 2}"
+                                                   [SelectData]="gender_list"
+                                                   formControlName="gender"></mayihr-select>
+                                </div>
+                            </div>
+                            <div>
+                                <span *ngIf="!(account_contact.get('contact').valid || (account_contact.get('contact').untouched && before_submit))"
+                                      class="error t-sm m-l-sm">姓名格式有误</span>
+                            </div>
+                        </div>
+                        <div class="m-b-sm">
+                            <label class="grey d-ib m-b-xs">岗位</label>
+                            <div class="">
+                                <input type="text" formControlName="position" placeholder="联系人岗位">
+                            </div>
+                        </div>
+                        <div class="m-b-sm">
+                            <div>
+                                <label class="grey d-ib m-b-xs">手机号码 <i class="error">*</i></label>
+                            </div>
+                            <div class="d-ib">
+                                <input type="text" formControlName="mobile" placeholder="联系人手机号码">
+                            </div>
+                            <div>
+                                <div class="" *ngIf="!account_contact.get('mobile').valid">
+                                    <div class="error t-sm  m-l-sm" *ngIf="(!account_contact.get('mobile').untouched && before_submit)
+                            || account_contact.hasError('required', ['mobile']) && !account_contact.get('mobile').pristine">
+                                        手机号码必填
+                                    </div>
+                                    <div class="error t-sm m-l-sm"
+                                         *ngIf="account_contact.hasError('phone_valid', ['mobile'])">
+                                        请填写合法的手机号码
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-b-sm">
+                            <div>
+                                <label class="grey d-ib m-b-xs">固定电话 </label>
+                            </div>
+                            <div class="d-ib">
+                                <input type="text" formControlName="phone" placeholder="格式为:区号-座机号">
+                            </div>
+                            <div>
+                                <div class="error t-sm m-l-sm"
+                                     *ngIf="account_contact.hasError('phone_valid', ['phone'])">
+                                    固定电话格式为:区号-座机号
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-b-sm">
+                            <label class="grey d-ib m-b-xs">电子邮箱</label>
+                            <span *ngIf="!(account_contact.get('email').valid || account_contact.get('email').untouched && before_submit)"></span>
+                            <div class="">
+                                <input type="text" formControlName="email" placeholder="电子邮箱">
+                            </div>
+                            <div>
+                                <div class="error t-sm m-l-sm"
+                                     *ngIf="account_contact.hasError('mail_valid', ['email'])">
+                                    请输入合法的邮箱地址
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="b-t btn-group t-r p-a">
+                    <button class="reverse t-sm light v-m m-r-sm btn btn-sm" (click)="cancelModal()">取消</button>
+                    <button class="btn btn-sm" (click)="saveMsg()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

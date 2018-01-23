@@ -1,0 +1,43 @@
+<div class="staff-content">
+    <div class="p-t p-b b-b t-md">
+        <span class="d-ib m-l">公司设置</span>
+    </div>
+    <div class="p-t p-l-xl grey b-b">
+        <a class="pointer d-ib p-b year-tag m-r"
+           [routerLink]="['/user/settings/company-setting/contract']" [routerLinkActive]="['year-choose']">
+            合同公司
+        </a>
+        <a class="pointer d-ib p-b year-tag m-r"
+           [routerLink]="['/user/settings/company-setting/office']" [routerLinkActive]="['year-choose']">
+            工作地点
+        </a>
+        <a class="pointer d-ib p-b year-tag m-r"
+           [routerLink]="['/user/settings/company-setting/position']" [routerLinkActive]="['year-choose']">
+            岗位管理
+        </a>
+        <a class="pointer d-ib p-b year-tag m-r"
+           [routerLink]="['/user/settings/company-setting/benefit']" [routerLinkActive]="['year-choose']">
+            福利管理
+        </a>
+        <a class="pointer d-ib p-b year-tag m-r"
+           [routerLink]="['/user/settings/company-setting/staff-self']" [routerLinkActive]="['year-choose']">
+            员工自助
+        </a>
+        <a class="pointer d-ib p-b year-tag m-r"
+           [routerLink]="['/user/settings/company-setting/salary']" [routerLinkActive]="['year-choose']">
+            计薪规则
+        </a>
+        <a class="pointer d-ib p-b year-tag m-r"
+           [routerLink]="['/user/settings/company-setting/social']" [routerLinkActive]="['year-choose']">
+            社保规则
+        </a>
+        <a class="pointer d-ib p-b year-tag m-r"
+           [routerLink]="['/user/settings/company-setting/fund']" [routerLinkActive]="['year-choose']">
+            公积金规则
+        </a>
+
+    </div>
+    <div>
+        <router-outlet></router-outlet>
+    </div>
+</div>

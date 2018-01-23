@@ -1,0 +1,113 @@
+.index-navbar {
+  color: #fff;
+  background: transparent;
+  font-size: .2rem;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+.logo {
+  width: 1.2rem;
+  margin-top:.12rem;
+}
+.index-container {
+  width: 12rem;
+  margin: 0 auto;
+}
+
+.index-navbar .nav {
+  padding: .2rem 0;
+}
+
+.index-navbar .nav > .menu {
+  vertical-align: top;
+  /*height: .6rem;*/
+}
+
+.index-navbar .nav > li + li {
+  margin-left: .2rem
+}
+
+.index-navbar .nav > li.index-active {
+  color: #00ae66;
+}
+
+.index-navbar .nav > li a {
+  display: inline-block;
+  /*height: .4rem;*/
+}
+
+.index-navbar .nav > li.index-active a {
+  border-bottom: 2px solid #00ae66;
+}
+
+.index-navbar .nav .index-dropdown {
+  display: none;
+  top: .6rem;
+  left: 0;
+  background: #3A3E41 100%;
+  width: 1.8rem;
+  box-sizing: border-box;
+  padding: .3rem .2rem;
+}
+
+.index-navbar:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.index-navbar .nav > .menu:hover {
+  color: #00ae66;
+  position: relative;
+}
+
+.index-navbar .nav > .menu:hover:after {
+  content: '';
+  display: block;
+  border-bottom: 2px solid #00ae66;
+  position: absolute;
+  left: 0;
+  bottom: -.02rem;
+  width: 100%;
+}
+
+.index-navbar .nav > .menu.index-active:hover:after {
+  display: none;
+}
+
+.index-navbar li:hover .index-dropdown {
+  display: block;
+  color: #fff;
+}
+
+.index-dropdown li:hover {
+  color: #00ae66;
+}
+
+.index-navbar .login {
+  border: 1px solid #fff;
+}
+
+.index-navbar .login, .index-navbar .sign {
+  border-radius: 4px;
+  padding: 0 .08rem;
+  cursor: pointer;
+}
+
+.index-navbar .sign {
+  background: #00ae66;
+}
+@media screen and (max-width: 640px){
+  .index-container {
+    width: 90%;
+  }
+  .logo {
+    width: 1.8rem;
+  }
+  .nav span {
+    font-size:.3rem;
+  }
+  .nav img {
+    width:.3rem !important;
+  }
+}

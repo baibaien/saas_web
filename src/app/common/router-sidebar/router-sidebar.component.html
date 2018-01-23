@@ -1,0 +1,52 @@
+<div class="router-bar-box side-router-bar p-l-xl">
+    <ul class="side-router-bar-list grey">
+        <li [routerLinkActive]="['active']"><a [routerLink]="['/user/dashboard']" class="icon-text-btn"><i
+                class="v-m icon_poll v-m"></i><div>首页</div></a>
+        </li>
+        <li [routerLinkActive]="['active']"><a [routerLink]="['/user/staff']" class="icon-text-btn"><i class="v-m icon_people"></i><div>员工名录</div></a>
+        </li>
+        <li [routerLinkActive]="['active']"><a [routerLink]="['/user/attendance']" class="icon-text-btn"><i class="v-m icon_calendar"></i><div>出勤管理</div></a>
+        </li>
+        <li [routerLinkActive]="['active']"><a [routerLink]="['/user/salary-calc']" class="icon-text-btn"><i class="v-m icon_calculator"></i><div>计算薪资</div></a>
+        </li>
+        <li [routerLinkActive]="['active']"><a [routerLink]="['/user/salary-calc-history']" class="icon-text-btn"><i
+                class="v-m icon_payroll"></i><div>薪资历史</div></a>
+        </li>
+        <li [routerLinkActive]="['active']"><a [routerLink]="['/user/social-assurance']" class="icon-text-btn"><i
+                class="icon_housing_fund"></i><div>五险一金</div></a></li>
+        <li class="router-list-cut-off b-b"></li>
+        <ng-container *ngIf="outsource_status == 1">
+            <li [routerLinkActive]="['active']"><a [routerLink]="['/user/salary-outsourcing']" class="icon-text-btn"><i
+                    class="v-m icon_out_source"></i><div>薪酬外包</div></a></li>
+            <li [routerLinkActive]="['active']"><a [routerLink]="['/user/commercial-insurance']" class="icon-text-btn"><i
+                    class="v-m icon_insurance"></i><div>商保购买</div></a></li>
+            <li [routerLinkActive]="['active']"><a [routerLink]="['/user/special-service']" class="icon-text-btn"><i
+                    class="v-m icon_superman"></i><div>专项服务</div></a></li>
+            <li [routerLinkActive]="['active']"><a [routerLink]="['/user/pay-schedule']" class="icon-text-btn"><i class="v-m icon_list"></i><div>缴纳进度</div></a>
+            </li>
+            <li class="router-list-cut-off b-b"></li>
+            <li [routerLinkActive]="['active']"><a [routerLink]="['/user/bill-manage']" class="icon-text-btn"><i class="v-m icon_pay"></i><div>账单管理</div></a>
+            </li>
+            <li [routerLinkActive]="['active']"><a [routerLink]="['/user/invoice-manage']" class="icon-text-btn"><i
+                    class="v-m icon_receipt"></i><div>发票管理</div></a>
+            </li>
+        </ng-container>
+        <ng-container *ngIf="outsource_status == 0">
+            <li [routerLinkActive]="['active']"><a [routerLink]="['/user/outsourcing-guide']" class="icon-text-btn"><i
+                    class="v-m icon_org_chart"></i><div>人事外包</div></a></li>
+        </ng-container>
+        <li class="router-list-cut-off b-b"></li>
+        <li class="pos-r">
+            <div class="pointer d-ib icon-text-btn" [class.green]="more_func_show" (click)="toggleMoreFuncShow()"><i
+                    class="v-m icon_drawer"></i><div>更多功能</div></div>
+            <div class="mask-layer" *ngIf="more_func_show" (click)="toggleMoreFuncShow()"></div>
+            <div class="pos-a clearfix more-func" *ngIf="more_func_show">
+                <div class="pointer  lh-34 hover-bg-light-grey t-c" (click)="toDocumentCenter()">常用文档</div>
+                <div class="pointer lh-34 hover-bg-light-grey t-c icon-text-btn icon-right" (click)="toSocialAssuranceCalc()"><div>五险一金计算器</div><i
+                        class="icon_newpage"></i></div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+

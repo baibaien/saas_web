@@ -1,0 +1,31 @@
+<div *ngIf="dept_now">
+    <div class="clear org-box d-ib" style="width:100%!important;">
+        <div class="d-ib p-r-lg" style="width: .1rem;">
+            <ng-container *ngIf="dept_now['children'].length > 0">
+                <i class="d-ib icon_angle_right v-m pointer" (click)="childShow()"
+                   *ngIf="child_hide"></i>
+                <i class="d-ib icon_downward v-m pointer" (click)="childShow()"
+                   *ngIf="!child_hide"></i>
+            </ng-container>
+        </div>
+        {{dept_now['name']}}
+        <div class="d-ib p-l grey">
+            <div class="d-ib p-l-sm p-r-sm" *ngIf="dept_now['id'] != 0 && dept_now['leader_name']">
+                主管：{{dept_now['leader_name']}}
+            </div>
+            <div class="d-ib p-l-sm p-r-sm" *ngIf="dept_now['children_count'] != 0">
+                下属{{dept_now['children_count']}}个部门
+            </div>
+            <div class="d-ib p-l-sm p-r-sm" *ngIf="dept_now['staff_count'] != 0">直属{{dept_now['staff_count']}}个成员</div>
+        </div>
+        <div class="pull-right p-r-xxl org-edit pointer" *ngIf="dept_now['id'] != 0" (click)="orgEditModal(dept_now)">
+            <i class="icon_edit_simple v-m p-l-xs  m-r-sm"></i>
+            <p class="d-ib pointer">编辑</p>
+        </div>
+    </div>
+    <ul *ngIf="!child_hide">
+        <li *ngFor="let term of dept_now['children']; let i = index;">
+            <app-org-strc-show [dept_now]="term"></app-org-strc-show>
+        </li>
+    </ul>
+</div>

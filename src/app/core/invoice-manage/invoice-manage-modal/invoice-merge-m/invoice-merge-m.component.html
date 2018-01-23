@@ -1,0 +1,44 @@
+<div class="modal in" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="shadowCancel()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="t-c p-b p-t-xxl">
+                    <i class="t-36 icon_error t-48 grey"></i>
+                </div>
+                <div class="t-c t-20 p-b">
+                    是否合并开票
+                </div>
+                <div class="m-l m-r p-b t-c p-t-lg">
+                    <div class="d-ib">
+                        <div class="t-c">
+                            <label class="ui-check lh-36 icon-text-btn">
+                                <input [formControl]="is_merge" type="radio" value="0">
+                                <i class="icon_ui"></i>
+                                <span>分别开票</span>
+                            </label>
+                            <label class="ui-check p-l-xxl lh-36 icon-text-btn">
+                                <input [formControl]="is_merge" type="radio" value="1">
+                                <i class="icon_ui"></i>
+                                <span>合并开票</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="t-c p-b p-t-xxl">
+                    <div class="d-ib">
+                        <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" data-dismiss="modal"
+                                (click)="cancelModal()">取消
+                        </button>
+                    </div>
+                    <div class="d-ib p-l-lg">
+                        <button type='button' class="btn btn-sm v-m"
+                                (click)="submitModal()">提交
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

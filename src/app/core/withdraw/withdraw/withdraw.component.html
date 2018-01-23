@@ -1,0 +1,148 @@
+<div class="staff-content clearfix">
+    <div class="p-t p-b b-b">
+        <span class="d-ib m-l">提现</span>
+    </div>
+    <div class="p-l-lg p-r-lg p-t p-b-xxl pos-r clearfix" style="min-height: 5.5rem;" *ngIf="is_third_pay == 0">
+        <div class="p-t-lg p-l">
+            <ul>
+                <li class="d-ib p-r-xxl">
+                    <div class="t-24 t-RB">{{header_data?.max_money | number: '1.2-2'}}</div>
+                    <div class="total-grey">可提现余额</div>
+                </li>
+                <li class="d-ib">
+                    <div class="t-24 t-RB">{{header_data?.balance_money | number: '1.2-2'}}</div>
+                    <div class="total-grey">账户余额</div>
+                </li>
+                <!--<li class="d-ib p-r-sm p-l-sm" style="vertical-align: top;">-->
+                    <!--<span class="t-24 bolder grey">=</span>-->
+                <!--</li>-->
+
+                <!--<li class="d-ib p-r-sm p-l-sm" style="vertical-align: top;">-->
+                    <!--<span class="t-24 bolder grey">+</span>-->
+                <!--</li>-->
+                <!--<li class="d-ib">-->
+                    <!--<div class="t-24 t-RB">{{header_data?.social_money| number: '1.2-2'}}</div>-->
+                    <!--<div class="total-grey">不可提现余额</div>-->
+                <!--</li>-->
+            </ul>
+        </div>
+        <div class="p-l b-b">
+            <div class="p-t-xl">
+                <div class="d-ib grey p-r-xs">公司名称</div>
+                <div class="d-ib">{{company_name}}</div>
+            </div>
+            <div class="p-b-xl p-t">
+                <div class="d-ib grey p-r-xs">到账时间</div>
+                <div class="d-ib">五个工作日内</div>
+            </div>
+        </div>
+
+        <div class="p-l p-t-xl" *ngIf="header_data">
+            <div class="grey">提现金额</div>
+            <div>
+                <input type="text" placeholder="请输入提现金额" class="w-250" [formControl]="withdraw_money">
+            </div>
+            <div class="" *ngIf="!withdraw_money.valid">
+                <div class="error" *ngIf="(withdraw_money.hasError('require_num'))">
+                    提现金额格式错误
+                </div>
+                <div class="error" *ngIf="(withdraw_money.hasError('half_min'))">
+                    提现金额必须大于零
+                </div>
+                <div class="error" *ngIf="(withdraw_money.hasError('max'))">
+                    超出最大可提现余额
+                </div>
+            </div>
+        </div>
+        <div class="m-t p-l">
+            <div class="grey">
+                <div class="d-ib">提现到</div>
+                <div class="d-ib t-sm p-l-xs" *ngIf="!wechat_usable">超过微信提现限额</div>
+            </div>
+            <div>
+                <div class="d-ib">
+                    <label class="ui-check p-l-sm" [class.pointer-not-allowed]="!wechat_usable"
+                           style="line-height: .36rem;" (click)="choosePayType($event, wechat)">
+                        <input type="radio" name="pay_type" checked="checked" [formControl]="pay_type" #wechat
+                               value="3"><i class="icon_ui v-m t-24"></i>
+                        <img style="height: .25rem;"
+                             [src]="wechat_usable ? 'assets/pay-logo/weixin_pay.png' : 'assets/pay-logo/wepay-logo-grey.png'">
+                        <span class="t v-m">微信</span>
+                    </label>
+                </div>
+                <div class="d-ib">
+                    <label class="ui-check p-l-sm" style="line-height: .36rem;" (click)="choosePayType($event, alipay)">
+                        <input type="radio" name="pay_type" checked="checked" [formControl]="pay_type" #alipay
+                               value="1"><i class="icon_ui v-m t-24"></i>
+                        <img class="p-l-xs" style="height: .25rem;" src="assets/pay-logo/weixin-paybao.png">
+                        <span class="p-l-xs t v-m">支付宝</span>
+                    </label>
+                </div>
+                <div class="d-ib t-24">
+                    <label class="ui-check p-l-sm" style="line-height: .36rem;" (click)="choosePayType($event, bank)">
+                        <input name="pay_type" type="radio" checked="checked" [formControl]="pay_type" #bank
+                               value="2"><i class="icon_ui v-m t-24"></i>
+                        <img class="p-l-xs" style="height: .25rem;" src="assets/pay-logo/unionpay.png">
+                        <span class="p-l-xs t v-m">银行账户</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <ng-container [formGroup]="withdraw_form">
+            <div class="p-l p-t-sm" *ngIf="pay_type.value == 1">
+                <div class="grey">支付宝账号</div>
+                <div>
+                    <input type="text" placeholder="请输入支付宝账号" class="w-250" formControlName="ali_acc">
+                </div>
+            </div>
+            <div class="p-l p-t-sm p-b-lg clearfix" *ngIf="pay_type.value == 2">
+                <div class="d-ib half t pull-left">
+                    <div class="p-b-sm">
+                        <div class="input-title grey">
+                            开户行
+                        </div>
+                        <div class="input-content v-m">
+                            <mayihr-select formControlName="bank_code"
+                                           [SelectConfig]="bank_parent_config"
+                                           [SelectData]="bank_list || []"
+                                           (RefreshValue)="refreshParentBank($event)"></mayihr-select>
+                        </div>
+                    </div>
+                    <div class="p-b-lg">
+                        <div class="input-title grey"></div>
+                        <div class="input-content v-m">
+                            <mayihr-select formControlName="bank_sub_code"
+                                           [SelectConfig]="bank_child_config"
+                                           [SelectData]="sub_bank_list || []"
+                                           [AsyncData]="sub_banks_async"
+                                           (ActivedAsync)="refreshAsyncParent($event)"></mayihr-select>
+                        </div>
+                    </div>
+                    <div class="p-b-sm">
+                        <div class="input-title grey">
+                            银行卡号
+                        </div>
+                        <div class="input-content v-m">
+                            <input type="text" formControlName="bank_acc" placeholder="请输入银行账号">
+                        </div>
+                    </div>
+                    <div class="p-b-sm">
+                        <div class="input-title grey">
+                            银行账户名
+                        </div>
+                        <div class="input-content v-m">
+                            <input type="text" formControlName="bank_acc_name" placeholder="请输入银行账户名">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="p-t p-b m-l pos-a" style="bottom: 0;">
+                <button class="btn btn-sm"
+                        [class.disabled]="!withdraw_form.valid || !withdraw_money.valid"
+                        (click)="toWithdrawAssure()">申请提现
+                </button>
+            </div>
+        </ng-container>
+    </div>
+</div>

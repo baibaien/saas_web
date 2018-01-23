@@ -1,0 +1,51 @@
+<div class="staff-content">
+    <div class="clearfix b-b lh-50">
+        <div class="pull-left">
+            <span class="d-ib m-l">购买专项服务</span>
+        </div>
+        <div class="pull-right m-r">
+            <div class="pointer d-ib m-ricon-text-btn" (click)="toMyService()">
+                <i class="icon_requirement_list v-m"></i>
+                <span>已购买的专项服务</span>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="d-ib w-100per">
+            <mayihr-tags *ngIf="tags !== undefined" [data_list]="tags" (data_choosed)="chooseTag($event)"></mayihr-tags>
+        </div>
+    </div>
+    <div class="list-box b-t" [class.no-list-bg]="service_list?.length == 0">
+        <div *ngFor="let parent of service_list" class="operate-box p-b-lg b-b">
+            <div class="operate-title">{{parent.name}}</div>
+            <div class="list-content">
+                <div *ngFor="let child of parent.special_service;let i=index" class="list-item clearfix">
+                    <div class="d-ib pull-left">
+                        <img [src]="child.icon_path">
+                    </div>
+                    <div class="d-ib pull-left">
+                        <span class="d-ib" style="line-height: .3rem;"
+                              [title]="child.name?.length > 20 ? child.name : ''">{{child.name | longStringFilter:20}}</span>
+                    </div>
+                    <div (click)="checkDetailInfo(child)" class="d-ib pull-left pointer icon-text-btn">
+                        <i class="icon_list"></i>
+                        <span>办理条件和所需材料</span>
+                    </div>
+                    <div class="d-ib pull-left">
+                        <div class="d-ib w-200">
+                            <mayihr-select
+                                    [SelectConfig]="{placeholder: '选择办理城市查看费用', max_length: 13}"
+                                    [SelectData]="child.cityPrice"
+                                    (RefreshValue)="refreshValue($event, child)"></mayihr-select>
+                        </div>
+                    </div>
+                    <div class="d-ib p-l pull-left">
+                        <button class="btn btn-sm v-m" (click)="submitService(child, i)">办理</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-special-service-modal [modal_name]="modal_name" [modal_info]="modal_info"></app-special-service-modal>
+<app-modal-notice [modal_name]="modal_name" [modal_info]="modal_info"></app-modal-notice>

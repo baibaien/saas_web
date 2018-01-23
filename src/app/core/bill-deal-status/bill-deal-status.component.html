@@ -1,0 +1,54 @@
+<div class="staff-content">
+    <ng-container *ngIf="staff_list">
+        <div class="p-t p-b b-b clearfix">
+            <div class="d-ib m-l pull-left icon-text-btn"
+                 [routerLink]="['/user/bill-manage/paid-list']">
+                <i class="icon_arrow_left pointer"></i>
+                <div>账单管理/办理状态详情</div>
+            </div>
+        </div>
+        <div class="b-b">
+            <mayihr-tags [only_one_show]="false" [length_control]="true" [show_all]="false"
+                         [data_list]="city_list" (data_choosed)="chooseCity($event)"></mayihr-tags>
+        </div>
+        <div>
+            <table class="saas-table">
+                <thead>
+                <tr class="saas-table-header">
+                    <th></th>
+                    <th *ngFor="let i of table_header"
+                        [class.t-l]="i.adjust == -1"
+                        [class.t-c]="i.adjust == 0"
+                        [class.t-r]="i.adjust == 1">
+                        {{i.column_name}}
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let staff of staff_list">
+                    <td></td>
+                    <td *ngFor="let header of table_header;let i = index;" class="v-t"
+                        [class.t-l]="i.adjust == -1"
+                        [class.t-c]="i.adjust == 0"
+                        [class.t-r]="i.adjust == 1">
+                        <div class="test"
+                             *ngIf="i == 1 || i == 2">{{staff[header.column] || '-'}}
+                        </div>
+                        <div class="test" *ngIf="i == 0"
+                             [title]="staff[header.column]?.toString().length > 5 ? staff[header.column] : ''">
+                            {{staff[header.column] | longStringFilter: 5}}
+                        </div>
+                        <div class="test"
+                             *ngIf="i != 0 && i != 1 && i != 2">
+                            <div *ngFor="let item of staff.detail" class="p-b h-35"
+                                 [title]="item[header.column]?.toString().length > 10 ? item[header.column] : ''">
+                                {{item[header.column] | longStringFilter: 10 || ' '}}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </ng-container>
+</div>

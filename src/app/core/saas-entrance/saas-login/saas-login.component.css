@@ -1,0 +1,57 @@
+.content-body {
+    /*width: 12rem;*/
+    margin: 0 auto;
+    /*overflow: hidden;*/
+    padding-top: 1.15rem;
+}
+
+.right-content {
+    margin: 0 auto;
+    border: 1px solid #d6d6d6;
+    border-radius: 3px;
+    background: white;
+    width: 3.21rem;
+    position: relative;
+}
+
+.input-area > form > div {
+    padding-bottom: .1rem;
+}
+
+.input-area > form > div > div > input {
+    width: 2.2rem !important;
+    padding-left: .12rem;
+}
+
+.input-area > form > div > div > i {
+    vertical-align: middle;
+    line-height: .36rem;
+    cursor: default;
+    /*font-size: .2rem;*/
+}
+
+.to-reg-box {
+    height: .5rem;
+    line-height: .5rem;
+    text-align: center;
+    background: rgba(80, 80, 80, 0.05);
+    color: rgba(80, 80, 80, 0.65)
+}
+
+.footer-box {
+    height: .5rem;
+    line-height: .5rem;
+    text-align: center;
+    position: absolute;
+    bottom: -.6rem;
+    background: rgba(80, 80, 80, 0.05);
+    color: rgba(80, 80, 80, 0.65);
+    border-radius: 3px;
+    width: 100%;
+    font-size: .14rem;
+    cursor: pointer;
+}
+.footer-box i {
+    vertical-align: middle;
+    color: rgba(80, 80, 80, 0.4);
+}

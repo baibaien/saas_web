@@ -1,0 +1,303 @@
+<div class="detail-box clearfix">
+    <div class="detail-info">
+        <div class="lh-50 b-b">
+            <div class="m-l icon-text-btn">
+                <i [routerLink]="['/user/special-service/paid']" class="icon_arrow_left pointer"></i>
+                <span>专项服务/已购买的专项服务/服务详情</span>
+            </div>
+        </div>
+        <div class="detail-area">
+            <div class="detail-title">1. 基本信息</div>
+            <div class="detail-content">
+                <div class="detail-base-info">
+                    <div>服务名称</div>
+                    <div>{{base_info?.name}}</div>
+                </div>
+                <div class="detail-base-info">
+                    <div>办理城市</div>
+                    <div>上海</div>
+                </div>
+                <div class="detail-base-info">
+                    <div>办理对象</div>
+                    <div>{{service_info?.yg_name}}</div>
+                </div>
+                <div class="detail-base-info">
+                    <div class="separator-line"></div>
+                </div>
+                <div class="detail-base-info">
+                    <div>账单生成时间</div>
+                    <div>{{create_time}}</div>
+                </div>
+                <div class="detail-base-info">
+                    <div class="v-t">状态</div>
+                    <div>
+                        <div>{{service_info?.op_status_name}}</div>
+                        <div class="grey p-b-sm">{{service_info?.info}}</div>
+                    </div>
+                </div>
+                <div class="clearfix" style="line-height: .5rem;height: .5rem;"
+                     *ngIf="service_info && service_info?.attr && service_info.attr.hasOwnProperty('9')">
+                    <div class="v-t pull-left">快递单号
+                        <div class="d-ib black p-l-lg">{{service_info?.attr['9']['title']}}</div>
+                    </div>
+                    <div class="v-t pull-right p-t-sm" *ngIf="service_info?.attr['9']['is_receive'] == 0"
+                         style="line-height: normal;">
+                        <button class="btn btn-sm" (click)="assureReceive(service_info?.attr['9'])">确认签收</button>
+                    </div>
+                    <div class="pull-right" *ngIf="service_info?.attr['9']['is_receive'] == 1"
+                         style="line-height: .5rem;">已签收
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="service_info?.attr">
+            <div *ngIf="base_info && base_info?.attr && base_info.attr.hasOwnProperty('8')">
+                <div class="detail-area" *ngIf="!show_state['8']">
+
+                    <div class="detail-title">{{no_str?.indexOf('8') + 2}}. 选择您的收件地址</div>
+                    <div class="detail-content" [formGroup]="receive_form">
+                        <div class="p-b">
+                            <div class="d-ib w-200">
+                                <mayihr-select [SelectData]="receive_address" formControlName="receive_list"
+                                               [SelectConfig]="{placeholder: '在已有的收件地址中搜索'}"></mayihr-select>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="grey">
+                                需要使用新的收件地址？
+                            </div>
+                            <div class="p-b">
+                                <span class="pointer icon-text" (click)="addNewAddress()">
+                                    <i class="icon_add black pointer"></i>
+                                    <span class="black">添加收件地址</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pos-a submit-button">
+                        <button type='button' class="m-b m-t reverse t-sm light v-m m-r-sm btn btn-sm"
+                                (click)="closeModal('8')">取消
+                        </button>
+                        <button class="btn btn-sm m-b m-t" (click)="submitAddress()">提交</button>
+                    </div>
+                </div>
+                <div class="detail-area" *ngIf="show_state['8']">
+                    <div class="detail-title">{{no_str?.indexOf('8') + 2}}. 选择您的收件地址</div>
+                    <div class="detail-content">
+                        <div>
+                            {{receive_info}}
+                        </div>
+                    </div>
+                    <div class="pos-a submit-button" *ngIf="!service_status">
+                        <div class="pointer icon-text-btn m-b m-t" (click)="editReceiveAddr()">
+                            <i class="icon_edit_simple pointer"></i>
+                            <div>编辑</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--下载材料-->
+            <div *ngIf="base_info && base_info?.attr && base_info.attr.hasOwnProperty('3')">
+                <div class="detail-area">
+                    <div class="detail-title">{{no_str?.indexOf('3') + 2}}. 下载相应资料</div>
+                    <div class="detail-content download-list clearfix">
+                        <div *ngFor="let file of base_info.attr['3']">
+                            <div class="clearfix">
+                                <div class="pull-left"
+                                     [title]="file.title.toString().length > 30 ? file.title : ''"
+                                >{{file.title| longStringFilter: 30}}
+                                </div>
+                                <div class="pull-right">
+                                    <div class="pointer d-ib pointer icon-text-btn" (click)="downloadFile(file)">
+                                        <i class="icon_download"></i>
+                                        <span>下载</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--快递单号-->
+            <div *ngIf="service_info.attr.hasOwnProperty('4')">
+                <div class="detail-area" [formGroup]="post_num" *ngIf="!show_state['4']">
+                    <div class="detail-title">{{no_str?.indexOf('4') + 2}}. 给蚂蚁HR快递相应的材料</div>
+                    <div class="detail-content">
+                        <div>
+                            <div class="p-b-sm grey">收件地址</div>
+                            <div class="p-b">{{base_info['attr']['4']['address']}}</div>
+                        </div>
+                        <div>
+                            <div class="p-b-sm grey">邮政编码</div>
+                            <div class="p-b">{{base_info['attr']['4']['post_code']}}</div>
+                        </div>
+                        <div>
+                            <div class="p-b-sm grey">提供您寄出的快递单号</div>
+                            <div class="p-b">
+                                <input type="text" placeholder="输入快递单号"
+                                       formControlName="express_no">
+                            </div>
+                        </div>
+                        <div class="p-b-lg">
+                            <div class="p-b-sm grey">留言</div>
+                            <div>
+                                <input type="text" placeholder="输入留言"
+                                       formControlName="remark">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="pos-a submit-button">
+                        <button type='button' class="m-b m-t reverse t-sm light v-m m-r-sm btn btn-sm"
+                                (click)="closeModal('4')">取消
+                        </button>
+                        <button class="btn btn-sm m-b m-t" (click)="submitPostNum()">提交</button>
+                    </div>
+                </div>
+                <div class="detail-area" *ngIf="show_state['4']">
+                    <div class="detail-title">{{no_str?.indexOf('4') + 2}}. 给蚂蚁HR快递相应的材料</div>
+                    <div class="detail-content">
+                        <div>
+                            <div class="p-b-xs">收件地址</div>
+                            <div class="p-b-sm">{{base_info['attr']['4']['address']}}</div>
+                        </div>
+                        <div>
+                            <div class="p-b-xs">邮政编码</div>
+                            <div class="p-b-sm">{{base_info['attr']['4']['post_code']}}</div>
+                        </div>
+                        <div class="p-b-sm">
+                            <div class="p-b-sm">快递单号</div>
+                            <div>{{service_info['attr']['4']['title']}}</div>
+                        </div>
+                        <div class="p-b-lg">
+                            <div class="p-b-sm">留言</div>
+                            <div>{{service_info['attr']['4']['content']}}</div>
+                        </div>
+
+                    </div>
+                    <div class="pos-a submit-button" (click)="editPostNum()" *ngIf="!service_status">
+                        <div class="pointer m-b m-t icon-text-btn">
+                            <i class="icon_edit_simple"></i>
+                            <div class="d-ib">编辑</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--告知信息-->
+            <div *ngIf="service_info.attr.hasOwnProperty('5')">
+                <div class="detail-area" [formGroup]="inform_info" *ngIf="!show_state['5']">
+                    <div class="detail-title">{{no_str?.indexOf('5') + 2}}. 请告知我们如下信息</div>
+                    <div class="detail-content" formArrayName="inform_array">
+                        <div *ngFor="let info of service_info['attr']['5'];let i = index;">
+                            <div [class.public-b-sm]="i != service_info['attr']['5'].length - 1"
+                                 [class.p-b-lg]="i == service_info['attr']['5'].length - 1"
+                                 class="p-b">
+                                <div class="p-b-sm grey">
+                                    {{info.title}}
+                                </div>
+                                <div [formGroupName]="i">
+                                    <input type="text" placeholder="请输入告知信息内容(必填)" formControlName="content">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pos-a submit-button">
+                        <button type='button' class="m-b m-t reverse t-sm light v-m m-r-sm btn btn-sm"
+                                (click)="closeModal('5')">取消
+                        </button>
+                        <button class="btn btn-sm m-b m-t" (click)="submitInform()">提交</button>
+                    </div>
+                </div>
+                <div class="detail-area" *ngIf="show_state['5']">
+                    <div class="detail-title">{{no_str?.indexOf('5') + 2}}. 请告知我们如下信息</div>
+                    <div class="detail-content">
+                        <div *ngFor="let info of service_info['attr']['5'];let i = index;">
+                            <div [class.p-b]="i != service_info['attr']['5'].length - 1"
+                                 [class.p-b-lg]="i == service_info['attr']['5'].length - 1">
+                                <div class=" grey">
+                                    {{info.title}}
+                                </div>
+                                <div>
+                                    {{info.content}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pos-a submit-button" (click)="editInformInfo()" *ngIf="!service_status">
+                        <div class="pointer  m-b m-t icon-text-btn">
+                            <i class="icon_edit_simple"></i>
+                            <div class="d-ib">编辑</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--上传材料-->
+            <div *ngIf="service_info.attr.hasOwnProperty('6')" class="detail-area">
+                <div class="detail-title">{{no_str?.indexOf('6') + 2}}. 上传相应材料</div>
+                <div class="detail-content-source">
+                    <div *ngFor="let info of service_info['attr']['6'];let i = index;" class="detail-source clearfix">
+                        <div class="pull-left">{{info.title}}</div>
+                        <div class="pull-right m-r">
+                            <input type="file" [id]="i" class="hide" (change)="getUploadMaterial($event, info)">
+                            <div *ngIf="!info.content">
+                                <button class="btn btn-sm" (click)="uploadMaterial(i)">
+                                    上传
+                                </button>
+                            </div>
+                            <div *ngIf="info.content">
+                                <div class="pointer d-ib icon-text-btn m-r-sm" (click)="downloadUploadedMaterial(info)">
+                                    <i class="icon_download  v-m"></i>
+                                    <span>下载已上传材料</span>
+                                </div>
+                                <div class="d-ib pointer icon-text-btn" (click)="uploadMaterial(i)" *ngIf="!service_status">
+                                    <i class="icon_captcha v-m"></i>
+                                    <span>重新上传</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<ng-container *ngIf="base_info?.attr.hasOwnProperty('1') || base_info?.attr.hasOwnProperty('2')">-->
+    <ng-container>
+        <div class="detail-requisite">
+            <div class="p-b p-l-lg p-r-lg">
+                <div class="black t-md p-b-lg">办理对象需要具备的条件</div>
+                <div *ngIf="!base_info?.attr.hasOwnProperty('1')" class="p-l p-b-sm grey">
+                    无条件
+                </div>
+                <ng-container *ngIf="base_info?.attr.hasOwnProperty('1')">
+                    <div class="p-l p-b-sm grey"
+                         *ngFor="let condition of base_info.attr['1']">
+                        {{condition.content}}
+                    </div>
+                </ng-container>
+                <!--<div class="p-l p-b-sm grey" *ngFor="let condition of base_info.attr['1']">-->
+                <!--{{condition.content}}-->
+                <!--</div>-->
+            </div>
+            <div class="p-b p-l-lg p-r-lg">
+                <div class="black t-md p-b-lg">办理该项业务您需要提供的材料</div>
+                <div *ngIf="!base_info?.attr.hasOwnProperty('2')" class="p-l p-b-sm grey">
+                    不需要材料
+                </div>
+                <ng-container *ngIf="base_info?.attr.hasOwnProperty('2')">
+                    <div class="p-l p-b-sm grey" *ngFor="let condition of base_info.attr['2']">
+                        {{condition.content}}
+                    </div>
+                </ng-container>
+
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+<app-send-setting [modal_name]="modal_name" [modal_callback]="modal_callback"
+                  *ngIf="modal_name === 'send_setting_m'"></app-send-setting>

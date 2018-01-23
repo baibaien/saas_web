@@ -1,0 +1,27 @@
+<div class="staff-content">
+    <div class="p-t p-b b-b t-md">
+        <span class="d-ib m-l">账单管理</span>
+    </div>
+    <div class="p-t p-l-xl grey b-b">
+        <a class="pointer d-ib p-b year-tag m-r v-m"
+           [routerLink]="['/user/bill-manage/bill-list']" [routerLinkActive]="['year-choose']">
+            账单列表
+        </a>
+        <div class="d-ib  m-r">
+            <a class="pointer d-ib p-b year-tag v-m"
+               [routerLink]="['/user/bill-manage/unpaid-list']" [routerLinkActive]="['year-choose']">
+                待支付订单
+            </a>
+            <div class="d-ib v-m count-info" *ngIf="count > 0">{{count}}</div>
+        </div>
+
+        <a class="pointer d-ib p-b year-tag v-m"
+           [routerLink]="['/user/bill-manage/paid-list']" [routerLinkActive]="['year-choose']">
+            已支付订单
+        </a>
+
+    </div>
+    <div>
+        <router-outlet></router-outlet>
+    </div>
+</div>

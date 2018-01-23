@@ -1,0 +1,28 @@
+.guide-title {
+    text-align: center;
+    padding-top: .75rem;
+    font-size: .16rem;
+    color: #505050;
+}
+.guide-img {
+    margin: 0.25rem auto;
+    text-align: center;
+    height: 2.5rem;
+    width: 2.5rem;
+    /*background: blue;*/
+}
+.guide-img  img {
+    height: 2.3rem;
+    width: 2.4rem;
+}
+.guide-contact {
+    text-align: center;
+    line-height: .33rem;
+}
+
+.guide-footer {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: .2rem;
+}

@@ -1,0 +1,14 @@
+
+.hover_show:after {
+    color: #ffffff;
+}
+.ever_show:after {
+    color: rgba(208, 208, 208, 0.7);
+}
+tr:hover .hover_show:after {
+    color: rgba(208, 208, 208, 0.7);
+}
+
+input:checked + .hover_show:after {
+    color: #33ac37;
+}

@@ -1,0 +1,49 @@
+<div class="staff-content" *ngIf="show_status === 0">
+    <div class="guide-title">
+        <ng-container>您尚未开通人事外包服务</ng-container>
+    </div>
+    <div class="guide-img">
+        <img src="../../../assets/outsourcing-png/invalid-name@3x.png" alt="">
+    </div>
+    <div>
+        <div class="guide-contact">
+            <div class="d-ib t-24">
+                <i class="icon_phone_number"></i>
+            </div>
+            <div class="d-ib t-24">
+                400-686-9915
+            </div>
+        </div>
+        <div class="grey t-sm t-c">
+            工作日9:00~18:00
+        </div>
+    </div>
+    <div class="guide-footer">
+        <div class="t-20">1000万中小企业的云端人力资源部</div>
+        <div class="grey">五险一金代缴/托管，薪酬代发，商保购买，手续代办理等</div>
+    </div>
+</div>
+<div class="staff-content" *ngIf="show_status === 1">
+    <div class="guide-title">
+        <ng-container>您暂时中止了人事外包服务</ng-container>
+    </div>
+    <div class="guide-img">
+        <img src="../../../assets/outsourcing-png/invalid-name@3x.png" alt="">
+    </div>
+    <div class="t-c ">
+        <button class="btn" (click)="activeOutsourcing()">激活</button>
+    </div>
+    <div class="guide-footer">
+        <div class="guide-contact">
+            <div class="d-ib t-24">
+                <i class="icon_phone_number"></i>
+            </div>
+            <div class="d-ib t-24">
+                400-686-9915
+            </div>
+        </div>
+        <div class="grey t-sm t-c">
+            工作日9:00~18:00
+        </div>
+    </div>
+</div>

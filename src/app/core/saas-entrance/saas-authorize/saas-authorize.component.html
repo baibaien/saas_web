@@ -1,0 +1,34 @@
+<div class="authorize-wrapper">
+  <!--<div class="p-a bg-white b-b shadow-bottom">-->
+  <!--</div>-->
+  <div class="authorize-content">
+    <div class="p-a t-c">
+      <img src="../../../../assets/entry/author.png" alt="" class="m-b-lg m-t-lg" style="width:2rem"/>
+      <p class="t-lg bold t-c">{{name}}请求访问您的账户信息</p>
+      <p class="t-c grey">该功能一般用于为您排除故障或解决问题</p>
+    </div>
+    <div class="bg-white p-l-xl p-r-xl p-t-xl p-b-sm pos-a">
+      <ul class="m-b-lg">
+        <li class="t-sm  t-l m-b">授权期间的服务人员的操作将留有可审查的记录</li>
+        <li class="t-sm  t-l m-b">同意授权后您可以在本页面随时终止授权；
+          服务人员完成服务后也会主动停止授权
+        </li>
+        <li class="t-sm  t-l m-b">此次授权最长有效期为2小时，过期自动终止</li>
+      </ul>
+      <div class="t-c m-b p-t-xl">
+        <div [ngSwitch]="authorize">
+          <button class="btn full-w" (click)="authored"  *ngSwitchDefault>同意授权</button>
+          <button class="btn full-w disabled" (click)="authored" *ngSwitchCase="true">终止授权</button>
+        </div>
+      </div>
+      <p class="t-c grey t-sm ">如果您不希望给予蚂蚁HR服务人员上述权限<br/>
+        忽略本请求即可，您无需做任何操作</p>
+    </div>
+  </div>
+  <div>
+    <div class="p-a t-c">
+      <img src="../../../../assets/entry/author-end.png" alt="" class="m-b-lg m-t" style="width:2rem"/>
+      <p class="t-lg bold t-c">本次授权已终止</p>
+    </div>
+  </div>
+</div>

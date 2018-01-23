@@ -1,0 +1,40 @@
+<div class="modal in" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="t-c p-t-xxl"><i class="icon_phone t-80"></i></div>
+                <div class="t-c t-24 p-t-lg">
+                    <ng-container *ngIf="modal_info && modal_info == 1">关闭员工自助</ng-container>
+                    <ng-container *ngIf="modal_info && modal_info == 2">开启员工自助</ng-container>
+                </div>
+                <div class="p-l-xl p-b-xxl m-b-lg  p-r-xl p-t-lg">
+                    <div>
+                        <ng-container *ngIf="modal_info == 1">将关闭员工通过微信查看薪资，五险一金，请假加班等信息。您可以随时操作开启。</ng-container>
+                        <ng-container *ngIf="modal_info == 2">将允许员工通过微信查看薪资，五险一金，加班请假等信息。您可以随时操作关闭。</ng-container>
+                    </div>
+                    <div class="p-t-lg" *ngIf="modal_info == 2">
+                        系统将使用联络信息中的手机号码验证员工身份。
+                    </div>
+                </div>
+                <div class="t-c">
+                        <span class=" ui-check lh-60" (click)="isShowAgain()">
+                            <input type="checkbox" name="choose_staff" [(ngModel)]="is_hide_again">
+                            <i class="icon_ui hover_show v-m pointer-no-color lh-60 m-r-xs"></i>
+                        </span>
+                    <span>
+                            以后不再提示
+                        </span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer t-c t-r p-a  p-t p-b">
+            <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold m-r" data-dismiss="modal"
+                    (click)="cancelModal()">取消
+            </button>
+            <button type='button' class="btn btn-sm v-m m-l"
+                    (click)="submitModal()">确认
+            </button>
+        </div>
+    </div>
+</div>

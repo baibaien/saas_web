@@ -1,0 +1,146 @@
+.staff-upload-content {
+  float: left;
+  min-width: 6rem;
+  width: 8rem;
+  height: 100%;
+  background: #ffffff;
+}
+.form-group .half {
+  width: 1.225rem;
+  display: inline-block;
+  margin-right:.05rem;
+}
+.ui-check.disabled {
+  background: #fff !important;
+}
+
+/*.staff-upload-index li {*/
+  /*float: left;*/
+  /*margin-right: 0.3rem;*/
+  /*padding-bottom: .1rem;*/
+  /*border-bottom: 4px solid transparent;*/
+/*}*/
+
+/*.staff-upload-index li {*/
+  /*position: relative;*/
+/*}*/
+.staff-upload-index {
+  padding-top: .1rem;
+  overflow: hidden;
+  background: #fff;
+}
+
+.staff-upload-index li {
+  position: relative;
+  padding-bottom: .1rem;
+  float: left;
+  margin-left: .2rem;
+  border-bottom: 4px solid transparent;
+}
+
+.staff-upload-index li:hover {
+  border-bottom: 4px solid #35ad37;
+  cursor: pointer;
+}
+.fixed-top {
+  position: fixed;
+  left: auto;
+  right: auto;
+  margin-left: 0;
+  top: 0;
+  width: 9.83rem;
+  z-index: 470;
+}
+.staff-info-form {
+  padding-left: .3rem;
+  font-size: 0;
+}
+
+.staff-info-form > div:first-child {
+  padding-bottom: .4rem;
+}
+
+.staff-info-form > div:nth-child(n+2) {
+  padding-bottom: .4rem;
+  border-top: 1px solid #d7d7d7;
+}
+
+.staff-info-form-block-title {
+  padding-top: .3rem;
+  /*padding-bottom:.3rem;*/
+}
+.staff-info-form .form-group{
+  margin-bottom: .25rem;
+}
+
+.staff-info-form label {
+  /*padding-top: .25rem;*/
+  padding-bottom: .1rem;
+  display: block;
+  font-size: 14px;
+}
+
+.staff-info-form input[type=text], select {
+  width: 2.5rem;
+}
+
+.staff-upload-form-left-block {
+  padding-left: 0.3rem;
+  width: 50%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.staff-upload-form-right-block {
+  /*position: relative;*/
+  /*right: 0.7rem;*/
+  width: 50%;
+  padding-left: .5rem;
+  display: inline-block;
+}
+
+.red {
+  font-size: 10px;
+  color: red !important;
+}
+.benifit li {
+  background: #efefef;
+  margin-bottom:.1rem;
+  position: relative;
+  overflow: hidden;
+  padding: .05rem .4rem .05rem .1rem;
+  width: 2.5rem;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.benifit li .name {
+  width:.4rem;
+}
+.benifit li .money {
+  width: .8rem;
+  float:right;
+}
+.benifit li input {
+  height:.25rem;
+  line-height:.25rem;
+}
+.benifit .pos-a {
+  right:.1rem;
+}
+.select-mask {
+  position: fixed;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+  background: transparent;
+  opacity: 0.5;
+  z-index: 2;
+}
+.add-benifit {
+  z-index: 3;
+}
+.disabled {
+  background: rgba(80, 80, 80, 0.2);
+}

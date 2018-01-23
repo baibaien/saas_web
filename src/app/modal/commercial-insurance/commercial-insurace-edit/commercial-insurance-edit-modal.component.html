@@ -1,0 +1,86 @@
+<div class="modal in" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header b-b p-a">
+                <div *ngIf="modal_info && modal_info.operate_type === 1">
+                    <div class="t-md">编辑商保方案</div>
+                    <div class="grey">{{modal_info?.yg_name}}</div>
+                </div>
+                <div *ngIf="modal_info && modal_info.operate_type === 3">
+                    <div class="t-md">批量编辑商保方案</div>
+                    <div class="grey">共选中{{choosed_num}}名员工</div>
+                </div>
+                <div *ngIf="modal_info && modal_info.operate_type === 2">
+                    <div class="t-md">
+                        编辑公司默认商保方案
+                    </div>
+                    <div class="grey">
+                        新员工默认购买
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body p-l-lg p-t b-b p-b-lg modal-height">
+                <form [formGroup]="co_edit">
+                    <div class="p-b-xs grey">团体意外伤害险/份(10元每份)</div>
+                    <div class="line-height-36">
+                        <div class="d-ib v-m">
+                            <label class="ui-check p-l-sm">
+                                <input name="team_num_selected" type="radio" formControlName="team_num_selected"
+                                       value="0"><i
+                                    class="icon_ui v-m"></i>
+                                <span class="t v-m">不购买</span>
+                            </label>
+                        </div>
+                        <div class="d-ib v-m">
+                            <label class="ui-check p-l-sm">
+                                <input name="team_num_selected" type="radio" formControlName="team_num_selected"
+                                       value="1"><i
+                                    class="icon_ui v-m"></i>
+                            </label>
+                            <span>购买</span>
+                            <input [class.disabled]="co_edit.get('team_num').disabled" class="w-55" type="text" formControlName="team_num">
+                            <span>份</span>
+                        </div>
+                        <div class="d-ib error error_info v-m line-height-36 p-l-lg"
+                             *ngIf="co_edit.get('team_num_selected').value != 0 &&
+                                    ((co_edit.get('team_num').value == 0 || co_edit.hasError('require', 'team_num'))
+                                    && (!co_edit.get('team_num').untouched) || before_submit)">
+                            购买份数不可为0
+                        </div>
+                    </div>
+                    <div class="p-t-lg">
+                        <div class="p-b-xs grey">补充医疗险</div>
+                        <label class="ui-check p-l-sm" [class.disabled]="co_edit.get('sup_type').disabled">
+                            <input name="sup_type" type="radio" formControlName="sup_type"  value="0"><i
+                                class="icon_ui v-m"></i>
+                            <span class="t v-m">不购买</span>
+                        </label>
+                        <label class="ui-check p-l-sm" [class.disabled]="co_edit.get('sup_type').disabled">
+                            <input name="sup_type" type="radio" formControlName="sup_type" value="1"><i
+                                class="icon_ui v-m"></i>
+                            <span class="t v-m">80元</span>
+                        </label>
+                        <label class="ui-check p-l-sm" [class.disabled]="co_edit.get('sup_type').disabled">
+                            <input name="sup_type" type="radio" formControlName="sup_type" value="2"><i
+                                class="icon_ui v-m"></i>
+                            <span class="t v-m">120元</span>
+                        </label>
+                        <div class="p-t-xl grey">
+                            如需购买补充医疗险，请先购买团体意外伤害险
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer t-r p-a">
+            <div class="pull-left grey remark">本次修改将对未来账单生效，已有账单不受影响</div>
+            <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" data-dismiss="modal"
+                    (click)="cancelModal()">取消
+            </button>
+            <button type='button' class="btn btn-sm v-m"
+                    (click)="submitModal()">确认
+            </button>
+        </div>
+    </div>
+</div>

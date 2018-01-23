@@ -1,0 +1,48 @@
+<div class="staff-content">
+    <div class="lh-50">
+        <div class="d-ib icon-text-btn">
+            <i class="icon_arrow_left m-l pointer" [routerLink]="['/user/special-service']"></i>
+            <span>专项服务/已购买的专项服务</span>
+        </div>
+    </div>
+    <div style="min-height: 4.7rem;" [class.no-list-bg]="service_list?.length == 0">
+        <div class="clearfix b-t">
+            <table class="saas-table">
+                <thead>
+                <tr class="saas-table-header">
+                    <th></th>
+                    <th *ngFor="let header of table_header"
+                        [class.t-l]="header.adjust == -1"
+                        [class.t-c]="header.adjust == 0"
+                        [class.t-r]="header.adjust == 1">
+                        {{header.column_name}}
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let service of service_list" (click)="toServiceDetail(service)">
+                    <td></td>
+                    <td *ngFor="let header of table_header;let i=index;"
+                        [class.t-l]="header.adjust == -1"
+                        [class.t-c]="header.adjust == 0"
+                        [class.t-r]="header.adjust == 1">
+                        <div class="d-ib" [ngSwitch]="header.column_key">
+                            <img *ngSwitchCase="'image'" [src]="service.service_info.icon" alt="">
+                            <span *ngSwitchCase="'special_service_name'"
+                                  [title]="service.service_info.name > 20? service.service_info.name : ''">{{service.service_info.name | longStringFilter: 20}}</span>
+                            <span *ngSwitchCase="'service_city'">{{service.city_name}}</span>
+                            <span *ngSwitchCase="'service_staff'">{{service.yg_name}}</span>
+                            <span *ngSwitchCase="'service_charge'">{{service.money}}</span>
+                            <span *ngSwitchCase="'service_create_time'">{{service.create_time}}</span>
+                            <span *ngSwitchCase="'service_status'">
+                                    {{service.op_status}}
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <mayihr-paging [page_info]="pagination" [request_url]="current_url" [request_type]="'get'"></mayihr-paging>
+</div>

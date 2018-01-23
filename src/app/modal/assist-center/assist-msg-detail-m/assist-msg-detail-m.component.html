@@ -1,0 +1,27 @@
+<div class="modal in" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content clearfix" style="padding-bottom: .8rem;">
+            <div class="modal-header p-a" [class.b-b]="answer_list.length > 0">
+                <div class="t-md">{{modal_info.type_name}}</div>
+                <div class="t-sm grey">如在线留言无法满足您的需要请直接联系您的专属客服</div>
+            </div>
+            <div class="modal-body p-t p-l p-r">
+                <div class="p-b b-b">
+                    <div class="grey t-sm">{{modal_info.create_time}}</div>
+                    <div class="question">{{modal_info.message}}</div>
+                </div>
+                <div class="bg-light-grey answer-list clearfix">
+                    <div class="answer-item p-t p-b m-l m-r b-b"
+                         *ngFor="let i of answer_list">
+                        <div class="grey t-sm">{{i.create_time}}</div>
+                        <div class="question">{{i.message}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer b-t t-r pointer clearfix lh-60 p-r-lg" style="position: absolute;bottom: 0;width: 100%;">
+            <div (click)="cancelModal()">关闭</div>
+        </div>
+    </div>
+</div>

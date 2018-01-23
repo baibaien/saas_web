@@ -1,0 +1,158 @@
+.virtual-input {
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid #d7d7d7;
+    border-radius: 3px;
+    height: 36px;
+    padding: 0 8px;
+    line-height: 36px;
+    margin: 0;
+    vertical-align: top;
+    color: inherit;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+.mayihr-datepicker {
+    font-size: .14rem;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+.mayihr-datepicker-input {
+    cursor: pointer;
+    width: 100%;
+}
+.mayihr-datepicker-input input {
+    cursor: pointer;
+    width: 100%;
+}
+.mayihr-input-mask {
+    cursor: not-allowed;
+    background: rgba(80, 80, 80, 0.2);
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    z-index: 100;
+}
+.datepicker-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1100;
+}
+.mayihr-datepicker-box {
+    width: 2rem;
+    position: absolute;
+    z-index: 1101;
+    bottom: -2rem;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #f2f2f2;
+    border-radius: 4px;
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+.mayihr-datepicker-day {
+}
+.mayihr-datepicker-icon {
+    position: absolute;
+    right: .05rem;
+    top: 0;
+    line-height: .36rem;
+    /*font-size: .2rem;*/
+}
+.mayihr-datepicker-title:hover {
+    background-color: #f2f2f2;
+    border-radius: 4px;
+    border: none;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    /*color: #eee;*/
+    cursor: pointer!important;
+}
+.mayihr-datepicker-table {
+    height: 1.6rem;
+    width: 100%;
+    table-layout: fixed;
+}
+.mayihr-datepicker-table th{
+}
+.mayihr-datepicker-table td {
+    text-align: center;
+}
+.mayihr-datepicker-day-hover:hover {
+    background-color: #f2f2f2;
+    border-radius: 4px;
+    border: none;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    /*color: #eee;*/
+    cursor: pointer!important;
+}
+.current-select {
+    background-color: #33ac37!important;
+    border-radius: 4px;
+    border: none;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    color: #eee!important;
+}
+.other-month {
+    color: #f2f2f2;
+}
+.inoperable {
+    color: #f2f2f2;
+    background: white;
+}
+.month-box td:hover {
+    /*background-color: #33ac37;*/
+    border-radius: 4px;
+    background-color: #f2f2f2;
+    border: none;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    /*color: #eee;*/
+    cursor: pointer!important;
+}
+.grey {
+    color: rgba(80,80,80,0.4);
+}
+.black {
+    color: black;
+}
+
+.pre-unit {
+    width: 12%;
+    float: left;
+    text-align: right;
+}
+
+.this-unit {
+    width: 76%;
+    float: left;
+    text-align: center;
+}
+
+.next-unit {
+    width: 12%;
+    float: right;
+
+}
+
+.clear {
+    zoom: 1;
+    clear: both;
+}
+.clear::before {
+    content: '';
+    clear: both;
+}
+.clear::after {
+    content: '';
+    clear: both;
+}
+

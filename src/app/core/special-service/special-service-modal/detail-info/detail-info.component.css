@@ -1,0 +1,11 @@
+.area {
+    box-sizing: border-box;
+    padding-right: .4rem;
+}
+.modal .modal-dialog {
+    max-height: none;
+}
+
+.grey {
+    color: #505050;
+}

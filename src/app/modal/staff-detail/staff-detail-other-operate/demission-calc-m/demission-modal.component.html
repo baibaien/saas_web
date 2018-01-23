@@ -1,0 +1,288 @@
+<div class="modal in p-b-lg" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header p-a b-b">
+                <p class="t-md">离职薪酬结算</p>
+                <p class="t-sm grey">将自动填入工资表和离职协议</p>
+            </div>
+            <div class="modal-body ">
+                <div class="p-a b-b">
+                    <label class="tab m-r " *ngFor="let item of setting_tab; let i = index">
+                        <input type="radio" name="setting" value="{{item.value}}" (click)="setSetting($event)">
+                        <span [class.active]="setting == item.value">{{item.text}}</span>
+                    </label>
+                </div>
+                <form action="" [formGroup]="calc_salary">
+                    <ng-container formArrayName="adjust_data" *ngIf="setting == 1">
+                        <div *ngFor="let adjust of calc_salary.get('adjust_data').controls;let i=index;"
+                             class="v-t pointer-none p-a b-b">
+                            <ng-container *ngIf="calc_salary.get('adjust_data').controls.length > 1">
+                                {{time_info[i].time}}
+                            </ng-container>
+                            <div class="m-b-sm b-b clearfix p-t-sm p-b">
+                                <div class="m-t-xs m-b-sm p-r-lg">
+                                    <label class="grey d-ib">无薪假</label>
+                                    <div class="d-ib pull-right grey" [title]="system_data['1'] || ''">
+                                        {{system_data['1'] || 0}}
+                                    </div>
+                                </div>
+                                <div [formArrayName]=i style="padding-right: .2rem;">
+                                    <div>
+                                        <div formGroupName="0" class="pull-right">
+                                            <div class="pull-right">
+                                                <div class="d-ib add-box">
+                                                    <div class="d-ib v-m t add-icon b-r grey">
+                                                        +
+                                                    </div>
+                                                    <div class="d-ib v-m t">
+                                                        <input type="text" class="add-input" formControlName="duration">
+                                                    </div>
+                                                </div>
+                                                <div class="d-ib v-m" style="width: .8rem;">
+                                                    <mayihr-select formControlName="show_unit"
+                                                                   [SelectConfig]="{type: 2}"
+                                                                   [SelectData]="show_unit"></mayihr-select>
+                                                </div>
+                                            </div>
+                                            <div class="t-r pull-right clearfix">
+                                                <div class="d-ib error t-r"
+                                                     *ngIf="!calc_salary.get('adjust_data').controls[i].controls[0].get('duration').valid">
+                                                    时长为大于零，最多保留一位小数的数字
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="b-b m-b-sm clearfix p-t-sm p-b-sm">
+                                <div class="m-t-xs m-b-sm p-r-lg clearfix">
+                                    <label class="grey d-ib">病假</label>
+                                    <div class="pull-right short-text" [title]="system_data['2'] || ''">
+                                        <div class="d-ib grey">
+                                            {{system_data['2'] || 0}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="padding-right: .2rem;" [formArrayName]=i>
+                                    <div *ngFor="let item of calc_salary.get('adjust_data').controls[i].controls[1].controls;let j=index;">
+                                        <div formArrayName="1">
+                                            <div class="p-b-xs pull-right" [formGroupName]=j>
+                                                <div class="pull-right">
+                                                    <div class="d-ib add-box">
+                                                        <div class="d-ib v-m t add-icon b-r grey">
+                                                            +
+                                                        </div>
+                                                        <div class="d-ib v-m t">
+                                                            <input type="text" class="add-input"
+                                                                   formControlName="duration">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-ib w-80 v-m">
+                                                        <mayihr-select [SelectConfig]="{type: 2}"
+                                                                       [SelectData]="show_unit"
+                                                                       formControlName="show_unit"></mayihr-select>
+                                                    </div>
+                                                    <div class="d-ib w-120 v-m">
+                                                        <mayihr-select [SelectConfig]="{type: 2}"
+                                                                       [SelectData]="rate_absence"
+                                                                       formControlName="rate"></mayihr-select>
+                                                    </div>
+                                                </div>
+                                                <div class="t-r pull-right clearfix">
+                                                    <div class="d-ib error t-r"
+                                                         *ngIf="!calc_salary.get('adjust_data').controls[i].controls[1].controls[j.toString()].get('duration').valid">
+                                                        时长为大于零，最多保留一位小数的数字
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div formGroupName="3">
+                                        <div formArrayName="rate_input">
+                                            <div *ngFor="let item of calc_salary.get('adjust_data').controls[i].controls[3].controls['rate_input'].controls;let j=index;"
+                                                 class="p-b-xs pull-right" [formGroupName]=j>
+                                                <div class="pull-right">
+                                                    <div class="d-ib add-box">
+
+                                                        <div class="d-ib v-m t add-icon b-r grey">
+                                                            +
+                                                        </div>
+                                                        <div class="d-ib v-m t">
+                                                            <input type="text" class="add-input"
+                                                                   formControlName="duration">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-ib w-80 v-m">
+                                                        <mayihr-select [SelectConfig]="{type: 2}"
+                                                                       [SelectData]="show_unit"
+                                                                       formControlName="show_unit"></mayihr-select>
+                                                    </div>
+                                                    <div class="d-ib w-120 v-m">
+                                                        <mayihr-select [SelectConfig]="{type: 2}"
+                                                                       [SelectData]="rate_absence"
+                                                                       formControlName="rate"></mayihr-select>
+                                                    </div>
+                                                </div>
+                                                <div class="t-r pull-right clearfix">
+                                                    <div class="d-ib error t-r"
+                                                         *ngIf="!calc_salary.get('adjust_data').controls[i].controls[3].controls['rate_input'].controls[j].get('duration').valid">
+                                                        时长为大于零，最多保留一位小数的数字
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="p-t clearfix pointer pull-right"
+                                         (click)="createRecord(calc_salary.get('adjust_data').controls[i].controls[3].controls['rate_input'], 1)">
+                                        <i class="icon_add v-m"></i>添加其他比例的记录
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix p-t-sm p-b-sm">
+                                <div class="m-t-xs m-b-sm p-r-lg clearfix">
+                                    <label class="grey d-ib">加班（补偿加班工资）</label>
+                                    <div class="short-text pull-right" [title]="system_data['3'] || ''">
+                                        <div class="d-ib grey">
+                                            {{system_data['3'] || 0}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div [formArrayName]="i" style="padding-right: .2rem;">
+                                    <div *ngFor="let item of calc_salary.get('adjust_data').controls[i].controls[2].controls;let j=index;">
+                                        <div formArrayName="2">
+                                            <div class="p-b-xs pull-right" [formGroupName]="j">
+                                                <div class="pull-right">
+                                                    <div class="d-ib add-box">
+                                                        <div class="d-ib v-m t add-icon b-r grey">
+                                                            +
+                                                        </div>
+                                                        <div class="d-ib v-m t">
+                                                            <input type="text" class="add-input"
+                                                                   formControlName="duration">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-ib w-80 v-m">
+                                                        <mayihr-select [SelectConfig]="{type: 2}"
+                                                                       [SelectData]="show_unit"
+                                                                       formControlName="show_unit"></mayihr-select>
+                                                    </div>
+                                                    <div class="d-ib w-120 v-m">
+                                                        <mayihr-select [SelectConfig]="{type: 2}"
+                                                                       [SelectData]="rate_overtime"
+                                                                       formControlName="rate"></mayihr-select>
+                                                    </div>
+                                                </div>
+                                                <div class="t-r pull-right clearfix">
+                                                    <div class="d-ib error t-r"
+                                                         *ngIf="!calc_salary.get('adjust_data').controls[i].controls[2].controls[j].get('duration').valid">
+                                                        时长为大于零，最多保留一位小数的数字
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div formGroupName="3">
+                                        <div formArrayName="overtime_input">
+                                            <div *ngFor="let item of calc_salary.get('adjust_data').controls[i].controls[3].controls['overtime_input'].controls;let j=index;"
+                                                 [formGroupName]=j class="p-b-xs pull-right">
+                                                <div class="pull-right">
+                                                    <div class="d-ib add-box">
+                                                        <div class="d-ib v-m t add-icon b-r grey">
+                                                            +
+                                                        </div>
+                                                        <div class="d-ib v-m t">
+                                                            <input type="text" class="add-input"
+                                                                   formControlName="duration">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-ib w-80 v-m">
+                                                        <mayihr-select [SelectConfig]="{type: 2}"
+                                                                       [SelectData]="show_unit"
+                                                                       formControlName="show_unit"></mayihr-select>
+                                                    </div>
+                                                    <div class="d-ib w-120 v-m">
+                                                        <mayihr-select [SelectConfig]="{type: 2}"
+                                                                       [SelectData]="rate_overtime"
+                                                                       formControlName="rate"></mayihr-select>
+                                                    </div>
+                                                </div>
+                                                <div class="t-r clearfix pull-right">
+                                                    <div class="d-ib error t-r"
+                                                         *ngIf="!calc_salary.get('adjust_data').controls[i].controls[3].get('overtime_input').controls[j].get('duration').valid">
+                                                        时长为大于零，最多保留一位小数的数字
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="p-t clearfix pointer pull-right"
+                                         (click)="createRecord(calc_salary.get('adjust_data').controls[i].controls[3].controls['overtime_input'], 2)">
+                                        <i class="icon_add v-m"></i>
+                                        <span>添加其他比例的记录</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <div formGroupName="bonus_data">
+                        <div class="p-a" *ngIf="setting == 2">
+                            <div formArrayName="2">
+                                <div class="" style="min-height: 3rem;"
+                                     [class.no-list-bg]="calc_salary.get('bonus_data').get('2')['controls']?.length == 0">
+                                    <div class="m-b-sm clearfix p-t-sm p-b-sm"
+                                         *ngFor="let item of calc_salary.get('bonus_data').get('2')['controls']; let i = index;"
+                                         [class.b-b]="i < calc_salary.get('bonus_data').get('2')['controls']?.length - 1">
+                                        <div [formGroupName]="i">
+                                            <div class="clearfix">
+                                                <span class="grey d-ib m-b-xs m-t-xs ellipsis">{{item.value.name}}</span>
+                                                <input type="text" formControlName="bonus_money" placeholder="0或空则不发放"
+                                                       class="pull-right t-r">
+                                            </div>
+                                            <div class="t-r"
+                                                 *ngIf="!calc_salary.get('bonus_data').get('2').get(i.toString()).get('bonus_money').valid">
+                                                <div class="d-ib error">
+                                                    金额必须为大于零的数字
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-a" *ngIf="setting == 3">
+                            <div formArrayName="1">
+                                <div class="" style="min-height: 3rem;"
+                                     [class.no-list-bg]="calc_salary.get('bonus_data').get('1')['controls']?.length == 0">
+                                    <div class="m-b-sm b-b clearfix p-t-sm p-b-sm"
+                                         *ngFor="let item of calc_salary.get('bonus_data').get('1')['controls']; let i = index;"
+                                         [class.b-b]="i < calc_salary.get('bonus_data').get('1')['controls']?.length - 1">
+                                        <div [formGroupName]="i">
+                                            <div class="clearfix">
+                                                <span class="grey d-ib m-b-xs m-t-xs  ellipsis">{{item.value.name}}</span>
+                                                <input type="text" formControlName="bonus_money" placeholder="0或空则不发放"
+                                                       class="pull-right  t-r">
+                                            </div>
+                                            <div class="t-r"
+                                                 *ngIf="!calc_salary.get('bonus_data').get('1').get(i.toString()).get('bonus_money').valid">
+                                                <div class="d-ib error">
+                                                    金额必须为大于零的数字
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="b-t btn-group t-r p-a">
+                    <button class="reverse t-sm light v-m m-r-sm btn btn-sm" (click)="cancelModal()">取消</button>
+                    <button class="btn btn-sm" [class.disabled]="calc_salary.invalid"
+                            (click)="saveMsg()">保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<!--联系人设置-->
+<div class="p-a-lg" *ngIf="contact_data">
+    <div class="account-contact">
+        <div>
+            <span class="t-md">联系人</span>
+            <span class="pull-right pointer m-r"
+                  (click)="showContactSetting()"><i
+                    class="icon_edit_simple m-r-sm"></i>编辑</span>
+        </div>
+        <div class="p-a p-l-sm clearfix clear">
+            <div class="half p-r-lg">
+                <div class="form-group clearfix">
+                    <label class="form-label grey">姓名</label>
+                    <div class="form-control">
+                        <p>{{ contact_data['contact'] }}</p>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="form-label grey">岗位</label>
+                    <div class="form-control">
+                        <p>{{ contact_data['position'] }}</p>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="form-label grey">称谓</label>
+                    <div class="form-control">
+                        <p>{{ contact_data['gender_name'] || '暂无'}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="half p-l">
+                <div class="form-group clearfix">
+                    <label class="form-label grey">电子邮箱</label>
+                    <div class="form-control">
+                        <p>{{ contact_data['email'] }}</p>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="form-label grey">手机</label>
+                    <div class="form-control">
+                        <p>{{ contact_data['mobile'] }}</p>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="form-label grey">固定电话</label>
+                    <div class="form-control">
+                        <p>{{ contact_data['phone']}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--联系人设置end-->
+
+<app-contact-setting *ngIf="modal_name === 'contact_setting_m'"
+                     [modal_name]="modal_name" [modal_info]="modal_info"
+                     [modal_callback]="modal_callback"></app-contact-setting>

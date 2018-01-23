@@ -1,0 +1,9 @@
+<div class="assist-box" [class.no-list-bg]="answer?.hasOwnProperty('length')">
+    <ng-container *ngIf="!answer?.hasOwnProperty('length')">
+        <div class="assist-header b-b">
+            {{answer?.title}}
+        </div>
+        <div *ngIf="answer" class="assist-inner p-l-lg p-t p-r-lg" [innerHTML]="answer?.content">
+        </div>
+    </ng-container>
+</div>

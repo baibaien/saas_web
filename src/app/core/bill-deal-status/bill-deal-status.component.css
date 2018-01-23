@@ -1,0 +1,8 @@
+.test {
+    line-height: normal;
+    padding-top: .2rem;
+}
+
+th:nth-child(6) {
+    width: 1.6rem;
+}

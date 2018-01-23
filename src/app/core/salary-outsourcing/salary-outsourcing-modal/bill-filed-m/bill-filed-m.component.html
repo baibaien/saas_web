@@ -1,0 +1,34 @@
+<div class="modal in" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="t-c p-b p-t-lg">
+                    <i class="t-36 icon_error t-48 grey"></i>
+                </div>
+                <div class="t-c t-20 p-b">
+                    即将归档账单中包含的薪资数据
+                </div>
+                <div class="m-l m-r p-b">
+                    生成账单后，系统需要将对应员工的薪资数据归档，即使重新计算包含这分数据的工资表，这些数据也将不再改动。
+                    如需重新计算这部分员工的薪资数据，您需要首先删除对应的账单。
+                </div>
+                <div class="t-c p-b p-t-xxl">
+                    <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" data-dismiss="modal"
+                            (click)="cancelModal()">取消
+                    </button>
+                    <button type='button' class="btn btn-sm v-m"
+                            (click)="submitModal()">继续
+                    </button>
+                    <div>
+                        <span class="ui-check icon-text-btn lh-60" (click)="isShowAgain()">
+                            <input type="checkbox" name="choose_staff" [(ngModel)]="is_hide_again">
+                            <i class="icon_ui hover_show pointer-no-color lh-60"></i>
+                            <span>以后不再提示</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+.block {
+  width: 25%;
+}
+.t-40 {
+  font-size: .4rem;
+}
+.product-exp {
+  /*float: left;*/
+}
+
+.section1 {
+  background: url("/assets/index/product-system/product-system-bg.png") top center no-repeat;
+  background-size: auto;
+}
+@media screen and (max-width: 640px){
+  .section1>div {
+    padding-top:.8rem !important;
+    padding-bottom:1.5rem !important;
+  }
+
+  .content .mobile-t28 {
+    margin-top: .2rem;
+    font-weight: bold;
+  }
+  .w-300 {
+    float:none !important;
+    width: auto !important;
+    margin: 0 !important;
+  }
+  .w-300 h2, .w-300 p {
+    text-align: center;
+  }
+  .w-300 p {
+    width:3.50rem;
+    margin: 0 auto;
+  }
+  .product-exp {
+    width: 100% !important;
+    margin:0 !important;
+  }
+}

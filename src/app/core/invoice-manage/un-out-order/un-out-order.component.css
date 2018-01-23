@@ -1,0 +1,53 @@
+.ui-check .hover_show:after {
+    color: #ffffff !important;
+}
+
+.ui-check .ever_show:after {
+    color: rgba(208, 208, 208, 0.7) !important;
+}
+
+tr td input:checked + .hover_show:after {
+    color: #33ac37 !important;
+}
+
+input:checked + .hover_show:after {
+    color: #33ac37;
+}
+
+.choose-status {
+    height: .5rem;
+}
+
+.choose-status > div > span {
+    line-height: .5rem;
+}
+
+.choose-status > div > i {
+    line-height: .5rem;
+}
+
+.saas-table-header th:nth-child(5) {
+    width: 2.5rem;
+    padding-right: .5rem;
+
+}
+
+.content td:last-child {
+    padding-right: .5rem;
+}
+
+.page-footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    height: .5rem;
+    margin-top: .5rem;
+}
+
+.page-footer > div {
+    line-height: .5rem;
+}
+
+.pos-adjust {
+    margin-top: .5rem;
+}

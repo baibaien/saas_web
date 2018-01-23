@@ -1,0 +1,27 @@
+<div class="pos-adjust"></div>
+<div class="paging-box b-t" *ngIf="page_info && page_info?.total_pages > 0">
+    <div class="paging-content" *ngIf="is_all_display">
+        <div class="grey">共{{page_info?.total}}条记录</div>
+        <span class="green pointer" (click)="hideAll()">收起全部</span>
+    </div>
+    <div class="paging-content" *ngIf="!is_all_display">
+        <div class="grey">共{{page_info?.total}}条记录</div>
+        <span class="pointer" (click)="showAll()" *ngIf="page_info?.total > 10">显示全部</span>
+        <div class="page-control-box d-ib pull-right" *ngIf="page_info?.total > 10">
+            <div>每页{{page_info?.per_page === 1000 ? '' : page_info?.per_page}}条记录</div>
+            <div style="cursor: auto;" [class.pointer]="current_page != 1"><i class="icon_previous v-m" (click)="toPage(1)"></i></div>
+            <div [class.pointer]="current_page != 1" (click)="toPage(page_info?.current_page - 1)">
+                <i class="icon_left_triangle"
+                   ></i>
+            </div>
+            <div>
+            <div class="page-input"><span class="p-r-xs">第</span><input type="text" [(ngModel)]="current_page" style="text-align: center; vertical-align: middle"
+                          (keyup.enter)="toPage(current_page)"><span class="p-l-xs">页</span>
+            </div>
+                <span> 共{{page_info?.total_pages}}页</span>
+            </div>
+            <div [class.pointer]="current_page != page_info?.total_pages"  (click)="toPage(page_info?.current_page + 1)"><i class="icon_right_triangle"></i></div>
+            <div [class.pointer]="current_page != page_info?.total_pages"><i class="icon_next" (click)="toPage(page_info?.total_pages)"></i></div>
+        </div>
+    </div>
+</div>

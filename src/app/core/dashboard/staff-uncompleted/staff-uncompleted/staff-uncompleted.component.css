@@ -1,0 +1,12 @@
+tr th:nth-child(2) {
+    width: 2rem;
+}
+
+tr th:nth-child(3) {
+    width: 2rem;
+}
+
+tr:hover {
+    cursor: pointer;
+    background: rgba(50, 50, 50, 0.05);
+}

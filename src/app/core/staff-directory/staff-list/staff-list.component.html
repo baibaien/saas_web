@@ -1,0 +1,188 @@
+<div class="staff-content" *ngIf="!isAdvancedFilter">
+    <div class="p-t p-b">
+        <span class="d-ib m-l">员工名录</span>
+        <a class="d-ib  p-l-lg p-r-lg pull-right pointer" (click)="toStaffOrg()"><i
+                class="icon_companies m-r-xs v-m"></i>组织架构</a>
+    </div>
+    <ng-container *ngIf="staff_list">
+        <div class="clearfix b-t">
+            <div class="clearfix m-t">
+                <a [routerLink]="['/user/staff/staff-upload']" class="p-l-lg p-r-lg pointer">
+                    <i class="icon_add m-r-sm green"></i><span>添加员工</span></a>
+                <a class="p-l-lg pointer-blue" [routerLink]="['/user/staff/staff-batch-upload']">
+                    <i class="icon_upload m-r-sm blue"></i><span>批量导入</span></a>
+            </div>
+            <mayihr-filter [filter_term]="filter_term"
+                           [view_type]="'quick_filter'"
+                           [request_url]="list_info_url"
+                           [request_type]="'post'" [choose_type]="'single'"></mayihr-filter>
+        </div>
+        <div class="b-b b-t" *ngIf="!choose_staff_num">
+            <mayihr-searching [request_type]="'post'" [request_url]="list_info_url"
+                              [other_operate]="other_operate_info"
+                              [placeholder]="'输入员工姓名、工号、手机号码、身份证进行搜索'"></mayihr-searching>
+        </div>
+        <div *ngIf="choose_staff_num" class="clearfix p-l-lg b-b" style="line-height: .51rem;"
+             [class.b-t]="choose_staff_num">
+            <div class="d-ib p-r-lg">
+                已选择{{choose_staff_num}}人
+            </div>
+            <div class="d-ib p-l-lg p-r-lg" (click)="clickChooseStaff($event, 'all')">
+                <span class="pointer">全选</span>
+            </div>
+            <div class="d-ib p-l-lg p-r-lg" (click)="clickChooseStaff($event, 'none')">
+                <span class="pointer">取消选择</span>
+            </div>
+            <div class="d-ib pull-right pointer m-r-lg" (click)="changePersonalBatch()">
+                <i class="icon_edit m-r-xs"></i>批量人事变动
+            </div>
+        </div>
+        <mayihr-filter-status [request_url]="list_info_url" [request_type]="'post'"
+                              [filter_term]="filter_term"></mayihr-filter-status>
+        <div class="staff-th-choose-box clear b-b" *ngIf="table_custom">
+            <div class="p-t clear">
+                <p>启用表头字段</p>
+                <div class="staff-th-choose clear">
+                    <ul dnd-sortable-container [dropZones]="['source-dropZone']"
+                        [sortableData]="table_header_copy">
+                        <ng-container *ngFor="let term of table_header_copy;let i = index">
+                            <li class="pull-left" *ngIf="term.display && term.must_display !== 1"
+                                dnd-sortable [sortableIndex]="i" (click)="toggleHeader(i)">
+                                <div class="p-a-sm pointer">
+                                    <i class="m-r-xs icon_re_arrange_handle"></i>
+                                    <span class="pointer">{{term.column_name}}</span>
+                                    <i class="m-l-xs icon_close"></i>
+                                </div>
+                            </li>
+                        </ng-container>
+                    </ul>
+                </div>
+            </div>
+            <div class="p-t clear">
+                <p>禁用表头字段</p>
+                <div class="staff-th-choose clear">
+                    <ul dnd-sortable-container [dropZones]="['source-dropZone']"
+                        [sortableData]="table_header_copy" class="header-show">
+                        <ng-container *ngFor="let term of table_header_copy;let i = index">
+                            <li class="pull-left" *ngIf="!term.display && term.must_display !== 1"
+                                dnd-sortable [sortableIndex]="i" (click)="toggleHeader(i)">
+                                <div class="p-a-sm pointer">
+                                    <i class="m-r-sxs icon_add"></i>
+                                    <span class="pointer">{{term.column_name}}</span>
+                                </div>
+                            </li>
+                        </ng-container>
+                    </ul>
+                </div>
+            </div>
+            <div class="p-t clear">
+                <button class="pull-right btn btn-sm m-l m-b-lg" (click)="customHeaderCommit()">应用</button>
+                <button class="pull-right btn btn-sm reverse" (click)="customHeaderCancel()">取消</button>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="pos-r clear" [class.no-list-bg]="staff_list?.length == 0">
+            <span class="icon_config header-setting pos-a pointer" (click)="toggleTableCustom()"></span>
+            <div class="staff-table-box" #table_scroll (scroll)="tableScroll(table_scroll)">
+                <table class="staff-list-table m-l-sm" [class.table-scroll]="is_scroll">
+                    <tr>
+                        <ng-container *ngFor="let i of table_header; let foo = index">
+                            <th *ngIf="i.display || i.must_display" [class.header-range]="foo != 0">
+                                <div class="pos-r">
+                                    <span>{{ i.column_name }}</span>
+                                    <i class="icon_triangle_down v-m pointer-no-color" (click)="filterChooseToggle(foo)"
+                                       *ngIf="i.filter !== 0"></i>
+                                    <mayihr-filter [filter_term]="filter_term"
+                                                   [view_type]="'table_filter'"
+                                                   [request_url]="list_info_url"
+                                                   [request_type]="'post'"
+                                                   (close_filter)="closeFilter($event)"
+                                                   [operate_data]="i">
+                                    </mayihr-filter>
+                                </div>
+                            </th>
+                        </ng-container>
+                        <th *ngIf="table_header_status < 2"></th>
+                        <th></th>
+                    </tr>
+
+                    <tr *ngFor="let staff of staff_list;let i=index;" (click)="toStaffDetail(staff.id)">
+                        <ng-container>
+                            <td class="b-b pos-r pointer-no-color">
+                                <div class="d-ib check-area pos-a">
+                                    <!--<div class="d-ib" *ngIf="staff.status == 2" style="width: .25rem"></div>-->
+                                    <div class="d-ib">
+                                    <span class="ui-check" [class.disabled]="staff.status == 2"
+                                          style="line-height:.5rem;">
+                                    <input type="checkbox" name="choose_staff" [(ngModel)]="staff.choosed">
+                                    <i (click)="clickChooseStaff($event, i, staff.status)"
+                                       class="icon_ui hover_show v-m"
+                                       style="line-height:.5rem;"
+                                       [class.ever_show]="choose_staff_num > 0"></i>
+                                    </span>
+                                    </div>
+                                </div>
+                                <div class="d-ib bg-white "
+                                     [title]="staff['yg_name'].length > 5? staff['yg_name']: ''">
+                                    {{staff['yg_name'] | longStringFilter:5}}
+                                </div>
+                            </td>
+                        </ng-container>
+                        <ng-container *ngFor="let j of table_header">
+                            <td class="b-b" *ngIf="j.column !== 'yg_name' && !(!j.display && j.must_display !== 1)">
+                                <div class="d-ib" [title]="staff[j.column]?.length > 18? staff[j.column]: ''">
+                                    {{staff[j.column] | longStringFilter:18}}
+                                </div>
+                            </td>
+                        </ng-container>
+                        <td class="b-b" *ngIf="table_header_status < 2"></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div>
+            <mayihr-paging [request_url]="list_info_url" [request_type]="'post'"
+                           [page_info]="page_info"></mayihr-paging>
+        </div>
+    </ng-container>
+</div>
+<div class="staff-content pos-r" *ngIf="isAdvancedFilter">
+    <div class="p-t  p-b">
+        <a (click)="filterCancel()" class="m-l m-r-sm"><i class="icon_arrow_left m-r-xs pointer"></i></a>
+        <span class="d-ib">员工名录/高级筛选</span>
+        <div class="d-ib  p-l-lg p-r-lg pull-right red" *ngIf="filter_num === 10">筛选条件添加上限为10</div>
+    </div>
+    <div class="clearfix b-t">
+        <div class="clearfix m-l m-r advance-filter-term">
+            <ul>
+                <ng-container *ngFor="let i of filter_term; let parent_i =index">
+                    <li *ngIf="i.child.length > 0 && i.commit_id != 'status' && i.commit_id != 'others'"
+                        class="clearfix">
+                        <div class="pull-left p-r-xl type-width d-ib p-t p-b">{{i.name}}</div>
+                        <ul class="pull-right d-ib  p-t p-b" style="width: 85%!important;" id="nav">
+                            <li *ngFor="let j of i.child;let current_i = index"
+                                class="d-ib p-r-sm">
+                                <label class="tab_bar">
+                                <span class="pointer p-l-sm p-r-sm m-b-xs"
+                                      (click)="chooseFilter(parent_i, current_i)"
+                                      [class.term-bg]="j.status">{{j.name}}
+                                </span>
+                                </label>
+                            </li>
+                        </ul>
+                    </li>
+                </ng-container>
+
+            </ul>
+        </div>
+    </div>
+    <div class="filterResult m-l m-r pos-a">
+        <div class="pull-left pointer" (click)="filterClear()"><i class="icon_delete p-r"></i>清空筛选条件</div>
+        <div class="pull-right ">
+            <button class="btn btn-sm reverse m-b v-m m-r-sm m-t-sm" (click)="filterCancel()">放弃</button>
+            <button class="btn btn-sm v-m m-b m-t-sm m-r" (click)="filterSubmit()">完成</button>
+        </div>
+    </div>
+</div>
+

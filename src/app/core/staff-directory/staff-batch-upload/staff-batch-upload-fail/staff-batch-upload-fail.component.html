@@ -1,0 +1,33 @@
+<div class="staff-content pos-r">
+    <div class="p-t b-b p-b">
+        <div class="d-ib icon-text-btn">
+            <i class="icon_arrow_left m-l" [routerLink]="['/user/staff']"></i>
+            <span>员工名录/批量导入</span>
+        </div>
+    </div>
+    <div class="p-t-xxl t-c">
+        <div class="t-c m-b">
+            <i class="icon_alert t-36 grey"></i>
+        </div>
+        <h5 class="t-20 t-c m-b-xs">部分信息有误</h5>
+        <p class="t-c m-b-lg">
+            可成功导入{{init_data['success_count']}}人，信息异常{{init_data['failure_count']}}人，错误信息已在Excel表中标注</p>
+        <div (click)="downErrorExcel()" class="pointer icon-text-btn">
+            <i class="icon_download"></i><span>下载标注后的Excel</span>
+        </div>
+    </div>
+    <div class="pos-a full-w t-c">
+        <button class="btn reverse m-r" (click)="gaveupExcel()">放弃</button>
+        <div class="pos-r d-ib m-t-xl" *ngIf="!show_excel">
+            <p class="up-text">上传</p>
+            <input class="" type="file" (change)="uploadExcel($event)">
+        </div>
+        <div class="pos-r d-ib m-t-xl" *ngIf="show_excel">
+            <p class="up-text">上传</p>
+            <input class="" type="file" (change)="uploadExcel($event)">
+        </div>
+        <p class="grey m-t m-b-sm t-c">您也可以此次只导入可成功导入的部分员工，<span class="t-u pointer" (click)="saveExcel()">点此继续</span>
+        </p>
+    </div>
+    <app-modal-notice [modal_name]="modal_info" [modal_info]="modal_obj"></app-modal-notice>
+</div>

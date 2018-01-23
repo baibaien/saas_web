@@ -1,0 +1,255 @@
+<div class="dashboard clearfix">
+    <div class="dashboard-left">
+        <!--待办事项-->
+        <div class="dashboard-box">
+            <div class="dashboard-header clearfix">
+                <div class="d-ib p-l">待办事项
+                    <div class="d-ib undo-count" [class.no-undo-list]="undo_count == 0" *ngIf="undo_count >= 0">
+                        {{undo_count}}
+                    </div>
+                </div>
+                <div class="pull-right pointer m-r icon-text-btn" (click)="toggleUndo()">
+                    <i [class]="show_undo ? 'icon_angle_up' : 'icon_downward'"></i>
+                    <span>{{show_undo ? '收起' : '展开'}}</span>
+                </div>
+            </div>
+            <ng-container *ngIf="show_undo">
+                <ng-container *ngIf="undo_count == 0">
+                    <div class="t-c p-t p-b b-t">
+                        <img src="../../../assets/info-png/invalid-name.png" alt="">
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="undo_count > 0">
+                    <div class="dashboard-content b-t">
+                        <div class="dashboard-item pointer-no-color" (click)="toUnpayList()"
+                             *ngIf="dashboard_data?.unpay_order_count > 0">
+                            <div class="pull-left">
+                                <div class="dashboard-item-header">
+                                    <span>有{{dashboard_data?.unpay_order_count}}个订单尚未完成支付，请前往处理</span>
+                                </div>
+                            </div>
+                            <div class="pull-right">
+                                <i class="icon_star m-r-sm yellow v-m"></i><span class="grey v-m">重要</span>
+                                <div class="d-ib item-icon-box">
+                                    <i class="icon_right_triangle pointer"></i>
+                                </div>
+                            </div>
+                            <i class="icon_pay item-header-icon"></i>
+                        </div>
+                        <div class="dashboard-item pointer-no-color"
+                             (click)="toSalaryOutsourcing()"
+                             *ngIf="all_bill_list?.length > 0">
+                            <div class="pull-left">
+                                <div class="dashboard-item-header">
+                                    <span>{{bill_show}}</span>
+                                </div>
+                            </div>
+                            <div class="pull-right">
+                                <i class="icon_star m-r-sm yellow v-m"></i><span class="grey v-m">重要</span>
+                                <div class="d-ib item-icon-box">
+                                    <i class="icon_right_triangle pointer"></i>
+                                </div>
+                            </div>
+                            <i class="icon_out_source item-header-icon"></i>
+                        </div>
+                        <div class="dashboard-item pointer-no-color"
+                             (click)="toStaffUncompleted()"
+                             *ngIf="dashboard_data?.incomplete_staff_total > 0">
+                            <div class="pull-left">
+                                <div class="dashboard-item-header">
+                                    <span class="black">补全员工信息</span>
+                                </div>
+                            </div>
+                            <div class="pull-right">
+                                <div class="d-ib item-icon-box">
+                                    <i class="icon_right_triangle pointer"></i>
+                                </div>
+                            </div>
+                            <i class="icon_staff_list item-header-icon"></i>
+                        </div>
+                        <div class="dashboard-item pointer-no-color"
+                             (click)="toNotification()"
+                             *ngIf="notice_data?.unread_amount > 0">
+                            <div class="pull-left">
+                                <div class="dashboard-item-header" [title]="notice_data?.title.length > 15 ? notice_data?.title : ''">
+                                    <span class="black">请阅读{{'《' + (notice_data?.title | longStringFilter: 15) + '》'}}{{notice_data?.unread_amount > 0 ? '等' + notice_data?.unread_amount + '条重要通知': ''}}</span>
+                                </div>
+                            </div>
+                            <div class="pull-right">
+                                <div class="d-ib item-icon-box">
+                                    <i class="icon_right_triangle pointer"></i>
+                                </div>
+                            </div>
+                            <i class="icon_notification item-header-icon"></i>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </div>
+
+
+        <!--统计-->
+        <div class="dashboard-box">
+            <div class="dashboard-header b-b">
+                <div class="d-ib p-l">统计</div>
+            </div>
+            <div class="dashboard-content pos-r">
+                <div style="height: 1rem;box-sizing: border-box;padding-top: .18rem;" class="b-b p-l-xl">
+                    <div class="pull-left" style="width: 33%;">
+                        <div class="t-24 bold">{{dashboard_data?.staffs}}</div>
+                        <div class="grey">在职员工</div>
+                    </div>
+                    <div class="pull-left" style="width: 33%;">
+                        <div class="t-24 bold">{{dashboard_data?.year_begin_staffs}}</div>
+                        <div class="grey">年初人数</div>
+                    </div>
+                    <div class="pull-left" style="width: 33%;">
+                        <div class="t-24 bold">{{dashboard_data?.year_turnover_rate * 100 | number: '1.2-2'}}%</div>
+                        <div class="grey">年初至今离职率</div>
+                    </div>
+                </div>
+                <div class="p-l p-t p-r b-b p-b clearfix">
+                    <div class="grey p-b">入/离职情况统计</div>
+                    <div *ngIf="staff_calc_show" style="height: 4rem;" echarts
+                         [options]="staff_calc_echarts"
+                         class="demo-chart"></div>
+                    <div *ngIf="!staff_calc_show"
+                         class="grey p-t p-l p-r p-b no_data_box">
+                        <div class="no_data">
+                            <div class="t-c">
+                                <i class="icon_poll"></i>
+                            </div>
+                            <div class="t-c">
+                                暂无入离职情况
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-l p-r p-t b-b p-b">
+                    <div class="grey p-b">员工人均成本(单位:千元)</div>
+                    <div *ngIf="dashboard_data?.stat_user_avg_cost_month.toString() !== ''" style="height: 4rem;"
+                         echarts
+                         [options]="staff_avg_cost_echarts" class="demo-chart"></div>
+                    <div *ngIf="dashboard_data?.stat_user_avg_cost_month.toString() === ''"
+                         class="grey p-t p-l p-r p-b no_data_box">
+                        <div class="no_data">
+                            <div class="t-c">
+                                <i class="icon_poll"></i>
+                            </div>
+                            <div class="t-c">
+                                暂无数据
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-l p-r p-t p-b">
+                    <div class="grey">司龄分布</div>
+                    <div *ngIf="dashboard_data?.employee_age_dist.toString() !== ''" style="height: 3rem;" echarts
+                         [options]="employee_age_dist_echarts" class="demo-chart"></div>
+                    <div *ngIf="dashboard_data?.employee_age_dist.toString() === ''"
+                         class="grey p-t p-l p-r p-b no_data_box">
+                        <div class="no_data">
+                            <div class="t-c">
+                                <i class="icon_poll"></i>
+                            </div>
+                            <div class="t-c">
+                                暂无数据
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="dashboard-right">
+        <div class="dashboard-box" *ngIf="outsource_status == 1">
+            <div class="dashboard-header b-b p-l">外包中心</div>
+            <div class="dashboard-content">
+                <div class="grey p-l-lg p-t-lg pointer d-ib icon-text-btn" (click)="toWithdraw()"
+                     *ngIf="dashboard_data?.all_money > 0 && is_third_pay != 1">
+                    <i class="icon_cashout"></i>
+                    <span>提现</span>
+                </div>
+                <div class="b-b d-ib w-100per clearfix p-t p-b">
+                    <div class="pull-left w-50per p-l-lg" style="box-sizing: border-box;">
+                        <div class="t-24 bold">{{dashboard_data?.all_money | number: '1.2-2'}}</div>
+                        <div class="grey">当前余额</div>
+                    </div>
+                    <div class="pull-left w-50per p-l-lg" style="box-sizing: border-box;">
+                        <div class="t-24 bold v-m pointer icon-right" (click)="toBillList()">
+                            <div class="d-ib v-m t-24 m-r-xs">{{dashboard_data?.unpay_order_total | number: '1.2-2'}}</div>
+                            <i class="t-24 icon_right_triangle"></i>
+                        </div>
+                        <div class="grey">未付帐单金额</div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-l p-r p-t p-b">
+                <div style="height: 3rem;padding: 0 .2rem;" echarts [options]="outsource_cost_echarts"
+                     *ngIf="social_charts_data"
+                     class="demo-chart"></div>
+                <div *ngIf="!social_charts_data"
+                     class="grey p-t p-l p-r p-b no_data_box">
+                    <div class="no_data">
+                        <div class="t-c">
+                            <i class="icon_poll"></i>
+                        </div>
+                        <div class="t-c">
+                            暂无数据
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dashboard-box">
+            <div class="dashboard-header b-b p-l">近期员工生日</div>
+            <ng-container *ngIf="lately_birth_list?.length == 0">
+                <div class="t-c">
+                    <img src="../../../assets/info-png/no-birthday.png" alt="">
+                </div>
+            </ng-container>
+            <ng-container *ngIf="lately_birth_list?.length > 0">
+                <div class="dashboard-content">
+                    <div class="p-l">
+                        <div *ngFor="let i of lately_birth_list;let a = index;"
+                             class="clearfix" [class.b-b]="a != lately_birth_list.length - 1"
+                             style="line-height: .5rem;">
+                            <div class="pull-left">{{i.yg_name}}</div>
+                            <div class="pull-right m-r-lg">{{i.yg_birth}}</div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <div class="dashboard-box">
+            <div class="dashboard-header b-b p-l">近期员工入职周年</div>
+            <ng-container *ngIf="dashboard_data?.anniversary.length == 0">
+                <div class="t-c">
+                    <img src="../../../assets/info-png/no-anniversary.png" alt="">
+                </div>
+            </ng-container>
+            <ng-container *ngIf="dashboard_data?.anniversary.length > 0">
+                <div class="dashboard-content">
+                    <div class="p-l">
+                        <div *ngFor="let i of dashboard_data?.anniversary;let a = index;"
+                             class="clearfix" [class.b-b]="a != dashboard_data?.anniversary.length - 1"
+                             style="line-height: .5rem;">
+                            <div class="pull-left">{{i.yg_name}}</div>
+                            <div class="pull-right m-r-lg">{{i.yg_hire_date}}({{i.year}}周年)</div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+
+<app-notice-m [modal_name]="modal_name" [modal_info]="modal_info"
+              *ngIf="modal_name=== 'notice_m'"></app-notice-m>
+
+
+
+<mayihr-ver-tips *ngIf="modal_name === 'version_tips'" [modal_callback]="modal_callback"></mayihr-ver-tips>

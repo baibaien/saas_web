@@ -1,0 +1,254 @@
+/**
+ * 自定义表头样式区域
+ */
+
+.staff-th-choose-box {
+  padding: 0 .2rem .25rem .2rem;
+  background: #f9f9f9;
+  width: 100%;
+}
+
+.staff-th-choose {
+  padding: .25rem .25rem .3rem .25rem;
+}
+
+.staff-th-choose li {
+  background: rgba(80, 80, 80, 0.1) !important;
+  border-radius: 4px;
+  margin: .05rem;
+}
+
+/*
+
+
+
+
+
+*/
+/**
+ * 表格样式区域
+ */
+.staff-table-box {
+  width: 100%;
+  min-height: 4.3rem;
+  overflow: auto;
+}
+
+.staff-list-table {
+  margin-left: 1rem;
+  min-width: 8.78rem;
+  overflow-x: scroll;
+  padding-left: .2rem;
+  width: auto;
+  white-space: nowrap;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.header-range {
+  min-width: .6rem !important;
+  max-width: 1rem !important;
+}
+
+.header-setting {
+  z-index: 999;
+  height: .3rem;
+  line-height: .3rem;
+  padding: 0 0.1rem;
+  background: #f3f3f3;
+}
+
+.staff-list-table tr:first-child {
+  font-weight: 100;
+  font-size: 0.12rem;
+  color: rgba(80, 80, 80, 0.4);
+  background: #f3f3f3;
+}
+
+.staff-list-table tr:last-child td {
+  border-bottom: none;
+}
+
+/*
+th区域
+*/
+.staff-list-table th {
+  text-align: left;
+  padding: 0 0.4rem 0 0.2rem;
+  line-height: .3rem;
+}
+
+.staff-list-table th:first-child {
+  padding-right: .35rem;
+  padding-left: .4rem;
+  position: absolute;
+  left: 0;
+  background: #f3f3f3;
+  z-index: 10;
+  width: .6rem;
+
+}
+
+.staff-list-table th:first-child > div {
+  width: .6rem !important;
+}
+
+/*
+td区域
+*/
+
+.staff-list-table td:last-child, .staff-list-table th:last-child {
+  width: .3rem;
+  position: absolute;
+  right: 0;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: .5px !important;
+  cursor: default;
+
+}
+
+.staff-list-table td {
+  padding: 0 0 0 .2rem;
+  line-height: .5rem;
+  text-align: left;
+  box-sizing: border-box;
+
+}
+
+.staff-list-table td:first-child {
+  position: absolute;
+  left: .4rem;
+  padding: 0 .2rem 0 0;
+  line-height: .5rem;
+  width: .85rem;
+}
+
+td:hover {
+  cursor: pointer;
+}
+
+tr:last-child {
+  border-bottom: none;
+}
+
+tr:last-child td:first-child {
+  border-bottom: none;
+}
+
+/*
+checkbox区域
+*/
+.check-area {
+  left: -.39rem;
+  background: white;
+  padding-right: .14rem;
+  padding-left: .08rem;
+  border-bottom: 1px solid white;
+  height: .5rem;
+  outline: 1px solid #fff;
+}
+
+.ui-check .hover_show:after {
+  color: #ffffff !important;
+  background-color:#fff !important;
+}
+
+tr:hover .hover_show:after {
+  color: rgba(208, 208, 208, 0.7) !important;
+  /*background: rgba(80, 80, 80, 0.1) !important;*/
+}
+
+tr td div input:checked + .hover_show:after {
+  color: #33ac37 !important;
+}
+
+tr td div .ever_show:after {
+  color: rgba(208, 208, 208, 0.7) !important;
+}
+
+/*
+半透明遮罩区域
+*/
+.staff-list-table th:first-child {
+  background: -ms-linear-gradient(left, #f3f3f3, transparent);
+  background: -moz-linear-gradient(left, #f3f3f3, rgba(255, 255, 255, 0));
+  background: -o-linear-gradient(left, #f3f3f3, rgba(255, 255, 255, 0));
+  background: -webkit-gradient(linear, 90% 96%, 100% 96%, from(#f3f3f3), to(rgba(255, 255, 255, 0)));
+}
+
+.staff-list-table th:last-child {
+  height:.3rem;
+  background: -ms-linear-gradient(left, transparent, #f3f3f3);
+  background: -moz-linear-gradient(left, rgba(255, 255, 255, 0), #f3f3f3);
+  background: -o-linear-gradient(left, rgba(255, 255, 255, 0), #f3f3f3);
+  background: -webkit-gradient(linear, 5% 70%, 70% 70%, from(rgba(255, 255, 255, 0)), to(#f3f3f3));
+}
+
+.staff-list-table td:first-child {
+  background: -ms-linear-gradient(left, transparent, #f3f3f3);
+  background: -moz-linear-gradient(left, #fff, transparent);
+  background: -o-linear-gradient(left, #ffffff, transparent);
+  background: -webkit-gradient(linear, 90% 96%, 100% 96%, from(#fff), to(rgba(255, 255, 255, 0)));
+}
+
+.staff-list-table td:last-child {
+  height: .5rem;
+  background: -ms-linear-gradient(left, #f3f3f3, transparent);
+  background: -moz-linear-gradient(left, rgba(255, 255, 255, 0), #ffff);
+  background: -o-linear-gradient(left, rgba(255, 255, 255, 0), #fff);
+  background: -webkit-gradient(linear, 5% 70%, 70% 70%, from(rgba(255, 255, 255, 0)), to(#fff));
+}
+
+/*
+
+
+
+
+*/
+
+/**/
+/**/
+/**/
+/**/
+/**/
+/**
+ * 高级筛选界面样式区域
+ */
+.advance-filter-term {
+  line-height: .2rem;
+  margin-bottom: .56rem;
+}
+
+.advance-filter-term > ul > li {
+  color: rgba(80, 80, 80, 0.65);
+  font-size: .14rem;
+  border-bottom: 1px solid #d6d6d6;
+
+}
+
+.advance-filter-term > ul > li > ul > li {
+  color: black;
+}
+
+.advance-filter-term > ul > li > ul > li > span:hover {
+  color: #3da338;
+  /*cursor: pointer;*/
+}
+
+.filterResult {
+  padding-bottom: .15rem;
+  width: 96%;
+  bottom: 0;
+  height: .56rem;
+  line-height: .56rem !important;
+}
+
+.type-width {
+  width: 10% !important;
+}
+
+.term-bg {
+  background: #35ad37;
+  color: #ffffff !important;
+}

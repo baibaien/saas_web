@@ -1,0 +1,32 @@
+<div class="modal in p-b-lg" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header p-a b-b">
+                <p class="t-md">{{''}}修改金额</p>
+                <p class="t-sm grey">如需计算工资请保存后重新点击菜单栏中的计算薪资</p>
+            </div>
+            <div class="modal-body ">
+                <div class="m-b-lg p-a">
+                    <form action="">
+                        <div class="m-b-sm">
+                            <div>
+                                <label class="grey d-ib m-b-xs">金额<i class="error">*</i></label>
+                            </div>
+                            <input type="text" [formControl]="benifit_money" placeholder="填写福利金额">
+                            <div>
+                                <span *ngIf="!(benifit_money.valid || benifit_money.untouched && before_submit)"
+                                      class="error t-sm">请填写金额</span>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="b-t btn-group t-r p-a">
+                    <button class="reverse t-sm light v-m m-r-sm btn btn-sm" (click)="cancelModal()">取消</button>
+                    <button class="btn btn-sm" (click)="saveMsg()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

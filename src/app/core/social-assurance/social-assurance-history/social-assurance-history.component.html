@@ -1,0 +1,59 @@
+<div class="staff-content">
+    <div class="p-t p-b b-b">
+        <div class="icon-text-btn">
+            <i [routerLink]="['/user/social-assurance']" class="icon_arrow_left m-l pointer"></i>
+            <span class="d-ib">五险一金/历史明细表</span>
+        </div>
+    </div>
+    <div *ngIf="no_list == 1" class="no-list-image">
+        <img src="../../../../assets/info-png/invalid-name.png" alt="">
+    </div>
+    <ng-container *ngIf="no_list == 0">
+        <div class="b-b">
+            <div class="d-ib t-r grey" style="width: .6rem;">
+                年份
+            </div>
+            <div class="d-ib" style="width: 8rem;">
+                <mayihr-tags *ngIf="tag !== undefined" [default_selected]="current"
+                             [data_list]="tag" [only_one_show]="true" (data_choosed)="chooseYear($event)"></mayihr-tags>
+            </div>
+        </div>
+        <div class="clear history-list">
+            <div class="history-item hover-bg-light-grey p-l-xl pointer-no-color"
+                 *ngFor="let i of history_list">
+                <div class="b-b" (click)="toSocialHistory(i)">
+                    <div class="d-ib">{{i.month}}月</div>
+                    <div class="d-ib pull-right p-r-lg">
+                        <div class="d-ib v-m">
+                            <span class="">{{i.social_people}}</span><br>
+                            <span class="grey">社保缴纳人数/人</span>
+                        </div>
+                        <div class="d-ib v-m p-l-xxl" *ngIf="i.social_unit == '元'">
+                            <div class="">{{i.social_gs | number: '1.2'}}</div>
+                            <div class="grey">社保(公司)/{{i.social_unit}}</div>
+                        </div>
+                        <div class="d-ib v-m p-l-xxl" *ngIf="i.social_unit !== '元'">
+                            <div class="">{{i.social_gs | number: '1.0'}}</div>
+                            <div class="grey">社保(公司)/{{i.social_unit}}</div>
+                        </div>
+                        <div class="d-ib v-m p-l-xxl">
+                            <div class="">{{i.fund_people}}</div>
+                            <div class="grey">公积金缴纳人数/人</div>
+                        </div>
+                        <div class="d-ib v-m p-l-xxl" *ngIf="i.fund_unit == '元'">
+                            <div class="">{{i.fund_gs | number: '1.2'}}</div>
+                            <div class="grey">公积金(公司)/{{i.fund_unit}}</div>
+                        </div>
+                        <div class="d-ib v-m p-l-xxl" *ngIf="i.fund_unit !== '元'">
+                            <div class="">{{i.fund_gs | number: '1.0'}}</div>
+                            <div class="grey">公积金(公司)/{{i.fund_unit}}</div>
+                        </div>
+                        <div class="d-ib p-l-xxl" style="line-height: .8rem;">
+                            <i class="icon_angle_right pointer"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>

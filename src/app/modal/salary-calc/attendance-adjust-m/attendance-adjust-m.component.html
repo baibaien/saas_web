@@ -1,0 +1,242 @@
+<div class="modal in" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header b-b p-a">
+                <div class="t-md">修改出勤</div>
+                <div class="t-sm grey">{{modal_info?.staff?.yg_name}}</div>
+            </div>
+            <div class="modal-body clearfix" *ngIf="attendance_adjust" [formGroup]="attendance_adjust">
+                <ng-container formArrayName="all_item">
+                    <div *ngFor="let adjust of attendance_adjust.get('all_item').controls;let i=index;"
+                         class="v-t pointer-none p-a b-b">
+                        <ng-container *ngIf="attendance_adjust.get('all_item').controls.length > 1">
+                            {{time_info[i].time}}
+                        </ng-container>
+                        <div class="m-b-sm b-b clearfix p-t-sm p-b">
+                            <div class="m-t-xs m-b p-r-lg">
+                                <label class="grey d-ib">无薪假</label>
+                                <div class="d-ib pull-right grey" [title]="system_data['1'] || ''"
+                                     *ngIf="system_data['1'] !== '0'">
+                                    {{system_data['1']}}
+                                </div>
+                            </div>
+                            <div [formArrayName]=i style="padding-right: .2rem;">
+                                <div>
+                                    <div formGroupName="0" class="pull-right">
+                                        <div class="pull-right">
+                                            <div class="d-ib add-box">
+                                                <div class="d-ib v-m t add-icon b-r grey">
+                                                    +
+                                                </div>
+                                                <div class="d-ib v-m t">
+                                                    <input type="text" class="add-input" formControlName="duration"
+                                                           (focus)="focusInput(attendance_adjust.get('all_item').controls[i].controls[0].get('duration'))"
+                                                           (blur)="blurInput(attendance_adjust.get('all_item').controls[i].controls[0].get('duration'))">
+                                                </div>
+                                            </div>
+                                            <div class="d-ib v-m clearfix" style="width: .8rem;">
+                                                <mayihr-select formControlName="show_unit"
+                                                               [SelectConfig]="{type: 2}"
+                                                               [SelectData]="show_unit"></mayihr-select>
+                                            </div>
+                                        </div>
+                                        <div class="t-r pull-right clearfix">
+                                            <div class="d-ib error t-r"
+                                                 *ngIf="!attendance_adjust.get('all_item').controls[i].controls[0].get('duration').valid">
+                                                时长为大于零，最多保留一位小数的数字
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="b-b m-b-sm clearfix p-t-sm p-b-sm">
+                            <div class="m-t-xs m-b p-r-lg clearfix">
+                                <label class="grey d-ib">病假</label>
+                                <div class="pull-right short-text" [title]="system_data['2'] || ''">
+                                    <div class="d-ib grey" *ngIf="system_data['2'] !== '0'">
+                                        {{system_data['2']}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="padding-right: .2rem;" [formArrayName]=i>
+                                <div *ngFor="let item of attendance_adjust.get('all_item').controls[i].controls[1].controls;let j=index;">
+                                    <div formArrayName="1">
+                                        <div class="p-b-xs pull-right" [formGroupName]=j>
+                                            <div class="pull-right">
+                                                <div class="d-ib add-box">
+                                                    <div class="d-ib v-m t add-icon b-r grey">
+                                                        +
+                                                    </div>
+                                                    <div class="d-ib v-m t">
+                                                        <input type="text" class="add-input" formControlName="duration"
+                                                               (focus)="focusInput(attendance_adjust.get('all_item').controls[i].controls[1].controls[j].get('duration'))"
+                                                               (blur)="blurInput(attendance_adjust.get('all_item').controls[i].controls[1].controls[j].get('duration'))">
+                                                    </div>
+                                                </div>
+                                                <div class="d-ib w-80 v-m">
+                                                    <mayihr-select [SelectConfig]="{type: 2}"
+                                                                   [SelectData]="show_unit"
+                                                                   formControlName="show_unit"></mayihr-select>
+                                                </div>
+                                                <div class="d-ib w-120 v-m">
+                                                    <mayihr-select [SelectConfig]="{type: 2}"
+                                                                   [SelectData]="rate_absence"
+                                                                   formControlName="rate"></mayihr-select>
+                                                </div>
+                                            </div>
+                                            <div class="t-r pull-right clearfix">
+                                                <div class="d-ib error t-r"
+                                                     *ngIf="!attendance_adjust.get('all_item').controls[i].controls[1].controls[j].get('duration').valid">
+                                                    时长为大于零，最多保留一位小数的数字
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div formGroupName="3">
+                                    <div formArrayName="rate_input">
+                                        <div *ngFor="let item of attendance_adjust.get('all_item').controls[i].controls[3].controls['rate_input'].controls;let j=index;"
+                                             class="p-b-xs pull-right" [formGroupName]=j>
+                                            <div>
+                                                <div class="pull-right">
+                                                    <div class="d-ib add-box">
+                                                        <div class="d-ib v-m t add-icon b-r grey">
+                                                            +
+                                                        </div>
+                                                        <div class="d-ib v-m t">
+                                                            <input type="text" class="add-input"
+                                                                   formControlName="duration"
+                                                                   (focus)="focusInput(attendance_adjust.get('all_item').controls[i].controls[3].get('rate_input').controls[j].get('duration'))"
+                                                                   (blur)="blurInput(attendance_adjust.get('all_item').controls[i].controls[3].get('rate_input').controls[j].get('duration'))">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-ib w-80 v-m">
+                                                        <mayihr-select [SelectConfig]="{type: 2}"
+                                                                       [SelectData]="show_unit"
+                                                                       formControlName="show_unit"></mayihr-select>
+                                                    </div>
+                                                    <div class="d-ib w-120 v-m">
+                                                        <mayihr-select [SelectConfig]="{type: 2}"
+                                                                       [SelectData]="rate_absence"
+                                                                       formControlName="rate"></mayihr-select>
+                                                    </div>
+                                                </div>
+                                                <div class="t-r pull-right clearfix">
+                                                    <div class="d-ib error t-r"
+                                                         *ngIf="!attendance_adjust.get('all_item').controls[i].controls[3].get('rate_input').controls[j].get('duration').valid">
+                                                        时长为大于零，最多保留一位小数的数字
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-t clearfix pointer pull-right"
+                                     (click)="createRecord(attendance_adjust.get('all_item').controls[i].controls[3].controls['rate_input'], 1)">
+                                    <i class="icon_add v-m p-r-xs"></i>
+                                    <span class="v-m">添加其他比例的记录</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix p-t-sm p-b-sm">
+                            <div class="m-t-xs m-b p-r-lg clearfix">
+                                <label class="grey d-ib">加班（补偿加班工资）</label>
+                                <div class="short-text pull-right" [title]="system_data['3'] || ''">
+                                    <div class="d-ib grey" *ngIf="system_data['3'] !== '0'">
+                                        {{system_data['3']}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div [formArrayName]="i" style="padding-right: .2rem;">
+                                <div *ngFor="let item of attendance_adjust.get('all_item').controls[i].controls[2].controls;let j=index;">
+                                    <div formArrayName="2">
+                                        <div class="p-b-xs pull-right" [formGroupName]="j">
+                                            <div class="pull-right">
+                                                <div class="d-ib add-box">
+                                                    <div class="d-ib v-m t add-icon b-r grey">
+                                                        +
+                                                    </div>
+                                                    <div class="d-ib v-m t">
+                                                        <input type="text" class="add-input" formControlName="duration"
+                                                               (focus)="focusInput(attendance_adjust.get('all_item').controls[i].controls[2].controls[j].get('duration'))"
+                                                               (blur)="blurInput(attendance_adjust.get('all_item').controls[i].controls[2].controls[j].get('duration'))">
+                                                    </div>
+                                                </div>
+                                                <div class="d-ib w-80 v-m">
+                                                    <mayihr-select [SelectConfig]="{type: 2}"
+                                                                   [SelectData]="show_unit"
+                                                                   formControlName="show_unit"></mayihr-select>
+                                                </div>
+                                                <div class="d-ib w-120 v-m">
+                                                    <mayihr-select [SelectConfig]="{type: 2}"
+                                                                   [SelectData]="rate_overtime"
+                                                                   formControlName="rate"></mayihr-select>
+                                                </div>
+                                            </div>
+                                            <div class="t-r pull-right clearfix">
+                                                <div class="d-ib error t-r"
+                                                     *ngIf="!attendance_adjust.get('all_item').controls[i].controls[2].controls[j].get('duration').valid">
+                                                    时长为大于零，最多保留一位小数的数字
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div formGroupName="3">
+                                    <div formArrayName="overtime_input">
+                                        <div *ngFor="let item of attendance_adjust.get('all_item').controls[i].controls[3].controls['overtime_input'].controls;let j=index;"
+                                             [formGroupName]=j class="p-b-xs pull-right">
+                                            <div class="pull-right">
+                                                <div class="d-ib add-box">
+                                                    <div class="d-ib v-m t add-icon b-r grey">
+                                                        +
+                                                    </div>
+                                                    <div class="d-ib v-m t">
+                                                        <input type="text" class="add-input" formControlName="duration"
+                                                               (focus)="focusInput(attendance_adjust.get('all_item').controls[i].controls[3].get('overtime_input').controls[j].get('duration'))"
+                                                               (blur)="blurInput(attendance_adjust.get('all_item').controls[i].controls[3].get('overtime_input').controls[j].get('duration'))">
+                                                    </div>
+                                                </div>
+                                                <div class="d-ib w-80 v-m">
+                                                    <mayihr-select [SelectConfig]="{type: 2}"
+                                                                   [SelectData]="show_unit"
+                                                                   formControlName="show_unit"></mayihr-select>
+                                                </div>
+                                                <div class="d-ib w-120 v-m">
+                                                    <mayihr-select [SelectConfig]="{type: 2}"
+                                                                   [SelectData]="rate_overtime"
+                                                                   formControlName="rate"></mayihr-select>
+                                                </div>
+                                            </div>
+                                            <div class="t-r pull-right clearfix">
+                                                <div class="d-ib error"
+                                                     *ngIf="!attendance_adjust.get('all_item').controls[i].controls[3].get('overtime_input').controls[j].get('duration').valid">
+                                                    时长为大于零，最多保留一位小数的数字
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-t clearfix pointer pull-right"
+                                     (click)="createRecord(attendance_adjust.get('all_item').controls[i].controls[3].controls['overtime_input'], 2)">
+                                    <i class="icon_add v-m p-r-xs"></i>
+                                    <span class="v-m">添加其他比例的记录</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="modal-footer t-r p-a">
+            <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" data-dismiss="modal"
+                    (click)="cancelModal()">取消
+            </button>
+            <button type='button' class="btn btn-sm v-m" [class.disabled]="attendance_adjust?.invalid"
+                    (click)="submitModal()">确认
+            </button>
+        </div>
+    </div>
+</div>

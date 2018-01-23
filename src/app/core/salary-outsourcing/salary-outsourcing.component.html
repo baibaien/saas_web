@@ -1,0 +1,448 @@
+<div class="month-redirect" *ngIf="month_tags.length > 1">
+    <div class="pull-left">
+        <div class="d-ib p-r">
+            <span class="grey t-sm">可受理账单月份</span>
+        </div>
+        <div class="d-ib">
+            <div class="month-tag" [class.month-tag-selected]="month.current" *ngFor="let month of month_tags"
+                 (click)="selectMonth(month)">
+                <div class="d-ib">{{month.month}}月</div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="user_status !== '托管'" class="pull-right grey t-sm">
+        <span>各城市或项目当前受理月份不同，请切换对应月份查看</span>
+    </div>
+    <div *ngIf="user_status === '托管'" class="pull-right grey t-sm">
+        部分城市/项目已进入新的账单周期，请对应切换月份查看
+    </div>
+</div>
+<div class="staff-content">
+    <div class="p-t p-b clearfix" *ngIf="!no_list">
+        <div class="d-ib m-l pull-left">{{month}}月薪酬外包</div>
+        <div class="d-ib pull-right grey p-r-lg">签约类型： {{user_status}}</div>
+    </div>
+    <div class="p-t p-b clearfix b-b" *ngIf="no_list">
+        <div class="d-ib m-l pull-left">本月薪酬外包</div>
+    </div>
+    <div *ngIf="no_list == 1" class="no-list-image">
+        <img src="../../../assets/info-png/invalid-name.png" alt="">
+    </div>
+    <ng-container *ngIf="no_list == 0">
+        <div>
+            <div class="b-b b-t">
+                <mayihr-tags *ngIf="city_list !== undefined && city_list.length > 0"
+                             [data_list]="city_list"
+                             [only_one_show]="true"
+                             [show_all]="true"
+                             (data_choosed)="chooseCity($event)"></mayihr-tags>
+            </div>
+            <!--<div class="clearfix p-l p-t-sm">-->
+            <!--<div class="d-ib p-r-lg">-->
+            <!--<div class="d-ib grey">工资:</div>-->
+            <!--<div class="d-ib">{{city_month_obj?.salary}}</div>-->
+            <!--</div>-->
+            <!--<div class="d-ib p-r-lg">-->
+            <!--<div class="d-ib grey">社保:</div>-->
+            <!--<div class="d-ib" *ngFor="let month of city_month_obj?.social">-->
+            <!--<div class="d-ib">{{month.month}}</div>-->
+            <!--<div class="d-ib p-r grey" [title]="month.month_str">{{month.month_str | longStringFilter:-->
+            <!--10:true}}-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="d-ib">-->
+            <!--<div class="d-ib grey">公积金:</div>-->
+            <!--<div class="d-ib" *ngFor="let month of city_month_obj?.fund">-->
+            <!--<div class="d-ib">{{month.month}}</div>-->
+            <!--<div class="d-ib p-r grey" [title]="month.month_str">{{month.month_str | longStringFilter:-->
+            <!--10:true}}-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <div>
+                <div class="clearfix b-b">
+                    <div class="p-a-lg p-t-xl p-l-xl pos-r" style="height: 1.5rem;">
+                        <div class="p-t p-b-xl">
+                            <ul *ngIf="!!total">
+                                <li class="d-ib p-r-lg">
+                                    <div [ngSwitch]="total?.show_cover_only[0]['status']">
+                                        <div *ngSwitchCase='0' class="t-24 bold t-RB"
+                                             [class.grey]="info?.bill_done == 1">
+                                            {{total?.show_cover_only[0]['total']}}
+                                        </div>
+                                        <div *ngSwitchCase="1" class="total-grey-light t-md">未开始受理</div>
+                                        <div *ngSwitchCase="-1" class="total-grey-light t-md">已截止受理</div>
+                                    </div>
+                                    <div class="total-grey">工资/人</div>
+                                </li>
+                                <li class="d-ib p-r-lg p-l-lg">
+                                    <div [ngSwitch]="total?.show_cover_only[1]['status']">
+                                        <div *ngSwitchCase='0' class="t-24 bold t-RB"
+                                             [class.grey]="info?.bill_done == 1">
+                                            {{total?.show_cover_only[1]['total']}}
+                                        </div>
+                                        <div *ngSwitchCase="1" class="total-grey-light t-md">未开始受理</div>
+                                        <div *ngSwitchCase="-1" class="total-grey-light t-md">已截止受理</div>
+                                    </div>
+                                    <div class="total-grey">社保/人</div>
+                                </li>
+                                <li class="d-ib p-r-lg p-l-lg">
+                                    <div [ngSwitch]="total?.show_cover_only[2]['status']">
+                                        <div *ngSwitchCase='0' class="t-24 bold t-RB"
+                                             [class.grey]="info?.bill_done == 1">
+                                            {{total?.show_cover_only[2]['total']}}
+                                        </div>
+                                        <div *ngSwitchCase="1" class="total-grey-light t-md">未开始受理</div>
+                                        <div *ngSwitchCase="-1" class="total-grey-light t-md">已截止受理</div>
+                                    </div>
+                                    <div class="total-grey">公积金/人</div>
+                                </li>
+                                <li class="d-ib p-r-lg p-l-lg">
+                                    <div [ngSwitch]="total?.show_cover_only[3]['status']">
+                                        <div *ngSwitchCase='0' class="t-24 bold t-RB"
+                                             [class.grey]="info?.bill_done == 1">
+                                            {{total?.show_cover_only[3]['total']}}
+                                        </div>
+                                        <div *ngSwitchCase="1" class="total-grey-light t-md">未开始受理</div>
+                                        <div *ngSwitchCase="-1" class="total-grey-light t-md"
+                                        >已截止受理
+                                        </div>
+                                    </div>
+                                    <div class="total-grey">补缴/人</div>
+                                </li>
+                                <li class="d-ib  p-r-lg p-l-xl b-l" *ngIf="total?.show_cover_only[5]">
+                                    <div [ngSwitch]="total?.show_cover_only[5]?.status">
+                                        <div *ngSwitchCase='0' class="t-24 bold t-RB"
+                                             [class.grey]="info?.bill_done == 1">
+                                            {{total?.show_cover_only[5]['total']}}
+                                        </div>
+                                        <div *ngSwitchCase="1" class="total-grey-light t-md">未开始受理</div>
+                                        <div *ngSwitchCase="-1" class="total-grey-light t-md">已截止受理</div>
+                                    </div>
+                                    <div class="grey">商保/人</div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div *ngIf="info?.bill_done == 0" class="d-ib operate-button"
+                             [class.prevent-bill]="choose_staff_num > 0">
+                            <div class="d-ib t-20 pointer-no-color" (click)="payBill($event)">生成账单</div>
+                            <div class="d-ib" (click)="operateBill($event)">
+                                <i class="icon_triangle_down white pointer-no-color"></i>
+                                <div [class.mask-layer]="bill_operate == true"
+                                     (click)="clickCloseBillOperate($event)"></div>
+                                <div class="dropdown-menu dropdown-menu-right pointer w-200" [class.open]="bill_operate">
+                                    <div class="dropdown-item" *ngIf="total?.show_cover_only[0]"
+                                         [class.dropdown-disabled]="total?.show_cover_only[0]['total'] == 0"
+                                         (click)="payBill($event, '1', total?.show_cover_only[0]['total'])">仅生成代发工资账单
+                                    </div>
+                                    <div class="dropdown-item" *ngIf="total?.show_cover_only[2] || total?.show_cover_only[1]"
+                                         [class.dropdown-disabled]="total?.show_cover_only[1]['total']== 0 && total?.show_cover_only[2]['total'] == 0"
+                                         (click)="payBill($event, '2', total?.show_cover_only[1]['total'] + total?.show_cover_only[2]['total'])">
+                                        仅生成社保公积金账单
+                                    </div>
+                                    <div class="dropdown-item" *ngIf="total?.show_cover_only[3]"
+                                         [class.dropdown-disabled]="total?.show_cover_only[3]['total'] == 0"
+                                         (click)="payBill($event, '3', total?.show_cover_only[3]['total'])">仅生成补缴账单
+                                    </div>
+                                    <div class="dropdown-item" *ngIf="total?.show_cover_only[5]"
+                                         [class.dropdown-disabled]="total?.show_cover_only[5].total == 0"
+                                         (click)="payBill($event, '4', total?.show_cover_only[5]?.total)">仅生成商保账单
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="operate-over d-ib" *ngIf="info?.bill_done == 1">
+                            <span class="d-ib grey">
+                                无需要生成的账单
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!choose_staff_num" class="b-b">
+                    <mayihr-searching *ngIf="!choose_staff_num && search_refresh" [request_url]="list_info_url"
+                                      [request_type]="'get'"
+                                      [placeholder]="'输入员工姓名进行搜索'"></mayihr-searching>
+                    <mayihr-filter-status [request_url]="list_info_url" [request_type]="'get'"
+                                          [filter_term]="filter_term"></mayihr-filter-status>
+                </div>
+                <div *ngIf="choose_staff_num" class="clearfix b-b"
+                     style="line-height: .5rem;">
+                    <div class="d-ib p-r-lg p-l-lg">
+                        已选择{{choose_staff_num}}人
+                    </div>
+                    <div class="d-ib p-l-lg p-r-lg" (click)="clickChooseStaff($event, 'all')">
+                        <span class="pointer">全选</span>
+                    </div>
+                    <div class="d-ib p-l-lg p-r-lg" (click)="clickChooseStaff($event, 'none')">
+                        <span class="pointer">取消选择</span>
+                    </div>
+                    <div class="d-ib pull-right">
+                        <div *ngFor="let i of batch_change" class="d-ib p-r pointer"
+                             (click)="chooseBatchOperate(i)">
+                            <div class="d-ib icon-text-btn" *ngIf="i.show">
+                                <i [class.icon_selected]="i.status == 1"
+                                   [class.icon_minus_square]="i.status == 0"></i>
+                                <span>{{i.text}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pos-r clear">
+                    <div class="min-h-430" [class.no-list-bg]="staff_list?.length == 0">
+                        <table class="saas-table">
+                            <thead>
+                            <tr class="saas-table-header">
+                                <th></th>
+                                <th *ngFor="let i of table_header;let foo=index;" class="t-c header-range"
+                                    [class.t-l]="i.adjust == -1"
+                                    [class.t-c]="i.adjust == 0"
+                                    [class.t-r]="i.adjust == 1">
+                                    <div class="pos-r header-range">
+                                        <span>{{ i.column_name }}</span>
+                                        <i class="icon_triangle_down v-m" (click)="filterChooseToggle(foo)"
+                                           *ngIf="i.filter !== 0"></i>
+                                        <mayihr-filter [filter_term]="filter_term"
+                                                       [view_type]="'table_filter'"
+                                                       [request_url]="list_info_url"
+                                                       [request_type]="'get'"
+                                                       (close_filter)="closeFilter($event)"
+                                                       [operate_data]="i"
+                                                       [choose_type]="'single'">
+                                        </mayihr-filter>
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="v-m pos-r" *ngFor="let staff of staff_list;let j=index;">
+                                <td>
+                        <span (click)="clickChooseStaff($event, j)" class="ui-check"
+                              style="line-height:.6rem;">
+                            <input type="checkbox" name="choose_staff" [(ngModel)]="staff.choosed">
+                            <i class="icon_ui hover_show v-m pointer-no-color"
+                               [class.ever_show]="choose_staff_num > 0"></i>
+                        </span>
+                                </td>
+                                <td *ngFor="let header of table_header;let i=index"
+                                    [class.t-l]="header.adjust == -1"
+                                    [class.t-c]="header.adjust == 0"
+                                    [class.t-r]="header.adjust == 1">
+                                    <div *ngIf="i == 0"
+                                         [title]="staff[header.column].length > 5 ? staff[header.column] : ''">
+                                        {{staff[header.column] | longStringFilter: 5}}
+                                    </div>
+                                    <div *ngIf="i !== 3 && i !== 5 && i !== 0 && i !== 7">
+                                        <div [ngSwitch]="staff[header['column'] + '_status']">
+                                            <div *ngSwitchCase='0'>
+                                                <div *ngIf="staff[header['column'] + '_stop'] == 0">
+                                                    <div *ngIf="staff[header['column']] == 0 && staff[header['column'] + '_edit'] == 1">
+                                                        <i class="icon_minus total-grey-20 v-m"></i>
+                                                    </div>
+                                                    <div *ngIf="staff[header['column']] == 1 && staff[header['column'] + '_edit'] == 1">
+                                                        <i class="icon_done green"></i>
+                                                    </div>
+                                                    <div *ngIf="staff[header['column']] == 1 && staff[header['column'] + '_edit'] == 0">
+                                                        <i class="icon_done total-grey-20"></i>
+                                                    </div>
+                                                    <div *ngIf="staff[header['column']] == 0 && staff[header['column'] + '_edit'] == 0">
+                                                        <i class="icon_minus total-grey-20 v-m"></i>
+
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="staff[header['column'] + '_stop'] == 1">
+                                                    <i class="icon_forbid total-grey-20"></i>
+                                                </div>
+                                            </div>
+                                            <div *ngSwitchCase="1" class="total-grey-20">未开始受理</div>
+                                            <div *ngSwitchCase="-1" class="total-grey-20">已截止受理</div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="i == 5" class="pos-r">
+                                        <div [ngSwitch]="staff['is_pay_fund_status']">
+                                            <div *ngSwitchCase='0'>
+                                                <div *ngIf="staff.fund_tlist.length == 0 ||
+                                                    (staff.fund_back_text == '' && staff.yg_is_fund_back_edit == 0)"
+                                                     class="total-grey-20">
+                                                    无补缴月
+                                                </div>
+                                                <div class="grey pointer"
+                                                     *ngIf="staff.fund_back_text == '' && staff.yg_is_fund_back_edit == 1 && staff.fund_tlist.length != 0"
+                                                     (click)="openBackMonth(staff, 'fund', $event)">
+                                                    点击添加补缴
+                                                </div>
+                                                <div *ngIf="staff.fund_back_text !== ''">
+                                                    <div class="d-ib grey"
+                                                         *ngIf="staff.yg_is_fund_back_edit == 0">
+                                                        {{staff.fund_back_text}}
+                                                    </div>
+                                                    <div class="month_box clearfix"
+                                                         *ngIf="staff.yg_is_fund_back_edit == 1">
+                                                        <div class="d-ib pointer"
+                                                             (click)="openBackMonth(staff, 'fund', $event)">
+                                                            {{staff.fund_back_text}}
+                                                        </div>
+                                                        <div class="d-ib m-l-xs pointer"
+                                                             (click)="deleteBackMonth(staff, 'fund')">
+                                                            <i class="icon_close"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div *ngSwitchCase="1" class="total-grey-20">未开始受理</div>
+                                            <div *ngSwitchCase="-1" class="total-grey-20">已截止受理</div>
+                                        </div>
+
+                                        <div [class.mask-layer]="staff.fund_back_month_selected == true"
+                                             (click)="cancelChooseMonth(staff)"></div>
+                                        <div *ngIf="staff.fund_back_month_selected && staff.yg_is_fund_back_edit == 1"
+                                             class="back-month-choose pos-a"
+                                             [class.back-month-up]="back_month_up">
+                                            <div class="choose-year grey">选择可补缴月份</div>
+                                            <div class="choose-month b-b">
+                                                <div *ngFor="let list of staff.fund_back_year_list_copy;let i=index">
+                                                    <div class="back-year grey">{{list.year}}</div>
+                                                    <div class="back-month">
+                                                        <div *ngFor="let month of list.month;let j=index;"
+                                                             [class.back-month-selected]="month.selected"
+                                                             [class.back-month-start-selected]="month.start_selected"
+                                                             [class.back-month-end-selected]="month.end_selected"
+                                                             (click)="chooseBackMonth(staff, i, j, 'fund')">
+                                                            {{month.month}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="back-operate-box clear">
+                                                <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold"
+                                                        data-dismiss="modal"
+                                                        (click)="cancelChooseMonth(staff)">取消
+                                                </button>
+                                                <button type='button' class="btn btn-sm v-m"
+                                                        (click)="submitChooseMonth(staff, 'fund')">确认
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="i == 3" class="pos-r">
+                                        <div [ngSwitch]="staff['is_pay_social_status']">
+                                            <div *ngSwitchCase='0'>
+                                                <div *ngIf="staff.social_tlist.length == 0 ||
+                                        (staff.social_back_text == '' && staff.yg_is_social_back_edit == 0)"
+                                                     class="total-grey-20">
+                                                    无补缴月
+                                                </div>
+                                                <div class="grey pointer"
+                                                     *ngIf="staff.social_back_text == '' && staff.yg_is_social_back_edit == 1 && staff.social_tlist.length != 0"
+                                                     (click)="openBackMonth(staff, 'social', $event)">
+                                                    点击添加补缴
+                                                </div>
+                                            </div>
+                                            <div *ngSwitchCase="1" class="total-grey-20">未开始受理</div>
+                                            <div *ngSwitchCase="-1" class="total-grey-20">已截止受理</div>
+                                        </div>
+                                        <div *ngIf="staff.social_back_text !== '' && staff.is_pay_social_status === 0">
+                                            <div class="d-ib grey"
+                                                 *ngIf="staff.yg_is_social_back_edit == 0">
+                                                {{staff.social_back_text}}
+                                            </div>
+                                            <div class="month_box" *ngIf="staff.yg_is_social_back_edit == 1">
+                                                <div class="d-ib pointer"
+                                                     (click)="openBackMonth(staff, 'social', $event)">
+                                                    {{staff.social_back_text}}
+                                                </div>
+                                                <div class="d-ib m-l-xs pointer"
+                                                     (click)="deleteBackMonth(staff, 'social')">
+                                                    <i class="icon_close"></i></div>
+                                            </div>
+                                        </div>
+                                        <div [class.mask-layer]="staff.social_back_month_selected == true"
+                                             (click)="cancelChooseMonth(staff)"></div>
+                                        <div *ngIf="staff.social_back_month_selected && staff.yg_is_social_back_edit == 1"
+                                             class="pos-a back-month-choose"
+                                             [class.back-month-up]="back_month_up">
+                                            <div class="choose-year grey">选择可补缴月份</div>
+                                            <div class="choose-month b-b">
+                                                <div *ngFor="let list of staff.social_back_year_list_copy;let i=index">
+                                                    <div class="back-year grey">{{list.year}}</div>
+                                                    <div class="back-month">
+                                                        <div *ngFor="let month of list.month;let j=index;"
+                                                             [class.back-month-selected]="month.selected"
+                                                             [class.back-month-start-selected]="month.start_selected"
+                                                             [class.back-month-end-selected]="month.end_selected"
+                                                             (click)="chooseBackMonth(staff, i, j, 'social')">
+                                                            {{month.month}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="back-operate-box clear">
+                                                <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold"
+                                                        data-dismiss="modal"
+                                                        (click)="cancelChooseMonth(staff)">取消
+                                                </button>
+                                                <button type='button' class="btn btn-sm v-m"
+                                                        (click)="submitChooseMonth(staff, 'social')">确认
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="i == 7 " class="d-ib pos-r" (click)="openOperate($event, staff, j)">
+                                        <i class="icon_detail black t-24 pointer" style="color: rgb(80,80,80)"></i>
+                                        <div [class.mask-layer]="staff.operate_selected == true"
+                                             (click)="clickCloseOperate($event, staff)"></div>
+                                        <div [class.open]=" staff.operate_selected" class="dropdown-menu dropdown-menu-right" #operations
+                                             [class.direction-reverse]="staff?.direction_reverse == true">
+                                            <div class="dropdown-item"
+                                                 [class.dropdown-disabled]="staff.yg_is_salary_stop == 1 || staff.yg_is_salary_data !== 1 || staff.yg_is_salary_edit !== 1">
+                                                <div (click)="chooseOperate($event, staff, 'yg_is_salary')"
+                                                     *ngIf="staff.yg_is_salary == 0">开启工资代发
+                                                </div>
+                                                <div (click)="chooseOperate($event, staff, 'yg_is_salary')"
+                                                     *ngIf="staff.yg_is_salary == 1">关闭工资代发
+                                                </div>
+                                            </div>
+                                            <div class="dropdown-item"
+                                                 [class.dropdown-disabled]="staff.is_pay_social_stop == 1 || staff.is_pay_social_edit !== 1">
+                                                <div (click)="chooseOperate($event, staff, 'social')"
+                                                     *ngIf="staff.is_pay_social == 0">开启社保代缴
+                                                </div>
+                                                <div (click)="chooseOperate($event, staff, 'social')"
+                                                     *ngIf="staff.is_pay_social == 1">关闭社保代缴
+                                                </div>
+                                            </div>
+                                            <div class="dropdown-item"
+                                                 [class.dropdown-disabled]="staff.is_pay_fund_stop == 1 || staff.is_pay_fund_edit !== 1">
+                                                <div (click)="chooseOperate($event, staff, 'fund')"
+                                                     *ngIf="staff.is_pay_fund == 0">
+                                                    开启公积金代缴
+                                                </div>
+                                                <div (click)="chooseOperate($event, staff, 'fund')"
+                                                     *ngIf="staff.is_pay_fund == 1">
+                                                    关闭公积金代缴
+                                                </div>
+                                            </div>
+                                            <div class="dropdown-item" *ngIf="total?.show_cover_only[5]"
+                                                 [class.dropdown-disabled]="staff.yg_is_commercial_stop == 1 || staff.yg_is_commercial_edit !== 1">
+                                                <div (click)="chooseOperate($event, staff, 'commercial')">
+                                                    修改商保项目
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <mayihr-paging [request_type]="'get'" [request_url]="list_info_url" [page_info]="page_info"></mayihr-paging>
+        </div>
+    </ng-container>
+</div>
+<app-commercial-insurance-edit-modal [modal_name]="modal_name" [modal_info]="modal_info"
+                                     *ngIf="modal_name === 'commercial_insurance_edit'"></app-commercial-insurance-edit-modal>
+<app-salary-outsourcing-modal [modal_name]="modal_name" [modal_info]="modal_info"
+                              [modal_callback]="modal_callback"></app-salary-outsourcing-modal>

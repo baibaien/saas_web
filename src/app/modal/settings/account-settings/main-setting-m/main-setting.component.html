@@ -1,0 +1,98 @@
+<div class="modal in" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header p-a b-b">
+                <p class="t-md">变更账户主体信息</p>
+                <p class="t-sm grey">注意：服务协议签订后，服务协议有效期内将不支持自助变更账户主体信息</p>
+            </div>
+            <div class="modal-body ">
+                <div class="m-b-lg p-a">
+                    <form action="" [formGroup]="account_base">
+                        <div class="m-b-sm">
+                            <div>
+                                <label class="grey d-ib m-b-xs">公司名称<i class="error">*</i></label>
+
+                            </div>
+                            <input type="text" [class.disabled]="account_base.get('company').disabled"
+                                   formControlName="company" placeholder="填写公司名称">
+                            <div>
+                                 <span *ngIf="!((account_base.get('company').valid || account_base.get('company').disabled) || account_base.get('company').untouched && beforesubmit)"
+                                       class="error t-sm">请填写公司名称</span>
+                            </div>
+                        </div>
+                        <div class="m-b-sm" formGroupName="hr_office_addr">
+                            <div>
+                                <label class="grey d-ib m-b-xs">注册地址 <i class="error">*</i></label>
+                            </div>
+                            <div>
+                                <div class="d-ib v-t" style="width: .8rem;">
+                                    <mayihr-select [SelectConfig]="{placeholder: '省', max_length: 2}"
+                                                   [SelectData]="addr?.province || []"
+                                                   (RefreshValue)="selectProvince($event)"
+                                                   formControlName="province"></mayihr-select>
+                                </div>
+                                <div class="d-ib v-t" style="width: .8rem;">
+                                    <mayihr-select [SelectConfig]="{placeholder: '市', max_length: 2}"
+                                                   [SelectData]="addr?.city"
+                                                   (RefreshValue)="selectCity($event)"
+                                                   formControlName="city"></mayihr-select>
+                                </div>
+                                <div class="d-ib v-t" style="width: .8rem;">
+                                    <mayihr-select [SelectConfig]="{placeholder: '区', max_length: 2}"
+                                                   [SelectData]="addr?.district"
+                                                   formControlName="district"></mayihr-select>
+                                </div>
+                                <div>
+                                    <span *ngIf="!((account_base.get('hr_office_addr').get('province').valid
+                                    && account_base.get('hr_office_addr').get('city').valid
+                                    && account_base.get('hr_office_addr').get('district').valid)
+                                    || account_base.get('hr_office_addr').get('province').untouched
+                                    && account_base.get('hr_office_addr').get('city').untouched
+                                    && account_base.get('hr_office_addr').get('district').untouched
+                                    && beforesubmit)"
+                                          class="error t-sm">请填写注册地址</span>
+                                </div>
+
+                                <div class="m-b-sm m-t-sm">
+                                    <input type="text" formControlName="addr" placeholder="详细地址">
+                                </div>
+                                <div>
+                                     <span class="error t-sm"
+                                           *ngIf="!(account_base.get('hr_office_addr').get('addr').valid || account_base.get('hr_office_addr').get('addr').untouched && beforesubmit)">请填写详细地址</span>
+                                </div>
+                                <div class="m-b-sm">
+                                    <input type="text" formControlName="postcode" placeholder="邮政编码">
+                                </div>
+                                <div>
+                                    <span class="error t-sm"
+                                          *ngIf="!(account_base.get('hr_office_addr').get('postcode').valid || account_base.get('hr_office_addr').get('postcode').untouched && beforesubmit)">请填写有效邮政编码</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="grey d-ib m-b-xs">营业执照号（统一社会信用代码）<i class="error">*</i></label>
+
+                        </div>
+                        <div class="m-b-sm">
+                            <input type="text" formControlName="com_sn" placeholder="营业执照号">
+                        </div>
+
+                        <div>
+                             <span *ngIf="account_base.get('com_sn').value == '' && !account_base.get('com_sn').untouched && beforesubmit"
+                                   class="error t-sm">请填写营业执照号</span>
+                        </div>
+                        <div>
+                             <span *ngIf="account_base.get('com_sn').hasError('main_valid') && !account_base.get('com_sn').untouched && beforesubmit"
+                                   class="error t-sm">营业执照格式有误</span>
+                        </div>
+                    </form>
+                </div>
+                <div class="b-t btn-group t-r p-a">
+                    <button class="reverse t-sm light v-m m-r-sm btn btn-sm" (click)="cancelModal()">取消</button>
+                    <button class="btn btn-sm" (click)="saveMsg()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

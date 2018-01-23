@@ -1,0 +1,40 @@
+<!--邮寄地址设置-->
+<div class="p-a-lg" *ngIf="post_data">
+    <div class="account-sendaddress">
+        <div><span class="t-md">邮寄地址</span>
+            <span class="pull-right pointer m-r" (click)="showSendSetting('add')"><i
+                    class="icon_add m-r-sm"></i>添加</span></div>
+        <p class="grey">用于向您寄送材料等纸质文件</p>
+        <div class="m-t clearfix mh-450" [class.no-list-bg]="post_data?.length == 0">
+            <div class="address-list p-l-sm p-r-sm">
+                <div *ngFor="let item of post_data; let i = index"
+                     class="pos-r clearfix list-item p-l-sm p-r-sm">
+                    <div class="half" style="width: 35%;">
+                        <p>{{ item?.contact }}
+                            <label class="m-l-sm label v-m"
+                                   *ngIf="item.is_default == 1">默认</label>
+                        </p>
+                        <p>{{ item?.mobile }}</p>
+                    </div>
+                    <div class="half" style="width: 45%;">
+                        <p style="max-width: 80%;">{{ item?.province_name }}{{ item?.city_name }}{{
+                            item?.district_name }}{{
+                            item?.address }}</p>
+                        <p>{{ item?.post_code }}</p>
+                    </div>
+                    <div class="pos-a m-r-lg address-operate" style="right:1rem;">
+                        <span class="pointer icon-text-btn"
+                              (click)="showSendSetting('edit', i)">
+                            <i class="icon_edit dark m-r-sm"></i>
+                            <span>编辑</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--邮寄地址设置end-->
+
+<app-send-setting [modal_name]="modal_name" [modal_info]="modal_info" *ngIf="modal_name === 'send_setting_m'"
+                  [modal_callback]="modal_callback"></app-send-setting>

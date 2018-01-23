@@ -1,0 +1,75 @@
+.header {
+    overflow: visible;
+    height: .6rem;
+    line-height: .6rem;
+}
+
+.navbar_box {
+    position: absolute;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1), 0 2px 3px 0 rgba(0, 0, 0, 0.1);
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-width: 12rem !important;
+}
+
+.navbar-work-area {
+
+    margin: 0 auto;
+    width: 12rem;
+}
+
+.navbar_logo {
+    float: left;
+}
+
+.navbar_option {
+    float: right;
+    list-style-type: none;
+}
+
+.navbar_option  > li {
+    line-height: .11rem;
+    width: .6rem;
+    height: .6rem;
+    text-align: center;
+    float: left;
+    display: inline-block;
+    box-sizing: border-box !important;
+
+}
+
+.page-switch {
+
+}
+
+.dropdown-menu.open {
+    display: block;
+    right: 0;
+    left: auto;
+}
+
+
+.year-choose {
+    border-bottom: 5px solid green;
+}
+
+.year-tag {
+    height: .6rem;
+    padding-bottom: .05rem;
+    box-sizing: border-box;
+}
+
+.year-tag:hover {
+    border-bottom: 5px solid green;
+}
+
+.count-info {
+    background: red;
+    color: white;
+    min-width: .16rem;
+    height: .16rem;
+    border-radius: .08rem;
+    line-height: .16rem;
+    text-align: center;
+}

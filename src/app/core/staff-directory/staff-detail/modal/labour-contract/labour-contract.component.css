@@ -1,0 +1,9 @@
+input {
+  width:2.48rem;
+}
+.modal-body {
+  overflow: visible;
+}
+.modal.in {
+  display: block;
+}

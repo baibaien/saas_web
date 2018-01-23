@@ -1,0 +1,34 @@
+<div class="modal in" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="t-c p-b p-t-lg">
+                    <i class="icon_alert t-48 grey"></i>
+                </div>
+                <div class="t-c t-20 p-b">
+                    将触发{{modal_info?.type == 2 ? '社保': '公积金'}}减员
+                </div>
+                <div class="m-l m-r p-b">
+                    减员将在账单支付付款截止之后，分批滚动操作，如需立即减员，请致电客服加急办理
+                </div>
+                <div class="t-c p-b p-t-xxl">
+                    <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" data-dismiss="modal"
+                            (click)="cancelModal()">取消
+                    </button>
+                    <button type='button' class="btn btn-sm v-m"
+                            (click)="submitModal()">继续
+                    </button>
+                    <div>
+                        <span class="icon-text-btn ui-check" (click)="isShowAgain()">
+                            <input type="checkbox" name="choose_staff" [(ngModel)]="is_hide_again">
+                            <i class="icon_ui hover_show lh-60"></i>
+                            <span>以后不再提示</span>
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

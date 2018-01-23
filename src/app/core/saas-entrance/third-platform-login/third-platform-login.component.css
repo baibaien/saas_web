@@ -1,0 +1,22 @@
+.error-box {
+    text-align: center;
+    padding-top: 1.7rem;
+}
+
+.error-img {
+    width: 2.7rem;
+    height: 2rem;
+}
+
+.error-title {
+    padding-top: .1rem;
+    font-size: 24px;
+    font-weight: 600;
+    color: #505050;
+}
+
+.error-remark {
+    padding-top: .1rem;
+    font-size: 14px;
+    color: rgba(80, 80, 80, 0.65);
+}

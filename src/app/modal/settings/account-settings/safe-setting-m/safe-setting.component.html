@@ -1,0 +1,94 @@
+<div class="modal in p-b-lg" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content" *ngIf="modal_info.flag == 'account_safe'">
+            <div class="modal-header p-a b-b">
+                <p class="t-md">修改密码</p>
+                <p class="t-sm grey">需要先验证原密码</p>
+            </div>
+            <div class="modal-body ">
+                <div class="m-b-lg p-a">
+                    <form action="" [formGroup]="account_safe">
+                        <div class="m-b-sm">
+                            <label class="grey d-ib m-b-xs">输入原密码<i class="error m-l-sm">*</i></label>
+                            <span class="t-sm error"
+                                  *ngIf="!(account_safe.get('old_password').valid || account_safe.get('old_password').untouched && before_submit.account_safe)">请填写原始密码</span>
+                            <div>
+                                <input type="password" formControlName="old_password" placeholder="原密码">
+                            </div>
+                        </div>
+                        <div class="m-b-sm">
+                            <label class="grey d-ib m-b-xs">输入新密码<i class="error m-l-sm">*</i></label>
+                            <span class="error t-sm"
+                                  *ngIf="!(account_safe.get('password').valid || account_safe.get('password').untouched && before_submit.account_safe)">密码应由6-20位数字、字母或下划线组成</span>
+                            <div class="">
+                                <input type="{{password.type}}" formControlName="password" placeholder="新密码">
+                            </div>
+                            <p class="grey m-t-sm d-ib" (click)="showPw()">
+                                <i class="m-r-sm dark"
+                                   [class.icon_eye]="password.type === 'password'"
+                                   [class.icon_hide]="password.type === 'text'"></i>{{password.text}}
+                            </p>
+                        </div>
+                    </form>
+                </div>
+                <div class="b-t btn-group t-r p-a">
+                    <button class="reverse t-sm light v-m m-r-sm btn btn-sm" (click)="cancelModal()">取消</button>
+                    <button class="btn btn-sm" (click)="saveMsg(account_safe)">保存</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal-content" *ngIf="modal_info.flag == 'account_mobile'">
+            <div class="modal-header p-a b-b">
+                <p class="t-md">变更号码</p>
+                <p class="t-sm grey">需验证更新后手机号</p>
+            </div>
+            <div class="modal-body ">
+                <div class="m-b-lg p-a">
+                    <form action="" [formGroup]="account_mobile">
+                        <div class="m-b-sm">
+                            <div>
+                                <label class="grey d-ib m-b-xs">输入密码 <i class="error m-l-sm">*</i></label>
+                            </div>
+                            <input type="password" formControlName="password" placeholder="输入密码">
+                            <div>
+                                <span *ngIf="!(account_mobile.get('password').valid || (account_mobile.get('password').untouched && before_submit.password))"
+                                      class="error t-sm">请输入有效密码</span>
+                            </div>
+                        </div>
+                        <div class="m-b-sm">
+                            <div>
+                                <label class="grey d-ib m-b-xs">输入新手机号码 <i class="error m-l-sm">*</i></label>
+                            </div>
+                            <input type="text" formControlName="mobile" placeholder="新手机号码">
+                            <div>
+                                <span *ngIf="!(account_mobile.get('mobile').valid || (account_mobile.get('mobile').untouched && before_submit.account_mobile))"
+                                      class="error t-sm">请输入有效的手机号码</span>
+                            </div>
+                        </div>
+                        <div class="m-b-sm">
+                            <div>
+                                <label class="grey d-ib m-b-xs">输入验证码 <i class="error m-l-sm">*</i></label>
+                            </div>
+                            <input type="text" formControlName="vcode" placeholder="输入验证码">
+                            <button class="btn btn-sm"
+                                    [class.disabled]="is_disabled"
+                                    (click)="getCaptcha()" [disabled]="is_disabled">{{ resend_text }}
+                            </button>
+                            <div>
+                                 <span *ngIf="!(account_mobile.get('vcode').valid || (account_mobile.get('vcode').untouched && before_submit.account_mobile))"
+                                       class="error t-sm">验证必须为有效数字</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="b-t btn-group t-r p-a">
+                    <button class="reverse t-sm light v-m m-r-sm btn btn-sm" (click)="cancelModal()">取消</button>
+                    <button class="btn btn-sm" (click)="saveMsg(account_mobile)">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

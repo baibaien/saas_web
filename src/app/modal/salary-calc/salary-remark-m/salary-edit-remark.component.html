@@ -1,0 +1,23 @@
+<div class="modal in" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header b-b p-a">
+                <div class="t-md">备注</div>
+                <div class="t-sm grey">如果开启了员工自助，将显示在员工自助当月薪资信息中</div>
+            </div>
+            <div class="modal-body p-a">
+                <textarea name="" id="" cols="30" rows="5" placeholder="在这里输入备注内容" value="{{remark_local}}"
+                          #remark maxlength="140" style="border: 0;"></textarea>
+            </div>
+        </div>
+        <div class="modal_footer t-r p-a b-t w-100per">
+            <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" data-dismiss="modal"
+                    (click)="cancelModal()">取消
+            </button>
+            <button type='button' class="btn btn-sm v-m"
+                    (click)="SubmitOperation(remark)">确定
+            </button>
+        </div>
+    </div>
+</div>

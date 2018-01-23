@@ -1,0 +1,75 @@
+<div class="content-body">
+    <div>
+        <div class="right-content">
+            <div class="b-b p-b clearfix">
+                <div class="pull-left p-t p-l">找回密码</div>
+            </div>
+            <div class="p-l-lg p-t-xl p-b input-area">
+                <form [formGroup]="pass_back">
+                    <div class="p-b">
+                        <div>
+                            <i class="icon_phone p-l-sm"></i>
+                            <input type="text" placeholder="输入您的手机号码"
+                                   formControlName="mobile">
+                        </div>
+                        <div class="" *ngIf="!pass_back.get('mobile').valid">
+                            <div style="padding-left: .25rem;" class="error" *ngIf="(pass_back.get('mobile').untouched && before_submit)
+                            || (pass_back.hasError('required', ['mobile']) && !pass_back.get('mobile').untouched)">
+                                手机号码必填
+                            </div>
+                            <div style="padding-left: .25rem;" class="error" *ngIf="pass_back.hasError('phone_valid', ['mobile'])">请输入合法的手机号码</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div class="d-ib">
+                                <i class="icon_resend p-l-sm"></i>
+                                <input type="text" placeholder="输入验证码"
+                                       formControlName="vcode" style="width: 1.1rem!important;">
+                            </div>
+                            <div class="d-ib img-box" *ngIf="!!vcode_url" (click)="getVCode()">
+                                <img [src]="vcode_url" style="width: 1rem; height: .36rem;">
+                            </div>
+                        </div>
+                        <div style="padding-left: .25rem;" *ngIf="!pass_back.get('vcode').valid">
+                            <div class="error" *ngIf="(pass_back.get('vcode').untouched && before_submit)
+                                || (pass_back.hasError('required', ['vcode']) && !pass_back.get('vcode').untouched)
+                                || (pass_back.hasError('vcode', ['minlength']))">
+                                验证码必填
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="t-c p-b-lg b-b">
+                <button class="btn v-m btn-sm w-100" (click)="findPass()">找回密码</button>
+            </div>
+            <div class="clearfix p-b p-t back-login-box pointer">
+                <div class="t-c" (click)="toSaasLogin()">返回登录</div>
+            </div>
+            <div class="pos-a help-box">
+                <span>收不到短信验证码码？</span><span class="green t-u pointer" (click)="openAssist()">获得帮助</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="modal in alert-modal" style="display: block; z-index:500;" *ngIf="show_alert">
+    <div class="modal-shadow" (click)="closeAlert()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body p-t-xxl p-l-lg p-r-lg">
+                <div>
+                    请在工作日9:00~18:00拨打400-686-9915由工作人员为你提供协助
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer t-r p-a">
+            <button type='button' class="btn btn-sm v-m"
+                    (click)="closeAlert()">确定
+            </button>
+        </div>
+    </div>
+</div>

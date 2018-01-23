@@ -1,0 +1,37 @@
+<div class="staff-content">
+    <div class="p-t  p-b">
+        <a [routerLink]="['/user/staff']" class="m-l m-r-sm"><i class="icon_arrow_left"></i></a>
+        <span class="d-ib">员工名录/批量导入</span>
+    </div>
+    <div class="t-c b-t clearfix">
+        <div class="staff-batch-upload-logo">
+            <div class="staff-upload">
+                <div></div>
+                <div></div>
+                <div>
+                    <i class="icon_user"></i>
+                </div>
+            </div>
+            <div class="clear t-20">批量导入员工</div>
+        </div>
+        <div class="staff-batch-upload-decr p-t grey">
+            <div>请先下载系统提供的Excel模板准备员工列表</div>
+            <div>然后保存并上传该Excel表格</div>
+        </div>
+        <div class="t staff-bu-download">
+            <span class="pointer" (click)="downloadExcel()">
+                <i class="icon_download t-24 v-m deep-deep-grey"></i><span class="deep-deep-grey">下载员工名单模板</span></span>
+        </div>
+    </div>
+    <div class="t-c clearfix m-t">
+        <div class="pos-r d-ib m-t-xl" *ngIf="test">
+            <p class="up-text pointer-no-color" (click)="invokeUpload()">上传</p>
+            <form style="display: none;" #upload >
+                <input id="input" type="file" (click)="resetForm(upload)" (change)="uploadExcel($event)">
+            </form>
+        </div>
+        <div class="p-t-lg p-b-lg grey">如需为员工开通自助服务请填写员工手机号码</div>
+    </div>
+    <!--<app-all-modal [modal_name]="modal_name" [modal_info]="main_setting"></app-all-modal>-->
+    <app-modal-notice [modal_name]="modal_info" [modal_info]="modal_obj"></app-modal-notice>
+</div>

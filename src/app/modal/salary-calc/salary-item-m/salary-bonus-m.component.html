@@ -1,0 +1,70 @@
+<div class="modal in" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog pos-r" style="height: 5rem;">
+        <div class="modal-content">
+            <div class="modal-header b-b p-a-lg">
+                <div class="t-md">{{modal_view}}浮动工资项目</div>
+                <div class="t-sm grey">如果员工该项发放金额为零，工资条中会自动隐藏该项目</div>
+            </div>
+            <form [formGroup]="bonus">
+                <div class="modal-body p-a-lg">
+                    <div>
+                        <div class="p-b-lg">类型</div>
+                        <div>
+                        <span>
+                            <label class="ui-check">
+                                <input type="radio" formControlName="is_annual" value="0">
+                                <i class="icon_ui v-m"></i>
+                                <span class="t v-m">常规</span>
+                            </label>
+                        </span>
+                            <span class="p-l-xl">
+                            <label class="ui-check">
+                                 <input type="radio" formControlName="is_annual" value="1">
+                                 <i class="icon_ui v-m"></i>
+                                 <span class="t v-m">全年一次性奖金收入(年终奖)</span>
+                            </label>
+                         </span>
+                            <i title="每个纳税年度内年终奖只能进行一次申报，同月同一人有多个年终奖项目将合并申报"
+                               class="icon icon_alert v-m" style="font-size: .18rem;"></i>
+                        </div>
+                    </div>
+                    <div class="p-t-lg">
+                        <label for="name" class="d-b p-b">奖金名称</label>
+                        <input type="text" id="name" placeholder="在这里输入奖金名称"
+                               formControlName="name">
+                        <div class="error error_info"
+                             *ngIf="(bonus.hasError('required', 'name')
+                            && !bonus.get('name').untouched)
+                            || (bonus.get('name').untouched && before_submit)">请输入奖金名称
+                        </div>
+                        <div class="error error_info"
+                             *ngIf="bonus.hasError('maxlength', 'name')">名称长度不得大于20字
+                        </div>
+                        <!--<div class="d-ib error error_info"-->
+                        <!--*ngIf="error_list.name.existed">该名称已存在</div>-->
+                    </div>
+                    <div class="p-t-xl">
+                        <label class="ui-check">
+                            <input type="checkbox" formControlName="status" value="1">
+                            <i class="icon_ui pointer-no-color m-r-xs v-m"></i>
+                            <span class="t v-m">在未来的工资表中继续使用该奖金项目</span>
+                        </label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer t-r p-a pos-a b-t" style="width: 100%;bottom: 0;">
+            <div class="pull-left pointer" *ngIf="modal_status == 2"
+                 (click)="deleteRecord()"><i class="icon_delete p-r-xs"></i>删除
+            </div>
+            <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" data-dismiss="modal"
+                    (click)="cancelModal()">取消
+            </button>
+            <button type='button' class="btn btn-sm v-m"
+                    (click)="submitModal()">确认
+            </button>
+        </div>
+    </div>
+</div>
+<!--<app-assist-modal></app-assist-modal>-->

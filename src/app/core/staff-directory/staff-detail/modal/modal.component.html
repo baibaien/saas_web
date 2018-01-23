@@ -1,0 +1,34 @@
+<div class="modal {{fade}} {{iin}} ">
+  <!--<div class="modal-dialog">-->
+    <div *ngIf="modal_target == 'contract'">
+      <app-labour-contract (hide)="hideModal()" (confirm)="confirmModal($event)"
+                           [modal_args]="args"></app-labour-contract>
+    </div>
+    <div *ngIf="modal_target == 'deleteForm'">
+      <app-staff-delet-form (hide)="hideModal()"
+                            (confirm)="confirmModal($event)"
+                            [modal_args]="args"></app-staff-delet-form>
+    </div>
+    <div *ngIf="modal_target == 'qualified'">
+      <app-staff-qualified (hide)="hideModal()"
+                           (confirm)="confirmModal($event)"
+                           [modal_args]="args"></app-staff-qualified>
+    </div>
+    <div *ngIf="modal_target == 'staff_self'">
+      <app-staff-self-m (hide)="hideModal()"
+                        (confirm)="confirmModal($event)"></app-staff-self-m>
+    </div>
+    <div *ngIf="modal_target == 'contractlist'">
+      <app-contract-list (hide)="hideModal()"
+                         (confirm)="confirmModal($event)"
+                         [modal_args]="args"></app-contract-list>
+    </div>
+
+    <div *ngIf="modal_target == 'hospital'">
+      <app-staff-hospital (hide)="hideModal()"
+                          (confirm)="confirmModal($event)"
+                          [modal_args]="args"></app-staff-hospital>
+    </div>
+  <!--</div>-->
+</div>
+

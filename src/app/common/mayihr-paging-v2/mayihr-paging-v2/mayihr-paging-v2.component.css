@@ -1,0 +1,61 @@
+.pos-adjust {
+    margin-top: .6rem;
+}
+.paging-box {
+    height: .6rem;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+.paging-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    height: 100%;
+}
+
+.paging-content > div {
+    padding-left: 0.2rem;
+    display: inline-block;
+    /*margin-right: 0.2rem;*/
+}
+
+.paging-content > div:nth-child(3) {
+    float: right;
+}
+
+.staff-page-switch {
+    display: inline;
+    float: right;
+}
+
+.staff-page-switch li {
+    float: left;
+    padding-left: 0.2rem;
+}
+.page-control-box {
+    line-height: .6rem;
+    padding-right: .1rem;
+}
+
+.page-control-box div {
+    display: inline-block;
+    padding-right: .1rem;
+}
+.page-input {
+    padding: 0;
+}
+.page-input input {
+    width: .45rem;
+    height: .25rem;
+    line-height: .23rem;
+}
+i {
+    cursor: auto !important;
+}
+.pointer i {
+    cursor: pointer!important;
+}

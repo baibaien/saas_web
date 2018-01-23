@@ -1,0 +1,6 @@
+.modal {
+    overflow: auto;
+}
+.modal .modal-body {
+     overflow-y: visible;
+}

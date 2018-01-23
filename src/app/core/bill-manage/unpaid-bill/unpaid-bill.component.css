@@ -1,0 +1,92 @@
+
+.saas-table .content td {
+    height: .6rem;
+    line-height: .6rem;
+    cursor: pointer;
+}
+
+.saas-table .content th:last-child {
+    width: 1.5rem;
+}
+
+.saas-table .content td:last-child {
+    line-height: normal;
+}
+
+.operate-button {
+    position: relative;
+    background: white;
+    height: .35rem;
+    line-height: .35rem;
+    width: 1rem;
+}
+
+.operate-button > div:first-child {
+    position: absolute;
+    left: 0;
+    width: .76rem;
+    background: #33ac37;
+    border-radius: .04rem 0 0 .04rem;
+    color: white;
+}
+
+.operate-button > div:last-child {
+    position: absolute;
+    right: 0;
+    background: #33ac37;
+    border-radius: 0 .04rem .04rem 0;
+    width: .23rem;
+}
+
+.operate-choose {
+    position: absolute;
+    right: 0;
+    width: 2.5rem;
+    background: white;
+    z-index: 1001;
+    border-radius: 0.05rem;
+    box-shadow: 0 0 .03rem .03rem rgba(80, 80, 80, 0.2);
+}
+
+.operate-choose > div:hover {
+    color: #33ac37;
+}
+
+.operate-choose > div {
+    background: rgba(80, 80, 80, 0.1);
+    height: .3rem;
+    line-height: .3rem;
+    color: rgba(80, 80, 80, 0.6);
+    text-align: center;
+    margin-bottom: .03rem;
+}
+
+.operate-choose > div:first-child {
+    text-align: left;
+    background: white;
+    padding-left: .2rem;
+}
+
+.operate-choose > div:first-child:hover {
+    color: rgba(80, 80, 80, 0.6);
+}
+
+.operate-choose > div:last-child {
+    color: red;
+}
+
+.page-footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    height: .5rem;
+    margin-top: .5rem;
+}
+
+.page-footer > div {
+    line-height: .5rem;
+}
+
+.pos-adjust {
+    margin-top: .5rem;
+}

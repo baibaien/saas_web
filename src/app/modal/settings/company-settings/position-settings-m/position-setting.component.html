@@ -1,0 +1,51 @@
+<div class="modal in p-b-lg" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header p-a b-b">
+                <p class="t-md">{{modal_info.type === 'edit' ? '编辑' : '添加'}}岗位</p>
+                <p class="t-sm grey">一般同一岗位的员工承担相似工作职责</p>
+            </div>
+            <div class="modal-body ">
+                <div class="m-b-lg p-a">
+                    <form action="" [formGroup]="company_position">
+                        <div class="m-b-sm">
+                            <div>
+                                <label class="grey d-ib m-b-xs">岗位名称 <i class="error m-l-sm">*</i></label>
+                            </div>
+                            <input type="text" formControlName="name" placeholder="请输入岗位名称">
+                            <div>
+                                <span *ngIf="!(company_position.get('name').valid || company_position.get('name').untouched && before_submit)"
+                                      class="error t-sm">请填写岗位名称</span>
+                            </div>
+                        </div>
+                        <div class="m-b-sm">
+                            <div>
+                                <label class="grey d-ib m-b-xs">岗位编号</label>
+                            </div>
+                            <input type="text" formControlName="no" placeholder="请输入职编号">
+                        </div>
+                        <div class="m-b-sm">
+                            <div>
+                                <label class="grey d-ib m-b-xs">岗位描述</label>
+                            </div>
+                            <textarea style="width:100%;height: 1.5rem;" formControlName="desc"
+                                      maxlength="100"
+                                      placeholder="请输入岗位描述"></textarea>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="b-t btn-group t-r p-a">
+                    <div class="pull-left pointer" *ngIf="modal_info.type === 'edit'"
+                         (click)="deleteRecord()">
+                        <i class="icon_delete"></i>
+                        <span>删除岗位</span>
+                    </div>
+                    <button class="reverse t-sm light v-m m-r-sm btn btn-sm" (click)="cancelModal()">取消</button>
+                    <button class="btn btn-sm" (click)="saveMsg()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

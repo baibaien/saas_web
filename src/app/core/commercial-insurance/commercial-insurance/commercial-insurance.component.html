@@ -1,0 +1,166 @@
+<div class="staff-content">
+    <div class="p-t p-b clearfix">
+        <div class="m-l pull-left v-m">商保方案</div>
+        <div class="pull-right pointer p-r-lg icon-text-btn" (click)="toggleCommercial()">
+            <i class="icon_error grey"></i>
+            <div>停止购买商保</div>
+        </div>
+    </div>
+    <div class="clearfix b-t">
+        <div class="p-a-lg pos-r b-b clearfix" style="height: 1.8rem;">
+            <div class="pointer icon-text-btn">
+                <i class="icon_list"></i>
+                <div (click)="toCommercialDetail()">商保介绍与理赔说明</div>
+            </div>
+            <div style="position: absolute; right: .3rem; top: .75rem;" (click)="createBill()">
+                <button class="btn" [class.disabled]="is_buy.value != 1 || is_bill != 1">
+                    生成{{commercial_time}}月账单
+                </button>
+            </div>
+            <div class="p-t-xl p-b-xl p-l">
+                <ul>
+                    <li class="d-ib p-r-xxl">
+                        <div class="t-24 bold t-RB">{{page_header['team_accident']}}</div>
+                        <div class="total-grey">意外险参保人数</div>
+                    </li>
+                    <li class="d-ib p-r-xxl">
+                        <div class="t-24 bold t-RB">{{page_header['add_medical']}}</div>
+                        <div class="total-grey">补充医疗参保人数</div>
+                    </li>
+                    <li class="d-ib p-r-xxl">
+                        <div class="t-24 bold t-RB">{{page_header['total_money'] | number}}</div>
+                        <div class="total-grey">每月费用合计</div>
+                    </li>
+                    <li class="d-ib p-l-xl p-r-xl grey" *ngIf="page_header?.hr_security['type'] == 3">
+                        <div>新员工默认方案:</div>
+                        <div (click)="openEditModal(page_header, 2)" class="pointer">
+                            <div *ngIf="page_header.hr_security['sup_type'] === 0" class="icon-text-btn icon-right">
+                                <span>{{page_header.hr_security['team_num']}}x 意外险，不购买补充医疗保险</span>
+                                <i class="icon_edit"></i>
+                            </div>
+                            <div *ngIf="page_header.hr_security['sup_type'] === 1" class="icon-text-btn icon-right">
+                                <span>{{page_header.hr_security['team_num']}}x 意外险，80.00补充医疗保险</span>
+                                <i class="icon_edit"></i>
+                            </div>
+                            <div *ngIf="page_header.hr_security['sup_type'] === 2" class="icon-text-btn icon-right">
+                                <span>{{page_header.hr_security['team_num']}}x 意外险，120.00补充医疗保险</span>
+                                <i class="icon_edit"></i>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="d-ib p-l-xl p-r-xl grey"
+                        *ngIf="page_header.hr_security['type'] == 1">
+                        <div>新员工默认方案:</div>
+                        <div (click)="openEditModal(page_header, 2)" class="pointer">
+                            <div class="d-ib v-m">
+                                <span>不购买意外险</span>
+                            </div>
+                            <div class="d-ib v-m icon-text-btn icon-right">
+                                <span>不购买补充医疗保险</span>
+                                <i class="icon_edit"></i>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="b-b" *ngIf="!choose_staff_num">
+        <mayihr-searching [request_url]="list_info_url" [request_type]="'get'"
+                          [placeholder]="'输入员工姓名进行搜索'"></mayihr-searching>
+    </div>
+    <mayihr-filter-status [request_url]="list_info_url" [request_type]="'get'"
+                          [filter_term]="filter_term"></mayihr-filter-status>
+    <div *ngIf="choose_staff_num" class="clearfix p-l-lg b-b" style="line-height: .5rem;">
+        <div class="d-ib p-r-lg">
+            已选择{{choose_staff_num}}人
+        </div>
+        <div class="d-ib p-l-lg p-r-lg" (click)="chooseStaff($event, 'all')">
+            <span class="pointer">全选</span>
+        </div>
+        <div class="d-ib p-l-lg p-r-lg" (click)="chooseStaff($event, 'none')">
+            <span class="pointer">取消选择</span>
+        </div>
+        <div class="d-ib pull-right">
+            <div class="p-r-xxl pointer icon-text-btn" (click)="openEditModal(page_header, 3)">
+                <i class="icon_edit_simple"></i>
+                <span>批量编辑商保</span>
+            </div>
+        </div>
+    </div>
+    <div class="pos-r clearfix">
+        <div class="min-h-430" [class.no-list-bg]="staff_list?.length == 0">
+            <table class="saas-table">
+                <thead>
+                <tr class="saas-table-header">
+                    <th></th>
+                    <th *ngFor="let i of table_header;let foo=index;" class="t-c header-range"
+                        [class.t-l]="i.adjust == -1"
+                        [class.t-c]="i.adjust == 0"
+                        [class.t-r]="i.adjust == 1">
+                        <div class="pos-r header-range">
+                            <span>{{ i.column_name }}</span>
+                            <i class="icon_triangle_down v-m pointer" (click)="filterChooseToggle(foo)"
+                               *ngIf="i.filter !== 0"></i>
+                            <mayihr-filter [filter_term]="filter_term"
+                                           [view_type]="'table_filter'"
+                                           [request_url]="list_info_url"
+                                           [request_type]="'get'"
+                                           (close_filter)="closeFilter($event)"
+                                           [operate_data]="i"
+                                           [choose_type]="'single'">
+                            </mayihr-filter>
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="v-m pos-r" *ngFor="let staff of staff_list;let j=index;">
+                    <td>
+                        <span (click)="chooseStaff($event, j)" class=" ui-check" style="line-height:.6rem;">
+                            <input type="checkbox" name="choose_staff" [(ngModel)]="staff.choosed">
+                            <i class="icon_ui hover_show v-m pointer"
+                               [class.ever_show]="choose_staff_num > 0"></i>
+                        </span>
+                    </td>
+                    <td *ngFor="let header of table_header;let i=index" style="width: 100px;"
+                        [class.t-l]="header.adjust == -1"
+                        [class.t-c]="header.adjust == 0"
+                        [class.t-r]="header.adjust == 1"
+                        [ngSwitch]="header.column">
+                        <div *ngSwitchCase="'operate'" (click)="openEditModal(staff, 1)">
+                            <i class="icon_edit_simple pointer"></i>
+                        </div>
+                        <div *ngSwitchCase="'yg_name'"
+                             [title]="staff[header.column]?.length > 5 ? staff[header.column] : ''">
+                            {{staff[header.column] | longStringFilter: 5}}
+                        </div>
+                        <div *ngSwitchCase="'yg_zhiwei'"
+                             [title]="staff[header.column]?.length > 5 ? staff[header.column] : ''">
+                            {{staff[header.column] | longStringFilter: 5}}
+                        </div>
+                        <div *ngSwitchCase="'department_name'"
+                             [title]="staff[header.column]?.length > 5 ? staff[header.column] : ''">
+                            {{staff[header.column] | longStringFilter: 5}}
+                        </div>
+                        <div *ngSwitchCase="'team_num'">
+                            <div *ngIf="staff[header.column] > 0">
+                                {{'x' + staff[header.column]}}
+                            </div>
+                            <div *ngIf="staff[header.column] <= 0">
+                                -
+                            </div>
+                        </div>
+                        <div *ngSwitchDefault>
+                            {{(staff[header.column] | SupTypeToNum) || '-'}}
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <mayihr-paging [request_type]="'get'" [request_url]="list_info_url" [page_info]="page_info"></mayihr-paging>
+</div>
+<app-commercial-insurance-edit-modal [modal_name]="modal_name" [modal_info]="modal_info"
+                                     *ngIf="modal_name === 'commercial_insurance_edit'"></app-commercial-insurance-edit-modal>

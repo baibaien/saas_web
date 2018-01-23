@@ -1,0 +1,27 @@
+<div class="modal info" [class.pop]="modal_obj.type === 'pop'" style="display: block;z-index: 1000">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header p-a b-b">
+                <p class="t-md">提示</p>
+            </div>
+            <div class="modal-body">
+                <div class="m-l t-c p-t p-b">
+                    <div class="m-b-sm p-a" *ngIf="!list">
+                        <!--<i class="icon_check t-lg green m-r-sm v-m"></i>-->
+                        <span class="v-m">{{ modal_obj.data }}</span>
+                    </div>
+                    <ng-container *ngIf="list">
+                        <div *ngFor="let item of modal_obj.data">
+                            <span class="v-m">{{ item.data || item}}</span>
+                        </div>
+                    </ng-container>
+                    <div class="p-t btn-group t-c" *ngIf="modal_obj.type !== 'pop'">
+                        <!--<button class="reverse t-sm light v-m m-r-sm btn btn-sm" (click)="cancelModal()">取消</button>-->
+                        <button class="btn btn-sm " (click)="cancelModal()">知道了</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

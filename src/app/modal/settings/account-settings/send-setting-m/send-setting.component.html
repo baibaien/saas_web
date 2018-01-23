@@ -1,0 +1,95 @@
+<div class="modal in p-b-lg" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header p-a b-b">
+                <p class="t-md">{{!modal_info? '添加' : '变更'}}邮寄地址信息</p>
+                <p class="t-sm grey">用于寄送您的相关文件，请确保准确无误</p>
+            </div>
+            <div class="modal-body ">
+                <div class="m-b-lg p-a">
+                    <form action="" [formGroup]="account_send">
+                        <div class="m-b-sm">
+                            <div>
+                                <label for="" class="grey d-ib m-b-xs">收件人<i class="error ">*</i></label>
+                            </div>
+                            <input type="text" formControlName="contact" placeholder="填写收件人姓名或公司">
+                            <div>
+                                <span *ngIf="!(account_send.get('contact').valid || account_send.get('contact').untouched && before_submit)"
+                                      class="error t-sm">请填写收件人信息</span>
+                            </div>
+                        </div>
+                        <div class="m-b-sm">
+                            <label for="" class="grey d-ib m-b-xs">联系电话 <i class="error">*</i></label>
+                            <div class="">
+                                <input type="text" formControlName="mobile" placeholder="填写联系电话">
+                            </div>
+                            <div>
+                                <span *ngIf="!(account_send.get('mobile').valid || account_send.get('mobile').untouched && before_submit)"
+                                      class="error t-sm">请填写正确的联系电话</span>
+                            </div>
+                        </div>
+                        <div class="m-b-sm">
+                            <label for="" class="grey d-ib m-b-xs">地址 <i class="error">*</i></label>
+                            <div class="m-b-sm" style="font-size: 0;">
+                                <div>
+                                    <div class="d-ib v-t" style="width: .8rem; margin-right: .05rem;">
+                                        <mayihr-select [SelectConfig]="{placeholder: '省', max_length: 2}"
+                                                       [SelectData]="addr?.province || []"
+                                                       (RefreshValue)="selectProvince($event)"
+                                                       formControlName="province"></mayihr-select>
+                                    </div>
+                                    <div class="d-ib v-t" style="width: .8rem;margin-right: .05rem;">
+                                        <mayihr-select [SelectConfig]="{placeholder: '市', max_length: 2}"
+                                                       [SelectData]="addr?.city"
+                                                       (RefreshValue)="selectCity($event)"
+                                                       formControlName="city"></mayihr-select>
+                                    </div>
+                                    <div class="d-ib v-t" style="width: .8rem;">
+                                        <mayihr-select [SelectConfig]="{placeholder: '区', max_length: 2}"
+                                                       [SelectData]="addr?.district"
+                                                       formControlName="district"></mayihr-select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span *ngIf="!(account_send.get('district').valid || account_send.get('district').untouched && before_submit)"
+                                          class="error t-sm">请选择地区</span>
+                                </div>
+                            </div>
+                            <div class="m-b-sm">
+                                <input type="text" formControlName="address" placeholder="详细地址">
+                                <div>
+                                    <span
+                                            *ngIf="!(account_send.get('address').valid || account_send.get('address').untouched && before_submit)"
+                                            class="error t-sm">请填写详细地址</span>
+                                </div>
+                            </div>
+                            <div class="m-b-sm">
+                                <input type="text" formControlName="post_code" placeholder="邮政编码">
+                                <div>
+                                    <span *ngIf="!(account_send.get('post_code').valid || account_send.get('post_code').untouched && before_submit)"
+                                          class="error t-sm">请填写合法的邮政编码</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="ui-check">
+                                    <input type="checkbox" formControlName="is_default">
+                                    <i class="icon_ui v-m"></i>
+                                    <span class="t v-m">设为默认收件地址</span>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="b-t btn-group t-r p-a">
+                    <!--<div class="d-ib">删除</div>-->
+                    <div class="pull-left pointer" (click)="deleteSend()" *ngIf="modal_info"><i
+                            class="icon_transh p-r"></i>删除
+                    </div>
+                    <button class="reverse t-sm light v-m m-r-sm btn btn-sm" (click)="cancelModal()">取消</button>
+                    <button class="btn btn-sm" (click)="saveMsg()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

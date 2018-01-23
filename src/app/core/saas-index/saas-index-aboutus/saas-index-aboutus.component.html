@@ -1,0 +1,355 @@
+<div class="index-body">
+  <app-saas-index-header></app-saas-index-header>
+  <div class="section section1">
+    <div style="padding-top:1.8rem;padding-bottom:3.2rem;">
+      <h1 class="t-48 t-c m-b white mobile-t36">我们是蚂蚁HR</h1>
+      <p class="t-c white pc-view t-24" style="color:transparent !important;">透明的价格体系，按照企业人数收费</p>
+    </div>
+  </div>
+  <div class="section section2">
+    <div class="index-container">
+      <div class="center-block">
+        <div class="d-ib block"
+             (click)="toggleAboutUs(0)"
+             [class.active]="about_us_content === 0">
+          <img src="./assets/index/aboutus/block-1.png" alt="">
+          <p class="t-24 m-t-xs">公司简介</p>
+        </div>
+        <div class="d-ib block"
+             (click)="toggleAboutUs(1)"
+             [class.active]="about_us_content === 1">
+          <img src="./assets/index/aboutus/block-2.png" alt="">
+          <p class="t-24 m-t-xs">媒体简介</p>
+        </div>
+        <div class="d-ib block"
+             (click)="toggleAboutUs(2)"
+             [class.active]="about_us_content ===2">
+          <img src="./assets/index/aboutus/block-3.png" alt="">
+          <p class="t-24 m-t-xs">联系我们</p>
+        </div>
+        <div class="d-ib block"
+             (click)="toggleAboutUs(3)"
+             [class.active]="about_us_content === 3">
+          <img src="./assets/index/aboutus/block-4.png" alt="">
+          <p class="t-24 m-t-xs">加入我们</p>
+        </div>
+      </div>
+      <!--公司简介-->
+      <div *ngIf="about_us_content === 0">
+        <h3 class="sub-page-title mobile-t36">关于我们</h3>
+        <p class="text-grey t-md m-b about-us mobile-t22">
+          蚂蚁HR隶属于上海蚁众企业管理咨询有限公司（上海微聘信息科技有限公司旗下全资控股公司），凝聚资深人力资源专家经验，提供简洁高效的HR
+          SaaS服务及人事外包服务，致力于成为1000万中小企业的人力资源部，目前在北京、上海、杭州、广州、深圳、武汉均有办公地点，后期将拓展更多城市。
+        </p>
+        <p class="text-grey t-md about-us mobile-t22">
+          产品于2015年2月正式上线，2016年获得千万元级的A轮融资。经过近3年的爆发式增长，目前已有超过100000家企业在使用蚂蚁HR进行人事管理。不仅如此，蚂蚁HR还勇夺行业内多个重要奖项，2016年12月更是荣获最具投资价值创业公司奖项。</p>
+      </div>
+      <!--公司简介-->
+      <!--媒体报道-->
+      <div *ngIf="about_us_content === 1">
+        <div class="bg-white m-b-sm clearfix" style="padding: .6rem .8rem">
+          <img src="./assets/index/aboutus/report-mobile-1.png" alt="" style="width:2.4rem;height:1.8rem" class="pull-left m-r">
+          <div>
+            <p class="t-20 m-b">蚂蚁HR完成千万级A轮融资</p>
+            <p class="t-md text-grey mobile-t22" style="line-height: .24rem">
+              今日，36氪此前报道过的蚂蚁HR正式宣布，完成了千万元级的A轮融资，领投方为启赋资本，春晓资本跟投。据蚂蚁HR
+              CEO黎阳介绍，此轮融资所筹得的资金，将主要用于扩张公司网点，以及研发相应产品以切入30人至300人的中型企业市场。</p>
+            <a href="http://36kr.com/p/5055256.html" class="index-green pull-right mobile-t22">>>网易新闻</a>
+          </div>
+        </div>
+        <div class="bg-white m-b-sm clearfix" style="padding: .6rem .8rem">
+          <img src="./assets/index/aboutus/report-mobile-2.png" alt="" style="width:2.4rem;height:1.8rem" class="pull-left m-r">
+          <div>
+            <p class="t-20 m-b">蚂蚁HR:“互联网+”时代的云端人力资源部</p>
+            <p class="t-md text-grey mobile-t22" style="line-height: .24rem">
+              新的需求催生出新的行业，社保代理服务在互联网时代也形成了新的服务模式，相应的新产品、新团队层出，作为他们中的领先者，蚂蚁HR带来了让人眼前一亮的社保代理一站式服务。</p>
+            <a href="http://news.ifeng.com/a/20160418/48496517_0.shtml" class="index-green pull-right moblie-t22">>>凤凰网</a>
+          </div>
+        </div>
+        <div class="bg-white m-b-sm clearfix" style="padding: .6rem .8rem">
+          <img src="./assets/index/aboutus/report-mobile-3.png" alt="" style="width:2.4rem;height:1.8rem" class="pull-left m-r">
+          <div>
+            <p class="t-20 m-b">蚂蚁HR荣膺2016年最具投资价值创业公司</p>
+            <p class="t-md text-grey mobile-t22" style="line-height: .24rem">
+              2016年的冬至，IT桔子与拓扑社联合主办的“企途时代：IT桔子2016年企业服务创投峰会”在北京隆重举行。活动现场还发布了2016年四项企业服务领域重磅榜单，其中，专注企业人力资源服务的蚂蚁HR荣获最具投资价值创业公司奖项，企业价值获得肯定。</p>
+            <a href="http://news.163.com/16/1230/12/C9HJVE58000187VG.html" class="index-green pull-right mobile-t22">>>网易新闻</a>
+          </div>
+        </div>
+        <div class="bg-white m-b-sm clearfix" style="padding: .6rem .8rem">
+          <img src="./assets/index/aboutus/report-mobile-4.png" alt="" style="width:2.4rem;height:1.8rem" class="pull-left m-r">
+          <div>
+            <p class="t-20 m-b ">蚂蚁HR人事代理服务,轻松管理异地员工</p>
+            <p class="t-md text-grey mobile-t22" style="line-height: .24rem">
+              北京、上海、深圳拥有最大的市场，这就使得很多总部不在这些城市的公司希望通过建立销售办事处或者服务中心的形式分享这块“大蛋糕”，看似简单实施起来却存在大量麻烦事。目前这些公司最担心的是：如果不在当地注册公司就没办法招聘当地员工、为员工提供相应福利。</p>
+            <a href="http://news.sina.com.cn/o/2016-06-21/185933158842.shtml" class="index-green pull-right mobile-t22">>>新浪新闻</a>
+          </div>
+        </div>
+        <div class="bg-white m-b-sm clearfix" style="padding: .6rem .8rem">
+          <img src="./assets/index/aboutus/report-mobile-5.png" alt="" style="width:2.4rem;height:1.8rem" class="pull-left m-r">
+          <div>
+            <p class="t-20 m-b">薪资、社保、公积金全覆盖,做中小企业的云端人力资源部</p>
+            <p class="t-md text-grey mobile-t22" style="line-height: .24rem">蚂蚁HR
+              CEO黎阳告诉36氪，蚂蚁HR的定位是中小企业的云端人力资源部，能够提供薪资计算、发放，代缴社保、公积金等服务。蚂蚁HR主要服务于10人左右的创业公司，这些公司有一个较为普遍的特点，即没有全职的HR，而是由公司老板兼任。</p>
+            <a href="http://www.sohu.com/a/114277687_467827" class="index-green pull-right mobile-t22">>>搜狐科技</a>
+          </div>
+        </div>
+        <div class="bg-white m-b-sm clearfix" style="padding: .6rem .8rem">
+          <img src="./assets/index/aboutus/report-mobile-6.png" alt="" style="width:2.4rem;height:1.8rem" class="pull-left m-r">
+          <div>
+            <p class="t-20 m-b">群发工资条不再难,新版蚂蚁工资条解救你!</p>
+            <p class="t-md text-grey mobile-t22" style="line-height: .24rem">
+              蚂蚁工资条自推出以来，凭借其一键群发和绝对安全，获得了众多HR的支持，到目前已有万余家企业注册用户。为了回馈用户的信任和支持，蚂蚁HR团队经过两个多月努力，特推出升级版，蚂蚁工资条2.0版更加强大，赶快来体验吧!</p>
+            <a href="http://finance.huanqiu.com/roll/2016-12/9872878.html" class="index-green pull-right mobile-t22">>>环球网</a>
+          </div>
+        </div>
+        <div class="bg-white m-b-sm clearfix" style="padding: .6rem .8rem">
+          <img src="./assets/index/aboutus/report-mobile-7.png" alt="" style="width:2.4rem;height:1.8rem" class="pull-left m-r">
+          <div>
+            <p class="t-20 m-b">蚂蚁社保全新上线!个人社保手机轻松缴纳</p>
+            <p class="t-md text-grey mobile-t22" style="line-height: .24rem">
+              蚂蚁HR个人客户全新微信端产品——蚂蚁社保上线啦!即日起，个人社保公积金缴纳等业务将通过微信轻松搞定，同时我们将采用全新的收费模式，价格更优惠!搜索关注“蚂蚁社保”微信公众号立即体验!</p>
+            <a href="http://news.sina.com.cn/o/2016-08-26/doc-ifxvixsh6703957.shtml" class="index-green pull-right mobile-t22">>>凤凰网</a>
+          </div>
+        </div>
+
+      </div>
+      <!--媒体报道-->
+      <!--总部办公室-->
+      <div *ngIf="about_us_content === 2">
+        <h3 class="t-30 m-b t-c">总部和各地办公室</h3>
+        <!--<div class="t-c m-b">-->
+          <!--<ul class="b-b area">-->
+            <!--<li class="d-ib m-l-lg m-r ">上海</li>-->
+            <!--<li class="d-ib m-l m-r">北京</li>-->
+            <!--<li class="d-ib m-l m-r">深圳</li>-->
+            <!--<li class="d-ib m-l m-r">广州</li>-->
+            <!--<li class="d-ib m-l m-r">杭州</li>-->
+            <!--<li class="d-ib m-l m-r-lg">武汉</li>-->
+          <!--</ul>-->
+        <!--</div>-->
+        <div>
+          <img src="./assets/index/aboutus/map.png" alt="" class="full-w">
+        </div>
+      </div>
+      <!--总部办公室-->
+      <!--加入我们-->
+      <div *ngIf="about_us_content === 3">
+        <h3 class="t-24 m-b t-c text-grey">蚂蚁HR，一个充满活力的创业团队，我们不断努力，一步一步地向梦想靠近<br/>
+          此刻，我们期待你的加入</h3>
+        <div class="t-c m-b">
+          <table class="full-w m-b">
+            <thead class="b-green">
+            <tr>
+              <th class="white">招聘职位</th>
+              <th class="white">工作类型</th>
+              <th class="white">所属部门</th>
+              <th class="white">工作地点</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>产品</td>
+              <td>实习生</td>
+              <td>产品部</td>
+              <td>上海</td>
+            </tr>
+            <tr>
+              <td>市场</td>
+              <td>实习生</td>
+              <td>市场部</td>
+              <td>上海</td>
+            </tr>
+            <tr>
+              <td>出纳</td>
+              <td></td>
+              <td>财务部</td>
+              <td>上海</td>
+            </tr>
+            <tr>
+              <td>前端</td>
+              <td></td>
+              <td>研发部</td>
+              <td>上海</td>
+            </tr>
+            <tr>
+              <td>人事社保专员</td>
+              <td></td>
+              <td>运营部</td>
+              <td>上海</td>
+            </tr>
+            </tbody>
+          </table>
+          <p class="t-c">您可以去以下网站申请：
+            <a href="https://ehire.51job.com/Jobs/JobSearchPost.aspx" class="index-green m-r">前程无忧</a>
+            <a href="https://jobads.zhaopin.com/Position/PositionManage" class="index-green m-r">智联招聘</a>
+            <a href="https://www.lagou.com/jobs/3811328.html" class="index-green m-r">拉勾网</a>
+            <a href="https://hr.shixiseng.com/interns/effective" class="index-green">实习僧</a>
+          </p>
+        </div>
+
+      </div>
+      <!--加入我们-->
+    </div>
+  </div>
+  <!--公司简介-->
+  <div class="section section3 bg-white">
+    <div class="index-container" *ngIf="about_us_content === 0">
+      <h3 class="sub-page-title">我们的价值观</h3>
+      <div class="t-c m-b col-3">
+        <div class="d-ib ">
+          <img src="./assets/index/aboutus/section2-1.png" alt="">
+          <p class="t-c t-md mobile-t22 black">成就客户</p>
+        </div>
+        <div class="d-ib">
+          <img src="./assets/index/aboutus/section2-2.png" alt="">
+          <p class="t-c t-md mobile-t22 black">员工成长</p>
+        </div>
+        <div class="d-ib">
+          <img src="./assets/index/aboutus/section2-3.png" alt="">
+          <p class="t-c t-md mobile-t22 black">主人翁意识</p>
+        </div>
+      </div>
+      <div class="t-c col-3">
+        <div class="d-ib">
+          <img src="./assets/index/aboutus/section2-4.png" alt="">
+          <p class="t-c t-md mobile-t22 black">同理心</p>
+        </div>
+        <div class="d-ib">
+          <img src="./assets/index/aboutus/section2-5.png" alt="">
+          <p class="t-c t-md mobile-t22 black">拒绝欺诈</p>
+        </div>
+        <div class="d-ib">
+          <img src="./assets/index/aboutus/section2-6.png" alt="">
+          <p class="t-c t-md mobile-t22 black">拒绝公司政治</p>
+        </div>
+      </div>
+    </div>
+    <div class="index-container" *ngIf="about_us_content === 3">
+      <h3 class="m-b t-24 t-c">加入蚂蚁HR，一起谱写新的故事</h3>
+      <div class="t-0">
+        <div class="d-ib v-t block1" style="width:3.5rem">
+          <div class="img-wrapper"><img src="./assets/index/aboutus/section3-1.png" alt="" class="full-w pc1" style="margin-bottom: 0;">
+          </div>
+        </div>
+        <div class="d-ib v-t block2" style="margin-left:.1rem;width:3.9rem">
+          <div class="img-wrapper">
+            <img src="./assets/index/aboutus/section3-2.png" alt="" class="full-w" style="margin-bottom: 0;">
+          </div>
+          <div class="b-green p-a" style="height:1.85rem">
+            <img src="./assets/index/main/logo.png" alt="" class="w-200 m-b-sm">
+            <div style="border-top: 2px solid #fff;" class="p-t">
+              <p class="white t-c t-md mobile-t22">1000万中小企业云端人力资源部</p>
+            </div>
+          </div>
+          <div class="img-wrapper">
+            <img src="./assets/index/aboutus/section3-3.png" alt="" class="full-w" style="margin-bottom: 0">
+          </div>
+        </div>
+        <div class="d-ib v-t block3" style="margin-left:.1rem;width:4.4rem">
+          <div class="img-wrapper" style="margin-bottom:.1rem">
+            <img src="./assets/index/aboutus/section3-4.png" alt="" class="full-w" style="margin-bottom: 0;">
+          </div>
+          <div class="img-wrapper"><img src="./assets/index/aboutus/section3-5.png" alt="" class="full-w" style="height:2.15rem;margin-bottom: 0;"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="section section4" *ngIf="about_us_content === 0">
+    <div class="index-container">
+      <h3 class="sub-page-title">我们的故事</h3>
+      <div class="bg-white t-c p-t-xl p-b-xl">
+        <div class="d-ib m-r-lg p-r-xxl v-t stream">
+          <ul>
+            <li class="pos-r p-a m-b-sm" (click)="toggleYear(2017)">
+              <label class="t-24" [class.active]="year === 2017">2017年</label>
+            </li>
+            <li class="pos-r p-a m-b-sm" (click)="toggleYear(2016)">
+              <label class="t-24" [class.active]="year === 2016">2016年</label>
+            </li>
+            <li class="pos-r p-a" (click)="toggleYear(2015)">
+              <label class="t-24" [class.active]="year === 2015">2015年</label>
+            </li>
+          </ul>
+        </div>
+        <div class="d-ib v-t stream-content">
+          <ul class="t-l" *ngIf="year === 2015">
+            <li class="m-b">
+              <div class="t-l">
+                <span class="index-green m-r-lg t-lg">2015年12月</span>
+                <span class="t-md text-grey mobile-t22">设立深圳子公司</span>
+              </div>
+            </li>
+            <li class="m-b">
+              <div class="t-l">
+                <span class="index-green m-r-lg t-lg ">2015年09月</span>
+                <span class="t-md text-grey mobile-t22">设立北京子公司</span>
+              </div>
+              <div class="t-l">
+                <span class="index-green m-r-lg t-lg">2015年09月</span>
+                <span class="t-md text-grey mobile-t22">获得Pre-A轮融资</span>
+              </div>
+            </li>
+            <li class="m-b">
+              <div class="t-l">
+                <span class="index-green m-r-lg t-lg">2015年08月</span>
+                <span class="t-md text-grey mobile-t22">设立呼叫中心</span>
+              </div>
+            </li>
+            <li class="m-b">
+              <div class="t-l">
+                <span class="index-green m-r-lg t-lg">2015年04月</span>
+                <span class="t-md text-grey mobile-t22">组建销售团队</span>
+              </div>
+            </li>
+            <li class="m-b">
+              <div class="t-l">
+                <span class="index-green m-r-lg t-lg">2015年03月</span>
+                <span class="t-md text-grey mobile-t22">产生付费客户</span>
+              </div>
+            </li>
+            <li class="m-b">
+              <div class="t-l">
+                <span class="index-green m-r-lg t-lg">2015年02月</span>
+                <span class="t-md text-grey mobile-t22">蚂蚁HR上线</span>
+              </div>
+            </li>
+          </ul>
+          <ul class="t-l" *ngIf="year === 2016">
+            <li class="m-b">
+              <div class="t-l">
+                <span class="index-green m-r-lg t-lg">2016年10月</span>
+                <span class="t-md text-grey mobile-t22">获得A轮融资，快速扩展团队</span>
+              </div>
+            </li>
+            <li class="m-b">
+              <div class="t-l">
+                <span class="index-green m-r-lg t-lg ">2016年11月</span>
+                <span class="t-md text-grey mobile-t22">设立广州子公司</span>
+              </div>
+            </li>
+            <li>
+              <div class="t-l">
+                <span class="index-green m-r-lg t-lg">2016年12月</span>
+                <span class="t-md text-grey mobile-t22">荣膺2016最具投资价值创业公司</span>
+              </div>
+            </li>
+          </ul>
+          <ul class="t-l" *ngIf="year === 2017">
+            <li class="m-b">
+              <div class="t-l">
+                <span class="index-green m-r-lg t-lg">2017年03月</span>
+                <span class="t-md text-grey mobile-t22">设立武汉子公司</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--公司简介-->
+  <div class="mobile-view">
+    <app-saas-index-sign></app-saas-index-sign>
+  </div>
+  <app-saas-index-footer></app-saas-index-footer>
+</div>

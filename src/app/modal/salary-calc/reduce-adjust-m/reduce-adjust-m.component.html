@@ -1,0 +1,88 @@
+<div class="modal in" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+
+    <div class="modal-dialog" style="min-height: 6rem;">
+        <div class="modal-content clearfix">
+            <div class="modal-header b-b p-a">
+                <div class="t-md">修改通用扣减</div>
+                <div class="t-sm grey">{{modal_info?.staff?.yg_name}}</div>
+            </div>
+            <div class="modal-body" *ngIf="show_data" [formGroup]="root_form" style="padding-bottom: 1.5rem;">
+                <div class="p-l p-r p-b" formArrayName="change_form">
+                    <div *ngFor="let i of root_form.get('change_form')['controls'];let j = index"
+                         class="clearfix b-b p-b-sm p-t-sm">
+                        <div class="clearfix">
+                            <div class="pull-left line-height-36">{{show_data.reduce_item[j].column_name}}</div>
+                            <div class="pull-right">
+                                <input type="text" formControlName="{{j.toString()}}" placeholder="0或空则不发放">
+                            </div>
+                        </div>
+                        <div class="t-r" *ngIf="!root_form.get('change_form').get(j.toString()).valid">
+                            <div class="d-ib error">
+                                金额必须为大于零的数字
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-r p-l p-b clearfix">
+                    <div class="pull-right pointer" (click)="toggleEdit()" *ngIf="!show_edit">
+                        <i class="icon_add v-m m-r-xs"></i>
+                        <span>添加新项目</span>
+                    </div>
+                    <div *ngIf="show_edit">
+                        <form [formGroup]="reduce">
+                            <div class="modal-body p-r-lg p-l-lg p-b-lg">
+                                <div>
+                                    <div class="clearfix">
+                                        <div class="pull-left grey">+新增项目</div>
+                                        <div class="pull-right">
+                                            <div class="d-ib pointer m-l-xs" (click)="toggleEdit()">
+                                                <i class=" v-m icon_error black"></i>
+                                                <span>放弃</span>
+                                            </div>
+                                            <div class="d-ib pointer" (click)="submitEdit()">
+                                                <i class=" v-m icon_done black"></i>
+                                                <span>保存</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="p-b-lg clearfix">
+                                        <div>类型</div>
+                                    </div>
+                                </div>
+                                <div class="p-t-lg">
+                                    <label for="name" class="d-b p-b">扣减项目名称</label>
+                                    <input type="text" id="name" placeholder="在这里输入扣减项目名称"
+                                           formControlName="name">
+                                    <div class="error error_info"
+                                         *ngIf="(reduce.hasError('required', 'name')
+                                        && !reduce.get('name').untouched)
+                                        || (reduce.get('name').untouched && before_submit)">请输入扣减项目名称
+                                    </div>
+                                    <div class="error error_info"
+                                         *ngIf="reduce.hasError('maxlength', 'name')">名称长度不得大于20字
+                                    </div>
+                                </div>
+                                <div class="p-t-xl">
+                                    <label class="ui-check">
+                                        <input type="checkbox" formControlName="status" value="1">
+                                        <i class="icon_ui pointer-no-color m-r-xs v-m"></i>
+                                        <span class="t v-m">在未来的工资表中继续使用该扣减项目</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer t-r p-a b-t pos-a" style="bottom: 0;width: 100%;">
+            <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" data-dismiss="modal"
+                    (click)="cancelModal()">取消
+            </button>
+            <button type='button' class="btn btn-sm v-m" [class.disabled]="root_form?.invalid"
+                    (click)="submitModal()">确认
+            </button>
+        </div>
+    </div>
+</div>

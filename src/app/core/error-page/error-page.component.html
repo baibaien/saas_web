@@ -1,0 +1,11 @@
+<div class="error-box" *ngIf="show_text_obj">
+    <div>
+        <img class="error-img" [src]="show_text_obj?.url">
+    </div>
+    <div class="error-title">
+        {{show_text_obj?.title}}
+    </div>
+    <div class="error-remark">
+        {{show_text_obj?.remark}}
+    </div>
+</div>

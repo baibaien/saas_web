@@ -1,0 +1,474 @@
+<div class="staff-content">
+    <div class="p-t  p-b">
+        <a [routerLink]="['/user/staff']" class="m-l m-r-sm"><i class="icon_arrow_left pointer"></i></a>
+        <span class="d-ib">员工名录/添加员工</span>
+    </div>
+    <div class="b-t">
+        <ul #rollingNav class="clearfix staff-upload-index grey b-b p-l nav">
+            <li *ngFor="let tabContent of tabData;let i=index;" [appScroll]="tabContent.target"
+                [class.green_bb]="i == 0 && first_light">
+                <label class="tab_bar">{{tabContent.title}}<input type="radio" class="mark" name="tab"><b></b></label>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <form class="staff-info-form" [formGroup]="add_yg" (submit)="onSubmit()">
+            <div class="clearfix">
+                <h2 class="staff-info-form-block-title t-md m-b" #base>基本信息</h2>
+                <div>
+                    <div class="staff-upload-form-left-block">
+                        <div class="form-group">
+                            <label class="d-ib grey">姓名<i class="text-sm v-t red">*</i></label>
+                            <div>
+                                <input type="text" placeholder="在这里输入员工姓名" formControlName="yg_name">
+                            </div>
+                            <span *ngIf="!(add_yg.get('yg_name').valid || (add_yg.get('yg_name').untouched && before_submit))"
+                                  class="error t-sm">姓名应至少有两位</span>
+                        </div>
+                        <div class="form-group" formGroupName="id_valid">
+                            <label class="grey d-ib">证件类型<i class="text-sm v-t red">*</i></label>
+                            <div class="d-b m-b-sm w-250">
+                                <mayihr-select [SelectConfig]="{placeholder: '请选择证件类型', max_length: 14}"
+                                               [SelectData]="upload_yg_settings?.id_type"
+                                               formControlName="id_type"></mayihr-select>
+                            </div>
+                            <input type="text" placeholder="在这里输入员工证件号码" formControlName="yg_identity" class="d-b">
+                            <span
+                                    *ngIf="!(add_yg.get('id_valid').get('yg_identity').valid || (add_yg.get('id_valid').get('yg_identity').untouched && before_submit))"
+                                    class="error t-sm">请填写证件号码</span>
+                            <span
+                                    *ngIf="!(!add_yg.hasError('id_valid', ['id_valid']) || (add_yg.get('id_valid').get('yg_identity').untouched && before_submit))"
+                                    class="error t-sm">{{add_yg.getError('id_valid', ['id_valid'])?.msg}}</span>
+                            <span
+                                    *ngIf="(error_msg?.hasOwnProperty('yg_identity'))"
+                                    class="error t-sm">证件号已存在</span>
+                        </div>
+                    </div>
+                    <div class="staff-upload-form-right-block ">
+                        <div class="form-group">
+                            <div>
+                                <label class="grey d-ib">工号</label>
+                                <span *ngIf="!(!(error_msg?.hasOwnProperty('yg_no')))"
+                                      class="error t-sm m-l">工号已存在</span>
+                            </div>
+                            <input type="text" placeholder="输入工号" formControlName="yg_no">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <h2 class="staff-info-form-block-title t-md m-b" #workInfo>工作信息</h2>
+                <div class="staff-upload-form-left-block">
+                    <div class="form-group">
+                        <label class="d-ib grey">雇佣类型</label>
+                        <div>
+                            <label *ngFor="let item of upload_yg_settings?.yg_hire_type"
+                                   class="inline d-ib m-r-sm ui-check">
+                                <input type="radio" formControlName="yg_hire_type" value="{{item.id}}" class="v-m">
+                                <i class="icon_ui m-r-sm"></i>
+                                <span class="v-m">{{item.name}}</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="d-ib grey">入职日期<i class="text-sm v-t red">*</i></label>
+                        <div style="width:2.5rem">
+                            <mayihr-datepicker formControlName="yg_hire_date" [options]="{min_view_mode: 2}"
+                                               (changeValue)="setHireDate(yg_formal_date, $event)"></mayihr-datepicker>
+                        </div>
+                        <span *ngIf="!(add_yg.get('yg_hire_date').value || (add_yg.get('yg_hire_date').untouched && before_submit))"
+                              class="error t-sm">请输入入职日期</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="grey d-ib">转正日期</label>
+                        <div>
+                            <div style="width:2.5rem;">
+                                <mayihr-datepicker formControlName="yg_formal_date" [options]="yg_formal_date"
+                                                   (changeValue)="setSalary($event)"></mayihr-datepicker>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="grey">岗位</label>
+                        <div class="d-ib w-250">
+                            <mayihr-select [SelectData]="search_position_lists"
+                                           [SelectConfig]="position_select_config"
+                                           formControlName="yg_zhiwei"
+                            ></mayihr-select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="grey">主管</label>
+                        <div class="d-ib w-250">
+                            <mayihr-select formControlName="leader_id"
+                                           [SelectData]="upload_yg_settings?.leader_id || []"
+                                           [SelectConfig]="{placeholder: '请选择主管', allow_clear: true}"></mayihr-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="staff-upload-form-right-block ">
+                    <div class="form-group">
+                        <label class="grey">合同公司</label>
+                        <div class="d-ib w-250">
+                            <mayihr-select [SelectConfig]="contract_select_config"
+                                           formControlName="yg_con_com_id"
+                                           [SelectData]="upload_yg_settings?.yg_con_com_id || []"></mayihr-select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="grey">部门</label>
+                        <div class="d-ib w-250">
+                            <mayihr-select [SelectConfig]="department_select_config"
+                                           formControlName="yg_org_id"
+                                           [SelectData]="upload_yg_settings?.yg_org_id || []"></mayihr-select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="grey">办公地点</label>
+                        <div class="d-ib w-250">
+                            <mayihr-select [SelectConfig]="office_select_config"
+                                           formControlName="yg_office"
+                                           [SelectData]="upload_yg_settings?.yg_office || []"></mayihr-select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <div class="staff-info-form-block-title t-md m-b grey" #salary>薪酬信息</div>
+                <div>
+                    <div class="staff-upload-form-left-block">
+                        <div class="form-group">
+                            <label class="d-ib grey">基本工资<i class="text-sm v-t red">*</i></label>
+                            <div>
+                                <div>
+                                    <input type="text" placeholder="请输入基本工资" formControlName="yg_sallay">
+                                </div>
+                                <div>
+                                <span *ngIf="!(add_yg.get('yg_sallay').valid || (add_yg.get('yg_sallay').untouched && before_submit))"
+                                      class="error t-sm">请填写基本工资</span>
+                                    <span class="red t-sm"
+                                          *ngIf="add_yg.get('yg_sallay').value && (add_yg.get('yg_sallay').hasError('LegalRange') && !add_yg.get('yg_sallay').untouched)">
+                                            {{add_yg.getError('LegalRange', ['yg_sallay'])?.msg}}
+                                        </span>
+                                </div>
+                                <div class="m-t-sm">
+                                    <label class="ui-check d-ib"
+                                           [class.disabled]="add_yg.get('yg_hire_date').value == add_yg.get('yg_formal_date').value"
+                                           (click)="setTryValidate($event)">
+                                        <input type="checkbox" formControlName="same_with_baspay">
+                                        <i class="icon_ui m-r-sm"></i><span class="t-sm">试用期工资与基本工资一致</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group"
+                             *ngIf="!(add_yg.get('same_with_baspay').value || (!add_yg.get('same_with_baspay').value && (add_yg.get('yg_hire_date').value == add_yg.get('yg_formal_date').value) && add_yg.get('yg_hire_date').value != ''))">
+                            <label class="d-ib grey">试用期工资<i class="text-sm v-t red">*</i></label>
+                            <div>
+                                <input type="text" placeholder="请输入试用期工资"
+                                       formControlName="yg_try_sallay">
+                            </div>
+                            <div>
+                                <span class="red t-sm"
+                                      *ngIf="(add_yg.get('yg_try_sallay').hasError('required') && !add_yg.get('yg_try_sallay').untouched)">
+                                            请填写试用期工资
+                                        </span>
+                            </div>
+                            <span class="red t-sm"
+                                  *ngIf="add_yg.get('yg_try_sallay').value && (add_yg.get('yg_try_sallay').hasError('LegalRange') && !add_yg.get('yg_try_sallay').untouched)">
+                                            {{add_yg.getError('LegalRange', ['yg_try_sallay'])?.msg}}
+                                        </span>
+                        </div>
+                    </div>
+                    <div class="staff-upload-form-right-block ">
+                        <div class="form-group benifit">
+                            <label class="d-ib grey">福利</label>
+                            <ul class="well" formArrayName="benifit">
+                                <li class="bg-grey pos-r"
+                                    *ngFor="let benifit_item of add_yg['controls']['benifit']['controls']; let i = index;">
+                                    <div [formGroupName]="i">
+                                        <span class="benifit-name t">{{benifits_name[i]}}</span>
+                                        <input type="text" formControlName="money" placeholder="金额"
+                                               class="money">
+                                        <span class="pos-a t" (click)="deleteBenifit(i, 'benifit')"><i
+                                                class="icon_close dark"></i></span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="select-mask" *ngIf="!is_add_benifit" (click)="cancelBenifit()" style=""></div>
+                            <div class="add-benifit pos-r">
+                                <!--<select *ngIf="!is_add_benifit" (change)="addBenifit($event)">-->
+                                <!--<option value="0" selected>请选择</option>-->
+                                <!--<ng-container *ngFor="let item of upload_yg_settings?.hr_gs_benifit; let i = index">-->
+                                <!--<option *ngIf="benifit_chosen.indexOf(item.id)<0" value="{{i}}">{{item.name}}-->
+                                <!--</option>-->
+                                <!--</ng-container>-->
+                                <!--</select>-->
+                                <div *ngIf="!is_add_benifit">
+                                    <div class="d-ib w-250">
+                                        <mayihr-select [SelectConfig]="{placeholder: '请选择福利'}"
+                                                       [SelectData]="upload_yg_settings?.hr_gs_benifit || []"
+                                                       (RefreshValue)="addBenifit($event)"
+                                        ></mayihr-select>
+                                    </div>
+                                </div>
+                                <div class="t pointer" (click)="showBenifits()" *ngIf="is_add_benifit">
+                                    <i class="icon_add dark m-r-sm"></i>
+                                    <span>添加福利</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="clearfix" formGroupName="social">
+                <div class="staff-info-form-block-title t-md grey m-b" #social_security>社保/公积金</div>
+                <div class="staff-upload-form-left-block">
+                    <div class="form-group">
+                        <label class="grey d-ib">缴纳项目</label>
+                        <div>
+                            <label class="d-ib ui-check m-r-xs"><input type="checkbox" formControlName="yg_is_social"><i
+                              class="icon_ui"></i><span class="m-l-xs">社保</span></label>
+                            <label class="d-ib m-l ui-check "><input type="checkbox" formControlName="yg_is_fund"><i
+                              class="icon_ui"></i><span class="m-l-xs">公积金</span></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="grey d-ib">缴纳城市<i class="text-sm v-t red">*</i></label>
+                        <div>
+                            <div class="d-ib v-t" style="width: .8rem;padding-right: .05rem;">
+                                <mayihr-select [SelectConfig]="{placeholder: '省', max_length: 2, single_default: 0}"
+                                               [SelectData]="upload_yg_settings?.yg_city || []"
+                                               (RefreshValue)="selectProvince($event)"
+                                               formControlName="province"></mayihr-select>
+                            </div>
+                            <div class="d-ib v-t" style="width: .8rem;padding-right: .05rem;">
+                                <mayihr-select [SelectConfig]="{placeholder: '市', max_length: 2, single_default: 0}"
+                                               [SelectData]="city_list"
+                                               (RefreshValue)="selectCity($event)"
+                                               formControlName="city"></mayihr-select>
+                            </div>
+                            <div class="d-ib v-t" style="width: .8rem;">
+                                <mayihr-select [SelectConfig]="{placeholder: '区', max_length: 2, single_default: 0}"
+                                               [SelectData]="direction_list"
+                                               (RefreshValue)="setSocialSettings()"
+                                               formControlName="yg_city"></mayihr-select>
+                            </div>
+
+                        </div>
+                        <div>
+                              <span *ngIf="!(add_yg.get('social').get('yg_city').value != ''  || (add_yg.get('social').get('yg_city').untouched && before_submit))"
+                                    class="error t-sm">请选择缴纳城市</span>
+                        </div>
+                    </div>
+                    <div *ngIf="!(add_yg.get('social').get('yg_is_social').value != '1' && add_yg.get('social').get('yg_is_fund').value != 1)">
+                        <div class="form-group">
+                            <label class="grey d-ib">户籍类型<i class="text-sm v-t red">*</i></label>
+                            <div>
+                                <div class="d-ib w-250">
+                                    <mayihr-select [SelectConfig]="{placeholder: '请选择户籍类型', single_default: 0}"
+                                                   (RefreshValue)="setSocialSettings()"
+                                                   formControlName="yg_hk_type"
+                                                   [SelectData]="upload_yg_settings?.yg_hk_type || []"></mayihr-select>
+                                </div>
+                            </div>
+                            <div>
+                                <span *ngIf="!(add_yg.get('social').get('yg_hk_type').value  || (add_yg.get('social').get('yg_hk_type').untouched && before_submit))"
+                                      class="error t-sm">请选择户籍类型</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="grey">缴纳方式<i class="text-sm v-t red">*</i></label>
+                            <div class="d-ib w-250">
+                                <mayihr-select formControlName="yg_pay_type"
+                                               [SelectData]="social_base_settings?.yg_pay_type || []"
+                                               [SelectConfig]="{placeholder: '请选择缴纳方式', single_default: 0}"></mayihr-select>
+                            </div>
+                            <div>
+                                 <span *ngIf="!(add_yg.get('social').get('yg_pay_type').value  || (add_yg.get('social').get('yg_pay_type').untouched && before_submit))"
+                                       class="error t-sm">请选择缴纳方式</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="staff-upload-form-right-block ">
+                    <div *ngIf="add_yg.get('social').get('yg_is_social').value">
+                        <div class="form-group">
+                            <!--社保类型没有-->
+                            <label class="grey">社保类型<i class="text-sm v-t red">*</i></label>
+                            <div class="d-ib w-250">
+                                <mayihr-select [SelectConfig]="{placeholder: '请选择社保类型', single_default: 0}"
+                                               [SelectData]="social_rule?.social_rule || []"
+                                               formControlName="social_rule"
+                                               (RefreshValue)="getCitySocial()"></mayihr-select>
+                            </div>
+                            <div>
+                                <span *ngIf="!(add_yg.get('social').get('social_rule').value  || (add_yg.get('social').get('social_rule').untouched && before_submit) || (add_yg.get('social').get('yg_city').untouched && add_yg.get('social').get('social_rule').touched))"
+                                      class="error t-sm">请选择社保类型</span>
+                                <span *ngIf="!(add_yg.get('social').get('social_rule').untouched || (add_yg.get('social').get('yg_hk_type').value != '' && add_yg.get('social').get('yg_city').value != ''))"
+                                      class="t-sm error">请先选择缴纳城市及户籍类型</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="grey d-ib">社保起缴月份<i class="text-sm v-t red">*</i></label>
+
+                            <!--社保起缴月精度-->
+                            <div>
+                                <div class="" style="width:2.5rem">
+                                    <mayihr-datepicker [options]="{min_view_mode: 1}"
+                                                       formControlName="social_start"></mayihr-datepicker>
+                                </div>
+                            </div>
+                            <div>
+                                  <span *ngIf="!(add_yg.get('social').get('social_start').value  || (add_yg.get('social').get('social_start').untouched && before_submit) || (add_yg.get('social').get('yg_city').untouched && add_yg.get('social').get('social_start').touched))"
+                                        class="error t-sm">请输入起缴月份</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="grey d-ib">社保基数<i class="text-sm v-t red">*</i></label>
+                            <div>
+                                <input [class.disabled]="add_yg.get('social').get('yg_social_self').disabled"
+                                       type="text" [placeholder]="social_placeholder" formControlName="yg_social_self">
+                            </div>
+                            <div>
+                                <span *ngIf="!(add_yg.get('social').get('yg_social_self').value || (add_yg.get('social').get('yg_social_self').untouched && before_submit))"
+                                      class="error t-sm">请填写社保基数</span>
+                                <span *ngIf="!(!add_yg.hasError('social_error', ['social', 'yg_social_self']) || (add_yg.get('social').get('yg_social_self').untouched && before_submit))"
+                                      class="error t-sm">{{add_yg.getError('social_error', ['social','yg_social_self'])?.msg}}</span>
+                            </div>
+                            <div *ngIf="base_range['social_low'] > 0">
+                                <label class="d-ib ui-check" (click)="lowBasePay('social')">
+                                    <input type="checkbox" formControlName="social_low_base"><i
+                                        class="icon_ui m-r-sm"></i>按最低基数缴纳</label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class=" grey">-</div>
+                    <div *ngIf="add_yg.get('social').get('yg_is_fund').value">
+                        <div class="form-group">
+                            <!--公积金类型没有-->
+                            <label class="grey">公积金类型<i class="text-sm v-t red">*</i></label>
+                            <div class="d-ib w-250">
+                                <mayihr-select formControlName="fund_rule"
+                                               [SelectConfig]="{placeholder: '请选择公积金类型', single_default: 0}"
+                                               [SelectData]="social_rule?.fund_rule || []"
+                                               (RefreshValue)="getCityFund()"></mayihr-select>
+                            </div>
+                            <div>
+                                <span *ngIf="!(add_yg.get('social').get('fund_rule').value  || (add_yg.get('social').get('fund_rule').untouched && before_submit) || (add_yg.get('social').get('yg_city').untouched && add_yg.get('social').get('fund_rule').touched))"
+                                      class="error t-sm">请选择公积金类型</span>
+                                <span class="error t-sm"
+                                      *ngIf="!(add_yg.get('social').get('fund_rule').untouched || (add_yg.get('social').get('yg_hk_type').value != '' && add_yg.get('social').get('yg_hk_type').value != ''))">
+                                    请先选择缴纳城市及户籍类型</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="grey d-ib">公积金起缴月份<i class="text-sm v-t red">*</i></label>
+                            <div>
+                                <div style="width:2.5rem;">
+                                    <mayihr-datepicker [options]="{min_view_mode: 1}"
+                                                       formControlName="fund_start"></mayihr-datepicker>
+                                </div>
+                            </div>
+                            <div>
+                                <span *ngIf="!(add_yg.get('social').get('fund_start').value  || (add_yg.get('social').get('fund_start').untouched && before_submit) || (add_yg.get('social').get('yg_city').untouched && add_yg.get('social').get('fund_start').touched))"
+                                      class="error t-sm">请输入公积金起缴月份</span>
+                                <span class="error t-sm"
+                                      *ngIf="!(!(add_yg.get('social').get('yg_city').untouched && add_yg.get('social').get('fund_start').touched))">请先选择缴纳城市</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="grey d-ib">公积金基数<i class="text-sm v-t red">*</i></label>
+                            <div>
+                                <input type="text" [placeholder]="fund_placeholder"
+                                       [class.disabled]="add_yg.get('social').get('yg_fund_self').disabled"
+                                       formControlName="yg_fund_self">
+                            </div>
+                            <div *ngIf="base_range['fund_low'] > 0">
+                                <label class="d-ib ui-check" (click)="lowBasePay('fund')">
+                                    <input type="checkbox" formControlName="fund_low_base"><i
+                                        class="icon_ui m-r-sm"></i>按最低基数缴纳</label>
+                            </div>
+                            <div>
+                                <span *ngIf="!(add_yg.get('social').get('yg_fund_self').value  || (add_yg.get('social').get('yg_fund_self').untouched && before_submit))"
+                                      class="error t-sm">公积金基数不能为空</span>
+                                <span *ngIf="!(!add_yg.hasError('fund_error', ['social', 'yg_fund_self']) || (add_yg.get('social').get('yg_fund_self').untouched && before_submit))"
+                                      class="error t-sm">{{add_yg.getError('fund_error', ['social','yg_fund_self'])?.msg}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="clearfix" formGroupName="contact">
+                <div class="staff-info-form-block-title t-md m-b" #staff_self>
+                    员工自助
+                    <p class="grey t">允许员工通过微信填写、查看和编辑信息</p>
+                </div>
+                <div class="staff-upload-form-left-block">
+                    <div class="v-m">
+                        <label class="ui-check d-ib">
+                            <input type="checkbox" formControlName="yg_login" id="ygLogin"
+                                   (click)="checkboxToggle($event, add_yg.get('contact').get('yg_login'),[add_yg.get('contact').get('contact_way'), add_yg.get('contact').get('yg_phone')])">
+                            <i class="icon_ui m-r-sm"></i>
+                        </label>
+                        <div class="d-ib t v-m p-b-sm">为该员工开通员工自助服务</div>
+                    </div>
+                    <div>
+                        <label class="d-ib">员工联络方式（用于验证身份）
+                            <i class="text-sm v-t red"
+                               *ngIf="!add_yg.get('contact').get('yg_phone').disabled">*</i>
+                        </label>
+                        <div class="m-b-sm">
+                            <input type="text" placeholder="输入手机号" formControlName="yg_phone"
+                                   [class.disabled]="add_yg.get('contact').get('yg_phone').disabled">
+                            <div>
+                                <span *ngIf="!(!add_yg.hasError('require_valid', ['contact', 'yg_phone']) || (add_yg.get('contact').get('yg_phone').untouched && before_submit))"
+                                      class="error t-sm">{{add_yg.getError('require_valid', ['contact', 'yg_phone'])?.msg}}</span>
+                                <span class="error t-sm"
+                                      *ngIf="add_yg.get('contact').get('yg_login').value && !add_yg.get('contact').get('yg_phone').value
+                                            && add_yg.get('contact').get('yg_phone').untouched && !before_submit">
+                                    请输入手机号
+                                </span>
+                                <span
+                                        *ngIf="!(!add_yg.hasError('contact_valid', ['contact']) || add_yg.get('contact').get('yg_phone').untouched)"
+                                        class="error t-sm">{{add_yg.getError('contact_valid', ['contact'])?.msg}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <div class="pull-right m-t">
+                    <button class="btn btn-sm reverse v-m m-r-sm m-t-sm" type="button" (click)="abandonAdd()">放弃
+                    </button>
+                    <button class="btn btn-sm v-m m-t-sm m-r" [class.disabled]="!add_yg.valid" type="button"
+                            (click)="onSubmit()">完成
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<app-position-setting [modal_name]="modal_name" [modal_info]="modal_info"
+                      [modal_callback]="modal_callback"
+                      *ngIf="modal_name === 'staff_upload_position_update'"></app-position-setting>
+
+
+<app-office-addr [modal_name]="modal_name" [modal_info]="modal_info"
+                 [modal_callback]="modal_callback"
+                 *ngIf="modal_name === 'staff_office_addr'"></app-office-addr>
+
+
+<app-department-add-m [modal_name]="modal_name" [modal_info]="modal_info"
+                      [modal_callback]="modal_callback"
+                      *ngIf="modal_name === 'add_modal'"></app-department-add-m>
+
+<app-contract-setting [modal_name]="modal_name" [modal_info]="modal_info"
+                      [modal_callback]="modal_callback"
+                      *ngIf="modal_name === 'contract_setting_m'"></app-contract-setting>

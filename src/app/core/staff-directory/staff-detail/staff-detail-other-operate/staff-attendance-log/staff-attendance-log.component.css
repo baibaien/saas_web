@@ -1,0 +1,91 @@
+.staff-table-box {
+    width: 100%;
+    min-height: 4.3rem;
+    overflow: auto;
+    margin-bottom: .71rem;
+}
+
+.staff-table-box i {
+    /*padding-top:.1rem;*/
+    /*font-size: .2rem;*/
+    line-height: .2rem;
+}
+
+
+.staff-list-table {
+    padding-left: .2rem;
+    width: 100%;
+    white-space: nowrap;
+    table-layout: fixed;
+}
+
+thead tr th {
+    font-weight: 100;
+    font-size: 0.12rem;
+    color: rgba(80, 80, 80, 0.8) !important;
+    background: #f3f3f3;
+}
+
+.staff-list-table th {
+    text-align: left;
+    padding-right: .4rem;
+    padding-left: .2rem;
+    height: .3rem;
+    line-height: .3rem;
+}
+
+.staff-list-table td {
+    line-height: .6rem;
+    height: .6rem;
+    text-align: left;
+    padding-left: 0.2rem;
+   white-space: normal;
+  word-break: break-all;
+}
+
+td:hover {
+    cursor: pointer;
+}
+.staff-list-table tr:first-child > .attendance-header:nth-last-child(1) {
+    width: 2.3rem !important;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+tbody {
+    padding-left: .2rem;
+}
+
+tr {
+    border-bottom: 1px solid #eaeaea;
+}
+
+td > div {
+    cursor: pointer;
+}
+/*td:last-child:hover {*/
+    /*color: #33ac37;*/
+/*}*/
+th {
+    box-sizing: border-box;
+}
+
+th:nth-last-child(2) {
+    width: 2rem;
+}
+
+.attendance-detail {
+    background: rgba(80, 80, 80, 0.05);
+    padding-left: 1rem;
+}
+
+
+tr td:last-child>span{
+    display: none;
+}
+tr:hover td:last-child>span {
+    display: block!important;
+}

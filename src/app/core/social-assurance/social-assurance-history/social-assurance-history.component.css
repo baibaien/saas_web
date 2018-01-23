@@ -1,0 +1,16 @@
+.history-list {
+
+}
+
+.history-item {
+    height: .8rem;
+}
+
+.history-item >div > div:first-child {
+    line-height: .8rem;
+}
+
+.no-list-image {
+    text-align: center;
+    line-height: 4.3rem;
+}

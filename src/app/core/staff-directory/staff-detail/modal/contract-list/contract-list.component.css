@@ -1,0 +1,6 @@
+.table thead tr{
+  font-weight: 100;
+  font-size: 0.12rem;
+  color: rgba(80,80,80,0.4);
+  background: #f3f3f3;
+}

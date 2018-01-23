@@ -1,0 +1,73 @@
+<div class="content-body">
+    <div class="right-box">
+        <div class="right-content">
+            <div class="b-b p-b clearfix">
+                <div class="pull-left p-t p-l">登录</div>
+                <div class="pull-right p-t p-r pointer icon-text-btn" (click)="toPassback()">
+                    <i class="icon_question_mark"></i>
+                    <div>找回密码</div>
+                </div>
+            </div>
+            <div class="p-l-lg p-t-xl p-b input-area">
+                <form [formGroup]="login_form">
+                    <div class="p-b">
+                        <div>
+                            <i class="icon_phone p-l-sm"></i>
+                            <input type="text" placeholder="输入您的手机号码" (keyup)="enterLogin($event)"
+                                   formControlName="mobile">
+                        </div>
+                        <div class="" *ngIf="!login_form.get('mobile').valid">
+                            <div class="error p-l-xl" *ngIf="(login_form.hasError('required', ['mobile']) && login_form.get('mobile').untouched && before_submit)
+                            || (login_form.hasError('required', ['mobile']) && !login_form.get('mobile').untouched)">
+                                手机号码必填
+                            </div>
+                            <div class="error p-l-xl"
+                                 *ngIf="login_form.hasError('phone_valid', ['mobile']) && !login_form.get('mobile').untouched">
+                                请输入合法的手机号码
+                            </div>
+                        </div>
+                        <!--<div class="error" *ngIf="error_type === 'mobile'">-->
+                        <!--{{error_msg}}-->
+                        <!--</div>-->
+                    </div>
+                    <div>
+                        <div>
+                            <i class="icon_lock p-l-sm"></i>
+                            <input type="password" placeholder="输入密码" (keyup)="enterLogin($event)"
+                                   formControlName="password">
+                        </div>
+                        <div *ngIf="!login_form.get('password').valid">
+                            <div class="error p-l-xl" *ngIf="(login_form.get('password').untouched && before_submit)
+                                || (login_form.hasError('required', ['password']) && !login_form.get('password').untouched)">
+                                密码必填
+                            </div>
+                            <!--<div style="padding-left: .25rem;" class="error "-->
+                            <!--*ngIf="login_form.get('password').hasError('passwordValid') && !login_form.get('password').untouched">-->
+                            <!--密码大于8位，需包含字母、数字-->
+
+                            <!--</div>-->
+                        </div>
+                        <!--<div class="error" *ngIf="error_type === 'password'">-->
+                        <!--{{error_msg}}-->
+                        <!--</div>-->
+                        <div class="error p-l-xl" *ngIf="error_type === 'all'">
+                            {{error_msg}}
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="t-c p-b-lg b-b">
+                <button class="btn v-m btn-sm w-100" (click)="login()">登录</button>
+            </div>
+            <div class="clearfix p-b pointer to-reg-box" (click)="toSaasReg()">
+                没有账户点此注册
+            </div>
+            <div class="footer-box clearfix pointer"
+                 (click)="openYgSelfLogin()">
+                <div class="pull-left m-l ">您是员工？如需查看薪资等请使用员工自助</div>
+                <div class="pull-right m-r-sm"><i class="icon_right_triangle"></i></div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-yg-self-login [modal_name]="modal_name" *ngIf="modal_name === 'yg_self_login'"></app-yg-self-login>

@@ -1,0 +1,61 @@
+<div class="modal in" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header b-b p-a">
+                <div class="t-md">{{ service_info?.name }}所需材料与条件</div>
+            </div>
+            <div class="modal-body p-r-xxl p-l-xl">
+                <div class="p-b-sm b-b">
+                    <div class="grey p-t-xs p-b-xs">办理该业务的城市</div>
+                    <div>
+                        <div class="d-ib" style="width:1.5rem;">
+                            <mayihr-select [SelectData]="city_list || []" [formControl]="city"
+                                           (RefreshValue)="selectCity($event)"></mayihr-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-b-sm p-t-sm">
+                    <div *ngIf="city_selected?.attr">
+                        <div *ngIf="city_selected.attr['1']?.length > 0" class="b-b p-b-sm">
+                            <div class="grey p-b-sm">
+                                办理该业务所需条件
+                            </div>
+                            <div class="grey" *ngFor="let content of city_selected.attr['1'];let i = index;">
+                                <div>
+                                    <div>{{(i + 1) + '. '}}{{content.content}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="city_selected.attr['2']?.length > 0" class="b-b p-t-sm p-b-sm">
+                            <div class="grey p-b-sm">
+                                办理该业务所需材料
+                            </div>
+                            <div class="grey" *ngFor="let content of city_selected.attr['2'];let i = index;">
+                                <div>
+                                    <div>{{(i + 1) + '. '}}{{content.content}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grey b-b p-b">
+                    <div>
+                        服务价格
+                    </div>
+                    <ng-container><span class=" grey">{{ city_selected?.price}}元/</span></ng-container>
+                    <ng-container [ngSwitch]="service_info?.unit">
+                        <ng-container *ngSwitchCase="'1'"><span class="grey">人</span></ng-container>
+                        <ng-container *ngSwitchCase="'2'"><span class="grey">次</span></ng-container>
+                    </ng-container>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer t-r p-a">
+            <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" data-dismiss="modal"
+                    (click)="cancelModal()">关闭
+            </button>
+        </div>
+    </div>
+</div>

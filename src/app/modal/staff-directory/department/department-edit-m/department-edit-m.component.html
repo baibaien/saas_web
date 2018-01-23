@@ -1,0 +1,71 @@
+<div class="modal" style="display: block;" [class.in]="modal_name === 'edit_modal'">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header b-b p-a">
+                <div class="t-md">编辑部门信息</div>
+                <div class="t-sm grey">{{org_info.name}}下设{{org_info.children_count}}个部门</div>
+            </div>
+            <div class="modal-body b-b p-a">
+                <form [formGroup]="formModel">
+                    <div class="p-b">
+                        <label for="dept_name_alter" class="p-b d-b">修改部门名称(必填)</label>
+                        <input type="text" id="dept_name_alter" (change)="checkName()"
+                               placeholder="请输入部门名称" formControlName="name">
+                        <div class="d-ib error error_info"
+                             *ngIf="(formModel.hasError('required', 'name') && !formModel.get('name').untouched)
+                                || (formModel.get('name').untouched && before_submit && !formModel.get('name').value)">
+                            请输入部门名称
+                        </div>
+                        <div class="d-ib error error_info"
+                             *ngIf="(formModel.hasError('maxlength', 'name') && !formModel.get('name').untouched)">
+                            部门名称过长
+                        </div>
+                        <!--<div class="d-ib error error_info"-->
+                             <!--*ngIf="before_submit && error_list['name'] !== ''">-->
+                            <!--{{error_list['name']}}-->
+                        <!--</div>-->
+                    </div>
+                    <div class="p-b b-b">
+                        <label for="superior_alter" class="p-t p-b d-b">变更上级部门(必填)</label>
+                        <div>
+                            <div class="d-ib w-200">
+                                <mayihr-select [SelectConfig]="{placeholder: '请选择上级部门'}"
+                                               [SelectData]="org_strc"
+                                               id="superior_alter"
+                                               formControlName="pid"></mayihr-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-b b-b">
+                        <label for="leader_id" class=" p-t-sm d-b">部门主管(选填)</label>
+                        <div>
+                            <div class="d-ib w-200">
+                                <mayihr-select [SelectConfig]="{allow_clear: true, placeholder: '请选择部门主管'}"
+                                               [SelectData]="staff_outline || []"
+                                               id="leader_id"
+                                               formControlName="leader_id"></mayihr-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="p-t p-b d-ib pointer" (click)="deleteOrg()">
+                            <i class="icon_delete"></i>
+                            <span class="pointer">删除部门</span>
+                        </div>
+                        <div class="grey">
+                            该部门下设有子部门，删除该部门后，其子部门将默认挂载到公司下。
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal_footer t-r p-a">
+            <button class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" data-dismiss="modal" (click)="cancelModal()">
+                取消
+            </button>
+            <button class="btn btn-sm v-m" (click)="editOrgSubmit()">保存</button>
+        </div>
+    </div>
+</div>
+<!--<app-assist-modal [modal_name]="assist_name" [modal_info]="assist_info" [modal_handler]="assist_handler"></app-assist-modal>-->

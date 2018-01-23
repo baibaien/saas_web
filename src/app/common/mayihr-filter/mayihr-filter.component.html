@@ -1,0 +1,85 @@
+<!--大按钮-->
+<ng-container *ngIf="view_type == 'quick_filter'">
+    <ng-container *ngFor="let i of filter_term;let parent = index">
+        <ng-container *ngFor="let j of i.child;let current = index">
+            <div class="d-ib m-b-lg m-t-lg m-r p-l" *ngIf="j.header && j.name==='在职'">
+                <div [class.is-clicked]="j.status" id="test"
+                     class="pos-r would-click filter-box"
+                     (click)="chooseFilter(parent, current)">
+                    <div *ngIf="j.status" class="pos-a" style="top: 0.05rem;right: 0.05rem"><i class="icon_close"></i>
+                    </div>
+                    <div class="t-24 bold lh-28 t-RB">{{j.total}}</div>
+                    <div class="total-grey lh-20">{{j.name}}员工</div>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+    <ng-container *ngFor="let i of filter_term;let parent = index">
+        <ng-container *ngFor="let j of i.child;let current = index">
+            <div class="d-ib m-b-lg m-t-lg m-r p-l" *ngIf="j.header && j.name==='试用期'">
+                <div [class.is-clicked]="j.status"
+                     class="pos-r would-click filter-box"
+                     (click)="chooseFilter(parent, current)">
+                    <div *ngIf="j.status" class="pos-a" style="top: 0.05rem;right: 0.05rem"><i class="icon_close"></i>
+                    </div>
+                    <div class="t-24 bold lh-28">{{j.total}}</div>
+                    <div class="total-grey lh-20">{{j.name}}员工</div>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+    <ng-container *ngFor="let i of filter_term;let parent = index">
+        <ng-container *ngFor="let j of i.child;let current = index">
+            <div class="d-ib m-b-lg m-t-lg m-r p-l" *ngIf="j.header && j.name==='离职'">
+                <div [class.is-clicked]="j.status"
+                     class="pos-r would-click filter-box"
+                     (click)="chooseFilter(parent, current)">
+                    <div *ngIf="j.status" class="pos-a" style="top: 0.05rem;right: 0.05rem"><i class="icon_close"></i>
+                    </div>
+                    <div class="t-24 bold lh-28">{{j.total}}</div>
+                    <div class="total-grey lh-20">{{j.name}}员工</div>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+    <ng-container>
+        <div class="b-r d-ib" style="height: .4rem;" *ngIf="has_border"></div>
+    </ng-container>
+    <ng-container *ngFor="let i of filter_term;let parent = index">
+        <ng-container *ngFor="let j of i.child;let current = index">
+            <div class="d-ib m-b-lg m-t-lg m-r p-l"
+                 *ngIf="j.header && j.name !=='在职' && j.name !=='试用期' && j.name !=='离职' && j.total != 0">
+                <div [class.is-clicked]="j.status"
+                     class="pos-r filter-box would-click"
+                     (click)="chooseFilter(parent, current)">
+                    <div *ngIf="j.status" class="pos-a" style="top: 0.05rem;right: 0.05rem"><i class="icon_close"></i>
+                    </div>
+                    <div class="t-24 bold lh-28">{{j.total}}</div>
+                    <div class="total-grey lh-20">{{j.name}}</div>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+</ng-container>
+
+<!--表头-->
+<ng-container *ngIf="view_type == 'table_filter'">
+    <div class="mask-layer" *ngIf="operate_data && operate_data.selected" (click)="closeFilter()"></div>
+    <div *ngIf="operate_data && operate_data.selected" class="pull-left staff-filter-choose pos-a">
+        <div class="filter-term" *ngFor="let i of filter_term;let parent = index">
+            <ng-container *ngIf="!(operate_data.column_key !== i.commit_id)">
+                <div *ngFor="let j of i.child;let current = index"
+                     (click)="chooseFilter(parent, current)">
+                    {{j.name}}
+                </div>
+                <div *ngIf="i.child.length === 0">
+                    无筛选条件
+                </div>
+            </ng-container>
+        </div>
+        <div *ngIf="operate_data && operate_data.selected && operate_data.filter === 2">
+            <div (click)="dataSort('1', operate_data.column_key)">升序</div>
+            <div (click)="dataSort('0', operate_data.column_key)">降序</div>
+        </div>
+    </div>
+</ng-container>

@@ -1,0 +1,34 @@
+<div class="staff-content">
+    <div class="lh-50 b-b icon-text-btn">
+        <a [routerLink]="['/user/pay-schedule']" class="m-l pointer"><i class="icon_arrow_left"></i></a>
+        <span>缴纳进度/{{yg_name}}</span>
+    </div>
+    <div class="d-ib pos-r">
+        <div class="table-th-bg">
+        </div>
+        <div class="schedule-box">
+            <table class="bill_list_table">
+                <thead>
+                <tr>
+                    <th *ngFor="let header of table_header;let i = index;" [class.t-l]="header.adjust == 0">
+                        {{header.column_name}}
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of item_list">
+                    <td *ngFor="let header of table_header;let i = index;">
+                        <div *ngIf="i == 3 || i == 6">
+                            {{item[header.column] || '未缴纳'}}
+                        </div>
+                        <div *ngIf="i != 3 && i != 6">
+                            {{item[header.column] || '-'}}
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--<mayihr-paging [page_info]="pagination" [request_url]="global_url" [request_type]="'get'"></mayihr-paging>-->
+</div>

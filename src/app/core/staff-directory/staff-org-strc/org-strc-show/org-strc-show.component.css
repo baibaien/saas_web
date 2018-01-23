@@ -1,0 +1,24 @@
+
+ul:nth-child(n+2) {
+    border-top:1px solid #efefef;
+    padding-left: .3rem;
+    background: #efefef!important;
+}
+li {
+    background: #ffffff;
+    border-bottom:1px solid #efefef;
+    line-height:.6rem;
+    vertical-align: middle;
+}
+.org-box {
+    padding-left: 0.2rem;
+}
+.org-edit {
+    display: none;
+}
+.org-box:hover .org-edit {
+    display: inline-block;
+}
+.org-box:hover .org-edit:hover {
+    color: #64c24d;
+}

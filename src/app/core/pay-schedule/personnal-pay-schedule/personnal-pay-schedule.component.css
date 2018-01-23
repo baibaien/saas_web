@@ -1,0 +1,121 @@
+.year-choose {
+    padding-bottom: .1rem;
+    border-bottom: 5px solid green;
+}
+
+.year-tag:hover {
+    padding-bottom: .1rem;
+    border-bottom: 5px solid green;
+}
+
+.bill-list-table td, .bill-list-table th {
+    text-align: center !important;
+}
+
+/*.bill-list-table td {*/
+    /*cursor: pointer;*/
+/*}*/
+
+.bill-list-table tr {
+    border-bottom: 1px solid #eaeaea;
+}
+
+.bill-list-table th {
+    text-align: left;
+
+}
+
+.bill-list-table td > div {
+    padding: .2rem 0 .1rem 0;
+}
+
+.bill-list-table th:first-child {
+    width: 0.4rem;
+}
+
+.bill-list-table td:first-child {
+    line-height: .6rem;
+    height: .6rem;
+}
+
+.bill-list-table tr th:nth-child(2) {
+    text-align: left !important;
+    width: 2.5rem;
+}
+
+.bill-list-table tr td:nth-child(2) {
+    text-align: left !important;
+    width: 2.5rem;
+}
+
+.bill-list-table tr th:nth-child(6) {
+    text-align: right !important;
+    width: 2.5rem;
+}
+
+.bill-list-table tr td:nth-child(6) {
+    text-align: right !important;
+    width: 2.5rem;
+}
+
+.bill-list-table th:last-child {
+    width: .5rem;
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+    white-space: nowrap;
+    text-align: center;
+}
+
+thead tr th {
+    text-align: center;
+    font-weight: 100;
+    font-size: 0.12rem;
+    color: rgba(80, 80, 80, 0.8) !important;
+    /*background: #f3f3f3;*/
+}
+
+thead tr {
+    font-weight: 100;
+    font-size: 0.12rem;
+    color: rgba(80, 80, 80, 0.4);
+    /*background: #f3f3f3;*/
+    border: none;
+}
+
+tbody {
+    padding-left: .2rem;
+}
+
+tr {
+    border-bottom: 1px solid #eaeaea;
+}
+
+th {
+    box-sizing: border-box;
+    height: .3rem;
+    line-height: .3rem;
+}
+td {
+    line-height: .45rem;
+}
+
+.schedule-box {
+    box-sizing: border-box;
+    padding: 0 .1rem 0 .3rem;
+}
+
+.table-th-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(80, 80, 80, 0.1);
+    z-index: 1;
+    width: 100%;
+    height: .3rem;
+}
+.th-pointer {
+    cursor: pointer;
+}

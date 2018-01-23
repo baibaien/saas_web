@@ -1,0 +1,23 @@
+.pos-a {
+  bottom:0;
+  left:0;
+}
+.up-text, input[type="file"] {
+  width:1.2rem;
+  height: .55rem;
+  line-height: .55rem;
+  border-radius: 3px;
+  text-align: center;
+  cursor: pointer;
+
+}
+
+.up-text:hover {
+  cursor: pointer;
+  font-size: .18rem;
+}
+
+.up-text {
+  background: #33ac37;
+  color: #fff;
+}

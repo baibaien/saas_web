@@ -1,0 +1,85 @@
+<div class="modal in p-b-lg" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header p-a b-b">
+                <p class="t-md">{{modal_info.type === 'edit' ? '编辑' : '添加'}}合同公司</p>
+                <p class="t-sm grey">用于签署劳动合同</p>
+            </div>
+            <div class="modal-body ">
+                <div class="m-b-lg p-a">
+                    <form action="" [formGroup]="company_contract">
+                        <div class="m-b-sm">
+                            <div>
+                                <label for="" class="grey d-ib m-b-xs">公司名称 <i class="error m-l-sm">*</i></label>
+                            </div>
+                            <input type="text" formControlName="name" placeholder="填写公司名称">
+                            <div>
+                                <span *ngIf="!(company_contract.get('name').valid || company_contract.get('name').untouched && before_submit)"
+                                      class="error t-sm">请填写公司名称</span>
+                            </div>
+                        </div>
+                        <div class="m-b-sm">
+                            <label for="" class="grey d-ib m-b-xs">地址 <i class="error m-l-sm">*</i></label>
+                            <div class="m-b-sm t-0">
+                                <div>
+                                    <div class="d-ib v-t" style="width: .8rem;margin-right: .05rem;">
+                                        <mayihr-select [SelectConfig]="{placeholder: '省', max_length: 2}"
+                                                       [SelectData]="addr?.province || []"
+                                                       (RefreshValue)="selectProvince($event)"
+                                                       formControlName="province"></mayihr-select>
+                                    </div>
+                                    <div class="d-ib v-t" style="width: .8rem;margin-right: .05rem;">
+                                        <mayihr-select [SelectConfig]="{placeholder: '市', max_length: 2}"
+                                                       [SelectData]="addr?.city"
+                                                       (RefreshValue)="selectCity($event)"
+                                                       formControlName="city"></mayihr-select>
+                                    </div>
+                                    <div class="d-ib v-t" style="width: .8rem;">
+                                        <mayihr-select [SelectConfig]="{placeholder: '区', max_length: 2}"
+                                                       [SelectData]="addr?.district"
+                                                       formControlName="district"></mayihr-select>
+                                    </div>
+                                </div>
+                                <div>
+                                <span *ngIf="!(company_contract.get('district').valid || company_contract.get('district').untouched && before_submit)"
+                                      class="error t-sm">请选择地区</span>
+                                </div>
+                            </div>
+                            <div class="m-b-sm">
+                                <label for="" class="grey d-b m-b-xs">详细地址<i class="error m-l-sm">*</i></label>
+                                <input type="text" formControlName="address" placeholder="详细地址">
+                                <div>
+                                <span *ngIf="!(company_contract.get('address').valid || company_contract.get('address').untouched && before_submit)"
+                                      class="error t-sm">请填写详细地址</span>
+                                </div>
+                            </div>
+                            <div class="m-b-sm">
+                                <label for="" class="grey d-b m-b-xs">邮政编码</label>
+                                <input type="text" formControlName="postcode" placeholder="邮政编码">
+                                <div>
+                                    <span *ngIf="!(company_contract.get('postcode').valid || company_contract.get('postcode').untouched && before_submit)"
+                                          class="error t-sm">请填写6位邮政编码</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="ui-check">
+                                    <input type="checkbox" formControlName="is_default">
+                                    <i class="icon_ui v-m"></i>
+                                    <span class="t v-m">设为默认合同公司</span>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="b-t btn-group t-r p-a">
+                    <div class="pull-left pointer" *ngIf="modal_info.type === 'edit'" (click)="deleteContractTarget()">
+                        <i class="icon_transh p-r"></i>删除
+                    </div>
+                    <button class="reverse t-sm light v-m m-r-sm btn btn-sm" (click)="cancelModal()">取消</button>
+                    <button class="btn btn-sm" (click)="saveMsg()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

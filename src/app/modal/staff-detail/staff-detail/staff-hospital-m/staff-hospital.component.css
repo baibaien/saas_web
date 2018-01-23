@@ -1,0 +1,57 @@
+.staff-hospital .half {
+  width: 50%;
+}
+.modal-modal {
+  margin-left: -425px;
+}
+.area, .level {
+  width: 60px;
+  white-space: nowrap;
+}
+/*.staff-hospital .half.pull-right {*/
+  /*width: 55%;*/
+/*}*/
+.search .btn {
+  margin-left: -.5rem;
+  margin-top: 1px;
+  border-radius: 0 3px 3px 0;
+}
+.search input {
+  width: 250px;
+}
+
+.hospital-content {
+  clear:both;
+}
+.half {
+  height:400px;
+}
+.icon_close {
+  color: #acacac;
+}
+.chosen-lists {
+  background: #eaeaea;
+  width: 1.2rem;
+  padding: .03rem .08rem;
+}
+.chosen-lists .ellipsis {
+  width: 90%;
+}
+.chosen-lists .icon_close {
+  top: .08rem;
+  right:0;
+}
+.hospital-lists {
+  height: 345px;
+  overflow: auto;
+}
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+
+
+

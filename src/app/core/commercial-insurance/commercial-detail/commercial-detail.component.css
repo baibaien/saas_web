@@ -1,0 +1,57 @@
+.w-050 {
+    width: 50%;
+    box-sizing: border-box;
+    padding-right: .2rem;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+    text-align: left;
+}
+
+.team tr th {
+    color: rgba(80, 80, 80, 0.4);
+    background: #f3f3f3;
+    font-size: .12rem;
+}
+
+.team tr th:first-child {
+    width: 50%;
+    padding-left: 10%;
+}
+
+.team tr td:first-child {
+    width: 50%;
+    padding-left: 10%;
+
+}
+
+.team tr td {
+    font-size: .24rem;
+    font-weight: bold;
+}
+
+.hospital tr th {
+    color: rgba(80, 80, 80, 0.4);
+    background: #f3f3f3;
+    font-size: .12rem;
+}
+
+.hospital {
+    text-align: left;
+}
+
+.hospital th:first-child {
+    padding-left: .2rem;
+    width: 1rem;
+}
+
+/*.hospital :first-child {*/
+/*padding-left: .2rem;*/
+/*}*/
+.big-money {
+    padding: .35rem .2rem;
+    font-size: .24rem;
+    font-weight: bold;
+}

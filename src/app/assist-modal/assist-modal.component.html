@@ -1,0 +1,10 @@
+<app-toast [toast_show]="modal_name" [toast_msg]="modal_info" [toast_handler]="modal_handler"
+           *ngIf="modal_name === 'toast'"></app-toast>
+
+
+<app-alert-modal [modal_name]="modal_name" [modal_info]="modal_info" [modal_handler]="modal_handler"
+                 *ngIf="modal_name === 'alert'"></app-alert-modal>
+
+
+<app-confirm-modal [assist_name]="modal_name" [assist_info]="modal_info" [assist_handler]="modal_handler"
+                   *ngIf="modal_name === 'confirm'"></app-confirm-modal>

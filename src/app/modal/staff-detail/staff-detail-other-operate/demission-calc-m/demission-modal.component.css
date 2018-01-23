@@ -1,0 +1,60 @@
+.tab input{
+  -webkit-appearance: none;
+  width:0;
+  height:0;
+  opacity: 0;
+  position: absolute;
+  left:0;
+  z-index: -1;
+}
+input:not([type]):disabled {
+  width: .9rem;
+}
+.tab .active {
+  position: relative;
+  color: #5b5b5b;
+}
+.tab .active:after {
+  content: "";
+  position: absolute;
+  left:0;
+  right:0;
+  bottom: -.18rem;
+  border-bottom:4px solid #64c24d;
+}
+.label {
+  line-height: .35rem;
+}
+.add-box {
+  vertical-align: middle;
+  font-size: 0;
+  border: 1px solid #d7d7d7;
+  line-height: .34rem;
+  border-radius: 3px;
+}
+
+.add-icon {
+  width: .2rem;
+  text-align: center;
+  background: #fff;
+  border-radius: 3px 0 0 3px;
+}
+
+.add-input {
+  border-radius: 0 3px 3px 0 !important;
+  line-height: .34rem !important;
+  height: .34rem !important;
+  border: none !important;
+  width: 1rem;
+}
+
+.short-text {
+  overflow: hidden;
+  width: 2rem;
+  height: .2rem;
+  text-overflow: ellipsis;
+  text-align: right;
+  white-space: nowrap;
+}
+
+

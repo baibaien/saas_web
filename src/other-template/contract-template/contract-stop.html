@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            letter-spacing: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+
+        .page {
+            width: 21cm;
+            min-height: 29.7cm;
+            padding-top: 2.85cm;
+            padding-bottom: 4.3cm;
+            margin: 72px 10px;
+            border: 1px #D3D3D3 solid;
+            border-radius: 5px;
+            background: white;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .content-box {
+
+        }
+
+        .header {
+            text-align: center;
+            font-size: .6cm;
+            font-weight: 800;
+            margin: 0 10px;
+            padding-bottom: .7cm;
+            font-family: SimHei;
+        }
+
+        .content {
+            width: 14cm;
+            margin: 0 3.2cm;
+            font-size: 3mm;
+            line-height: 5mm;
+        }
+
+        .paragraph {
+            padding-bottom: 6mm;
+        }
+
+        .p-header {
+            font-weight: bold;
+            /*padding-bottom: 6mm;*/
+        }
+
+        .p-content {
+            text-indent: 2em;
+        }
+
+        .tu {
+            text-decoration: underline;
+        }
+
+        .footer {
+            position: absolute;
+            width: 100%;
+            bottom: 26mm;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="content">
+        <div style="padding-top: 1.5mm; font-size: 6mm;text-align: center;padding-bottom: 12mm;letter-spacing: 4mm;">
+            <b>劳动合同解除或终止协议
+            </b>
+        </div>
+        <div>
+            <div>
+                <b>甲方: </b> <span style="text-decoration: underline;">{{$company}}</span><span
+                    style="display: inline-block; padding-left: 3mm;">(以下简称<b>甲方</b>)</span>
+            </div>
+            <div>
+                <b>通讯地址</b><b>:</b> <span
+                    style="text-decoration: underline;">
+                    @if (!empty($contractCompany))
+                        {{--$contractCompany->address--}}
+                    @else
+
+                    @endif</span>
+            </div>
+            <div style="padding-top: 11mm;">
+                <b>乙方: </b> <span style="text-decoration: underline;">{{$yg_name}}》</span><span
+                    style="display: inline-block; padding-left: 5mm;">(以下简称<b>乙方</b>)</span>
+            </div>
+            <div>
+                <b>{{$id_type_name}}</b><b>:</b> <span
+                    style="text-decoration: underline;">{{$yg_identity}}</span>
+            </div>
+            <div>
+                <b>家庭地址</b><b>:</b> <span
+                    style="text-decoration: underline;">{{$yg_addr}}</span></span>
+            </div>
+            <div style="padding-top: 6mm;text-indent: 2em;padding-bottom: 7mm;">
+            </div>
+        </div>
+        <div class="paragraph">
+            <div class="p-header">1、根据双方签订的劳动合同，用人单位（甲方）因《离职原因》决定解除、终止与乙方签订的劳动合同。</div>
+
+        </div>
+        <div class="paragraph">
+            <div class="p-header">
+                2、劳动合同约定的其他条款
+            </div>
+            <div class="p-content">
+                <div>
+                    <div>（1）乙方应于<span class="tu">{{date("Y", $yg_fire_date)}}</span>年<span class="tu">{{date("m", $yg_fire_date)}}</span>月<span class="tu">{{date("d", $yg_fire_date)}}</span>日前办理离职手续；
+                    </div>
+                    <div>（2）工资结算于<span class="tu">{{date('m', $fire_salary_date)}}</span>月<span class="tu">{{date('d', $fire_salary_date)}}</span>日正常发放（遇节假日或休息日，相应顺延至下一个工作日），本次工资结算金额为<span
+                            class="tu">
+                            @if(!empty($yg_fire_salary))
+                                $yg_fire_salary
+                            @endif</span>元；
+                    </div>
+                    <div>（3）社会保险及住房公积金于<span class="tu">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>年
+                        <span class="tu">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>月（封存或转出）；</div>
+                </div>
+            </div>
+        </div>
+        <div class="paragraph">
+            <div class="p-header">3、本协议生效后，甲乙双方所有的关于劳动关系方面的权利与义务关系全部终结，今后不存在任何经济补偿、劳动关系解除争议、工资待遇争议和经济追究权利</div>
+
+        </div>
+        <div class="paragraph">
+            <div class="p-header">
+                4、乙方承诺将恪守诚实守信原则，即使离职（离开甲方处），乙方将保守在甲方处工作时所获悉的甲方及其他第三方的商业秘密、个人信息等全部信息（包括但不限于：甲方及其他第三方的商业资料、客户信息、个人资料等全部信息），不得将上述信息告知任何第三方。
+            </div>
+
+        </div>
+        <div class="paragraph">
+            <div class="p-header">5、乙方承诺将恪守诚实守信原则，即使离职（离开甲方处），乙方将维护甲方及其相关方的声誉、形象、利益。不得作出任何可能损害甲方及其相关方声誉、形象、利益的行为。</div>
+
+        </div>
+
+        <div class="paragraph">
+            <div class="p-header">6、本协议内容乙方应严格保密，不得对任何人泄露</div>
+
+        </div>
+        <div class="paragraph">
+            <div class="p-header">7、本协议经甲乙双方签字（盖章）后生效</div>
+
+        </div>
+        <div class="paragraph">
+            <div class="p-header">8、本协议一式两份，甲方执一份，乙方执一份，具有同等法律效力</div>
+
+        </div>
+        <div style="padding-top: 10mm;">
+            <div style="display: inline-block;">
+                <div>
+                    <div>
+                        <span>甲方:</span>
+                        <div style="width: 40mm; display: inline-block;border-bottom: 1px solid black;"></div>
+                    </div>
+                </div>
+                <div style="padding-top: 6mm;">
+                    <div style="display:inline-block;border-bottom:1px solid black;width:14mm;"></div>
+                    年
+                    <div style="display:inline-block;border-bottom:1px solid black;width:10mm;"></div>
+                    月
+                    <div style="display:inline-block;border-bottom:1px solid black;width:10mm;"></div>
+                    日
+                </div>
+            </div>
+            <div style="display: inline-block;padding-left: 35mm;">
+                <div>
+                    <div>
+                        <span>乙方:</span>
+                        <div style="width: 40mm; display: inline-block;border-bottom:1px solid black;"></div>
+                    </div>
+                </div>
+                <div style="padding-top: 6mm;">
+                    <div style="display:inline-block;border-bottom:1px solid black;width:14mm;"></div>
+                    年
+                    <div style="display:inline-block;border-bottom:1px solid black;width:10mm;"></div>
+                    月
+                    <div style="display:inline-block;border-bottom:1px solid black;width:10mm;"></div>
+                    日
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

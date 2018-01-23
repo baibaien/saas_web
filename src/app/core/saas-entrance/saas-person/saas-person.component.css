@@ -1,0 +1,76 @@
+.main-content {
+  padding-top:.6rem;
+  height: 100%;
+  overflow: hidden;
+
+}
+.section{
+  height: 60%;
+}
+.bottom-content {
+  position:absolute;
+  bottom:0;
+  left:0;
+  width: 100%;
+  height:40%;
+  padding: .7rem 0 0;
+  overflow: hidden;
+
+}
+.cursoul {
+  position: relative;
+  height: 3.2rem
+}
+.cursoul .out-wrapper {
+  width: 12rem;
+  display:none;
+  left: 50%;
+  bottom:0;
+  margin-left: -6rem;
+  height:100%;
+  transition: transform .5s ease-in;
+}
+.cursoul .out-wrapper.handle {
+  transition: transform .15s ease-in;
+}
+.cursoul .out-wrapper.next, .cursoul .out-wrapper.active, .cursoul .out-wrapper.prev{
+  display: block;
+  position: absolute;
+}
+.cursoul .out-wrapper.next {
+  transform: translateX(15rem)
+}
+.cursoul .out-wrapper.prev {
+  transform: translateX(-15rem)
+}
+.cursoul .wrapper {
+  margin: 0 2.2rem;
+  height: 100%;
+}
+.indicator-wrapper {
+  width:12rem;
+  bottom:.5rem;
+  left:50%;
+  margin-left: -6rem;
+
+}
+.indicator {
+  list-style: none;
+  left:2.4rem;
+  bottom:.3rem;
+  position: absolute;
+}
+.indicator-item {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 100%;
+  background: #acacac;
+  cursor: pointer;
+}
+.indicator-item + .indicator-item {
+  margin-left: .1rem
+}
+.indicator-item.active{
+  background: #7b7b7b;
+}

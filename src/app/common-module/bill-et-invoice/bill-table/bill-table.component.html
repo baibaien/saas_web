@@ -1,0 +1,44 @@
+<div class="child-table-container">
+    <table class="child-table bill-list-child-table saas-table">
+        <thead>
+        <tr class="saas-table-header">
+            <th></th>
+            <th *ngFor="let header of bill_table_header"
+                [class.t-l]="header.adjust == -1"
+                [class.t-c]="header.adjust == 0"
+                [class.t-r]="header.adjust == 1">
+                {{header.column_name}}
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let detail of table_data" (click)="openBillDetail($event, detail)" class="pointer-no-color">
+            <td></td>
+            <td *ngFor="let header of bill_table_header;let j = index;"
+                [class.t-l]="header.adjust == -1"
+                [class.t-c]="header.adjust == 0"
+                [class.t-r]="header.adjust == 1">
+                <span [title]="detail[header.column]?.length > 15 ? detail[header.column] : ''">{{detail[header.column] | longStringFilter:15}}</span>
+                <div class="bill-detail" *ngIf="j === 0 && detail.child.length > 0">
+                    <div *ngFor="let child of detail.child">
+                        {{child?.type_name}}
+                    </div>
+                </div>
+                <div class="bill-detail" *ngIf="j === 4 &&detail.child.length > 0">
+                    <div *ngFor="let child of detail.child">
+                        {{child?.money}}
+                    </div>
+                </div>
+            </td>
+            <td>
+                <i *ngIf="detail.is_mingxi" class="icon_angle_right pointer"></i>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<app-bill-detail-m [modal_name]="modal_name" [modal_info]="modal_info"
+                   *ngIf="modal_name === 'bill_detail_m'"></app-bill-detail-m>
+
+

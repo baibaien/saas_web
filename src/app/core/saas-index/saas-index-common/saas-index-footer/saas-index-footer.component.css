@@ -1,0 +1,16 @@
+.index-footer {
+  background: #222;
+  padding: .8rem 0;
+}
+.block {
+  margin-right:.75rem;
+  cursor: default !important;
+}
+.left {
+  margin-right:1.4rem;
+}
+@media screen and (max-width: 640px){
+  .index-footer {
+    display: none;
+  }
+}

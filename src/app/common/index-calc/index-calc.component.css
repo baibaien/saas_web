@@ -1,0 +1,71 @@
+.outer {
+    user-select: none;
+    padding-top: 2rem;
+}
+.box {
+}
+
+.axis {
+    width: 100%;
+    background: url("/assets/index/index-calc/track-right.png") left top repeat-x;
+    height: 20px;
+
+}
+.axis:after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 20px;
+    /*background: red;*/
+    right: -10px;
+    background: url("/assets/index/index-calc/track-right-edge.png") left top no-repeat;
+}
+.axis:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    background: url("/assets/index/index-calc/marker.png") left bottom no-repeat;
+    bottom: -50px;
+    left: 0;
+}
+.slide-button {
+    cursor: pointer;
+    left: -25px;
+    top: -15px;
+    height: 50px;
+    width: 50px;
+    z-index: 3;
+    /*background: blue;*/
+    background: url('/assets/index/index-calc/block.png') left top no-repeat;
+}
+
+.slide-track {
+    z-index: 2;
+    height: 100%;
+    top: 0;
+    left: 0;
+    /*background: green;*/
+    background: url("/assets/index/index-calc/track-left.png") left top repeat-x;
+}
+
+.slide-track:before {
+    position: absolute;
+    width: 10px;
+    height: 20px;
+    /*background: red;*/
+    left: -10px;
+    content: '';
+    background: url("/assets/index/index-calc/track-left-edge.png") left top no-repeat;
+}
+
+
+.slide-tooltip {
+    background: url("/assets/index/index-calc/block-tooltip.png");
+    height: 130px;
+    width: 210px;
+    left: -83px;
+    font-size: 24px;
+    padding-top: .25rem;
+}
+

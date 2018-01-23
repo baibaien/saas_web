@@ -1,0 +1,49 @@
+.paid th:last-child {
+    width: 1.5rem;
+}
+.paid td:last-child {
+    line-height: normal;
+}
+.paid tr {
+    cursor: pointer;
+}
+.page-footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    height: .5rem;
+    margin-top: .5rem;
+}
+.page-footer > div {
+    line-height: .5rem;
+}
+.pos-adjust {
+    margin-top: .5rem;
+}
+
+.operate-choose {
+    position: absolute;
+    right: 0;
+    width: 2.5rem;
+    background: white;
+    z-index: 1001;
+    border-radius: 0.05rem;
+    box-shadow: 0 0 .03rem .03rem rgba(80, 80, 80, 0.2);
+}
+.operate-choose >div:hover {
+    color: #33ac37;
+    cursor: pointer;
+}
+.operate-choose > div {
+    background: rgba(80, 80, 80, 0.1);
+    height: .3rem;
+    line-height: .3rem;
+    color: rgba(80, 80, 80, 0.6);
+    text-align: center;
+    margin-bottom: .03rem;
+}
+.operate-choose > div:first-child {
+    text-align: left;
+    background: white;
+    padding-left: .2rem;
+}

@@ -1,0 +1,37 @@
+<div class="clearfix b-t mh-450" [class.no-list-bg]="order_list?.length == 0">
+    <table class="saas-table">
+        <thead>
+        <tr class="saas-table-header">
+            <th></th>
+            <th *ngFor="let header of table_header"
+                [class.t-l]="header.adjust == -1"
+                [class.t-c]="header.adjust == 0"
+                [class.t-r]="header.adjust == 1">
+                {{header.column_name}}
+            </th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let invoice of order_list">
+        <tr (click)="openOrderDetail(invoice)" class="pointer-no-color">
+            <td></td>
+            <td *ngFor="let header of table_header;let i=index;"
+                [class.t-l]="header.adjust == -1"
+                [class.t-c]="header.adjust == 0"
+                [class.t-r]="header.adjust == 1">
+                <div *ngIf="i != 4 && i != 5">{{invoice[header.column]}}</div>
+                <div class="pointer" *ngIf="i == 4" (click)="openInvoiceDetail($event, invoice)">详情
+                </div>
+                <div class="pointer" *ngIf="i == 5" (click)="downloadInvoice($event, invoice)">下载
+                </div>
+            </td>
+        </tr>
+        <tr *ngIf="invoice?.detail_selected === true">
+            <td colspan="7">
+                <app-bill-table [table_data]="order_list_detail"></app-bill-table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <mayihr-paging [request_type]="'get'" [request_url]="url_local" [page_info]="pagination"></mayihr-paging>
+</div>
+<app-invoice-manage-modal [modal_name]="modal_name" [modal_info]="modal_info"></app-invoice-manage-modal>

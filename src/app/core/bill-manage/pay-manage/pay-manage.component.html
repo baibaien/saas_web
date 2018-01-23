@@ -1,0 +1,128 @@
+<div class="staff-content pos-r">
+
+    <div class="p-t p-b b-b">
+        <span class="d-ib m-l">支付订单</span>
+    </div>
+    <ng-container *ngIf="is_third_pay !== undefined">
+        <div class="p-l-lg p-r-lg p-t b-b" style="margin-bottom: .54rem;">
+            <div class="p-t-lg p-b p-l b-b">
+                <div class="t-24 bold">{{money}}</div>
+                <div class="grey">应付金额</div>
+            </div>
+            <div class="b-b p-b">
+                <div class="grey p-t p-b-x t-md"  *ngIf="third_pay_info.url === ''">支付方式</div>
+                <div class="">
+                    <ng-container *ngIf="is_third_pay == 0">
+                        <div class="d-ib p-l" *ngIf="is_wx">
+                            <label class="ui-check p-l-sm" style="line-height: .36rem;">
+                                <input type="radio" name="pay_type" checked="checked" [formControl]="pay_type"
+                                       value="0"><i class="icon_ui v-m m-r-sm"></i>
+                                <img style="height: .25rem;" src="assets/pay-logo/weixin_pay.png">
+                                <span class="t v-m">微信</span>
+                            </label>
+                        </div>
+                        <div class="d-ib p-l">
+                            <label class="ui-check p-l-sm" style="line-height: .36rem;">
+                                <input type="radio" name="pay_type" checked="checked" [formControl]="pay_type"
+                                       value="2"><i class="icon_ui v-m m-r-sm"></i>
+                                <img style="height: .25rem;" src="assets/pay-logo/weixin-paybao.png">
+                                <span class="t v-m">支付宝</span>
+                            </label>
+                        </div>
+                        <div class="d-ib t-24 p-l">
+                            <label class="ui-check p-l-sm" style="line-height: .36rem;">
+                                <input name="pay_type" type="radio" checked="checked" [formControl]="pay_type"
+                                       value="1"><i class="icon_ui v-m m-r-sm"></i>
+                                <img style="height: .25rem;" src="assets/pay-logo/unionpay.png">
+                                <span class="t v-m">银行账户</span>
+                            </label>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="is_third_pay === 1">
+                        <ng-container *ngIf="third_pay_info.url === ''">
+                            <div class="d-ib t-24 p-l">
+                                <label class="ui-check p-l-sm" style="line-height: .36rem;">
+                                    <input name="pay_type" type="radio" checked="checked"
+                                           value="1"><i class="icon_ui v-m m-r-sm"></i>
+                                    <img style="height: .25rem;" [src]="third_pay_info.icon">
+                                    <span class="t v-m">{{third_pay_info.name}}</span>
+                                </label>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="third_pay_info.url !== ''">
+                            <iframe id="third-plat-iframe" [src]="third_pay_info.url"
+                                    frameborder="0" class="w-100per" style="min-height: 5rem"></iframe>
+                        </ng-container>
+                    </ng-container>
+                </div>
+                <div class="clearfix" *ngIf="pay_type && is_third_pay == 0">
+                    <div *ngIf="pay_type.value == 0 || pay_type.value == 2">
+                        <div class="pay-img pull-left m-r-lg">
+                            <img *ngIf="vcode" [src]="vcode"></div>
+                        <div class="pull-left">
+                            <div class="grey p-b">通过
+                                <ng-container *ngIf="pay_type.value == 2">支付宝</ng-container>
+                                <ng-container *ngIf="pay_type.value == 0">微信</ng-container>
+                                扫描左侧二维码进行支付，并将支付成功的页面截图当做凭证上传
+                            </div>
+                            <div>
+                                <span class="d-ib p-r-lg p-b">户名</span>
+                                <span>{{bank_info.ali['name']}}</span>
+                            </div>
+                            <div>
+                                <span class="d-ib p-r-lg p-b">账号</span>
+                                <span>{{bank_info.ali['account']}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="pay_type.value == 1">
+                        <div class="pay-img pull-left m-r-lg"><img *ngIf="vcode" [src]="vcode"></div>
+                        <div class="pull-left">
+                            <div class="grey p-b">通过银行转账进行支付，并将支付成功的页面截图当做凭证进行上传</div>
+                            <div>
+                                <span class="d-ib p-r-lg p-b">户名</span>
+                                <span>{{bank_info.bank['name']}}</span>
+                            </div>
+                            <div>
+                                <span class="d-ib p-r-lg p-b">开户行</span>
+                                <span>{{bank_info.bank['bank']}}</span>
+                            </div>
+                            <div>
+                                <span class="d-ib p-r-lg">账号</span>
+                                <span>{{bank_info.bank['account']}}</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-t p-b " [formGroup]="img_arr" *ngIf="is_third_pay == 0">
+                <div>支付凭证</div>
+                <div class="form-group clearfix picture-wrapper" formArrayName="img_arr_child">
+                    <div class="li m-t" *ngFor="let img of img_arr.get('img_arr_child')['controls'];let i = index">
+                        <div class="d-ib" style="width: 1.1rem;height: 1.35rem;">
+                            <mayihr-img-upload [img_url]="local_img_arr?.img_arr_child[i]['path']"
+                                               [img_config]="{title: '缴费凭证',allow_clear: true,allow_reload: false}"
+                                               (deleteImage)="deleteImg(local_img_arr.img_arr_child[i], i)"
+                                               (uploadImage)="uploadImg($event, i)">
+                            </mayihr-img-upload>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="p-t-sm p-b-sm pos-a" style="bottom: 0; left: .2rem;" *ngIf="is_third_pay == 0">
+            <button class="btn btn-sm"
+                    [class.disabled]="(this.local_img_arr.img_arr_child.length === 1 && (this.local_img_arr.img_arr_child[0]['path'] == '')
+                    && is_third_pay == 0)"
+                    (click)="toPaidList()">支付完成
+            </button>
+        </div>
+        <div class="p-t-sm p-b-sm pos-a" style="bottom: 0; left: .2rem;" *ngIf="is_third_pay == 1">
+            <button class="btn btn-sm"
+                    (click)="toThirdPlatformPay()">支付完成
+            </button>
+        </div>
+    </ng-container>
+</div>

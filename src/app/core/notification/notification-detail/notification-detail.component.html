@@ -1,0 +1,18 @@
+<div class="staff-content">
+    <div class="lh-50 b-b clearfix">
+        <div class="d-ib p-l pull-left icon-text-btn">
+            <a [routerLink]="['/user/notification']">
+                <i class="icon_arrow_left pointer"></i>
+            </a>
+            <span class="d-ib">通知/通知详情</span>
+        </div>
+    </div>
+    <div class="p-l p-r" *ngIf="detail_info">
+        <div class="b-b lh-60 clearfix">
+            <div class="t-md pull-left">{{detail_info?.title}}</div>
+            <div class="grey pull-right">{{detail_info?.create_time}}</div>
+        </div>
+        <div class="p-l-xl p-t-xl" [innerHtml]="detail_info?.content">
+        </div>
+    </div>
+</div>

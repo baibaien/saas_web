@@ -1,0 +1,14 @@
+thead th:nth-child(2) {
+    width: .6rem;
+}
+thead th:nth-child(3) {
+    width: 2rem;
+}
+
+thead th:nth-child(4) {
+    width: 1rem;
+}
+
+thead th:nth-child(6) {
+    width: 1rem;
+}

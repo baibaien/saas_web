@@ -1,0 +1,65 @@
+.would-click:hover {
+    color: #33ac37;
+    cursor: pointer;
+}
+.is-clicked {
+    background: rgba(80,80,80,0.1);
+    border-radius: .05rem;
+    color: #505050!important;
+}
+.staff-filter-choose {
+    font-weight: 500;
+    color: black;
+    margin-top: .05rem;
+    min-width: .5rem;
+    background: #ffffff;
+    box-shadow: 0 0 5px #808080;
+    right: 0;
+    z-index: 1001;
+}
+
+.staff-filter-choose > div {
+    width: .8rem;
+    max-height: 2.5rem;
+    overflow: auto;
+
+}
+
+.staff-filter-choose > div div {
+    padding-left: .05rem;
+}
+
+.staff-filter-choose > div div:hover {
+    color: #ffffff;
+    background: dodgerblue;
+    cursor: pointer;
+}
+.mask-layer {
+    width: 100%!important;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: transparent;
+    z-index: 1000;
+    max-height: 100%!important;
+}
+.filter-term {
+    z-index: 1001;
+}
+
+.filter-box {
+    box-sizing: border-box;
+    min-width: .9rem;
+    height: .7rem;
+    padding: .1rem 0 .05rem .1rem;
+}
+
+.lh-28 {
+    line-height:.28rem;
+}
+.lh-20 {
+    line-height: .2rem;
+}

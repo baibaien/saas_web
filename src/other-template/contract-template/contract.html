@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            letter-spacing: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+
+        .page {
+            width: 21cm;
+            min-height: 29.7cm;
+            padding-top: 2.85cm;
+            padding-bottom: 4.3cm;
+            margin: 72px auto;
+            border: 1px #D3D3D3 solid;
+            border-radius: 5px;
+            background: white;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .content-box {
+
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+            .page {
+                margin: 0;
+                border: initial;
+                border-radius: initial;
+                width: initial;
+                min-height: initial;
+                box-shadow: initial;
+                background: initial;
+                page-break-after: always;
+            }
+        }
+
+        .header {
+            text-align: center;
+            font-size: .6cm;
+            font-weight: 800;
+            margin: 0 auto;
+            padding-bottom: .7cm;
+            font-family: SimHei;
+        }
+
+        .content {
+            width: 14cm;
+            margin: 0 auto;
+            font-size: 3mm;
+            line-height: 5mm;
+        }
+
+        .paragraph {
+            padding-bottom: 6mm;
+        }
+
+        .p-header {
+            font-weight: bold;
+            padding-bottom: 6mm;
+        }
+
+        .p-content {
+            text-indent: 2em;
+        }
+
+        .tu {
+            text-decoration: underline;
+        }
+
+        .footer {
+            position: absolute;
+            width: 100%;
+            bottom: 26mm;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="content">
+        <div style="text-align: right"><b>合同编号:</b> <span style="text-decoration: underline;">《合同编号》</span></div>
+        <div style="padding-top: 7mm; font-size: 6mm;text-align: center;padding-bottom: 12mm;letter-spacing: 4mm;">
+            <b>劳动合同
+            </b>
+        </div>
+        <div>
+            <div>
+                <b>聘请单位: </b> <span style="text-decoration: underline;">《企业名称》</span><span
+                    style="display: inline-block; padding-left: 5mm;">以下简称<b>甲方</b></span>
+            </div>
+            <div>
+                <b style="letter-spacing: 1.2mm;">受聘人</b><b>:</b> <span
+                    style="text-decoration: underline;">《员工姓名》</span><span
+                    style="display: inline-block; padding-left: 5mm;">以下简称<b>乙方</b></span>
+            </div>
+            <div style="padding-top: 6mm;text-indent: 2em;padding-bottom: 1.5cm;">
+                为依法确定用人单位与劳动者的劳动关系，根据《劳动法》的规定，甲方与乙方在平等自愿、协商一致的前提下，签订本劳动合同。
+            </div>
+        </div>
+        <div class="paragraph">
+            <div class="p-header">第一条 受聘人基本情况：</div>
+            <div class="p-content">
+                <div>姓名：<span style="text-decoration: underline">《员工姓名》</span>
+                    <div style="display: inline-block;width: 6mm;"></div>
+                    性别：<span style="text-decoration: underline">《员工性别》</span></div>
+                <div>身份证号码：《员工身份证号码》</div>
+            </div>
+        </div>
+        <div class="paragraph">
+            <div class="p-header">第二条 合同期限：</div>
+            <div class="p-content">
+                <div>本合同于<span class="tu">《生效日期》</span>生效，其中试用期至<span class="tu">《转正日期》</span>止。试用期间，经甲方考核，乙方不符合聘用条件，自甲方通知之日起，本合同予以解除。
+                </div>
+                <div>本合同于<span class="tu">《结束日期》</span>终止。劳动合同期届满即终止执行，合同期满后，经甲、乙双方协商同意，可续订劳动合同。</div>
+            </div>
+        </div>
+        <div class="paragraph">
+            <div class="p-header">第三条 工作岗位及工作条件：</div>
+            <div class="p-content">
+                <div>甲方根据工作需要及乙方自身特长，安排乙方从事<span class="tu">《岗位》</span>岗位工作。为保证乙方能顺利完成工作任务，甲方根据国家有关规定，为乙方提供必须的生产、工作条件。工作时间按《劳动法》规定执行，如特殊情况须延长工作时间，甲方按《劳动法》规定给予劳动者加班报酬。
+                </div>
+                <div>合同期内甲方可根据工作需要调换乙方工作岗位，乙方应当服从甲方工作安排，不得无理拒绝。乙方对工作变动不服，可以向甲方提出申诉，也可以提出解除劳动合同。</div>
+            </div>
+        </div>
+        <div class="paragraph">
+            <div class="p-header">
+                第四条 劳动报酬：
+            </div>
+            <div class="p-content">
+                <div>
+                    合同期内，甲方按照国家及本单位有关规定，根据乙方岗位，按每月<span class="tu">《基本工资》</span>元人民币支付工资，试用期工资为每月《试用期工资》元人民币。如乙方工作出色，甲方根据有关考核规定给乙方加薪，如乙方岗位变动，则按甲方岗位工资标准执行变动后的岗位工资。
+                </div>
+                <div>甲方应每月《发薪日》以货币形式支付乙方上月工资，不得无故克扣或拖欠乙方工资。</div>
+                <div>根据社会经济增长和企业发展等实际情况，如需提高工资水平，由甲方另行规定。</div>
+            </div>
+        </div>
+        <div class="paragraph">
+            <div class="p-header">第五条 劳保福利待遇：</div>
+            <div class="p-content">
+                <div> 在合同期内，甲方每年为乙方购买劳动保险。
+                </div>
+                <div> 如乙方在合同期间因工负伤、致残或死亡，待遇按国家有关规定执行。其余一概由乙方负责。
+                </div>
+                <div> 乙方因打架斗殴，参与违法乱纪活动致伤、致残、致死的一切费用自负。
+                </div>
+                <div> 乙方其它福利待遇按甲方有关福利制度实行。
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer" style="text-align: center">-1-</div>
+</div>
+<div class="page">
+    <div class="content">
+        <div class="paragraph">
+            <div class="p-header">第六条 劳动纪律：</div>
+            <div class="p-content">
+                <div>在合同期内，乙方应遵守国家法律、法规及甲方制订的《员工手册》和其它规章制度，服从领导、听从指挥，保守甲方商业秘密，维护甲方形象，努力做好工作。</div>
+                <div>乙方对外代表公司进行的民事活动，必须经法人代表授权方可，未经公司授权或以乙方个人名义进行的民事活动，其民事责任均由乙自行承担。</div>
+            </div>
+        </div>
+        <div class="paragraph">
+            <div class="p-header">第七条 劳动合同的解除：</div>
+            <div class="p-content" style="text-indent: 0;">
+                <div>一）乙方有下列情况之一甲方可解除劳动合同，不给予乙方任何经济补偿：</div>
+                <div>1、 员工在试用期内，经考核不符合录用条件的；</div>
+                <div>2、 严重失职，徇私舞弊，给公司利益造成损失数额达伍仟元以上（含）的；</div>
+                <div>3、 违反《员工手册》，符合其“解除劳动合同”条件的；</div>
+                <div>4、 员工提供虚假个人学历、职称、工作经历等岗位要求重要证明材料，致使公司与其订立劳动合同后，经公司调查证实，员工不能胜任岗位工作的；</div>
+                <div>5、 蓄意损害公司财产，造成不良影响的；</div>
+                <div>6、 打架、斗殴造成不良影响的；</div>
+                <div>7、 组织职工擅自罢工，有意制造事端的；</div>
+                <div>8、 办公时间内进行娱乐、赌博活动的；</div>
+                <div>9、 改、伪造单据、证明材料的；</div>
+                <div>10、违反公司保密制度，符合保密制度中“解除劳动合同”条件的；</div>
+                <div>11、违反计划生育规定的；</div>
+                <div>12、其它触及刑法及行政强制性规定行为的。</div>
+            </div>
+        </div>
+        <div class="paragraph">
+            <div class="p-content" style="text-indent: 0;">
+                <div>
+                    二）乙方有下列情况之一，甲方应提前三十日通知乙方，可解除劳动合同，并按国家劳动法给予经济补偿：
+                </div>
+                <div>1、 乙方工作中年度考核不及格的；</div>
+                <div>2、 乙方不能胜任公司安排的工作，经培训或岗位调整仍不能胜任的；</div>
+                <div>3、 乙方患病或非因工负伤，医疗期满后，不能从事原工作也不能从事甲方另行安排的工作，或者不符合国家和本市从事有关行业、工种岗位规定，公司无法另行安排工作的；</div>
+                <div>4、 订立本合同所依据的客观情况发生重大变化，致使本合同无法履行的，经甲乙双方协商同意，可以变更本合同相关内容。</div>
+                <div>5、 国家劳动法上规定的其他可以由用人单位解除劳动合同的情形。</div>
+            </div>
+        </div>
+        <div class="paragraph">
+            <div class="p-content" style="text-indent: 0;">
+                <div>三）乙方在合同期限内解除劳动合同应提前三十日通知甲方。</div>
+            </div>
+        </div>
+        <div class="paragraph">
+            <div class="p-content">
+                <div>四）有下列情形之一，乙方可以随时通知甲方解除本合同：</div>
+                <div>1、 在试用期内的；</div>
+                <div>2、 甲方以暴力、威胁、监禁或者非法限制人身自由的手段强迫劳动的；</div>
+                <div>3、 甲方不能按照本合同规定支付劳动报酬或者提供劳动条件的。</div>
+            </div>
+        </div>
+        <div class="paragraph">
+            <div class="p-content">
+                <div>五）乙方有下列情形之一的，甲方不得依据本合同第七条第二款解除劳动合同：</div>
+                <div>1、 患病或者负伤,在规定的医疗期内的；</div>
+                <div>2、 女职工在孕期、产期、哺乳期内的；</div>
+                <div>3、 法律、行政法规规定的其他情形。</div>
+            </div>
+        </div>
+        <div class="paragraph">
+            <div class="p-content">
+                <div>六）解除劳动合同双方均须以书面形式通知对方；劳动合同解除后，乙方不得再以任何理由提出任何要求。</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer" style="text-align: center">-2-</div>
+</div>
+<div class="page">
+    <div class="content">
+        <div class="paragraph">
+            <div class="p-header">第八条 违约责任：</div>
+            <div class="p-content">
+                <div>
+                    劳动合同签订后，双方必须全面履行，如一方违约给对方造成损害或经济损失，违约方应承担全部赔偿责任。
+                </div>
+            </div>
+        </div>
+        <div class="paragraph">
+            <div class="p-header">第九条 劳动争议处理：</div>
+            <div class="p-content">
+                <div>
+                    因履行本合同发生的劳动争议，当事人可以向甲方劳动争议调解委员会申请调解；调解不成，当事人一方要求仲裁的，应当自劳动争议发生之日起六十日内向公司注册地所在地区劳动争议仲裁委员会申请仲裁。当事人一方也可以直接向劳动争议仲裁委员会申请仲裁。对裁决不服的，可以向公司注册地所在地区人民法院提起诉讼。
+                </div>
+            </div>
+        </div>
+        <div class="paragraph">
+            <div class="p-header">第十条 双方约定的其他事项：</div>
+            <div class="p-content" style="text-indent: 0;">
+                <div>
+                    一）乙方劳动人事档案由乙方自行寄存，甲方不负任何责任。双方以本合同作为劳动关系建立的依据。
+                </div>
+                <div>二）甲方根据需要可对乙方进行技术培训，签订培训合同，培训费按培训合同约定内容支付。</div>
+                <div>三）乙方应严格保守甲方的商业和技术秘密，不得对外泄露，如因此给甲方造成损失，乙方应承担全部赔偿责任。乙方在甲方单位任重要岗位职务（所有财务人员、部门经理以上职务等）须与甲方另行签订保密协议。
+                </div>
+            </div>
+        </div>
+        <div class="paragraph">
+            <div class="p-header" style="padding-bottom: 0;">第十一条 在签订劳动合同前，乙方仔细阅读、学习了甲方的《员工手册》，并自觉遵守。</div>
+        </div>
+        <div class="paragraph">
+            <div class="p-header" style="padding-bottom: 0;">第十二条 本合同未尽事宜按国家法律、法规执行。</div>
+        </div>
+        <div class="paragraph">
+            <div class="p-header" style="padding-bottom: 0;">第十三条 本合同一式两份，甲、乙双方各持一份，由甲、乙双方签字生效。</div>
+        </div>
+        <div class="paragraph">
+            <div class="p-content" style="text-indent: 0;padding-bottom: 20mm;">
+                <div>甲方（公章）:</div>
+                <div style="padding-top: 6mm;">法定代表人或委托代理人（签字或盖章）：</div>
+            </div>
+            <div>
+                <div>乙方（签字或公章）:</div>
+                <div style="padding-top: 6mm;">联系电话</div>
+            </div>
+        </div>
+        <div style="padding-top: 6mm;">
+            签订日期：<div style="display:inline-block;border-bottom: solid black 1px;width:14mm;vertical-align: bottom;"></div>
+            年<div style="display:inline-block;border-bottom: solid black 1px;width:10mm;vertical-align: bottom;"></div>
+            月<div style="display:inline-block;border-bottom: solid black 1px;width:10mm;vertical-align: bottom;"></div>
+            日
+        </div>
+    </div>
+
+    <div class="footer" style="text-align: center">-3-</div>
+</div>
+</body>
+</html>

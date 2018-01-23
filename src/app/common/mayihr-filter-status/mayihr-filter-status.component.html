@@ -1,0 +1,15 @@
+<div class="p-t-xs p-b-xs p-l-lg b-b filter-box" *ngIf="advanced_filter">
+    <div class="d-ib p-r-sm pull-left m-b-xs m-t-xs" style="height:.3rem; line-height: .3rem;">
+        筛选条件
+    </div>
+    <ul class="d-ib filter-condition pull-left" style="width: 8.7rem;">
+        <li *ngFor="let term of filter_term;let i=index">
+            <ng-container *ngFor="let current of term.child;let j = index">
+                <span class="pointer m-b-xs m-t-xs" *ngIf="current.status && current.status_show">
+                        <span class="p-l">{{term.name}} ：{{current.name}}</span>
+                        <i class="d-ib icon_close" (click)="closeTerm(i, j)"></i>
+                </span>
+            </ng-container>
+        </li>
+    </ul>
+</div>

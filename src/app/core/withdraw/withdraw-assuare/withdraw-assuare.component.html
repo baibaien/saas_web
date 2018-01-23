@@ -1,0 +1,76 @@
+<div class="staff-content clearfix" *ngIf="withdraw_status">
+    <div class="p-t p-b b-b">
+        <a [routerLink]="['/user/dashboard/withdraw']" class="m-l m-r-sm"><i class="icon_arrow_left"></i></a>
+        <span class="d-ib">提现/验证手机号码</span>
+    </div>
+    <div class="p-l-lg p-r-lg p-t p-b-xxl pos-r" style="min-height: 5.5rem;">
+        <div class="">
+            <div class="withdraw-assure-info ">
+                <div class="d-ib v-m p-l">
+                    <i class="icon_alert" style="color: #9b8a1f;"></i>
+                </div>
+                <div class="d-ib v-m p-l-sm">请仔细核对以下提现信息</div>
+            </div>
+        </div>
+        <div class="p-t-lg p-l">
+            <ul>
+                <li class="d-ib">
+                    <div class="t-24 t-RB">{{withdraw_status?.money | number: '1.2-2'}}</div>
+                    <div class="total-grey">账户余额</div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="p-l p-b-xl b-b" *ngIf="withdraw_status?.type == 1">
+            <div class="p-t-xl">
+                <div class="grey p-b-sm">支付宝账号</div>
+                <div class="">{{withdraw_status?.ali_acc}}</div>
+            </div>
+        </div>
+        <div class="p-l p-b-xl b-b" *ngIf="withdraw_status?.type == 2">
+                <div class="p-t-xl">
+                    <div class="grey p-b-sm d-ib w-80">开户行</div>
+                    <div class=" d-ib">{{withdraw_status?.bank_name}}</div>
+                </div>
+                <div class="p-t-xl">
+                    <div class="grey p-b-sm d-ib w-80">开户支行</div>
+                    <div class=" d-ib">{{withdraw_status?.bank_sub_name}}</div>
+                </div>
+                <div class="p-t-xl">
+                    <div class="grey p-b-sm d-ib w-80">银行账号</div>
+                    <div class=" d-ib">{{withdraw_status?.bank_acc}}</div>
+                </div>
+                <div class="p-t-xl">
+                    <div class="grey p-b-sm d-ib w-80">银行账户名</div>
+                    <div class=" d-ib">{{withdraw_status?.bank_acc_name}}</div>
+                </div>
+        </div>
+        <!--<div class="p-l p-b-xl b-b" *ngIf="withdraw_status?.type == 3">-->
+        <!--<div class="p-t-xl">-->
+        <!--<div class="grey p-b-sm">支付宝账号</div>-->
+        <!--<div class="">{{withdraw_status?.ali_acc}}</div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <div class="p-l p-t-lg">
+            <div class="d-ib grey">
+                短信验证码(注册手机尾号{{withdraw_status?.tail}})
+            </div>
+            <div class="p-t-sm">
+                <input type="text" placeholder="请输入验证码" [formControl]="voucher">
+                <button class="m-l btn btn-sm" (click)="getCaptcha()"
+                        *ngIf="state.count == 0">获取验证码
+                </button>
+                <button *ngIf="state.count > 0"
+                        class="m-l btn btn-sm disabled">
+                    重新发送({{state.count}})
+                </button>
+            </div>
+        </div>
+        <div class="d-ib h-60"></div>
+        <div class="p-t lh-60 p-b m-l pos-a clearfix" style="bottom: 0;">
+            <button class="btn btn-sm" [class.disabled]="!voucher.valid" (click)="withdrawAssure()">确认
+            </button>
+        </div>
+    </div>
+</div>

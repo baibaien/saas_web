@@ -1,0 +1,110 @@
+<div class="modal in" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+
+    <div class="modal-dialog" style="min-height: 6rem;">
+        <div class="modal-content clearfix">
+            <div class="modal-header b-b p-a">
+                <div class="t-md">修改浮动工资</div>
+                <div class="t-sm grey">{{modal_info?.staff?.yg_name}}</div>
+            </div>
+            <div class="modal-body" *ngIf="show_data" [formGroup]="root_form" style="padding-bottom: 1.5rem;">
+                <div class="p-l p-r p-b" formArrayName="change_form">
+                    <div *ngFor="let i of root_form.get('change_form')['controls'];let j = index"
+                         class="clearfix b-b p-b-sm p-t-sm">
+                        <div class="clearfix">
+                            <div class="pull-left line-height-36">{{show_data.bonus_item[j].column_name}}</div>
+                            <div class="pull-right">
+                                <input type="text" formControlName="{{j.toString()}}" placeholder="0或空则不发放"
+                                       [class.disabled]="root_form.get('change_form').get(j.toString()).disabled">
+                            </div>
+                        </div>
+                        <div class="t-r" *ngIf="!root_form.get('change_form').get(j.toString()).valid">
+                            <div class="d-ib error">
+                                金额必须为大于零的数字
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-r p-l p-b clearfix">
+                    <div class="pull-right pointer" (click)="toggleEdit()" *ngIf="!show_edit">
+                        <i class="icon_add v-m m-r-xs"></i>
+                        <span>添加新项目</span>
+                    </div>
+                    <div *ngIf="show_edit">
+                        <form [formGroup]="bonus">
+                            <div class="modal-body p-r-lg p-l-lg p-b-lg">
+                                <div>
+                                    <div class="clearfix">
+                                        <div class="pull-left grey">+新增项目</div>
+                                        <div class="pull-right">
+                                            <div class="d-ib pointer m-l-xs" (click)="toggleEdit()">
+                                                <i class=" v-m icon_error black"></i>
+                                                <span>放弃</span>
+                                            </div>
+                                            <div class="d-ib pointer" (click)="submitEdit()">
+                                                <i class=" v-m icon_done black"></i>
+                                                <span>保存</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="p-b-lg clearfix">
+                                        <div>类型</div>
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <label class="ui-check">
+                                                <input type="radio" formControlName="is_annual" value="0">
+                                                <i class="icon_ui v-m"></i>
+                                                <span class="t v-m">常规</span>
+                                            </label>
+                                        </span>
+                                        <span class="p-l-xl">
+                                            <label class="ui-check">
+                                                 <input type="radio" formControlName="is_annual" value="1">
+                                                 <i class="icon_ui v-m"></i>
+                                                 <span class="t v-m">全年一次性奖金收入(年终奖)</span>
+                                            </label>
+                                         </span>
+                                        <i class="icon icon_alert v-m"
+                                           title="每个纳税年度内年终奖只能进行一次申报，同月同一人有多个年终奖项目将合并申报"
+                                           style="font-size: .18rem;"></i>
+                                    </div>
+                                </div>
+                                <div class="p-t-lg">
+                                    <label for="name" class="d-b p-b">奖金名称</label>
+                                    <input type="text" id="name" placeholder="在这里输入奖金名称"
+                                           formControlName="name">
+                                    <div class="error error_info"
+                                         *ngIf="(bonus.hasError('required', 'name')
+                                        && !bonus.get('name').untouched)
+                                        || (bonus.get('name').untouched && before_submit)">请输入奖金名称
+                                    </div>
+                                    <div class="error error_info"
+                                         *ngIf="bonus.hasError('maxlength', 'name')">名称长度不得大于20字
+                                    </div>
+                                    <!--<div class="d-ib error error_info"-->
+                                    <!--*ngIf="error_list.name.existed">该名称已存在</div>-->
+                                </div>
+                                <div class="p-t-xl">
+                                    <label class="ui-check">
+                                        <input type="checkbox" formControlName="status" value="1">
+                                        <i class="icon_ui pointer-no-color m-r-xs v-m"></i>
+                                        <span class="t v-m">在未来的工资表中继续使用该奖金项目</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer t-r p-a b-t pos-a" style="bottom: 0;width: 100%;">
+            <button type="button" class="btn btn-sm reverse p-a-sm v-m m-r-sm bold" data-dismiss="modal"
+                    (click)="cancelModal()">取消
+            </button>
+            <button type='button' class="btn btn-sm v-m" [class.disabled]="root_form?.invalid"
+                    (click)="submitModal()">确认
+            </button>
+        </div>
+    </div>
+</div>

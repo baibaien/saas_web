@@ -1,0 +1,22 @@
+<div class="staff-content">
+    <div class="p-t p-b b-b t-md">
+        <span class="d-ib m-l">发票管理</span>
+    </div>
+    <div class="p-t p-l-xl grey b-b">
+        <a class="pointer d-ib p-b year-tag m-r"
+             [routerLink]="['/user/invoice-manage/uninvoiced']" [routerLinkActive]="['year-choose']">
+            未开票订单
+        </a>
+        <a class="pointer d-ib p-b year-tag m-r"
+             [routerLink]="['/user/invoice-manage/wait-out']" [routerLinkActive]="['year-choose']">
+            待出票中订单
+        </a>
+        <a class="pointer d-ib p-b year-tag"
+             [routerLink]="['/user/invoice-manage/invoiced']" [routerLinkActive]="['year-choose']">
+            已开票订单
+        </a>
+    </div>
+    <div>
+        <router-outlet></router-outlet>
+    </div>
+</div>

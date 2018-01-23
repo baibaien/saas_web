@@ -1,0 +1,7 @@
+.staff-change-block input[type=text],select{
+    width: 2.5rem;
+}
+.staff-change-block label{
+    display: block;
+    padding-bottom: 0.1rem;
+}

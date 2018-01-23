@@ -1,0 +1,161 @@
+<div class='index-body'>
+  <form action="" [formGroup]="sign_msg">
+    <app-saas-index-header></app-saas-index-header>
+    <div class="section section1">
+
+      <div class="index-container">
+        <p class="white t-48 m-b t-c mobile-t36">1000万中小企业的云端人力资源部</p>
+        <p class="white t-24 m-b-xl t-c mobile-t30">薪酬福利 假勤管理 员工管理 人事外包</p>
+        <div class="sign-box">
+          <input type="text" class="full-w t-24"
+                 [placeholder]='mobile_tip'
+                 formControlName="mobile"
+          (input)="setPlaceholder()" >
+          <span class="b-green white p-a-sm sign-btn t-24 "
+                (click)="preSign()"
+                style="cursor:pointer">免费注册</span>
+        </div>
+      </div>
+    </div>
+    <div class="section bg-white section2">
+      <div class="index-container">
+        <h3 class="t-30 t-c mobile-t36">提供您工作所需的一切</h3>
+        <p class="text-grey t-c t-20 mobile-t26">蚂蚁HR人力资源系统，让日常事务性的工作更高效的运转</p>
+        <div class="intro-list t-0">
+        <span class="intro">
+          <img src="./assets/index/main/money.png" alt="" class="m-b-sm">
+          <p class="t-md t-c mobile-t22">薪资福利</p>
+        </span>
+          <span class="intro">
+          <img src="./assets/index/main/holidy.png" alt="" class="m-b-sm">
+          <p class="t-md t-c mobile-t22">假勤管理</p>
+        </span>
+          <span class="intro">
+          <img src="./assets/index/main/user.png" alt="" class="m-b-sm">
+          <p class="t-md t-c mobile-t22">员工管理</p>
+        </span>
+          <span class="intro">
+          <img src="./assets/index/main/plain.png" alt="" class="m-b-sm">
+          <p class="t-md t-c mobile-t22">效率工具</p>
+        </span>
+        </div>
+        <div>
+          <a [routerLink]="['/index/product-function/system']"
+             class="b-green white d-ib index-btn t-lg mobile-t30" style="">查看详细功能介绍</a>
+        </div>
+      </div>
+    </div>
+    <div class="section section3">
+      <div class="index-container">
+        <h3 class="t-30 t-c mobile-t36">让您的工作变得更轻松</h3>
+        <p class="text-grey t-c t-20 mobile-t26">将您从繁琐的工作中解放出来，把时间留给更有意义的事</p>
+        <div class="intro-list t-0">
+        <span class="intro">
+          <img src="./assets/index/main/section3-1.png" alt="" class="m-b-sm">
+          <p class="t-md  t-c mobile-t22">社保公积金代缴</p>
+        </span>
+          <span class="intro">
+          <img src="./assets/index/main/section3-2.png" alt="" class="m-b-sm">
+          <p class="t-md t-c mobile-t22">社保公积金代管</p>
+        </span>
+          <span class="intro">
+          <img src="./assets/index/main/section3-3.png" alt="" class="m-b-sm">
+          <p class="t-md t-c mobile-t22">薪酬个税服务</p>
+        </span>
+        </div>
+        <div>
+          <a [routerLink]="['/index/product-function/saas']"
+             class="b-green white index-btn d-ib t-lg mobile-t30">查看适合您的外包模式</a>
+        </div>
+      </div>
+    </div>
+    <div class="section section4">
+      <div class="index-container">
+        <p class="t-30 t-c m-b-lg">超过10个行业10万余家企业都喜欢使用</p>
+        <div class="flex">
+          <div class="bg-white p-a flex-item">
+
+            <div class="clearfix m-b " style="height:2rem">
+              <img src="./assets/index/main/yinhao.png" alt="" class="pull-left m-r m-b-sm">
+              <p class="">
+                我是一家深圳初创期金融公司的CEO，公司成立初期就在考虑怎么解决公司人事问题。传统人事代理机构的收费相对较高，雇一个全职HR来管每月开销也要6000块，自己处理的话流程比较复杂，还需要经常跑社保公积金中心，比较费时。和蚂蚁HR合作后，很好的解决了我公司的痛点，在线即可轻松搞定社保，每月月底还有正规发票寄送，收费明细也很清楚，推荐！</p>
+            </div>
+            <div>
+              <img src="./assets/index/main/yellow-arrow.png" alt="" class="full-w m-b">
+              <div>
+                <img src="./assets/index/main/user1.png" alt="" class="pull-left m-r" style="margin-top:-.05rem">
+                <p class="black">叶阳，CEO</p>
+                <p class="t-sm">深圳市增财易投资有限公司</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white p-a flex-item pc-view">
+            <div class="clearfix m-b" style="height:2rem">
+              <img src="./assets/index/main/yinhao.png" alt="" class="pull-left  m-r m-b-sm">
+              <p class="">
+                我们公司总部在东莞，在深圳设立了办事处，考虑到自己开户成本很高，每个城市缴纳社保实操差异很大，办理也比较麻烦。经过朋友推荐选择了蚂蚁HR社保代理服务，直接在线操作，为员工缴纳社保业务非常方便。非常贴心的售前和售后服务，不管我们多紧急多复杂的需求都可以很快梳理清楚，也会解释的很到位。非常感谢蚂蚁HR，帮企业及时准确地完成业务需求。</p>
+            </div>
+            <div>
+              <img src="./assets/index/main/yellow-arrow.png" alt="" class="full-w m-b">
+              <div>
+                <img src="./assets/index/main/user2.png" alt="" class="pull-left m-r" style="margin-top:-.05rem">
+                <p class="black">张群，HR</p>
+                <p class="t-sm">广东快客电子商务有限公司</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white p-a flex-item pc-view">
+            <div class="clearfix m-b" style="height:2rem">
+              <img src="./assets/index/main/yinhao.png" alt="" class="pull-left m-r m-b-sm">
+              <p class="">
+                公司新成立没有自己的社保账户，找到蚂蚁HR。一开始不是没有担心，但是客服用耐心和专业帮我们解决每一个想到的和没想到的问题。帮助我们提了很多建议。因为蚂蚁HR我也得到了领导的认可，蚂蚁HR真的是非常好的系统，感谢蚂蚁HR，感谢我的客服！</p>
+            </div>
+            <div class="">
+              <img src="./assets/index/main/yellow-arrow.png" alt="" class="full-w m-b">
+              <div>
+                <img src="./assets/index/main/user3.png" alt="" class="pull-left m-r" style="margin-top:-.05rem">
+                <p class="black">陈阳，人事经理</p>
+                <p class="t-sm">思诺泽（北京）文化传播有限公司</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <p class="t-30 t-c m-b">媒体报道</p>
+      <!--跑马灯-->
+      <div>
+        <div class="cursoul index-container" [class.reverse]="cursoul_direction === -1">
+         <span
+           class="pos-a left"
+           (click)="showCurrent(-1)">
+              <img src="./assets/index/main/left.png" alt="">
+            </span>
+          <div *ngFor="let item of cursoul_item;let i = index" class={{cursoul_item_style[i]}}>
+            <div class="wrapper">
+              <img [src]="cursoul_item_url[i]" alt="" class="full-w m-b">
+              <div class="d-ib">
+                <p class=" bold m-b-sm">{{cursoul_content[i]['title']}}</p>
+                <p class="text-grey m-b pc-view">{{cursoul_content[i]['content']}}</p>
+                <p class="text-grey ">网易新闻</p>
+              </div>
+            </div>
+          </div>
+
+          <span
+            class="pos-a right"
+            (click)="showCurrent(1)">
+              <img src="./assets/index/main/right.png" alt="">
+            </span>
+
+        </div>
+
+      </div>
+    </div>
+    <!--跑马灯-->
+    <app-saas-index-consult></app-saas-index-consult>
+    <app-saas-index-sign></app-saas-index-sign>
+    <app-saas-index-footer></app-saas-index-footer>
+  </form>
+</div>

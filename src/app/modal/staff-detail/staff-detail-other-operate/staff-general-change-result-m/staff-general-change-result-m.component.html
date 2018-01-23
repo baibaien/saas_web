@@ -1,0 +1,26 @@
+<div class="modal in alert-modal" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body p-t-xxl p-l-lg p-r-lg">
+                <div class="p-b-lg t-md">
+                    以下员工有人事变动记录晚于当前批量人事变动生效时间，或者有未生效的人事变动记录，无法对以下员工完成人事变动：
+                </div>
+                <div class="p-l-sm p-r-sm list p-b-xl">
+                    <div class="list-item" *ngFor="let item of modal_info?.message;let i = index;">
+                        {{i + 1}}. {{item}}
+                    </div>
+                </div>
+                <div class="p-b-lg t-c">
+                    <div class="pointer">
+                        <i class="icon_newpage"></i>
+                        <span class="t-u grey">了解详情</span>
+                    </div>
+                </div>
+                <div class="p-b-lg t-c">
+                    <button class="btn btn-sm" (click)="cancelModal()">知道了</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

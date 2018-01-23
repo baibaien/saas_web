@@ -1,0 +1,48 @@
+<div class="modal in p-b-lg" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header p-a b-b">
+                <p class="t-md">发票信息</p>
+                <!--<p class="t-sm grey">用于为您开具发票使用的信息，请确保准确无误</p>-->
+            </div>
+            <div class="modal-body p-l-lg p-r-lg">
+                <div class="p-t-lg p-l-lg p-r-lg" *ngIf="invoice_info && invoice_info?.type">
+                    <div class="grey">发票类型</div>
+                    <div>{{invoice_info.type}}</div>
+                </div>
+                <div class="p-t-lg p-l-lg p-r-lg" *ngIf="invoice_info && invoice_info?.title">
+                    <div class="grey">发票抬头</div>
+                    <div>{{invoice_info.title}}</div>
+                </div>
+                <div class="p-t-lg p-l-lg p-r-lg" *ngIf="invoice_info && invoice_info?.tax_number">
+                    <div class="grey">纳税人识别号</div>
+                    <div>{{invoice_info.tax_number}}</div>
+                </div>
+                <div class="p-t-lg p-l-lg p-r-lg" *ngIf="invoice_info && invoice_info?.email">
+                    <div class="grey">收票邮箱</div>
+                    <div>{{invoice_info.email}}</div>
+                </div>
+                <div class="p-t-lg p-l-lg p-r-lg" *ngIf="invoice_info && invoice_info?.mobile">
+                    <div class="grey">通知手机</div>
+                    <div>{{invoice_info.mobile}}</div>
+                </div>
+                <div class="p-t-lg p-l-lg p-r-lg" *ngIf="invoice_info && invoice_info?.fp_type">
+                    <div class="grey">开票需求</div>
+                    <div>{{invoice_info.fp_type}}</div>
+                </div>
+                <div class="p-t-lg p-l-lg p-r-lg" *ngIf="invoice_info && invoice_info?.adress_mobile">
+                    <div class="grey">公司注册地址及电话</div>
+                    <div>{{invoice_info.address_mobile}}</div>
+                </div>
+                <div class="p-t-lg p-l-lg p-r-lg" *ngIf="invoice_info && invoice_info?.bank_accpimt">
+                    <div class="grey">开户行及账号</div>
+                    <div>{{invoice_info.bank_account}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer t-r p-a">
+            <div class="grey pointer" (click)="cancelModal()">关闭</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,103 @@
+<div class="modal in p-b-lg" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header p-a b-b">
+                <p class="t-md">变更发票信息</p>
+                <p class="t-sm grey">用于为您开具发票使用的信息，请确保准确无误</p>
+            </div>
+            <div class="modal-body ">
+                <div class="m-b-lg p-a">
+                    <form action="" [formGroup]="account_fapiao">
+                        <div class="m-b-sm">
+                            <label class="grey m-b-xs d-b">发票类型 <i class="error">*</i></label>
+                            <div class="d-ib w-250">
+                                <mayihr-select [SelectConfig]="{placeholder: '请选择发票类型',type: 2}"
+                                               [SelectData]="select_lists?.fp_type|| []"
+                                               formControlName="fp_type"></mayihr-select>
+                            </div>
+                            <div>
+                                <span *ngIf="!(account_fapiao.get('fp_type').valid || account_fapiao.get('fp_type').untouched && before_submit)"
+                                      class="error t-sm">请选择发票类型</span>
+                            </div>
+                        </div>
+                        <div *ngIf="account_fapiao.get('fp_type').value[0].id == 1">
+                            <div class="m-b-sm">
+                                <div>
+                                    <label class="grey d-ib m-b-xs">开票抬头 <i class="error">*</i></label>
+
+                                </div>
+                                <input type="text" formControlName="title" placeholder="填写开票抬头">
+                                <div>
+                                    <span *ngIf="!(account_fapiao.get('title').valid || account_fapiao.get('title').untouched && before_submit)"
+                                          class="error t-sm">请填写开票抬头</span>
+                                </div>
+                            </div>
+                            <div class="m-b-sm">
+                                <label class="grey d-ib m-b-xs">纳税人识别号 <i class="error">*</i></label>
+                                <div class="">
+                                    <input type="text" formControlName="tax_number" placeholder="纳税人识别号">
+                                </div>
+                                <div>
+                                      <span *ngIf="!(account_fapiao.get('tax_number').valid || account_fapiao.get('tax_number').untouched && before_submit)"
+                                            class="error t-sm">纳税人识别号不合法</span>
+                                </div>
+                            </div>
+
+                            <div class="m-b-sm">
+                                <label class="grey d-ib m-b-xs">收票邮箱<i class="error">*</i></label>
+                                <div class="">
+                                    <input type="text" formControlName="email" placeholder="收票邮箱">
+                                </div>
+                                <div>
+                                      <span *ngIf="!(account_fapiao.get('email').valid || account_fapiao.get('email').untouched && before_submit)"
+                                            class="error t-sm">请填写合法的收票邮箱地址</span>
+                                </div>
+                            </div>
+                            <p class="bg-grey m-b pointer" (click)="hideOptions()">{{ hide_spectials_text }}</p>
+                            <p class="grey m-b" *ngIf="!hide_spectials">下列信息只有贵司对发票格式有具体要求时才需要填写<br/>填写保存后将体现在开具的发票上
+                            </p>
+                            <div *ngIf="!hide_spectials">
+                                <div class="m-b-sm">
+                                    <label class="grey d-ib m-b-xs">通知手机（选填）</label>
+                                    <div class="">
+                                        <input type="text" formControlName="mobile" placeholder="通知手机">
+                                    </div>
+                                    <div>
+                                         <span
+                                                 *ngIf="!(account_fapiao.get('mobile').valid || account_fapiao.get('mobile').untouched && before_submit)"
+                                                 class="error t-sm">请填写合法的手机号码</span>
+                                    </div>
+                                </div>
+                                <div class="m-b-sm">
+                                    <label class="grey d-b m-b-xs">特殊开票需求（选填）</label>
+                                    <div class="w-250 d-ib">
+                                        <mayihr-select [SelectConfig]="{placeholder: '请选择特殊开票需求', type: 2}"
+                                                       [SelectData]="select_lists?.fapiao_type || []"
+                                                       formControlName="fapiao_type"></mayihr-select>
+                                    </div>
+                                </div>
+                                <div class="m-b-sm">
+                                    <label class="grey d-ib m-b-xs">公司注册地址及电话（选填）</label>
+                                    <div class="">
+                                        <input type="text" formControlName="address_mobile" placeholder="公司注册地址及电话">
+                                    </div>
+                                </div>
+                                <div class="m-b-sm">
+                                    <label class="grey d-ib m-b-xs">开户行及账号（选填）</label>
+                                    <div class="">
+                                        <input type="text" formControlName="bank_account" placeholder="开户行及账号">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="b-t btn-group t-r p-a">
+                    <button class="reverse t-sm light v-m m-r-sm btn btn-sm" (click)="cancelModal()">取消</button>
+                    <button class="btn btn-sm" (click)="saveMsg()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

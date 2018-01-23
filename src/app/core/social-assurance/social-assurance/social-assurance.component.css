@@ -1,0 +1,106 @@
+
+.staff-table-box {
+    min-width: 100%;
+    min-height: 4.3rem;
+}
+.no-list {
+    text-align: center;
+    line-height: 4.3rem;
+    width: 100%;
+    height: 100%;
+}
+
+.no-list-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+
+.table-left-margin {
+    margin-left: 1rem;
+}
+
+.staff-list-table {
+    padding-left: .2rem;
+    white-space: nowrap;
+    table-layout: fixed;
+}
+
+.attendance-detail {
+    background: rgba(80, 80, 80, 0.05);
+    padding-left: 1rem;
+}
+
+.salary_detail {
+    box-sizing: content-box;
+    background: #f3f3f3;
+    padding: 0 .2rem;
+    /*height: 3rem;*/
+}
+
+.salary_detail > div {
+    width: 33.3%;
+}
+
+.salary_detail > div > div {
+    padding: 0 .2rem;
+}
+
+.salary_detail > div > div > div {
+    display: inline-block;
+}
+
+.salary_detail > div > div > div:first-child {
+    width: 40%;
+}
+
+.salary_detail > div > div > div:nth-child(2) {
+    text-align: left;
+    width: 25%;
+}
+
+.salary_detail > div > div > div:last-child {
+    text-align: right;
+    width: 35%;
+}
+
+.month-redirect {
+    line-height: .5rem;
+    height: .5rem;
+    padding-left: .2rem;
+    padding-right: .2rem;
+    background: white;
+    margin-left: 1.6rem;
+    float: left;
+    width: 10rem !important;
+    border: 1px solid #d6d6d6;
+    border-radius: 3px;
+    position: relative;
+    margin-bottom: .15rem;
+    /*overflow: hidden;*/
+}
+
+.month-tag {
+    display: inline-block;
+    margin-right: .1rem;
+    box-sizing: border-box;
+    color: rgba(80, 80, 80, 0.65);
+}
+
+.month-tag-selected {
+    height: .49rem;
+    border-bottom: 3px solid #64c24d;
+    color: #505050 !important;
+}
+
+.month-tag:hover {
+    cursor: pointer;
+    height: .49rem;
+    border-bottom: 3px solid #64c24d;
+}
+
+.no-list-image {
+    text-align: center;
+    line-height: 4.3rem;
+}

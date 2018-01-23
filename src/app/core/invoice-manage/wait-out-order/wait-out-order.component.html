@@ -1,0 +1,41 @@
+<div class="clearfix b-t mh-450" [class.no-list-bg]="wait_list?.length == 0">
+    <table class="saas-table">
+        <thead>
+        <tr class="saas-table-header">
+            <th></th>
+            <th *ngFor="let header of table_header"
+                [class.t-l]="header.adjust == -1"
+                [class.t-c]="header.adjust == 0"
+                [class.t-r]="header.adjust == 1">
+                {{header.column_name}}
+            </th>
+            <th class="t-c">开票信息</th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let invoice of wait_list">
+        <tr (click)="openOrderDetail(invoice)" class="content pointer-no-color">
+            <td></td>
+            <td *ngFor="let header of table_header;let i=index;"
+                [class.t-l]="header.adjust == -1"
+                [class.t-c]="header.adjust == 0"
+                [class.t-r]="header.adjust == 1">
+                <span class="v-m">{{invoice[header.column]}}</span>
+                <i *ngIf="i === 3 && invoice.tips"
+                   class="yellow icon_alert v-m" [title]="invoice.tips"></i>
+            </td>
+            <td class="pointer t-c" (click)="openInvoiceDetail($event, invoice)">详情</td>
+        </tr>
+        <tr *ngIf="invoice?.detail_selected === true">
+            <td colspan="6" style="padding: 0;">
+                <app-bill-table [table_data]="wait_list_detail"></app-bill-table>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+<div class="pos-adjust"></div>
+<div class="page-footer b-t">
+    <div class="pull-left p-l-xl">共{{total}}条待出票中订单</div>
+</div>
+<app-invoice-manage-modal [modal_info]="modal_info" [modal_name]="modal_name"></app-invoice-manage-modal>

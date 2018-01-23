@@ -1,0 +1,12 @@
+.alert-modal {
+    z-index: 2000!important;
+}
+.list .list-item:nth-child(odd) {
+    padding-left: .1rem;
+    line-height: .6rem;
+    background:  rgba(80, 80, 80, 0.05);
+}
+.list .list-item:nth-child(even) {
+    padding-left: .1rem;
+    line-height: .6rem;
+}

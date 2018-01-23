@@ -1,0 +1,34 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header p-a b-b">
+            <p class="t-md">转正</p>
+            <p class="t-sm grey">转正日期以本次操作中填写的为准</p>
+        </div>
+        <div class="modal-body ">
+            <!--合同接口还没有-->
+            <div class="m-b-lg p-a">
+                <form action="" [formGroup]="be_qualified">
+                    <div class="m-b-sm">
+                        <div><label for="" class="grey d-ib m-b-xs">转正日期</label>
+                            <span
+                                    *ngIf="!(be_qualified.get('yg_formal_date').valid || (be_qualified.get('yg_formal_date').untouched && be_qualified_submit))"
+                                    class="error t-sm">转正日期不能为空</span>
+                        </div>
+                        <div class="w-200">
+                            <!--<input type='text' class="plugin form-control" id="formal_date"-->
+                            <!--formControlName="yg_formal_date" (blur)="getMyDate(formal_date, be_qualified.get('yg_formal_date'))"-->
+                            <!--#formal_date/>-->
+                            <!--<span class="icon_calendar pos-r"-->
+                            <!--style="font-size: .2rem;line-height: .28rem;right: .3rem;"></span>-->
+                            <mayihr-datepicker formControlName="yg_formal_date"></mayihr-datepicker>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="b-t btn-group t-r p-a">
+                <button class="reverse t-sm light v-m m-r-sm btn btn-sm" (click)="cancelModal()">取消</button>
+                <button class="btn btn-sm" (click)="saveMsg()">转正</button>
+            </div>
+        </div>
+    </div>
+</div>

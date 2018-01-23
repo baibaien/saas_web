@@ -1,0 +1,81 @@
+<!--计薪规则-->
+<div class="p-a-lg" *ngIf="salary_data">
+    <div class="company-salary">
+        <div class=" clearfix b-b p-b">
+            <div><span class="t-md">基本设置</span></div>
+            <span class="pull-right pointer m-r icon-text-btn"
+                  (click)="showSalarySetting({data: 'salary_base', type: 'edit'})">
+                <i class="icon_edit_simple"></i>
+                <span>修改</span>
+            </span>
+            <p class="grey">为避免歧义，以下按照当前月份显示</p>
+            <div class="half p-l-sm p-r-lg m-t">
+                <div class="form-group">
+                    <label class="form-label grey" style="width: 1.5rem;">发薪日</label>
+                    <div class="form-control">
+                        <p>{{salary_data.basic.explain['current'] ||
+                            '--'}}月{{salary_data.basic['salary_date'] || '--'}}日</p>
+                    </div>
+                </div>
+                <div class="form-group m-b">
+                    <label class="form-label grey" style="width: 1.5rem;">计薪周期</label>
+                    <div class="form-control">
+                        <p>{{salary_data.basic.explain['salary_month'] || '--'}}月</p>
+                    </div>
+                </div>
+                <p class="clearfix m-b-sm">
+                    <span class="grey d-ib" style="width: 1.5rem;">《{{salary_data.basic.explain['salary_month'] || '--'}}月工资表》匹配</span><span
+                        class="">《{{salary_data.basic.explain['social_month'] || '--'}}月五险一金缴费明细》</span>
+                </p>
+                <div style="margin-left: 1.5rem;">
+                    <p class="grey t-sm t-l w-300" *ngFor="let item of salary_data.basic.explain['detail']">
+                        {{item?.social || '--'}}月社保+{{item?.fund || '--'}}月公积金（{{item?.city}}）</p>
+                </div>
+            </div>
+        </div>
+        <div class="m-t clearfix p-b">
+            <div class="t-md m-b">规则设置</div>
+            <div>
+                <span class="pull-right pointer m-r icon-text-btn"
+                      (click)="showSalarySetting({data: 'salary_rule', type: 'edit'})">
+                    <i class="icon_edit_simple"></i>
+                    <span>修改</span>
+                </span>
+            </div>
+            <div class="half p-l-sm p-r-lg">
+                <div class="form-group clearfix">
+                    <label class="form-label grey" style="width: 1.5rem;">工作时间</label>
+                    <div class="form-control">
+                        <p>{{salary_data.rule['work_day_name']}}</p>
+                    </div>
+                </div>
+                <div class="form-group m-b clearfix">
+                    <label class="form-label grey" style="width: 1.5rem;">计薪规则</label>
+                    <div class="form-control">
+                        <p>{{salary_data.rule['salary_type_name']}}</p>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <div class="form-control" style="margin-left: 1.5rem;">
+                        <div *ngIf="salary_data.rule['salary_type'] == 1">
+                            <p class="grey" *ngIf="salary_data.rule['work_day'] == 1">
+                                按照每月计薪天数21.75简单折算</p>
+                            <p class="grey" *ngIf="salary_data.rule['work_day'] == 2">
+                                做六休一暂不支持按工作日历自动计算，将按26天作为每月计薪天数</p>
+                        </div>
+                        <div *ngIf="salary_data.rule['salary_type'] == 2">
+                            <p class="grey">
+                                按照工作日历自动计算每月实际计薪天数</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--计薪规则end-->
+
+
+<app-salary-setting [modal_name]="modal_name" [modal_info]="modal_info" [modal_callback]="modal_callback"
+                    *ngIf="modal_name === 'salary_setting'"></app-salary-setting>

@@ -1,0 +1,62 @@
+<div class="modal modal-lg in root" style="display: block; z-index:500;">
+    <div class="modal-shadow"  (click)="cancelModal()"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header b-b p-a">
+                <div class="t-md">{{bill_detail.title}}</div>
+                <div class="t-sm">{{bill_detail['bill']['city_name']}}</div>
+            </div>
+
+            <div class="modal-body clearfix">
+                <div class="p-l-lg p-t-lg p-b-lg b-b">
+                    <div class="t-20">{{bill_detail.all_money}}</div>
+                    <div class="grey">帐单合计</div>
+                </div>
+                <div class="table-box pos-r">
+                    <div class="table-th-bg"></div>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th style="width: 0;padding: 0;"></th>
+                                <th *ngFor="let header of static_table_header[bill_detail.bill['type']]" class="grey"
+                                    [class.t-r]="header['adjust']">
+                                    {{header['column_name']}}
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let staff of bill_detail.bill_list" class="b-b">
+                                <td style="width: 0;padding: 0;"></td>
+                                <td *ngFor="let header of static_table_header[bill_detail.bill['type']];let i=index;"
+                                    [class.t-r]="header['adjust']">
+                                    <div *ngIf="header.column == 'yg_name'"
+                                         [title]="staff[header.column]?.length > 5 ? staff[header.column] : ''">
+                                        {{staff[header.column] | longStringFilter:5}}
+                                    </div>
+                                    <div *ngIf="header.column == 'social_money' || header.column == 'fund_money' || header.column == 'salary' || header.column == 'money'">
+                                        <ng-container *ngIf="staff[header.column] != '-'">
+                                            {{staff[header.column] | number:'1.2-2'}}
+                                        </ng-container>
+                                        <ng-container *ngIf="staff[header.column] == '-'">
+                                            {{staff[header.column]}}
+                                        </ng-container>
+                                    </div>
+                                    <div *ngIf="header.column != 'yg_name' && header.column != 'social_money' && header.column != 'fund_money' && header.column != 'salary' && header.column != 'money'"
+                                         [title]="staff[header.column]?.length > 10 ? staff[header.column] : ''">
+                                        {{staff[header.column]}}
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer t-r p-a">
+            <div class="grey pointer" (click)="cancelModal()">关闭</div>
+        </div>
+    </div>
+</div>

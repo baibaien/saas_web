@@ -1,0 +1,7 @@
+<div class="staff-work-area clearfix" [class.over-hidden]="modal_name !== ''">
+  <div class="work-area-wrapper clearfix">
+    <app-router-sidebar></app-router-sidebar>
+    <router-outlet></router-outlet>
+    <app-header-to-footer *ngIf="jump_show"></app-header-to-footer>
+  </div>
+</div>

@@ -1,0 +1,99 @@
+<div class="modal-shadow" (click)="cancelModal()"></div>
+<div class="modal-dialog" style="width:800px;">
+  <div class="modal-content" >
+    <div class="modal-header p-a b-b">
+      <p class="t-md">选择定点医疗机构</p>
+      <p class="t-sm grey">选择至少两家，其中需要有至少一家社区医院</p>
+    </div>
+    <div class="modal-body staff-hospital">
+      <div class=" p-l p-r clear" style="overflow: hidden">
+        <div class="half pull-left b-r p-r p-t">
+          <form  [formGroup]="hospital_msg">
+            <div class="search m-b-sm">
+              <div class="d-ib">
+                <input type="text" formControlName="name">
+              </div>
+              <button class="btn btn-sm" (click)="searchHospital(true)">查询</button>
+            </div>
+          </form>
+          <div class="b-b p-t-sm">
+            <p class="grey">机构所在区</p>
+            <div class="p-a">
+              <ul >
+                <li class="d-ib m-r m-b-xs" *ngFor="let item of hospital_area; let i = index;">
+                  <label class="ui-check area">
+                  <input type="checkbox" value="{{item.id}}" (change)="addArea(i, item.id, $event)"
+                    >
+                    <i class="icon_ui v-m"></i>
+                    <span class="d-ib t-sm v-m">{{item.name}}</span>
+                  </label>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+          <div class="p-t-sm">
+            <p class="grey ">医院等级 </p>
+            <div class="p-a">
+              <ul >
+                <li class="d-ib m-r m-b-xs" *ngFor="let item of hospital_level; let i = index;">
+                  <label class="ui-check level">
+                    <!-- <input type="hidden" [formGroupName]="i" [value]="item.id"> -->
+                    <input type="checkbox" value="{{item.id}}" (change)="addLevel(item.id, $event)" >
+                    <i class="icon_ui v-m"></i>
+                    <span class="d-ib t-sm v-m">{{item.name}}</span>
+                  </label>
+                </li>
+                <li class="d-ib m-r m-b-xs">
+                  <label class="ui-check level">
+                    <!-- <input type="hidden" [formGroupName]="i" [value]="item.id"> -->
+                    <input type="checkbox" value="99" (change)="addLevel(99, $event)" >
+                    <i class="icon_ui v-m"></i>
+                    <span class="d-ib t-sm v-m">社区医院</span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+        <div class="half pull-right p-l p-t">
+          医院列表
+          <p class="grey">定点医疗机构列表</p>
+          <div class="hospital-lists"  (scroll)="scrollLoad($event)" #scroller>
+            <!-- <form action="" [formGroup]="hospitals"> -->
+              <!-- <form action="" > -->
+              <ul  id="scroll-container">
+                <li class=" m-r-sm d-b m-b-xs" *ngFor="let item of hospital_list; let i = index;" >
+
+                    <label class="ui-check d-b" (click)="selectHospital($event, item)">
+                      <span class="t checkbox" [class.active]="chosen_hospital_id.indexOf(item.id)>= 0" ></span>
+                      <i class="icon_ui v-m"></i>
+                      <span class="d-ib m-l-sm ellipsis v-m t" style="width: 80%;">{{item.name}}</span>
+                    </label>
+
+                </li>
+              </ul>
+            <!-- </form> -->
+          </div>
+        </div>
+
+      </div>
+      <div class="hospital-content p-a b-t">
+        <p class="grey m-b-sm">已选择的机构</p>
+        <div>
+          <ul>
+            <li *ngFor="let item of chosen_hospital; let i = index" class="t d-ib  m-r-sm pos-r chosen-lists m-b-sm" >
+              <span class="ellipsis grey t" title="{{item?.name}}">{{item?.name}}</span><i class="icon_close pos-a pointer-no-color" (click)="removeChosen(item)"></i>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="b-t btn-group t-r p-a">
+        <span class="pull-left error" *ngIf="chosen_hospital.length === 5">您已选择满五家医院</span>
+        <button class="reverse t-sm light v-m m-r-sm btn btn-sm" (click)="cancelModal()">取消</button>
+        <button class="btn btn-sm" (click)="saveMsg()">保存</button>
+      </div>
+    </div>
+  </div>
+</div>

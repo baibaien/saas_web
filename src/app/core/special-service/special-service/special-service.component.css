@@ -1,0 +1,57 @@
+.list-box {
+    padding-left: .2rem;
+    padding-right: .2rem;
+    min-height: 4.3rem;
+}
+.operate-box {
+    padding-top: .2rem;
+}
+.operate-title {
+    font-size: .18rem;
+    padding-bottom: .1rem;
+}
+.list-content {
+    padding-left: .2rem;
+}
+.list-content > div:nth-child(odd) {
+    
+}
+.list-content > div:nth-child(even) {
+    background: rgba(80, 80, 80, 0.05);
+}
+.list-item {
+    width: 9.4rem;
+    position: relative;
+    /*cursor: pointer;*/
+}
+.list-item > div {
+    line-height: .7rem;
+}
+.list-item > div:first-child {
+    width: .48rem;
+    height: .7rem;
+    padding-right: .15rem;
+}
+.list-item > div:first-child > img {
+    width: .33rem;
+    height: .33rem;
+    /*padding-top: .18rem;*/
+    line-height: 0;
+}
+.list-item > div:nth-child(2) {
+    width: 3.3rem;
+    padding-right: .2rem;
+}
+.list-item > div:nth-child(3) {
+    width: 2rem;
+    height: .7rem;
+    padding-right: .3rem;
+}
+.list-item > div:nth-child(4) {
+    padding-top: .17rem;
+    line-height: normal;
+    margin-right: .25rem;
+}
+.list-item > div:nth-child(5) {
+    margin-left: .5rem;
+}

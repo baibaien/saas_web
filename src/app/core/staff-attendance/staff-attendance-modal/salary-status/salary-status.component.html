@@ -1,0 +1,25 @@
+<div class="modal in" style="display: block; z-index:500;">
+    <div class="modal-shadow" (click)="cancelModal()"></div>
+    <div class="modal-dialog" style="max-height: 9rem;">
+        <div class="modal-content">
+            <div class="modal-body b-b p-a" style="margin:0 .1rem;">
+                <div class="t-c m-t">
+                    {{view_text}}
+                </div>
+                <div class="t-c  p-a-lg" style="margin: 0 auto;">
+                    <div *ngIf="isLock == 0">
+                        <button type="button" class="btn btn-sm reverse p-a-sm v-m bold m-r"
+                                data-dismiss="modal" (click)="cancelModal()">暂时不了
+                        </button>
+                        <button type='button' class="btn btn-sm v-m m-l" (click)="cancelModal(1)">
+                            去计算
+                        </button>
+                    </div>
+                    <div *ngIf="isLock == 1">
+                        <button  type='button' class="btn btn-sm v-m" (click)="cancelModal(2)">了解详情</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="staff-content">
+    <div class="lh-50 b-b icon-text-btn">
+        <i class="icon_arrow_left m-l pointer" [routerLink]="['/user/salary-calc']"></i>
+        <span>计算薪资/工资项目</span>
+    </div>
+    <div class="p-t p-l-xl grey b-b">
+        <a class="pointer d-ib p-b year-tag m-r v-m" (click)="clickToggleType()"
+           [routerLink]="[bonus_router]" [routerLinkActive]="['year-choose']">
+            浮动工资
+        </a>
+        <a class="pointer m-r d-ib p-b year-tag v-m" (click)="clickToggleType()"
+           [routerLink]="[reduce_router]" [routerLinkActive]="['year-choose']">
+            通用扣减
+        </a>
+        <div class="pointer m-r d-ib p-b m-r-lg pull-right" *ngIf="type"
+             (click)="addNewItem()">
+            <i class="icon_add v-m black m-r-sm"></i>
+            <span class="grey v-m">{{add_new_item_txt[type]}}</span>
+        </div>
+    </div>
+    <div>
+        <router-outlet></router-outlet>
+    </div>
+</div>
+<app-salary-bonus-m [modal_name]="modal_name" [modal_info]="modal_info" [modal_callback]="modal_callback"
+                    *ngIf="modal_name == 'salary_bonus_m'"></app-salary-bonus-m>
+<app-reduce-item-m [modal_name]="modal_name" [modal_info]="modal_info" [modal_callback]="modal_callback"
+                   *ngIf="modal_name == 'salary_reduce_m'"></app-reduce-item-m>

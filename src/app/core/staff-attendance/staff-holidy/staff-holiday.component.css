@@ -1,0 +1,25 @@
+
+
+td:hover {
+    cursor: pointer;
+}
+
+.hover_show:after {
+    color: #ffffff;
+}
+
+tr:hover .hover_show:after {
+    color: rgba(208, 208, 208, 0.7);
+}
+
+input:checked + .hover_show:after {
+    color: #33ac37!important;
+}
+
+.attendance-detail {
+    background: rgba(80, 80, 80, 0.05);
+    padding-left: 1rem;
+}
+tr td .ever_show:after {
+    color: rgba(208, 208, 208, 0.7);
+}

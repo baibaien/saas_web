@@ -1,0 +1,17 @@
+<div class="clearfix">
+    <div class="d-ib m-l">
+        <i class="icon_search pointer-no-color v-m" (click)="staffSearch(key_up)" #click_icon></i>
+        <input class="input-no-border v-m" style="height: .5rem;" type="text" placeholder="{{placeholder}}"
+               [(ngModel)]="search_content" (click)="focusNow($event)" (keyup)="staffSearch(key_up)" #key_up>
+    </div>
+    <div class="d-ib pull-right staff-advance-filter pointer-no-color m-r-lg pointer icon-text-btn"
+         (click)="other_operate?.func()" *ngIf="!inputFocus && !search_content">
+        <i class="{{other_operate?.icon}}"></i>
+        <span>{{other_operate?.text}}</span>
+    </div>
+    <div class="d-ib pull-right staff-advance-filter p-l-lg p-r pointer-no-color icon-text-btn"
+         (click)="clearSearch()" *ngIf="inputFocus || search_content">
+        <i class="icon_close icon-text-btn"></i>
+        <div>清空搜索</div>
+    </div>
+</div>

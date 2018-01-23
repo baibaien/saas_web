@@ -1,0 +1,33 @@
+<!--员工自助设置-->
+<div class="p-a-lg" *ngIf="yg_self_data">
+    <div class="account-safe b-b m-b ">
+        <div><span class="t-md">员工自助</span><span class=" pointer pull-right icon-text-btn"
+                       (click)="showYgSelfSetting({data: yg_self_data, type: 'edit'})">
+            <i class="icon_phone dark"></i><span class="grey">更改</span></span></div>
+        <p class="grey">允许员工通过微信查看和编辑信息</p>
+        <div class="m-t p-l-sm">
+            <!--<div class="m-b">-->
+            <!--<label for="" class="grey  m-r">是否要求员工设置密码</label>-->
+            <!--<div> {{ yg_self_data?.is_yg_set_password == 0 ? '不要求，员工凭微信验证身份' : '要求'}}</div>-->
+            <!--</div>-->
+            <div class="m-b">
+                <label for="" class="grey m-r">是否允许员工查看公司通讯录</label>
+                <div>{{ yg_self_data['is_yg_view_contact_book'] == 1 ? '允许员工查看公司通讯录':
+                    (yg_self_data['is_yg_view_contact_book'] == 2 ? '不允许' : '允许，但是隐藏特定岗位的联络信息')}}
+                </div>
+            </div>
+            <div class="m-b" *ngIf="yg_self_data['is_yg_view_contact_book'] == 3">
+                <label for="" class="grey  m-r">在通讯录中隐藏联络信息的岗位</label>
+                <div>
+                    <span *ngFor="let item of yg_self_data?.limit_no_view_zhiwei;let i = index;">
+                    {{ item.name }}{{i === yg_self_data.limit_no_view_zhiwei.length - 1 ? '' : ','}}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--员工自助设置end-->
+
+<app-ygself-setting [modal_name]="modal_name" [modal_info]="modal_info" [modal_callback]="modal_callback"
+                    *ngIf="modal_name === 'ygself_setting'"></app-ygself-setting>

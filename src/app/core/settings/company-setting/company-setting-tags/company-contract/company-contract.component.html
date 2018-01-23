@@ -1,0 +1,48 @@
+<!--合同设置-->
+<div class="p-a-lg" *ngIf="contract_data">
+    <div class="company-contact m-b">
+        <div>
+            <span class="t-md">合同公司</span>
+            <span class="pull-right pointer m-r icon-text-btn"
+                  (click)="showContractSetting({data: contract_data, type: 'add'})">
+                <i class="icon_add"></i>
+                <span>添加</span>
+            </span>
+        </div>
+        <p class="grey">用于与员工签订劳动合同的主体</p>
+        <div class="m-t clearfix mh-350" [class.no-list-bg]="contract_data?.length == 0">
+            <div class="company-contract p-l-sm address-list">
+                <div class="pos-r clearfix p-l-sm p-r list-item"
+                     *ngFor="let item of contract_data; let i = index;">
+                    <div class="half">
+                        <p [title]="item?.name.toString().length > 15 ? item?.name : ''">{{ item?.name |
+                            longStringFilter:15}}<label class="m-l-sm label v-m" *ngIf="item.is_default == 1">默认</label>
+                        </p>
+                        <p class="grey">{{item?.count}}人</p>
+                    </div>
+                    <div class="half-right">
+                        <p>{{item?.province_name }}
+                            {{item?.city_name }}
+                            {{item?.district_name }}
+                        </p>
+                        <p>
+                            {{ item?.address }}
+                        </p>
+                        <p>{{ item?.postcode }}</p>
+                    </div>
+                    <div class="pos-a m-r-lg item-operate" style="right:0;">
+                        <!--<span class="pointer m-r"-->
+                        <!--(click)="showModal('deleteItem', {id: item.id, updatePageRequsest: 'ContractCompany'})">-->
+                        <!--<i class="icon_user dark m-r-sm"></i>删除</span>-->
+                        <span class="pointer"
+                              (click)="showContractSetting({data: contract_data[i], type: 'edit'})"><i
+                                class="icon_edit dark m-r-sm"></i>编辑</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-contract-setting [modal_name]="modal_name" [modal_info]="modal_info" [modal_callback]="modal_callback"
+                      *ngIf="modal_name === 'contract_setting'"></app-contract-setting>

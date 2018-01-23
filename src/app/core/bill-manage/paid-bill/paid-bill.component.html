@@ -1,0 +1,59 @@
+<div>
+    <div class="clearfix b-t mh-450" [class.no-list-bg]="paid_list?.length == 0">
+        <table class="paid saas-table">
+            <thead>
+            <tr class="saas-table-header">
+                <th></th>
+                <th *ngFor="let header of table_header"
+                    [class.t-l]="header.adjust == -1"
+                    [class.t-c]="header.adjust == 0"
+                    [class.t-r]="header.adjust == 1">
+                    {{header.column_name}}
+                </th>
+            </tr>
+            </thead>
+            <tbody *ngFor="let bill of paid_list">
+            <tr (click)="openOrderDetail(bill)">
+                <td></td>
+                <td *ngFor="let header of table_header;let i=index"
+                    [class.t-l]="header.adjust == -1"
+                    [class.t-c]="header.adjust == 0"
+                    [class.t-r]="header.adjust == 1">
+                    <div class="d-ib" *ngIf="i != 5 && i != 6">{{bill[header.column] || '-'}}</div>
+                    <div class="d-ib" *ngIf="i === 5">
+                        <span [class.pointer]="bill.is_href == 1"
+                              [class.green]="bill.is_href == 1"
+                              [class.t-u]="bill.is_href == 1"
+                              (click)="openOrderDetailStatus($event, bill)">{{bill[header.column]}}</span>
+                    </div>
+                    <div *ngIf="i ===6">
+                        <div class="d-ib" (click)="operateBill($event, bill)">
+                            <i class="icon_detail grey t-24 bolder pointer" [class.grey]="bill.selected"></i>
+                            <div [class.mask-layer]="bill.selected === true"
+                                 (click)="clickCloseOperate($event, bill)"></div>
+                            <div class="operate-choose" *ngIf="bill.selected">
+                                <div>订单相关操作</div>
+                                <div [class.pointer-not-allowed]="bill.is_balance == 1"
+                                     [class.light-grey]="bill.is_balance == 1"
+                                     (click)="checkReceiveLog(bill)">查看付款凭证</div>
+                                <div class="grey pointer"
+                                     (click)="checkPayLog(bill)">查看收款凭证
+                                </div>
+                                <div (click)="downloadBillDetail($event, bill)">下载账单明细</div>
+                                <div (click)="sendBillDetail($event, bill)">发送账单明细</div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr *ngIf="bill?.detail_selected === true">
+                <td colspan="8" style="background: #f3f3f3;">
+                    <app-bill-table [table_data]="paid_list_detail"></app-bill-table>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <mayihr-paging [request_type]="'get'" [request_url]="paid_url" [page_info]="page_info"></mayihr-paging>
+</div>
+<app-bill-manage-modal [modal_name]="modal_name" [modal_info]="modal_info"></app-bill-manage-modal>

@@ -1,0 +1,130 @@
+<div class="content-body">
+    <div class="left-box">
+        <div class="t-20 p-b-lg p-t-lg">1000万中小企业的云端人力资源部</div>
+        <div class="t-sm p-b-lg">开箱即用的人力资源管理系统</div>
+        <div class="t-sm">人事外包服务：</div>
+        <div class="t-sm p-b-xl">五险一金代缴/托管 · 薪酬代发 · 商保购买 · 手续代办理等</div>
+        <div class="t-md grey">注册企业数量</div>
+        <mayihr-card-number [show_number]="21356"></mayihr-card-number>
+        <div class="t-md p-t-lg grey clear">服务覆盖员工数量</div>
+        <mayihr-card-number [show_number]="5889326"></mayihr-card-number>
+        <div class="grey clear p-t-lg">扫码通过微信使用服务</div>
+        <div class="p-t">
+            <img src="/assets/entry/register-wechat.png" style="width: 1.2rem; height: 1.2rem;">
+        </div>
+    </div>
+    <div class="right-box">
+        <div class="right-content pos-r">
+            <div class="clear p-t b-b p-l-xl p-r-xl">
+                <div class="d-ib" *ngFor="let data of tags_list;let i=index;"
+                     [class.m-r]="i !== tags_list.length - 1"
+                     (click)="toggleTags(data)">
+                    <span [class.year-choose]="data['selected'] == 1" class="pointer d-ib year-tag"
+                          style="padding-bottom: .09rem;">
+                        {{data.name}}
+                    </span>
+                </div>
+            </div>
+            <div class="p-l-lg p-t-lg input-area">
+                <form [formGroup]="reg_data">
+                    <div>
+                        <i class="icon_phone p-l-sm"></i>
+                        <input type="text" placeholder="输入您的手机号码"
+                               formControlName="mobile">
+
+                        <div class="" *ngIf="!reg_data.get('mobile').valid">
+                            <div class="error" style="padding-left: .25rem;" *ngIf="(reg_data.get('mobile').untouched && before_submit)
+                            || reg_data.hasError('required', ['mobile']) && !reg_data.get('mobile').untouched">
+                                手机号码必填
+                            </div>
+                            <div class="error" style="padding-left: .25rem;"
+                                 *ngIf="reg_data.hasError('phone_valid', ['mobile']) && !reg_data.get('mobile').untouched">
+                                请输入合法的手机号码
+                            </div>
+                        </div>
+                        <div class="error" style="padding-left: .25rem;" *ngIf="error_type === 'mobile'">
+                            {{error_msg}}
+                        </div>
+                    </div>
+                    <div class="pos-r">
+                        <i class="icon_lock p-l-sm"></i>
+                        <input type="{{show_type}}" placeholder="8-16位，包含字母和数字"
+                               formControlName="password">
+                        <div class="d-ib show_password m-r-sm v-m pointer-no-color" (click)="togglePassType()">
+                            <i class="icon_eye v-m " [class.icon_hide]="show_type === 'text'"></i>
+                        </div>
+                        <div *ngIf="!reg_data.get('password').valid">
+                            <div class="error p-t-sm" style="padding-left: .25rem;" *ngIf="(reg_data.get('password').untouched && before_submit)
+                                || reg_data.hasError('required', ['password']) && !reg_data.get('password').untouched">
+                                密码必填
+                            </div>
+                            <div class="error p-t-sm" style="padding-left: .25rem;"
+                                 *ngIf="!reg_data.get('password').untouched && reg_data.hasError('passwordValid', ['password'])">
+                                密码为8-16位数字与字母组合
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+
+                        <i class="icon_user p-l-sm"></i>
+                        <input type="text" placeholder="输入您的姓名"
+                               formControlName="contact">
+
+                        <div class="error p-t-sm" style="padding-left: .25rem;" *ngIf="(reg_data.get('contact').untouched && before_submit)
+                                || reg_data.hasError('required', ['contact']) && !reg_data.get('contact').untouched">
+                            姓名必填
+                        </div>
+                    </div>
+                    <div>
+                        <i class="icon_mail p-l-sm"></i>
+                        <input type="text" placeholder="输入您的邮箱"
+                               formControlName="email">
+                        <div class="error p-t-sm" style="padding-left: .25rem;" *ngIf="(reg_data.hasError('required', ['email']) && reg_data.get('email').untouched && before_submit)
+                                || reg_data.hasError('required', ['email']) && !reg_data.get('email').untouched">
+                            邮箱必填
+                        </div>
+                        <div class="error" style="padding-left: .25rem;"
+                             *ngIf="reg_data.hasError('mail_valid', ['email'])">请输入合法的邮箱地址
+                        </div>
+                    </div>
+                    <div *ngIf="!(!tags_list[0]['selected'])">
+                        <i class="icon_company p-l-sm"></i>
+                        <input type="text" placeholder="输入您的企业名称"
+                               formControlName="company">
+                        <div class="error p-t-sm" style="padding-left: .25rem;" *ngIf="(reg_data.get('company').untouched && before_submit)
+                                || reg_data.hasError('required', ['company']) && !reg_data.get('company').untouched">
+                            企业名称必填
+                        </div>
+                    </div>
+                </form>
+                <div>
+                    <div (click)="acceptProtocol()" class="d-ib ui-check lh-60 ">
+                        <input type="checkbox" name="choose_staff" [(ngModel)]="protocol_acception"><i
+                            class="icon_ui hover_show v-m  m-r-sm pointer-no-color" style="line-height:.6rem;"></i>
+                    </div>
+                    <span class="d-ib">我已阅读并同意 <span class="t-u pointer"
+                                                     routerLink="/entry/service-confirm">《蚂蚁HR服务协议》</span></span>
+                </div>
+            </div>
+            <div class="t-c p-b b-b">
+                <button class="btn v-m btn-sm" [class.disabled]="!protocol_acception || reg_data.invalid" (click)="register()">注册新用户
+                </button>
+            </div>
+            <!--<div class="clearfix">-->
+            <!--<div class="pull-left p-t p-b p-l">已有账户？</div>-->
+            <!--<div class="pull-right p-t p-r pointer" (click)="toSaasLogin()">-->
+            <!--<div class="d-ib">登录已有账户-->
+            <!--</div>-->
+            <!--<i class="icon_arrow_left"></i>-->
+            <!--</div>-->
+            <!--</div>-->
+            <div class="clearfix p-b pointer to-reg-box" (click)="toSaasLogin()">
+                已有账户点此登录
+            </div>
+            <div class="footer-box clearfix pointer t-c" (click)="openYgSelfLogin()">
+                <div>您是员工？如需查看薪资等请使用员工自助<i class="icon_right_triangle m-l-sm"></i></div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-yg-self-login [modal_name]="modal_name" *ngIf="modal_name === 'yg_self_login'"></app-yg-self-login>

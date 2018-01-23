@@ -1,0 +1,27 @@
+.table {
+    table-layout: fixed;
+    width:100%;
+}
+.table thead tr {
+    font-weight: 100;
+    font-size: 0.12rem;
+    color: rgba(80,80,80,0.4);
+    background: #f3f3f3;
+}
+.table th, .table td{
+    text-align: left;
+    padding-right: .1rem;
+    padding-left: .1rem;
+    /*height: .3rem;*/
+    /*line-height: .3rem;*/
+}
+.table tbody tr {
+    border-bottom: 1px solid #d6d6d6;
+}
+.table th {
+    padding-top:.05rem;
+    padding-bottom: .05rem;
+}
+.company-social {
+    min-height: 4.7rem;
+}

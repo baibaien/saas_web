@@ -1,0 +1,27 @@
+/*body {*/
+/*overflow: auto;*/
+/*}*/
+/*.modal {*/
+/*overflow: auto;*/
+/*}*/
+.label {
+    color: #fff;
+    background: #33ac37;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+.form-label {
+    float: left;
+    width: 1.2rem;
+}
+
+.form-control {
+    margin-left: 1.2rem;
+}
+
+.half {
+    width: 50%;
+    float: left;
+    word-break: break-all;
+}

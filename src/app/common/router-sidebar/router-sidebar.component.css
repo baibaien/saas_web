@@ -1,0 +1,52 @@
+
+.router-bar-box {
+    /*background: red;*/
+    float: left;
+}
+
+.side-router-bar {
+    position: absolute;
+    top: 0.93rem
+}
+
+.side-router-bar-list {
+    /*position: fixed;*/
+    height: 6rem;
+    top: .93rem;
+}
+
+.side-router-bar-list li {
+    /*padding-left: 0.2rem;*/
+    margin-bottom: 0.2rem;
+    height: 0.2rem;
+    width: 1rem;
+}
+
+.side-router-bar li:last-child {
+    position: absolute;
+    bottom: 0;
+}
+
+.router-list-cut-off {
+    height: 0 !important;
+}
+
+/*.side-router-bar-list li a:hover, .side-router-bar-list li a.active {*/
+/*}*/
+
+.side-router-bar-list li:hover a i, .side-router-bar-list li:hover a,
+.side-router-bar-list li.active i, .side-router-bar-list li.active a {
+    color: #33ac37;
+}
+
+.more-func {
+    background: #fff;
+    padding: .05rem 0 ;
+    width: 1.5rem;
+    line-height: .35rem;
+    top: -.7rem;
+    z-index: 1001;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+}
